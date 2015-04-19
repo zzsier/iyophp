@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Model\IyoUser;
+use App\Model\IyoRelation;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -234,4 +235,17 @@ class UserController extends Controller {
 
 		return view('validatemail')->with('message', '邮箱验证通过');
 	}
+
+    public function queryById(Request $request)
+    {
+        $result = array('code' => trans('code.success'),'desc' => __LINE__,
+            'message' => trans('successmsg.FollowSuccess'));
+
+        $union = $this->queryId($request->json("id", 0));
+        $result["result"] = $union;
+
+        return $result;
+    }
+
+
 }

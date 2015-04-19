@@ -9,4 +9,6 @@ return [
 	"SMSSendSuccess" => "短信发送成功",
 	"SMSValidSuccess" => "短信验证成功",
 
+    "FollowSuccess" => "关注成功",
+
 ];
