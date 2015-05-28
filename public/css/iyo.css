@@ -1,0 +1,82 @@
+.anchorjs-icon {
+	font-family: anchorjs-link;
+	speak: none;
+	font-style: normal;
+	font-weight: 400;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	font-size: 60%;
+	vertical-align: .2em;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.anchorjs-link {
+	float: left;
+	width: 1em;
+	height: 1em;
+	margin-left: -1.2em;
+	opacity: 0;
+	color: inherit;
+	text-align: center;
+}
+
+.topiczhuanfa {
+    background-image: url(http://123.59.53.158/images/zhuanfa.png);
+    margin-top:0px;
+    margin-right:0px;
+    margin-bottom:0px;
+    margin-left:0px;
+    background-repeat:no-repeat;
+    background-position:top;
+    background-attachment:fixed;
+}
+
+.topiccomment {
+    background-image: url(http://123.59.53.158/images/comment.png);
+    margin-top:0px;
+    margin-right:0px;
+    margin-bottom:0px;
+    margin-left:0px;
+    background-repeat:no-repeat;
+    background-position:top;
+    background-attachment:fixed;
+}
+
+.topiclike {
+    background-image: url(http://123.59.53.158/images/like.png);
+    margin-top:0px;
+    margin-right:0px;
+    margin-bottom:0px;
+    margin-left:0px;
+    background-repeat:no-repeat;
+    background-position:top;
+    background-attachment:fixed;
+}
+
+.closebutton {
+-webkit-appearance: none;
+padding: 0;
+cursor: pointer;
+background: transparent;
+border: 0;
+}
+
+
+
+
+.anchorjs-icon:before {
+	content: "\e600";
+}
+
+.mkellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.mkwarp {
+    word-wrap: break-word; 
+　　word-break: normal; 
+}

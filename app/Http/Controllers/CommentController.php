@@ -1,57 +1,101 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\Controller;
+use App\Model\IyoComment;
+use App\Model\IyoTopic;
+use App\Model\IyoUser;
+use Illuminate\Http\Request;
 
-class CommentController extends \BaseController implements CreatorListener
+class CommentController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->beforeFilter('auth');
-    }
+	public function store()
+	{
+		return App::make('Phphub\Creators\ReplyCreator')->create($this, Input::except('_token'));
+	}
 
-    public function store()
-    {
-        return App::make('Phphub\Creators\ReplyCreator')->create($this, Input::except('_token'));
-    }
+	public function destroy($id)
+	{
+		$reply = Reply::findOrFail($id);
+		$this->authorOrAdminPermissioinRequire($reply->user_id);
+		$reply->delete();
+		$reply->topic->decrement('reply_count', 1);
+		Flash::success(lang('Operation succeeded.'));
+		$reply->topic->generateLastReplyUserInfo();
+		return Redirect::route('topics.show', $reply->topic_id);
+	}
 
-    public function vote($id)
-    {
-        $reply = Reply::find($id);
-        App::make('Phphub\Vote\Voter')->replyUpVote($reply);
-        return Redirect::route('topics.show', [$reply->topic_id, '#reply'.$reply->id]);
-    }
+	public function addComment(Request $request)
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '评论创建成功');
 
-    public function destroy($id)
-    {
-        $reply = Reply::findOrFail($id);
-        $this->authorOrAdminPermissioinRequire($reply->user_id);
-        $reply->delete();
+		$uid = $request["id"];
+		$tid = $request->json("tid", 0);
+		$body = $request->json("comment","");
 
-        $reply->topic->decrement('reply_count', 1);
+		if( $tid == 0 ) {
+			$result = array('code' => trans('code.InvalidParameter'),'desc' => __LINE__,
+				'message' => '参数不完整');
+			return $result;
+		}
 
-        Flash::success(lang('Operation succeeded.'));
+		IyoComment::addComment($uid, $tid, $body);
+		IyoTopic::cleanCommentCache($tid);
+		IyoTopic::incrNumOfReply($tid);
 
-        $reply->topic->generateLastReplyUserInfo();
+		return $result;
 
-        return Redirect::route('topics.show', $reply->topic_id);
-    }
+	}
 
-    /**
-     * ----------------------------------------
-     * CreatorListener Delegate
-     * ----------------------------------------
-     */
+	public function delComment(Request $request)
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '评论删除成功');
 
-    public function creatorFailed($errors)
-    {
-        Flash::error(lang('Operation failed.'));
-        return Redirect::back();
-    }
+		$cid = $request->json("cid", 0);
 
-    public function creatorSucceed($reply)
-    {
-        Flash::success(lang('Operation succeeded.'));
-        return Redirect::route('topics.show', array(Input::get('topic_id'), '#reply'.$reply->id));
-    }
+		$tid = IyoComment::findTidByCid($cid);
+
+		IyoComment::delComment($cid);
+		IyoTopic::cleanCommentCache($tid);
+		IyoTopic::decrNumOfReply($tid);
+
+		return $result;
+	}
+
+	public function queryComments(Request $request)
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '评论获取成功');
+
+		$tid = $request->json("tid",0);
+		$num = $request->json("num",0);
+		$current = $request->json("current",0);
+
+		if( $tid == 0 ) {
+			$result = array('code' => trans('code.InvalidParameter'),'desc' => __LINE__,
+				'message' => '参数不完整');
+			return $result;
+		}
+
+		$comments = [];
+		$commentIds = IyoTopic::queryCommentIds($tid, $num, $current);
+
+		foreach( $commentIds as $cid ) {
+			$comment = IyoComment::queryCommentById($cid);
+			$user = IyoUser::queryById($comment[IyoComment::ATTR_UID]);
+			$comment["user"] = $user;
+			$comments[] = $comment;
+		}
+		$result["result"] = $comments;
+
+		return $result;
+	}
+
+	public function creatorSucceed($reply)
+	{
+		Flash::success(lang('Operation succeeded.'));
+		return Redirect::route('topics.show', array(Input::get('topic_id'), '#reply'.$reply->id));
+	}
 }

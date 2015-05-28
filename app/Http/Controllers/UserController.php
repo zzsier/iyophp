@@ -5,12 +5,15 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Model\IyoUser;
 use App\Model\IyoRelation;
+use App\Model\IyoTopic;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Mail;
+use Redirect;
 use Illuminate\Support\Facades\Redis;
-
+use Input;
+use View;
 use Cache;
 
 class UserController extends Controller {
@@ -22,7 +25,22 @@ class UserController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$users = IyoUser::all();
+
+		foreach( $users as $user ) {
+			if( $user["type"] == 2 ) {
+				$user["type"] = "战队号";
+				//$union = IyoUnion::find($id);
+				//$redis->set("user:$id:union_description", $union["description"]);
+				//$redis->set("user:$id:union_recommend", $union["recommend"]);
+			} else if( $user["type"] == 1 ) {
+				$user["type"] = "明星号";
+			} else {
+				$user["type"] = "普通用户";
+			}
+		}
+
+		return View::make('backend.users.index', compact('users'));
 	}
 
 	/**
@@ -32,7 +50,10 @@ class UserController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		$user = new IyoUser();
+		$user['description'] = "";
+		$user->id = 0;
+		return View::make('backend.users.edit', compact("user"));
 	}
 
 	/**
@@ -56,15 +77,46 @@ class UserController extends Controller {
 		//
 	}
 
+	public function saveOrUpdate(Request $request) {
+
+		$id = $request["id"];
+
+		if( $id == 0 ) {
+			$user = new IyoUser();
+		} else {
+			$user = IyoUser::find($id);
+		}
+
+		$user->username = $request["username"];
+		$user->phone = $request["phone"];
+		$user->type = $request["type"];
+		$user->description = $request["description"];
+		if( $request["recommend"] == true ) {
+			$user->recommend = 1;
+		} else {
+			$user->recommend = 0;
+		}
+
+		//$user->imageUrl= $request["image"];
+
+		$user->save();
+		IyoUser::cleanCache($request["id"]);
+
+		return Redirect::to('backend/user/list');
+	}
+
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Request $request)
 	{
-		//
+		$user = IyoUser::find($request["id"]);
+		IyoUser::cleanCache($request["id"]);
+		return View::make('backend.users.edit', compact('user'));
 	}
 
 	/**
@@ -78,15 +130,12 @@ class UserController extends Controller {
 		//
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
+	public function destroy(Request $request)
 	{
-		//
+		$user = IyoUser::findOrFail($request["id"]);
+		IyoUser::cleanCache($request["id"]);
+		$user->delete();
+		return Redirect::to('backend/user/list');
 	}
 
 	public function login(Request $request)
@@ -115,11 +164,17 @@ class UserController extends Controller {
 				$result["result"] = $person;
 			}
 		} else {
+			if($person == null) {
+				$result = array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserNotExist'));
+				return $result;
+			}
 			$phoneKey = "PHONE_".$phone;
-			$randNum = Cache::pull($phoneKey);
+			$randNum = Cache::get($phoneKey);
 			if( $randNum != $request->json("smscode","")) {
-				$response = array('code' => trans('code.ValidationCodeError'),'desc' => __LINE__, 'message' => trans('errormsg.ValidationCodeError'));
-		        } else {
+				$result = array('code' => trans('code.ValidationCodeError'),'desc' => __LINE__, 'message' => trans('errormsg.ValidationCodeError'));
+			} else {
+				Cache::put("session_id_$person->id", $person->id, 3600);
+				$person["session"] = "session_id_$person->id";
 				$result["result"] = $person;
 			}
 		}
@@ -131,12 +186,19 @@ class UserController extends Controller {
 		$result = array('code' => trans('code.success'),'desc' => __LINE__, 'message' => trans('successmsg.LoginSuccess'));
 
 		$phone = $request->json("phone","");
+
+		if( $phone == "" ) {
+			$phone = Input::get('phone');
+		}
+
 		$person = IyoUser::where('phone', $phone)->first();
 
 		if($person == null) {
 			$result = array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserNotExist'));
+			return $result;
 		} else {
 			Cache::forget("session_id_$person->id");
+			IyoUser::cleanCache($person->id);
 		}
 
 		$person->delete();
@@ -194,16 +256,7 @@ class UserController extends Controller {
 	{
 		$result = array('code' => trans('code.success'),'desc' => __LINE__, 'message' => trans('successmsg.ResetPasswordSuccess'));
 
-/*
-		$id = Cache::get($request->json("session",""));
-
-		if( $id == "" ) {
-			$result = array('code' => trans('code.SessionAlreadyExpired'),'desc' => __LINE__, 'message' => trans('errormsg.SessionAlreadyExpired'));
-			return $result;
-		}
-*/
-
-		$user = IyoUser::find($request->json("id",""));
+		$user = IyoUser::find($request["id"]);
 		if( $user == null ) {
 			$result = array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserNotExist'));
 			return $result;
@@ -236,16 +289,77 @@ class UserController extends Controller {
 		return view('validatemail')->with('message', '邮箱验证通过');
 	}
 
-    public function queryById(Request $request)
-    {
-        $result = array('code' => trans('code.success'),'desc' => __LINE__,
-            'message' => trans('successmsg.FollowSuccess'));
+	public function queryById(Request $request)
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => trans('successmsg.FollowSuccess'));
+		
+		$union = $this->queryId($request["id"]);
+		$result["result"] = $union;
+		
+		return $result;
+	}
+	
+	public function queryUser(Request $request)
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => "获取成功");
 
-        $union = $this->queryId($request->json("id", 0));
-        $result["result"] = $union;
+		$user = IyoUser::queryById($request->json("fid",0));
+		if( IyoRelation::checkIfFollow($request["id"], $request->json("fid",0)) ) {
+			$user["follow"] = true;
+		} else {
+			$user["follow"] = false;
+		}
 
-        return $result;
-    }
+		$result["result"] = $user;
+		
+		return $result;
+	}
+
+	public function queryUnion(Request $request)
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => "获取成功");
+
+		$user = IyoUser::queryById($request->json("fid",0));
+
+		if( IyoRelation::checkIfFollow($request["id"], $request->json("fid",0)) ) {
+			$user["follow"] = true;
+		} else {
+			$user["follow"] = false;
+		}
+
+		$topic_ids = IyoTopic::queryTopicIdsByUser($user["id"], 10, 0);
+
+		$topics = [];
+		foreach( $topic_ids as $tid ) {
+			$topic = IyoTopic::queryById($tid);
+			$iuser = IyoUser::queryById($topic["uid"]);
+			$topic["user"] = $iuser;
+			$topics[] = $topic;
+		}
+
+		$user["topic"] = $topics;
 
 
+		$result["result"] = $user;
+		
+		return $result;
+	}
+
+	public function bind(Request $request) {
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '绑定成功');
+		
+		$user = IyoUser::find($request["id"]);
+		$uid = $request->json("fid",0);
+
+		$user->bind = $uid;
+
+		$user->save();
+
+		IyoUser::cleanCache($request["id"]);
+		return $result;
+	}
 }

@@ -1,0 +1,2344 @@
+<!DOCTYPE html>
+<html class="ng-scope" ng-app="app" ng-init="team_ident='ruiyou'" lang="zh-cn"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style>
+    <meta charset="utf-8">
+    <title> ruiyou—Team@OSC团队协作开发平台</title>
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="Thu, 01 Jan 1970 00:00:01 GMT">
+    <meta http-equiv="expires" content="0">
+
+<base href="http://123.59.53.158/" />
+
+            <link rel="shortcut icon" type="image/x-icon" href="http://team.oschina.net/img/32logo_green.ico?t=1423294219000">
+            <link type="text/css" rel="stylesheet" charset="utf-8" href="css/team.css">
+            <link type="text/css" rel="stylesheet" charset="utf-8" href="css/team_002.css">
+            <link href="css/theme_default.css" rel="stylesheet" id="link-theme">
+    <style>
+        .msg-tips{
+            display: block;
+            width: 10px;
+            height: 10px;
+            background-color: #f65645;
+            border-radius: 5px;
+            left: 40px;
+            top: -40px;
+            position: relative;
+        }
+    </style>
+<style type="text/css">.fancybox-margin{margin-right:0px;}</style><link rel="stylesheet" href="css/default.css"></head>
+<body>
+    
+    	
+<div id="apps-bar">
+    <nav>
+        <ul class="sidebar ng-scope" ng-controller="navCtrl">
+            <li id="navHome" class="home first" ng-class="{'active':tweet}" ng-click="go('/ruiyou/tweet')">
+                <a alt="主页"></a>
+                <span class="app-bar-span">主页</span>
+            </li>
+            <li id="navTask" class="task" ng-class="{'active':issues}" ng-click="go('/ruiyou/issues')">
+                <a alt="任务"></a>
+                <span class="app-bar-span">任务</span>
+            </li>
+            <li id="navDocument" class="document active" ng-class="{'active':document}" ng-click="go('/ruiyou/document')">
+                <a alt="文档"></a>
+                <span class="app-bar-span">文档</span>
+            </li>
+
+            <li id="navBook" class="book" ng-class="{'active':diary}" ng-click="go('/ruiyou/diary')">
+                <a alt="工作周报"></a>
+                <span class="app-bar-span">周报</span>
+            </li>
+            <li id="navQuestion" class="question" ng-class="{'active':discuss}" ng-click="go('/ruiyou/discuss')">
+                <a alt="讨论区"></a>
+                <span class="app-bar-span">讨论</span>
+            </li>
+            <li id="navShare" class="share" ng-class="{'active':share}" ng-click="go('/ruiyou/share')">
+                <a alt="分享"></a>
+                <span class="app-bar-span">分享</span>
+            </li>
+                                                            
+                    <li id="navTeamset" class="teamset last" ng-class="{'active':teamset}" ng-click="go('/ruiyou/teamset')">
+                <a alt="团队设置"></a>
+                <span class="app-bar-span">设置</span>
+            </li>
+
+            <li class="color last" data-reactid=".0.0.$color">
+                <ul class="color_idx">
+                    <li><a title="赤" href="http://team.oschina.net/ruiyou/tweet?color=1"><span data-color="red" class="color_idx_1"></span></a></li>
+                    <li><a title="橙" href="http://team.oschina.net/ruiyou/tweet?color=2"><span data-color="orange" class="color_idx_2"></span></a></li>
+                    <li><a title="黄" href="http://team.oschina.net/ruiyou/tweet?color=3"><span data-color="yellow" class="color_idx_3"></span></a></li>
+                    <li><a title="绿" href="http://team.oschina.net/ruiyou/tweet?color=4"><span data-color="green" class="color_idx_4"></span></a></li>
+                    <li><a title="蓝" href="http://team.oschina.net/ruiyou/tweet?color=5"><span data-color="blue" class="color_idx_5"></span></a></li>
+                    <li><a title="靛" href="http://team.oschina.net/ruiyou/tweet?color=6"><span data-color="verdant" class="color_idx_6"></span></a></li>
+                    <li><a title="紫" href="http://team.oschina.net/ruiyou/tweet?color=7"><span data-color="purple" class="color_idx_7"></span></a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</div>
+<!-- 顶部导航 -->
+    <div class="topbar clearfix">
+    <span class="logo top-height">
+            <svg version="1.1" id="topbar-logo" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="43" height="43" viewBox="0 0 43 43" enable-background="new 0 0 43 43" xml:space="preserve">
+            <g>
+                <polygon fill="#00AF86" points="33.336,24.014 33.336,28.043 33.336,32.072 29.308,32.072 25.279,32.072 21.25,32.072
+                    17.222,32.072 13.193,32.072 9.164,32.072 9.164,28.043 9.164,24.014 9.164,19.985 9.164,15.957 9.164,11.928 13.193,11.928
+                    17.222,11.928 21.25,11.928 25.279,11.928 25.279,15.957 25.279,19.985 25.279,24.014 21.25,24.014 17.222,24.014 17.222,19.985
+                    21.25,19.985 21.25,15.957 17.222,15.957 13.193,15.957 13.193,19.985 13.193,24.014 13.193,28.043 17.222,28.043 21.25,28.043
+                    25.279,28.043 29.308,28.043 29.308,24.014 29.308,19.985 29.308,15.957 29.308,11.928 29.308,7.899 25.279,7.899 21.25,7.899
+                    17.222,7.899 13.193,7.899 9.164,7.899 5.135,7.899 5.135,11.928 5.135,15.957 5.135,19.985 5.135,24.014 5.135,28.043
+                    5.135,32.072 5.135,36.101 9.164,36.101 13.193,36.101 17.222,36.101 21.25,36.101 25.279,36.101 29.308,36.101 33.336,36.101
+                    37.365,36.101 37.365,32.072 37.365,28.043 37.365,24.014"></polygon>
+                <rect x="33.336" y="7.899" fill="#00AF86" width="4.029" height="4.029"></rect>
+                <rect x="33.336" y="15.957" fill="#00AF86" width="4.029" height="4.029"></rect>
+            </g>
+        </svg>
+    </span>
+
+    <span id="index_team_name" class=" top-height color_green">ruiyou</span>
+    <span class="top-height  ng-binding" ng-bind="active">文档协作</span>
+    <span class="search  top-height">
+            <input class="ng-pristine ng-untouched ng-valid" tabindex="6" title="搜索输入框，请输入关键字" placeholder="请输入关键字" id="keywords" name="keywords" ng-model="keywords" type="text">
+                <input id="active_name" value="文档协作" type="hidden">
+                <span class="searchico" onclick="search();"></span>
+                    </span>
+
+    <span class="topright  top-height">
+
+        <span class="tools  top-height">
+            <ul class="clearfix  toolbar-ul">
+
+                <li id="news" class="news" title="新功能" style="display: block;"></li>
+
+                <li id="theme" class="theme" title="切换主题">
+                    <div id="dropdown-theme" class="dropdown-theme">
+                        <ul class="dropdown-menu">
+                            <li data-theme="default" class="border-top-none">默认主题</li>
+                                                    <li data-theme="green">清新绿主题</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li id="dl-link" class="addnote" flag="0" title="快速创建">
+                    <div id="dropdown-link" class="dropdown-link">
+                        <ul class="dropdown-menu quick-menu">
+                            <li class="border-top-none" title="(Alt+1)" style="width: 223px;">
+                                <span class="dl-task"></span>
+                                <span id="create-task-q" class="margin-14" onclick="newIssue.load()">新建任务 <em> ( <i class="btn-xs btn-default shortcut-key">Alt</i> + <i class="btn-xs btn-default shortcut-key">1</i> ) </em></span>
+                            </li>
+                            <li id="createnote" title="(Alt+2)" style="width: 223px;">
+                                <span class="dl-note"></span>
+                                <span class="margin-14">新建便签 <em>( <i class="btn-xs btn-default shortcut-key">Alt</i> + <i class="btn-xs btn-default shortcut-key">2</i> ) </em></span>
+                            </li>
+                            <li title="(Alt+3)" style="width: 223px;">
+                                <span class="dl-recent"></span>
+                                                                                                    <span id="create-recent-q" class="margin-14" onclick="newDiary.hasDiary()">新建周报 <em> ( <i class="btn-xs btn-default shortcut-key">Alt</i> + <i class="btn-xs btn-default shortcut-key">3</i> ) </em></span>
+                                                            </li>
+                            <li title="(Alt+4)" style="width: 223px;">
+                                <span class="dl-discuss"></span>
+                                <span id="create-discuss-q" class="margin-14" onclick="newDiscuss.load()">新建讨论 <em>( <i class="btn-xs btn-default shortcut-key">Alt</i> + <i class="btn-xs btn-default shortcut-key">4</i> ) </em></span>
+                            </li>
+                            <li title="(Alt+5)" style="width: 223px;">
+                                <span class="dl-share"></span>
+                                <span id="create-file-q" class="margin-14" onclick="quickShareFile.load()">分享文件 <em>( <i class="btn-xs btn-default shortcut-key">Alt</i> + <i class="btn-xs btn-default shortcut-key">5</i> ) </em></span>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                                <li class="notestatus  showstatus " data-team="30486" title="显示/隐藏便签"></li>
+                <li id="message" class="fa-envelope-o" flag="0" title="消息">
+                    <span class="msg-tips" style="display: none;"></span>
+                    <div id="msg_remind_area">
+                                            </div>
+                </li>
+                <li id="portrait" class="portrait" title="菜单">
+                            <img src="images/portrait.gif" alt="zzsier" title="zzsier" class="LargePortrait" align="absmiddle">                    <span class="more"></span>
+
+                    <div id="dropdown" class="dropdown">
+                        <ul class="dropdown-menu clearfix" role="menu" aria-labelledby="dropdownMenu">
+
+                            <li class="switch dropdown-submenu">
+                                                                <a id="switchteam" tabindex="-1" href="javascript:void(0);">切换团队
+                                    <span class="teamnum">1</span>
+                                </a>
+                                                                    <ul id="switchteammenu" class="dropdown-menu subdropdown">
+                                                                                
+                                            <li style="border-top: none;" class="secondLi">
+                                                <!--成员任务 -->
+                                                																								
+                                                                                                <a style="width:84%;" tabindex="-1" href="" onclick="window.location.href = '/ruiyou/tweet'">ruiyou
+                                                </a>
+                                                <div id="issues_chart1" class="issues_chart1"><svg height="36" width="36" class="radial-svg"><g transform="translate(0,-17)"><g class="component"><rect height="23" width="23" transform="translate(6.5,26.5)" class="background"></rect><path d="M0,11.5A11.5,11.5 0 1,1 0,-11.5A11.5,11.5 0 1,1 0,11.5M0,9.775A9.775,9.775 0 1,0 0,-9.775A9.775,9.775 0 1,0 0,9.775Z" transform="translate(18,38)"></path><text style="cursor:default" transform="translate(18,30)" class="label"></text></g><g class="arcs"><path d="M7.041719095097281e-16,-11.5A11.5,11.5 0 0,1 7.041719095097281e-16,-11.5L5.985461230832689e-16,-9.775A9.775,9.775 0 0,0 5.985461230832689e-16,-9.775Z" transform="translate(18,38)" class="arc"></path><path d="M5.985461230832689e-16,-9.775A9.775,9.775 0 0,1 5.985461230832689e-16,-9.775L4.929203366568097e-16,-8.05A8.05,8.05 0 0,0 4.929203366568097e-16,-8.05Z" transform="translate(18,38)" class="arc2"></path></g><g class="labels"><text width="23" x="18" y="39.53333333333333" class="label-text">0%</text></g></g></svg></div>
+                                                <div style="top: 8px;" class="counter">0</div>
+                                                <input value="0" type="hidden">
+                                            </li>
+                                                                                                                            <li class="new-team">
+                                                <a tabindex="-1" href="http://team.oschina.net/#ninePage" target="_blank">新建团队</a>
+                                            </li>
+                                                                            </ul>
+                                                            </li>
+                            <li class="my-setting">
+                                <a tabindex="-1" href="http://team.oschina.net/ruiyou/teamset?catalog=myset">个人设置</a>
+                            </li>
+                            <li class="my-sticky">
+                                                            <a tabindex="-1" href="http://team.oschina.net/ruiyou/sticky">便签</a>
+                            </li>
+                            <li class="my-home">
+                                <a tabindex="-1" href="" onclick="javascript:window.open('http://my.oschina.net/u/1785506')">个人中心</a>
+                            </li>
+                            <li class="return">
+                                <a tabindex="-1" href="" onclick="javascript:window.open('http://www.oschina.net')">开源中国首页</a>
+                            </li>
+                            <li class="issues">
+                                <a tabindex="-1" href="" onclick="javascript:window.open('http://git.oschina.net/oschina/team-osc/issues')">BUG反馈及建议</a>
+                            </li>
+                            <li class="email">
+                                <a tabindex="-1" href="mailto:teamosc@163.com">EMAIL联系我们</a>
+                            </li>
+                            <li class="logout">
+                                                                <a tabindex="-1" href="http://www.oschina.net/action/user/logout?session=35d0ebe198197538503&amp;goto_page=http%3A%2F%2Fwww.oschina.net%2F">退出登录</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <!-- 创建团队的表单 开始 -->
+            <div id="createNewTeam" style="display:none;width:450px;">
+                <h3 class="new_team_title">创建一个新团队</h3>
+
+                <form class="ng-pristine ng-valid" id="createNewTeamForm" action="#" method="post" role="form">
+                    <div class="form-group">
+                        <label for="teamName">团队名称：</label>
+                        <input id="teamName" class="form-control" name="name" placeholder="团队名" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="teamSite">团队唯一地址：<span style="font-size:normal;">（http://team.oschina.net/<span class="ng-binding" style="display:inline-block;min-width:2em;text-decoration:underline;" ng-bind="teamSite"></span>）</span></label>
+                        <input id="teamSite" name="ident" class="form-control ng-pristine ng-untouched ng-valid" ng-model="teamSite" placeholder="团队唯一地址" type="text">
+                        <input class="ng-binding" name="sident" value="" ng-bind="teamSite" type="hidden">
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-primary btn_submit" value="创建团队" type="submit">
+                        <span class="tips" style="color:red;display:none;margin-left:10px;"></span>
+                    </div>
+                </form>
+            </div>
+	        
+			<!-- 创建团队的表单 结束 -->
+
+        </span>
+    </span>
+</div>
+
+<div id="new-discuss-panel" class="nd-panel">
+    <form class="ng-pristine ng-valid" id="create-nd" action="/action/teamDiscuss/quickAsk" method="POST" onsubmit="return false;" onkeydown="if((event.metaKey || event.ctrlKey)&amp;&amp;event.keyCode==13){$('#create-discuss-nd').trigger('click');}">
+        <input name="group" id="uploadteamid" value="30486" type="hidden">
+        <input name="user" value="1785506" type="hidden">
+        <input name="user_code" value="kuX9nWEIQIXP558qDgwciFEfXPyI2wjKECUeOdaA" type="hidden">
+        <input name="catalog" value="101" type="hidden">
+
+        <div class="top">
+            <input name="subject" id="subject-nd" placeholder="请输入标题" type="text">
+            <select name="type">
+                <option selected="selected" value="23">选择主题分类</option>
+                <option value="24">互动交流</option>
+                <option value="25">资源共享</option>
+                <option value="26">重要通知</option>
+            </select>
+        </div>
+        <div class="textarea-ng">
+            <textarea name="body" id="quickask-nd" rows="10" style="padding: 15px;"></textarea>
+            <input id="create-discuss-nd" class="btn btn-primary" onclick="newDiscuss.commit()" value="发表帖子" type="button">
+            <input class="move-right btn btn-primary" value="取 消" onclick="newDiscuss.cancel();" type="button">
+        </div>
+    </form>
+</div>
+<div id="new-issue-panel" class="quick-issue"></div>
+<div id="q-commit-diary" style="display: none;width:600px;height: 435px;">
+    <h1 class="diary-header">
+        第<span id="week-index"></span>周周报
+    </h1>
+    <div class="submitContent" style="width:100%;height:284px;margin:20px 30px 0 0">
+        <div id="1429981119549" class="md-editor"><div class="md-header btn-toolbar"><div class="btn-group"><button data-hotkey="Ctrl+B" data-handler="bootstrap-markdown-cmdBold" data-provider="bootstrap-markdown" tabindex="-1" title="粗体 (Ctrl+B)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-bold"></span> </button><button data-hotkey="Ctrl+I" data-handler="bootstrap-markdown-cmdItalic" data-provider="bootstrap-markdown" tabindex="-1" title="斜体 (Ctrl+I)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-italic"></span> </button><button data-hotkey="Ctrl+H" data-handler="bootstrap-markdown-cmdHeading" data-provider="bootstrap-markdown" tabindex="-1" title="标题 (Ctrl+H)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-header"></span> </button></div><div class="btn-group"><button data-hotkey="Ctrl+L" data-handler="bootstrap-markdown-cmdUrl" data-provider="bootstrap-markdown" tabindex="-1" title="链接 (Ctrl+L)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-link"></span> </button><button data-hotkey="Ctrl+G" data-handler="bootstrap-markdown-cmdImage" data-provider="bootstrap-markdown" tabindex="-1" title="图片 (Ctrl+G)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-picture"></span> </button></div><div class="btn-group"><button data-hotkey="Ctrl+U" data-handler="bootstrap-markdown-cmdList" data-provider="bootstrap-markdown" tabindex="-1" title="无序列表 (Ctrl+U)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-list"></span> </button><button data-hotkey="Ctrl+O" data-handler="bootstrap-markdown-cmdListO" data-provider="bootstrap-markdown" tabindex="-1" title="有序列表 (Ctrl+O)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-th-list"></span> </button><button data-hotkey="Ctrl+K" data-handler="bootstrap-markdown-cmdCode" data-provider="bootstrap-markdown" tabindex="-1" title="代码 (Ctrl+K)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-console"></span> </button><button data-hotkey="Ctrl+Q" data-handler="bootstrap-markdown-cmdQuote" data-provider="bootstrap-markdown" tabindex="-1" title="引用 (Ctrl+Q)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-comment"></span> </button></div><div class="btn-group"><button data-hotkey="Ctrl+F" data-handler="bootstrap-markdown-cmdUpload" data-provider="bootstrap-markdown" tabindex="-1" title="导入MD文件 (Ctrl+F)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-open-file"></span> </button><button data-hotkey="Ctrl+D" data-handler="bootstrap-markdown-cmdDownload" data-provider="bootstrap-markdown" tabindex="-1" title="导出到MD文件 (Ctrl+D)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-download-alt"></span> </button><button data-hotkey="Ctrl+Shift+C" data-handler="bootstrap-markdown-cmdClear" data-provider="bootstrap-markdown" tabindex="-1" title="清除内容 (Ctrl+Shift+C)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-erase"></span> </button></div><div class="btn-group"><button data-hotkey="Ctrl+P" data-handler="bootstrap-markdown-cmdPreview" data-provider="bootstrap-markdown" tabindex="-1" title="预览 (Ctrl+P)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-search"></span> </button></div></div><textarea id="diary-content" class="replyeditor ng-untouched ng-valid ng-dirty ng-valid-parse md-input" rows="10" placeholder="这里输入内容，使用markdown语法" ng-model="commitModel.content" autocomplete="off" style="padding: 10px; resize: none;" change=""></textarea><div class="md-cut-paste" contenteditable="true"></div></div>
+    </div>
+    <div class="check-diary">
+        <label class="checkbox-inline">
+            <input name="checkDiary" id="checkDiary" value="yes" type="checkbox"> 是否提交本周所有动态
+        </label>
+    </div>
+    <div class="diary-footer">
+        <button class="btn btn-primary" onclick="newDiary.commit()">提交周报</button>
+        <button class="btn btn-default diary-margin-left" onclick="newDiary.cancel()">取消</button>
+        <span id="diary-commit-msg" class="diary-margin-left diary-msg"></span>
+    </div>
+</div>
+<div>
+    <input id="fileupload-quick" style="display: none;" name="file" data-url="/action/teamShare/upload" type="file">
+    <input id="uploadpath" size="30" class="TEXT" value="/team/ruiyou/201504" type="hidden">
+</div>
+<!--[if lt IE 9]>
+<div class='ie-warn alert alert-block'>
+    <br/><br/><br/>
+    <a class="close" data-dismiss="alert">x</a>
+    <h4>Team @ OSC 温馨提示：</h4>
+
+    <p>
+        本站不支持 IE 8 及以下版本浏览器。
+        为了获得更好的浏览体验，我们强烈建议您
+        <a href="http://browsehappy.com" target="_blank">升级</a>
+        到最新版本的IE浏览器，或者使用较新版本的 Google Chrome、Firefox、Safari 等。
+        如果您使用的是 IE 9 或以上版本，请关闭“兼容性视图”。
+    </p>
+</div>
+<![endif]-->
+<!-- ngView:  --><div ng-view="" class="viewPage ng-scope">	<link class="ng-scope" href="css/document.css" rel="stylesheet">
+<script class="ng-scope" type="text/javascript" src="js/document.js"></script>
+
+<link class="ng-scope" rel="stylesheet" href="css/default_002.css">
+<script class="ng-scope" charset="utf-8" src="js/kindeditor-min.js"></script>
+<script class="ng-scope" charset="utf-8" src="js/zh_CN.js"></script>
+
+<!-- 主内容 -->
+<div class="contain clearfix document ng-scope" id="d_document">
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        comLayout();
+        $("#d_content").fadeIn();
+    });
+    $(window).resize(function () {
+        comLayout();
+    });
+    function comLayout() {
+        var h = $(window).height() - 60;
+        $("#d_navi").css("height", h);
+        $("#d_content").css("height", h);
+
+        var w = $(window).width() - 60 - 300 - 1;
+        $("#d_content").css("width", w);
+    }
+    comLayout();
+</script>
+<div style="height: 678px;" class="d_navi" id="d_navi">
+            		<h3 id="d_d_name" style="margin: 0 0 20px 0;">
+	<div class="d_document_title" style="width: 100%; line-height: 30px;" title="测试文档">
+		<a title="返回文档列表" onclick="documentNavi.returnDocumentList();" href="javascript:void(0);" style="float: left; font-size: 16px;">
+			<i class="fa fa-arrow-left"></i>
+		</a>
+		<span style="float:left; margin-left: 5px; width:205px;" class="d_document_title">测试文档</span>
+									<a href="http://doc.oschina.net/zzsier" target="_blank" style="float: right; font-size: 16px;">
+							<i class="fa fa-eye"></i>
+			</a>
+				<div class="clear"></div>
+	</div>
+</h3>
+<div class="d_tree_btns">
+<span style="cursor: pointer;" onclick="documentNavi.callAddMenu(0);" title="添加" id="add_0"><i class="fa fa-plus"></i> 添加</span>
+		｜
+	<a onclick="documentNavi.returnDash()" href="javascript:void(0);" title="控制台"><i class="fa fa-cogs"></i> 设置</a>
+<select style="height:30px; width: 60px; font-size: 13px; float: right" name="vid" onchange="documentNavi.selectVersion();" class="d_pointer" id="d_change_selected_ver">
+			<option class="d_pointer" value="3462" selected="selected">1.0</option>
+	</select>
+</div>
+<div style="position: relative;">
+	<div style="left: -20px; top: 5px;" id="add_menu_0" class="d_c_menu">
+		<div class="d_c_menu_arrow1" style="margin-left: 20px"></div>
+		<div class="d_c_menu_arrow2" style="margin-left: 20px"></div>
+		<span style="cursor: pointer;" onclick="documentNavi.addText(0);">添加内容</span><br>
+		<span style="cursor: pointer;" onclick="documentNavi.addLinkDialog(0);">添加外链</span><br>
+		<span style="cursor: pointer;" onclick="documentNavi.addCategoryDialog(0, 3462);">添加目录</span><br>
+	</div>
+</div>
+<div class="clear"></div>
+<div class="d_tree">
+<ul id="node_p_0">
+											<li id="node_text_8540" class="d_tree_node_move" data-cid="8540" data-ctype="2" style="margin-left: 0px;">
+									<div class="d_tree_node">
+												<span class="d_tree_node_text d_current_a" style="width: 190px; cursor: pointer;" href="javascript:void(0);" title="11111111111" onclick="documentNavi.loadText(8540, this)">
+							&nbsp;
+															<i class="fa fa-file-text-o"></i>
+														 <span id="d_content_title_8540">11111111111</span></span>
+						<span class="d_delete" style="display: none;" onclick='documentNavi.treeNodeUp("#node_text_8540");'>
+							<i class="fa fa-arrow-up"></i>
+						</span>
+						<span class="d_delete" style="display: none;" onclick='documentNavi.treeNodeDown("#node_text_8540");'>
+							<i class="fa fa-arrow-down"></i>
+						</span>
+						<span class="d_delete" style="display:none" onclick="documentNavi.deleteNode(2, 8540);">
+							<i class="fa fa-times"></i>
+						</span>
+					</div>
+					<div class="clear"></div>
+								</li>
+						</ul>
+</div>
+<!-- 目录对话框 -->
+<div id="add_category_dialog" class="d_dialog">
+	<p class="d_close"><a href="#" onclick="closeBg();"><i class="fa fa-times"></i></a></p>
+	<div style="text-align: center;">
+  		<h4 id="dialog_title"></h4>
+  	</div>
+  	<hr>
+  	<form action="" method="post" id="ac_form" autocomplete="off" onkeydown="if((event.metaKey || event.ctrlKey)&amp;&amp;event.keyCode==13){documentNavi.addOrUpdateCategory();}">
+  		<input name="categoryId" value="0" type="hidden">
+  		<input name="versionId" value="3462" type="hidden">
+  		<input value="kuX9nWEIQIXP558qDgwciFEfXPyI2wjKECUeOdaA" name="user_code" type="hidden">
+  		
+	  	<div class="clearfix" style="margin-bottom: 10px;">
+	  		上级目录：
+	  		<select name="categoryParentId" id="ac_categoryParentId" style="width: 250px;">
+	  		</select>
+  		</div>
+	  	<div class="clearfix">
+	  		<input name="categoryName" class="form-control" placeholder="目录名称" type="text"><br>
+	  	</div>
+	  	<span class="d_enter_tips">Ctrl+Enter 提交</span>
+  		<button id="add_button" class="d_button" type="button" style="float:right" onclick="documentNavi.addOrUpdateCategory();">添加</button>
+  		<i class="fa fa-spinner fa-spin" id="category_loading_img" style="margin: 10px; float: right; display: none;"></i>
+  	</form>
+</div>
+
+<!-- 链接对话框 -->
+<div id="link_dialog" class="d_dialog">
+	<p class="d_close"><a href="#" onclick="closeBg();"><i class="fa fa-times"></i></a></p>
+	<div style="text-align: center;">
+  		<h4 id="link_dialog_title"></h4>
+  	</div>
+  	<hr>
+  	<form action="" method="post" id="al_form" autocomplete="off" onkeydown="if((event.metaKey || event.ctrlKey)&amp;&amp;event.keyCode==13){documentNavi.addOrUpdateLink();}">
+  		<input value="kuX9nWEIQIXP558qDgwciFEfXPyI2wjKECUeOdaA" name="user_code" type="hidden">
+  		<input name="categoryId" value="0" type="hidden">
+  		<input name="textId" value="0" type="hidden">
+  		<input name="versionId" value="3462" type="hidden">
+	  	<div class="clearfix">
+	  		<input name="title" class="form-control" placeholder="链接标题" type="text"><br>
+	  		<input name="url" class="form-control" placeholder="链接" type="text"><br>
+	  	</div>
+	  	<span class="d_enter_tips">Ctrl+Enter 提交</span>
+  		<button id="link_button" class="d_button" type="button" style="float:right" onclick="documentNavi.addOrUpdateLink();">添加</button>
+  		<i class="fa fa-spinner fa-spin" id="link_loading_img" style="margin: 10px; float: right; display: none;"></i>
+  	</form>
+</div>
+
+<!-- 上传图片对话框 -->
+<div id="up_img_dialog" class="d_dialog">
+	<p class="d_close"><a href="#" onclick="closeBg();"><i class="fa fa-times"></i></a></p>
+	<div style="text-align: center;">
+  		<h4 id="link_dialog_title">上传图片</h4>
+  	</div>
+  	<hr>
+  	<form action="/action/document/insert_img" method="post" id="img_form" enctype="multipart/form-data">
+  		<input value="kuX9nWEIQIXP558qDgwciFEfXPyI2wjKECUeOdaA" name="user_code" type="hidden">
+  		<input name="itemNum" value="1" type="hidden">
+  		<div style="margin-bottom: 10px;">
+	  		<label><input checked="checked" name="pic_src" value="1" onclick="chosePicWay(1)" type="radio"> 上传本地图片</label>&nbsp;&nbsp;
+			<label><input name="pic_src" value="2" onclick="chosePicWay(2)" type="radio"> 使用网络图片</label>
+		</div>
+		<div>
+			<div id="upload_pic">
+				图片上传：<input name="pic_file" type="file">
+			</div>
+			<div id="network_pic" style="display: none;">
+				<input name="network_pic_url" class="form-control" placeholder="网络图片链接" type="text">
+			</div>
+			<div style="margin-top: 10px; ">
+				*仅支持JPG、GIF、PNG图片文件，且文件小于512K
+			</div>
+			<br>
+		</div>
+		<input id="pic_button" class="d_button" value="上传" onclick="imgFormSubmit();" style="float: right" type="button">
+		<i class="fa fa-spinner fa-spin" id="pic_loading_img" style="margin: 10px; float: right; display: none;"></i>
+	</form>
+	<div class="clear"></div>
+</div>
+
+<!-- 导入HTML内容对话框 -->
+<div id="im_content_dialog" class="d_dialog" style="width: 800px; top: 20%; margin-left: -400px;">
+	<p class="d_close"><a href="#" onclick="closeBg();"><i class="fa fa-times"></i></a></p>
+	<div style="text-align: center;">
+  		<h4 id="link_dialog_title">导入从网页复制的内容</h4>
+  	</div>
+  	<hr>
+  	<div class="d_info" style="margin-left: 0">
+  		导入的内容，会自动转为markdown格式。导入之后，建议再对内容进行微调。
+  	</div>
+	<input name="im_area" id="d_im_area" value="" type="hidden">
+	<div style="margin-bottom: 10px;">
+		<div style="width: 100%;" class="ke-container ke-container-default"><div unselectable="on" class="ke-toolbar" style="display:block;"><span class="ke-outline" data-name="source" title="HTML代码" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-source" unselectable="on"></span></span><span class="ke-outline" data-name="removeformat" title="删除格式" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-removeformat" unselectable="on"></span></span></div><div class="ke-edit" style="display: block; height: 300px;"><iframe style="width: 100%; height: 300px;" class="ke-edit-iframe" hidefocus="true" frameborder="0"></iframe><textarea style="width: 100%; height: 300px; display: none;" class="ke-edit-textarea" hidefocus="true"></textarea></div><div class="ke-statusbar"><span class="ke-inline-block ke-statusbar-center-icon"></span><span style="visibility: hidden;" class="ke-inline-block ke-statusbar-right-icon"></span></div></div><textarea name="d_im_content" style="width: 100%; height: 300px; display: none;"></textarea>
+	</div>
+	<input class="d_button" value="导入" onclick="importContent();" style="float: right" type="button">
+	<div class="clear"></div>
+</div>
+
+<script type="text/javascript">
+var currentTextId = 8540;
+contentEditArea.init(currentTextId, 3346, "/action");
+
+documentNavi.init(3462, 3346, "ruiyou", "/action", "kuX9nWEIQIXP558qDgwciFEfXPyI2wjKECUeOdaA");
+
+function isSaveContent(){
+	if(contentEditArea.isTextEdit){
+		if(confirm("是否先保存当前正在编辑的内容？")){
+			formSubmit();
+			return true;
+		}
+	}
+	return false;
+}
+
+//上传图片对话框
+function uploadImgDialog(itemNum){
+	$("input[name='itemNum']").val(itemNum);
+	$("input[name='pic_file']").val("");
+	$("input[name='network_pic_url']").val("");
+	showBg();
+	showDialog("#up_img_dialog");
+}
+
+function chosePicWay(way){
+    if (way == 1) {
+    	$("input[name='network_pic_url']").val("");
+        $('#upload_pic').show();
+        $('#network_pic').hide();
+    } else {
+    	$("input[name='pic_file']").val("");
+        $('#upload_pic').hide();
+        $('#network_pic').show();
+        $("input[name='network_pic_url']").focus();
+    }
+}
+
+function imgFormSubmit(){
+	var index = $("input[name='itemNum']").val();
+	var supportTypeArray = new Array("jpg", "gif", "png");
+    var fileInput = $("input[name='pic_file']");
+    var urlInput = $("input[name='network_pic_url']");
+    if (fileInput.val() == "" && urlInput.val() == "") {
+        alert("文件不能为空！");
+        return false;
+    }
+    var fileType = fileInput.val().substring(fileInput.val().lastIndexOf(".") + 1);
+    
+    if (fileType != "" && !in_array(fileType, supportTypeArray)) {
+        alert("请选择图片文件，仅支持JPG、GIF、PNG类型的图片文件！");
+        return false;
+    }
+
+    var pattern = /^http(s)?:\/\/([\w-]+.)+[\w-]+([\w-\.\/\?\%\&\=]*)?$/;
+    if (fileInput.val() == "" && !pattern.test(urlInput.val())) {
+        alert("网络图片地址不符合规范！");
+        return false;
+    }
+    
+    var picSrc = $("input[name='pic_src']:checked").val()
+    
+	$("#pic_loading_img").css("display", "block");
+	buttonDisable("#pic_button");
+	
+    $('#img_form').ajaxSubmit({
+    	dataType: "json",
+    	success: function(data){
+    		closeBg();
+			$("#pic_loading_img").css("display", "none");
+			buttonAble("#pic_button");
+    		if(data.result){
+    			alert(data.msg, "success");
+    			$('#img_preview_'+index).html("<img src='"+data.url+"'/>");
+    			if(typeof(edit_area_width)!="undefined"){
+    				resizePicWidth('#img_preview_'+index, edit_area_width - 20);
+    			}
+    			$('input[name="content_'+index+'"]').val(data.url);
+    			$('#d_up_img_btn_'+index).val("重新上传图片");
+    		}else{
+    			alert(data.msg);
+    		}
+    	},
+    	error: function(){
+    		alert("上传失败，请稍后重试");
+    		$("#pic_loading_img").css("display", "none");
+			buttonAble("#pic_button");
+    	}
+    });
+}
+
+function in_array(obj, array) {
+    var type = typeof obj;
+    if (type == 'string' || type == 'number') {
+    	obj = obj.toLocaleLowerCase();
+        for (var i in array) {
+            if (array[i] == obj) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function thisCurrent(obj){
+	$(".d_current_a").removeClass("d_current_a");
+	$(".d_current_node").removeClass("d_current_node");
+	$(obj).addClass("d_current_a");
+}
+
+function confirmClose(){
+	var docId = "3346";
+	if(!contentEditArea.isTextEdit){
+		$.ajax("/action/document/unlock_text?textId="+currentTextId+"&docId="+docId+"&drd="+Math.round(Math.random() * 1000000)+"");
+		return true;
+	}
+	if(currentTextId>=0){
+		if(confirm("是否放弃保存当前正在编辑的内容？")){
+			$.ajax("/action/document/unlock_text?textId="+currentTextId+"&docId="+docId+"&drd="+Math.round(Math.random() * 1000000)+"");
+			return true;
+		}else{
+			return false;
+		}
+	}
+}
+
+var editor;
+$(document).ready(function(){
+	
+	editor = KindEditor.create('textarea[name="d_im_content"]', {
+		resizeType : 1,
+		items : ['source', 'removeformat']
+	});
+	
+});
+function initDocContent(){
+						var tId = 8540;
+			documentNavi.contentAreaLoad("/document/edit?p1=ruiyou&textId=" + tId, "#d_content", function(){
+				$("#d_edit_area").show();
+				$("textarea").trigger("click");
+				
+				var docId = "3346";
+				$.ajax("/action/document/lock_text?textId=" + tId + "&docId="+docId+"&drd="+Math.round(Math.random() * 1000000)+"");
+			});
+			$("#d_content_title_8540").parent(".d_tree_node_text").addClass("d_current_a");
+			}
+initDocContent();
+</script>    
+    <!-- jQuery 遮罩层 -->
+    <div style="display: none;" id="d_fullbg" class="d_fullbg"></div>
+    <div style="display: none;" id="d_content_fullbg" class="d_content_fullbg"></div>
+    <!-- end jQuery 遮罩层 -->
+</div>
+
+<div class="d_content" id="d_content" style="height: 678px; width: 1239px;">
+<script type="text/javascript">
+	var edit_area_width;
+	var itemT = 0;	//被选中的控件
+			var itemNum = 1;
+	</script>
+<div id="d_content_area" class="section" style="opacity: 1;">
+<div id="d_edit_area" class="clearfix" style="">
+	<form method="post" action="" id="text_form" autocomplete="off">
+	<input value="kuX9nWEIQIXP558qDgwciFEfXPyI2wjKECUeOdaA" name="user_code" type="hidden">
+	<input name="projectId" value="3346" type="hidden">
+	<input name="textId" value="8540" type="hidden">
+		<div>
+	    <h4 style="float: left;">
+	    	<input value="11111111111" placeholder="输入内容标题" style="font-size: 18px; border: 0px none; width: 959px;" name="textTitle" type="text">
+	    </h4>
+		<div class="d_tit_ri_btns">
+			<span onclick="categoryListShow(8540);" class="d_clear_button" title="修改内容目录">
+				<i class="fa fa-folder-o"></i> 内容目录
+			</span>
+			<span onclick="copyDialogShow(8540);" class="d_clear_button" title="查看内容的历史副本" style="padding-right: 3px;">
+				<i class="fa fa-copy"></i> 历史副本
+			</span>
+		</div>
+    </div>
+    <div class="clear"></div>
+    <hr id="d_hr_line">
+    <div class="d_project">
+    	<div class="d_edit_area" style="float: left; width: 979px;">
+    					<div class="d_edit_part">
+			<input name="type_1" value="6" type="hidden">
+			<input name="weight_1" value="1" type="hidden">
+			<div style="width: 959px;" class="d_edit_part_d">
+				<div id="1429981119567" class="md-editor active"><div class="md-header btn-toolbar"><div class="btn-group"><button data-hotkey="Ctrl+B" data-handler="bootstrap-markdown-cmdBold" data-provider="bootstrap-markdown" tabindex="-1" title="粗体 (Ctrl+B)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-bold"></span> </button><button data-hotkey="Ctrl+I" data-handler="bootstrap-markdown-cmdItalic" data-provider="bootstrap-markdown" tabindex="-1" title="斜体 (Ctrl+I)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-italic"></span> </button><button data-hotkey="Ctrl+H" data-handler="bootstrap-markdown-cmdHeading" data-provider="bootstrap-markdown" tabindex="-1" title="标题 (Ctrl+H)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-header"></span> </button></div><div class="btn-group"><button data-hotkey="Ctrl+L" data-handler="bootstrap-markdown-cmdUrl" data-provider="bootstrap-markdown" tabindex="-1" title="链接 (Ctrl+L)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-link"></span> </button><button data-hotkey="Ctrl+G" data-handler="bootstrap-markdown-cmdImage" data-provider="bootstrap-markdown" tabindex="-1" title="图片 (Ctrl+G)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-picture"></span> </button></div><div class="btn-group"><button data-hotkey="Ctrl+U" data-handler="bootstrap-markdown-cmdList" data-provider="bootstrap-markdown" tabindex="-1" title="无序列表 (Ctrl+U)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-list"></span> </button><button data-hotkey="Ctrl+O" data-handler="bootstrap-markdown-cmdListO" data-provider="bootstrap-markdown" tabindex="-1" title="有序列表 (Ctrl+O)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-th-list"></span> </button><button data-hotkey="Ctrl+K" data-handler="bootstrap-markdown-cmdCode" data-provider="bootstrap-markdown" tabindex="-1" title="代码 (Ctrl+K)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-console"></span> </button><button data-hotkey="Ctrl+Q" data-handler="bootstrap-markdown-cmdQuote" data-provider="bootstrap-markdown" tabindex="-1" title="引用 (Ctrl+Q)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-comment"></span> </button></div><div class="btn-group"><button data-hotkey="Ctrl+F" data-handler="bootstrap-markdown-cmdUpload" data-provider="bootstrap-markdown" tabindex="-1" title="导入MD文件 (Ctrl+F)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-open-file"></span> </button><button data-hotkey="Ctrl+D" data-handler="bootstrap-markdown-cmdDownload" data-provider="bootstrap-markdown" tabindex="-1" title="导出到MD文件 (Ctrl+D)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-download-alt"></span> </button><button data-hotkey="Ctrl+Shift+C" data-handler="bootstrap-markdown-cmdClear" data-provider="bootstrap-markdown" tabindex="-1" title="清除内容 (Ctrl+Shift+C)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-erase"></span> </button></div><div class="btn-group"><button data-hotkey="Ctrl+P" data-handler="bootstrap-markdown-cmdPreview" data-provider="bootstrap-markdown" tabindex="-1" title="预览 (Ctrl+P)" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-search"></span> </button></div></div><textarea style="resize: none; height: 125px;" rows="5" class="replyeditor md-input" data-row="5" placeholder="点击输入项目描述，使用markdown语法" name="content_1" autocomplete="off" onfocus="resizeTextarea(this,5);" onkeydown="resizeTextarea(this,5);" onkeyup="resizeTextarea(this,5);" onclick="resizeTextarea(this,5);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);">11111111111111</textarea><div class="md-cut-paste" contenteditable="true"></div></div>
+			</div>
+			<div style="float: right;">
+	<div class="d_clear_button" onclick="removeEditArea(this);">
+		<i class="fa fa-times"></i>
+	</div>
+	<div class="d_clear_button" onclick="editAreaUp(this);">
+		<i class="fa fa-arrow-up"></i>
+	</div>
+	<div class="d_clear_button" onclick="editAreaDown(this);">
+		<i class="fa fa-arrow-down"></i>
+	</div>
+	<div class="d_clear_button" onclick="importContentDialog(this);">
+		<i class="fa fa-cloud-download" title="导入html数据"></i>
+	</div>
+</div>			<div class="clear"></div>
+		</div>
+	<div id="edit_line_area"></div>    	</div>
+    	
+<div style="margin-left: 12px; display: block;" class="d_edit_item_area d_edit_item_area_n">
+	<div id="d_button_group">
+		<div>
+			<button class="d_button" type="button" style="float: right; margin: 0px 0 20px 10px; width: 80px;" onclick="previewText();"><i class="fa fa-eye"></i> 预览</button>
+		</div>
+		<div>
+			<button type="button" style="float: right; margin: 0px 0 20px 10px; width: 80px;" class="d_button d_edit_btn" onclick="formSubmit();"><i class="fa fa-save" id="save_icon"></i> 保存</button>
+		</div>
+	</div>
+	<div class="d_widget_btn_nvs">
+		<i class="fa fa-wrench d_widget_btn_nv d_widget_btn_nv_on" title="操作" onclick="widgetContent.show('d_widget_control', this)"></i>
+		<i class="fa fa-magic d_widget_btn_nv" title="实验性功能" onclick="widgetContent.show('d_widget_lab', this)"></i>
+			</div>
+	<div id="d_widget_control" class="d_widget_content_area">
+		<div style="position: relative;" class="d_edit_item ui-draggable ui-draggable-handle" data-type="1">
+			<i class="fa fa-header"></i><br>
+			<span>标题</span>
+		</div>
+		<div style="position: relative;" class="d_edit_item ui-draggable ui-draggable-handle" data-type="6">
+			<i class="fa fa-text-width"></i><br>
+			<span>文本</span>
+		</div>
+		<div style="position: relative;" class="d_edit_item ui-draggable ui-draggable-handle" data-type="2">
+			<i class="fa fa-code"></i><br>
+			<span>代码</span>
+		</div>
+		<div style="position: relative;" class="d_edit_item ui-draggable ui-draggable-handle" data-type="3">
+			<i class="fa fa-info-circle"></i><br>
+			<span>标注</span>
+		</div>
+		<div style="position: relative;" class="d_edit_item ui-draggable ui-draggable-handle" data-type="4">
+			<i class="fa fa-list-alt"></i><br>
+			<span>表格</span>
+		</div>
+		<div style="position: relative;" class="d_edit_item ui-draggable ui-draggable-handle" data-type="5">
+			<i class="fa fa-picture-o"></i><br>
+			<span>图片</span>
+		</div>
+		<div class="clear"></div>
+		<div class="d_info">
+			<ul style="list-style:circle; margin: 0 0 0 10px;">
+				<li>编辑内容的时候，使用“[”可以快速引用其他的内容哦。</li>
+				<li>内容编辑完成后，如果想公开给网友访问，需要到<strong>设置－文档公开和版本管理</strong>中设置当前版本为公开状态。</li>
+			</ul>
+		</div>
+	</div>
+	<div id="d_widget_lab" class="d_widget_content_area" style="display: none;">
+		<div class="d_widget_content_part">
+			<div class="d_widget_content_little_title">字数统计</div>
+			<div>
+				<div style="float:left">
+				已输入<span id="d_input_num" class="d_widget_content_num">0</span>字
+				</div>
+				<i class="fa fa-refresh d_num_refresh_btn" onclick="widgetContent.computeNum();" title="刷新"></i>
+				<div class="clear"></div>
+			</div>
+		</div>
+		
+					<div class="d_widget_content_part">
+				<div class="d_widget_content_little_title">
+					状态
+					<i class="fa fa-question-circle" title="内容可标记为已完成，修改内容后，内容会重新被标记为进行中"></i>	
+				</div>
+				<div style="margin-top: 3px;" id="d_text_status">
+											<span style="float: left;">进行中</span>
+						<i class="fa fa-check-square-o d_num_refresh_btn" onclick="widgetContent.check(8540);" title="标记为已完成"></i>
+										<div class="clear"></div>
+				</div>
+			</div>
+			<div class="d_widget_content_part">
+				<div class="d_widget_content_little_title">内容对照</div>
+				<div>
+					<input name="tId1" value="8540" type="hidden">
+					<select id="d_compare_version" class="d_widget_content_select" onchange="widgetContent.listContent();">
+						<option selected="selected">选择版本</option>
+																			<option class="d_pointer" value="3462">1.0</option>
+											</select><br>
+					<select id="d_compare_content" class="d_widget_content_select">
+						<option selected="selected" value="0">选择内容</option>
+					</select><br>
+					<button class="d_button" type="button" style="float: right; margin-top: 5px;" onclick="widgetContent.compare()">对照</button>
+					<div class="clear"></div>
+				</div>
+			</div>
+							<div class="d_widget_content_part">
+					<div class="d_widget_content_little_title">
+						责任编辑
+						<i class="fa fa-question-circle" title="指定责任编辑之后，只有责任编辑、创建人、管理员能对该篇内容进行编辑"></i>
+					</div>
+					<div>
+						<select id="d_manager" class="d_widget_content_select">
+							<option selected="selected">选择责任编辑</option>
+																						<option class="d_pointer" value="13535">
+													                    	卢勇福
+				                    								</option>
+															<option class="d_pointer" value="1785506">
+													                    	zzsier
+				                    								</option>
+															<option class="d_pointer" value="2345006">
+													                    	杨帆2015
+				                    								</option>
+															<option class="d_pointer" value="853575">
+													                    	gsr112
+				                    								</option>
+															<option class="d_pointer" value="2284420">
+													                    	louruixu
+				                    								</option>
+															<option class="d_pointer" value="2345484">
+													                    	刘金运
+				                    								</option>
+															<option class="d_pointer" value="2345483">
+													                    	jiang_min
+				                    								</option>
+													</select><br>
+						<button id="d_mod_manager_btn" class="d_button" type="button" style="float: right; margin-top: 5px;" onclick='widgetContent.modManager("/action/document/mod_manager_of_text")'>提交</button>
+						<i class="fa fa-spinner fa-spin" id="mod_manager_loading_img" style="margin: 15px 8px; float: right; display: none;"></i>
+					</div>
+				</div>
+						</div>
+</div>
+<script type="text/javascript">
+			widgetContent.init(true, "kuX9nWEIQIXP558qDgwciFEfXPyI2wjKECUeOdaA", "/action");
+	</script>	</div>
+	</form>
+	<div id="d_at_who" style="position: relative;"></div>
+</div>
+</div>
+
+<!-- 历史副本对话框 -->
+<div id="text_copy_dialog" class="d_dialog" style="width: 800px; margin-left: -400px; top: 100px; height: 80%; overflow: auto">
+	<p class="d_close"><a href="#" onclick="closeBg();"><i class="fa fa-times"></i></a></p>
+	<div style="text-align: center;">
+  		<h4 id="link_dialog_title">当前内容的历史副本</h4>
+  	</div>
+  	<hr>
+  	<div id="d_copy_data">
+  		<i class="fa fa-spinner fa-spin"></i>
+  		数据加载中……
+  	</div>
+	<div class="clear"></div>
+</div>
+
+<!-- 修改目录对话框 -->
+<div id="category_text_dialog" class="d_dialog" style="width: 800px; height: 80%; margin-left: -400px; top: 100px; overflow: auto">
+	<p class="d_close"><a href="#" onclick="closeBg();"><i class="fa fa-times"></i></a></p>
+	<div style="text-align: center;">
+  		<h4 id="link_dialog_title">修改当前内容所在目录</h4>
+  	</div>
+  	<hr>
+  	<div id="d_category_data">
+  		<i class="fa fa-spinner fa-spin"></i>
+  		数据加载中……
+  	</div>
+  	<button id="mod_cat_of_tex_button" class="d_button" type="button" style="float:right" onclick="modCategoryOfText();">修改</button>
+	<i class="fa fa-spinner fa-spin" id="mod_category_loading_img" style="margin: 10px; float: right; display: none;"></i>
+	<div class="clear"></div>
+</div>
+
+<script type="text/javascript">
+	
+	/**
+	 * 选择控件内容
+	 */
+	function switchContent(item, index){
+		var widgetBtn = '<div style="float: right;">'
+				+'<div class="d_clear_button" onclick="removeEditArea(this);">'
+					+'<i class="fa fa-times"></i>'
+				+'</div>'
+				+'<div class="d_clear_button" onclick="editAreaUp(this);">'
+					+'<i class="fa fa-arrow-up"></i>'
+				+'</div>'
+				+'<div class="d_clear_button" onclick="editAreaDown(this);">'
+					+'<i class="fa fa-arrow-down"></i>'
+				+'</div>'
+			+'</div>';
+		var widgetBtnHasImport = '<div style="float: right;">'
+				+'<div class="d_clear_button" onclick="removeEditArea(this);">'
+					+'<i class="fa fa-times"></i>'
+				+'</div>'
+				+'<div class="d_clear_button" onclick="editAreaUp(this);">'
+					+'<i class="fa fa-arrow-up"></i>'
+				+'</div>'
+				+'<div class="d_clear_button" onclick="editAreaDown(this);">'
+					+'<i class="fa fa-arrow-down"></i>'
+				+'</div>'
+				+'<div class="d_clear_button" onclick="importContentDialog(this);">'
+					+'<i class="fa fa-cloud-download" title="导入html数据"></i>'
+				+'</div>'
+			+'</div>';
+		if(item==1){
+			return '<div class="d_edit_part">'
+			+'<input name="type_'+index+'" value="1" type="hidden"/>'
+			+'<input name="weight_'+index+'" value="1" type="hidden"/>'
+			+'<div class="d_edit_part_d">'
+			+'<input type="text" class="d_input_text" placeholder="输入标题" style="font-size: 18px; padding: 10px 5px 0 5px;" name="content_'+index+'"/>'
+			+'<hr/>'
+			+'<textarea class="simple_text" rows="1" placeholder="点击输入项目描述，使用markdown语法" name="description_'+index+'" autocomplete="off"'
+			+'onfocus="resizeTextarea(this,1);" onclick="resizeTextarea(this,1);" onkeyup="resizeTextarea(this,1);" onkeydown="resizeTextarea(this,1);"'
+			+'onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);"></textarea>'
+			+'</div>'
+			+widgetBtnHasImport
+			+'<div class="clear"></div>'
+			+'</div>';
+		}else if(item==2){
+			return '<div class="d_edit_part">'
+			+'<input name="type_'+index+'" value="2" type="hidden"/>'
+			+'<input name="weight_'+index+'" value="1" type="hidden"/>'
+			+'<div class="d_edit_part_d" style="float: left; padding: 10px 0;">'
+			+'<textarea class="simple_text" rows="1" placeholder="点击输入代码描述，支持markdown语法" name="description_'+index+'" autocomplete="off"'
+			+'onfocus="resizeTextarea(this,1);" onclick="resizeTextarea(this,1);" onkeyup="resizeTextarea(this,1);" onkeydown="resizeTextarea(this,1);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);" ></textarea>'
+			+'<div>'
+			+'<span style="line-height:35px;">代码片段</span>'
+			+'<span style="float:right;">'
+			+'<select id="sel_code_lang" style="padding:4px 2px" name="remark_'+index+'">'
+			+'<option value="0">[选择编程语言]</option>'
+			+'<option value="ruby">Apple Swift</option>'
+			                +'<option value="java">Java</option>'
+                            +'<option value="cpp">C/C++</option>'
+                            +'<option value="objc">Objective-C</option>'
+                            +'<option value="c#">C#</option>'
+                            +'<option value="js">JavaScript</option>'
+                            +'<option value="php">PHP</option>'
+                            +'<option value="Perl">Perl</option>'
+                            +'<option value="python">Python</option>'
+                            +'<option value="ruby">Ruby</option>'
+                            +'<option value="html">HTML</option>'
+                            +'<option value="xml">XML</option>'
+                            +'<option value="css">CSS</option>'
+                            +'<option value="vb">ASP/Basic</option>'
+                            +'<option value="delphi">Delphi/Pascal</option>'
+                            +'<option value="scala">Scala</option>'
+                            +'<option value="groovy">Groovy</option>'
+                            +'<option value="delphi">Lua</option>'
+                            +'<option value="sql">SQL</option>'
+                            +'<option value="cpp">Google Go</option>'
+                            +'<option value="as3">Flash/ActionScript/Flex</option>'
+                            +'<option value="c#">WPF/SilverLight</option>'
+                            +'<option value="bash">Shell/批处理</option>'
+                            +'<option value="text">其他</option>'
+            	       	+'</select>'
+			+'</span>'
+			+'<div class="clear"></div>'
+			+'</div>'
+			+'<textarea id="code_area1" placeholder="输入代码片段" rows="1" name="content_'+index+'" autocomplete="off" style="border: 1px solid #ccc; margin-bottom:10px; height: 125px;"'
+			+'onfocus="resizeTextarea(this,5);" onclick="resizeTextarea(this, 5);" onkeyup="resizeTextarea(this,5);" onkeydown="resizeTextarea(this,5);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);" ></textarea>'
+			+'</div>'
+			+widgetBtn
+			+'<div class="clear"></div>'
+			+'</div>'
+		}else if(item==5){
+			return '<div class="d_edit_part">'
+					+'<input name="type_'+index+'" value="5" type="hidden"/>'
+					+'<input name="weight_'+index+'" value="1" type="hidden"/>'
+					+'<input name="content_'+index+'" value="" type="hidden"/>'
+					+'<div class="d_edit_part_d">'
+						+'<textarea style="margin-bottom: 10px" class="simple_text" rows="1" placeholder="输入图片描述，支持markdown语法" name="description_'+index+'" autocomplete="off"'
+							+'onfocus="resizeTextarea(this,1);" onclick="resizeTextarea(this,1);" onkeyup="resizeTextarea(this,1);" onkeydown="resizeTextarea(this,1);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);"></textarea>'
+						+'<div>'
+							+'<div id="img_preview_'+index+'" style="margin-bottom: 10px;">'
+							+'</div>'
+							+'<input id="d_up_img_btn_'+index+'" class="btn-sm btn btn-primary" type="button" value="上传图片" onclick="uploadImgDialog('+index+');"/>'
+						+'</div>'
+					+'</div>'
+					+widgetBtn
+					+'<div class="clear"></div>'
+				+'</div>';
+		}else if(item==6){
+			return '<div class="d_edit_part">'
+			+'<input name="type_'+index+'" value="6" type="hidden"/>'
+			+'<input name="weight_'+index+'" value="1" type="hidden"/>'
+			+'<div class="d_edit_part_d">'
+			+'<textarea class="replyeditor" data-row="5" placeholder="点击输入项目描述，使用markdown语法" name="content_'+index+'" autocomplete="off"'
+			+'onfocus="resizeTextarea(this,5);" onclick="resizeTextarea(this,5);" onkeyup="resizeTextarea(this,5);" onkeydown="resizeTextarea(this,5);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);"></textarea>'
+			+'</div>'
+			+widgetBtnHasImport
+			+'<div class="clear"></div>'
+			+'</div>';
+		}else if(item==3){
+			return '<div class="d_edit_part">'
+					+'<input name="type_'+index+'" value="3" type="hidden"/>'
+					+'<input name="weight_'+index+'" value="1" type="hidden"/>'
+					+'<input name="remark_'+index+'" value="info" type="hidden"/>'
+					+'<div class="d_edit_part_d d_callout d_callout_info">'
+						+'<div class="d_callout_icons">'
+							+'<a title="Info" class="fa fa-info-circle d_callout_icon_info" href="javascript:void(0);" onclick="changeCalloutType(this, \'info\', '+index+')"></a>'
+							+'<a title="Warning" class="fa fa-exclamation-circle" href="javascript:void(0);" onclick="changeCalloutType(this, \'warn\', '+index+')"></a>'
+							+'<a title="Danger" class="fa fa-exclamation-triangle" href="javascript:void(0);" onclick="changeCalloutType(this, \'danger\', '+index+')"></a>'
+							+'<a title="Success" class="fa fa-check-square" href="javascript:void(0);" onclick="changeCalloutType(this, \'success\', '+index+')"></a>'
+						+'</div>'
+						+'<input value="" class="d_input_text" type="text" placeholder="输入信息标题" name="content_'+index+'"/>'
+						+'<textarea class="simple_text" rows="1" placeholder="点击输入信息描述，支持markdown语法" name="description_'+index+'" autocomplete="off"'
+							+'onfocus="resizeTextarea(this,1);" onclick="resizeTextarea(this,1);" onkeyup="resizeTextarea(this,1);" onkeydown="resizeTextarea(this,1);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);"></textarea>'
+					+'</div>'
+					+widgetBtn
+					+'<div class="clear"></div>'
+				+'</div>';
+		}else if(item==4){
+			return '<div class="d_edit_part">'
+					+'<input name="type_'+index+'" value="4" type="hidden"/>'
+					+'<input name="weight_'+index+'" value="'+index+'" type="hidden"/>'
+					+'<div class="d_edit_part_d" style="float: left;">'
+						+'<div style="margin-bottom: 10px; float: right">'
+							+'<input type="text" name="row_'+index+'" class="form-control" value="3" style="width: 50px; display: inline; border: 1px solid #ccc" /> 行 '
+							+'X&nbsp;'
+							+'<input type="text" name="col_'+index+'" class="form-control" value="3" style="width: 50px; display: inline; border: 1px solid #ccc" /> 列 '
+							+'<button class="d_button" type="button" onclick="modTable('+index+');">生成表格</button>'
+						+'</div>'
+						+'<div class="clear"></div>'
+						+'<table class="table table-bordered">'
+					        +'<thead>'
+						        +'<tr id="d_table_header_'+index+'">'
+						        							            +'<th id="d_table_head_'+index+'_1" style="padding: 10px;"><input class="d_input_text" type="text" name="content_th_'+index+'"  placeholder="标题"/></th>'
+						            						            +'<th id="d_table_head_'+index+'_2" style="padding: 10px;"><input class="d_input_text" type="text" name="content_th_'+index+'"  placeholder="标题"/></th>'
+						            						            +'<th id="d_table_head_'+index+'_3" style="padding: 10px;"><input class="d_input_text" type="text" name="content_th_'+index+'"  placeholder="标题"/></th>'
+						            						        +'</tr>'
+					        +'</thead>'
+					        +'<tbody id="d_table_body_'+index+'">'
+					        								        +'<tr id="d_table_row_'+index+'_1">'
+					        										        	+'<td id="d_table_body_'+index+'_1_1" style="padding:0px;">'
+							        			+'<textarea class="table_text" onfocus="resizeTextarea(this,1);" onclick="resizeTextarea(this,1);" onkeyup="resizeTextarea(this,1);" onkeydown="resizeTextarea(this,1);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);"'
+							        				+'style="height:41px;" placeholder="内容" name="content_tb_'+index+'_1_1"'
+							        			+'></textarea>'
+							        	+'</td>'
+							        								        	+'<td id="d_table_body_'+index+'_1_2" style="padding:0px;">'
+							        			+'<textarea class="table_text" onfocus="resizeTextarea(this,1);" onclick="resizeTextarea(this,1);" onkeyup="resizeTextarea(this,1);" onkeydown="resizeTextarea(this,1);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);"'
+							        				+'style="height:41px;" placeholder="内容" name="content_tb_'+index+'_1_2"'
+							        			+'></textarea>'
+							        	+'</td>'
+							        								        	+'<td id="d_table_body_'+index+'_1_3" style="padding:0px;">'
+							        			+'<textarea class="table_text" onfocus="resizeTextarea(this,1);" onclick="resizeTextarea(this,1);" onkeyup="resizeTextarea(this,1);" onkeydown="resizeTextarea(this,1);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);"'
+							        				+'style="height:41px;" placeholder="内容" name="content_tb_'+index+'_1_3"'
+							        			+'></textarea>'
+							        	+'</td>'
+							        								        +'</tr>'
+					        								        +'<tr id="d_table_row_'+index+'_2">'
+					        										        	+'<td id="d_table_body_'+index+'_2_1" style="padding:0px;">'
+							        			+'<textarea class="table_text" onfocus="resizeTextarea(this,1);" onclick="resizeTextarea(this,1);" onkeyup="resizeTextarea(this,1);" onkeydown="resizeTextarea(this,1);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);"'
+							        				+'style="height:41px;" placeholder="内容" name="content_tb_'+index+'_2_1"'
+							        			+'></textarea>'
+							        	+'</td>'
+							        								        	+'<td id="d_table_body_'+index+'_2_2" style="padding:0px;">'
+							        			+'<textarea class="table_text" onfocus="resizeTextarea(this,1);" onclick="resizeTextarea(this,1);" onkeyup="resizeTextarea(this,1);" onkeydown="resizeTextarea(this,1);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);"'
+							        				+'style="height:41px;" placeholder="内容" name="content_tb_'+index+'_2_2"'
+							        			+'></textarea>'
+							        	+'</td>'
+							        								        	+'<td id="d_table_body_'+index+'_2_3" style="padding:0px;">'
+							        			+'<textarea class="table_text" onfocus="resizeTextarea(this,1);" onclick="resizeTextarea(this,1);" onkeyup="resizeTextarea(this,1);" onkeydown="resizeTextarea(this,1);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);"'
+							        				+'style="height:41px;" placeholder="内容" name="content_tb_'+index+'_2_3"'
+							        			+'></textarea>'
+							        	+'</td>'
+							        								        +'</tr>'
+					        								        +'<tr id="d_table_row_'+index+'_3">'
+					        										        	+'<td id="d_table_body_'+index+'_3_1" style="padding:0px;">'
+							        			+'<textarea class="table_text" onfocus="resizeTextarea(this,1);" onclick="resizeTextarea(this,1);" onkeyup="resizeTextarea(this,1);" onkeydown="resizeTextarea(this,1);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);"'
+							        				+'style="height:41px;" placeholder="内容" name="content_tb_'+index+'_3_1"'
+							        			+'></textarea>'
+							        	+'</td>'
+							        								        	+'<td id="d_table_body_'+index+'_3_2" style="padding:0px;">'
+							        			+'<textarea class="table_text" onfocus="resizeTextarea(this,1);" onclick="resizeTextarea(this,1);" onkeyup="resizeTextarea(this,1);" onkeydown="resizeTextarea(this,1);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);"'
+							        				+'style="height:41px;" placeholder="内容" name="content_tb_'+index+'_3_2"'
+							        			+'></textarea>'
+							        	+'</td>'
+							        								        	+'<td id="d_table_body_'+index+'_3_3" style="padding:0px;">'
+							        			+'<textarea class="table_text" onfocus="resizeTextarea(this,1);" onclick="resizeTextarea(this,1);" onkeyup="resizeTextarea(this,1);" onkeydown="resizeTextarea(this,1);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);"'
+							        				+'style="height:41px;" placeholder="内容" name="content_tb_'+index+'_3_3"'
+							        			+'></textarea>'
+							        	+'</td>'
+							        								        +'</tr>'
+					        						        +'</tbody>'
+		        		+'</table>'
+					+'</div>'
+					+widgetBtn
+					+'<div class="clear"></div>'
+				+'</div>';
+		}else{
+			return '<div class="d_edit_part"> here is '+item+'</div>'
+		}
+	}
+	
+	function actionHandle(item, index){
+		if(item==6){
+			initMarkdownEditor();
+		}
+		listCategoryOrContent(".simple_text, .replyeditor");
+	}
+	
+	function hideEditLine(){
+		$(".d_edit_line_part").html("");
+	}
+	
+	function buildDropArea(){
+		var hs = new Array();
+		var i=0;		
+		var totalH = 0;
+		$(".d_edit_part").each(function(){
+			hs[i] = $(this).height();
+			totalH = totalH + hs[i];
+			i++;
+		});
+		
+		var html = "";
+		for(var j=0; j<=i; j++){
+			var top = -15 - totalH;
+			var height;
+			var line_margin;
+			if(j==0){
+				height = hs[0]/2 + 15;
+				line_margin = 15;
+			}else if(j==i){			
+				line_margin = hs[j-1]/2;
+				height = hs[j-1]/2 + 15;
+			}else{
+				line_margin = hs[j-1]/2;
+				height = hs[j-1]/2 + hs[j]/2;
+			}			
+			
+			html = html + addDropArea(j-1, height, line_margin);
+		}
+		$("#edit_line_area").attr("style", "margin-top: "+(-15 - totalH)+"px;");
+		$("#edit_line_area").html(html);
+		
+		$(".d_edit_line_part").droppable({
+			over: function(){
+				$(this).children(".d_line_n").attr("class", "d_line_c");
+				$(this).children(".d_line_n_arrow").attr("class", "d_line_c_arrow");
+			},
+			out: function(){
+				$(this).children(".d_line_c").attr("class", "d_line_n");
+				$(this).children(".d_line_c_arrow").attr("class", "d_line_n_arrow");
+			},
+			drop: function(){
+				itemNum++;
+				var pos = $(this).data("pos");
+				if($(".d_edit_part").length==0){
+					$(".d_edit_area").prepend(switchContent(itemT, itemNum));
+					actionHandle(itemT, itemNum);
+					comEditorArea();
+				}else{
+					$(".d_edit_item").each(function(){	 //插入编辑器控件时，控件按钮返回原位置
+						$(this).attr("style", "position: relative;");
+						hideEditLine();
+					});
+					$("body").unbind("mouseup");
+					$(".d_edit_part").each(function(index, element){
+						//插入编辑器控件
+						if(pos==-1&&index==0){
+							$(this).before(switchContent(itemT, itemNum));
+							actionHandle(itemT, itemNum);			
+							comEditorArea();
+							return;
+						}else if(pos==index){
+							$(this).after(switchContent(itemT, itemNum));
+							actionHandle(itemT, itemNum);		
+							comEditorArea();
+							return;
+						}
+					});
+				}
+			}
+		});
+	}	
+	
+	function addDropArea(pos, height, line_pos){
+		if(isNaN(height)){
+			height = 100;
+		}
+		var area = '<div class="d_edit_line_part" style="width: ' + edit_area_width + 'px; height: ' + height + 'px;" data-pos="' + pos + '" >'
+				+ '<div class="d_line_n" style="position: relative; top: ' + (line_pos-5) + 'px"></div>'
+				+ '<div class="d_line_n_arrow" style="position: relative; top: ' + (line_pos-5-8) + 'px; left: -9px;"></div>'
+				+ '</div>';
+		return area;
+	}
+	
+	function removeEditArea(obj){
+		var editPartNum = $(".d_edit_part").length;
+		if(editPartNum<=1){
+			alert("不能删除最后一个组件");
+			return;
+		}
+		if(!confirm("确定要删除这部分内容？")){
+			return;
+		}
+		if(!contentEditArea.isTextEdit){
+			contentEditArea.isTextEdit = true;
+		}
+		$(obj).parent().parent().remove();
+	}
+	
+	function editAreaUp(obj){
+		var editArea = $(obj).parent().parent();
+		var prevEditArea = editArea.prev(".d_edit_part");
+		if(prevEditArea.length>0){
+			editArea.find("textarea").each(function(){					$(this).text($(this).val());
+			});
+			editArea.find("input").each(function(){					$(this).attr("value", $(this).val());
+			});
+			var replyeditor = editArea.find(".replyeditor");	//特殊处理markdown编辑器
+			if(replyeditor.length > 0){	//由于编辑器移动之后，功能键所绑定的事件失效，所以要重新绑定
+				var val = replyeditor.val();
+				var textAreaName = replyeditor.attr("name");
+				var textArea = '<textarea class="replyeditor" data-row="5" placeholder="点击输入项目描述，使用markdown语法" name="'+textAreaName+'" autocomplete="off"'
+						+'onfocus="resizeTextarea(this,5);" onclick="resizeTextarea(this,5);" onkeyup="resizeTextarea(this,5);" onkeydown="resizeTextarea(this,5);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);">'
+						+ val +'</textarea>';
+				editArea.find(".d_edit_part_d").html(textArea);
+			}
+			prevEditArea.before('<div class="d_edit_part">'+editArea.html()+'</div>');
+			editArea.remove();
+			if(replyeditor.length > 0){	//由于编辑器移动之后，功能键所绑定的事件失效，所以要重新绑定
+				initMarkdownEditor();
+			}
+			if(!contentEditArea.isTextEdit){
+				contentEditArea.isTextEdit = true;
+			}
+		}
+	}
+	
+	function editAreaDown(obj){
+		var editArea = $(obj).parent().parent();
+		var nextEditArea = editArea.next(".d_edit_part");
+		if(nextEditArea.length>0){
+			editArea.find("textarea").each(function(){					$(this).text($(this).val());
+			});
+			editArea.find("input").each(function(){					$(this).attr("value", $(this).val());
+			});
+			var replyeditor = editArea.find(".replyeditor");	//特殊处理markdown编辑器
+			if(replyeditor.length > 0){	//由于编辑器移动之后，功能键所绑定的事件失效，所以要重新绑定
+				var val = replyeditor.val();
+				var textAreaName = replyeditor.attr("name");
+				var textArea = '<textarea class="replyeditor" data-row="5" placeholder="点击输入项目描述，使用markdown语法" name="'+textAreaName+'" autocomplete="off"'
+						+'onfocus="resizeTextarea(this,5);" onclick="resizeTextarea(this,5);" onkeyup="resizeTextarea(this,5);" onkeydown="resizeTextarea(this,5);" onpaste="textareaRightMenu(this);" oncut="textareaRightMenu(this);">'
+						+ val +'</textarea>';
+				editArea.find(".d_edit_part_d").html(textArea);
+			}
+			nextEditArea.after('<div class="d_edit_part">'+editArea.html()+'</div>');
+			editArea.remove();
+			if(replyeditor.length > 0){	//由于编辑器移动之后，功能键所绑定的事件失效，所以要重新绑定
+				initMarkdownEditor();
+			}
+			if(!contentEditArea.isTextEdit){
+				contentEditArea.isTextEdit = true;
+			}
+		}
+	}
+	
+	var importContentDialog = function(obj){
+		var editArea = $(obj).parent().prev("div");
+		var imAreaName = $(editArea.find("textarea")[0]).attr("name");
+		$("#d_im_area").val(imAreaName);
+		editor.html("");
+		showBg();
+		showDialog("#im_content_dialog");
+	}
+	
+	function importContent(){
+		var imAreaName = $("#d_im_area").val();
+		
+		editor.sync();
+		var con = $("textarea[name='d_im_content']").val();
+				con = toMarkdown(con);
+		
+		$("textarea[name='"+imAreaName+"']").focus();
+		var val = $("textarea[name='"+imAreaName+"']").val();
+		if(val!=""){
+			val = val+"\n";
+		}
+		$("textarea[name='"+imAreaName+"']").val(val+con);
+		$("textarea[name='"+imAreaName+"']").trigger("click");
+		$("textarea[name='"+imAreaName+"']").trigger("change");
+		closeBg();
+	}
+	
+	$(".d_edit_item").bind("mousedown", function(){
+		if($(this).css("left")=="0px"){
+			$(".d_edit_item").each(function(){
+				$(this).attr("style", "position: relative;");
+			});
+		}
+		$("body").bind("mouseup", function(){
+			$(".d_edit_item").each(function(){
+				$(this).attr("style", "position: relative;");
+				hideEditLine();
+			});
+		});
+		itemT = $(this).data('type');
+		$(this).css("z-index", "99999");
+		buildDropArea();
+	});
+	
+	$(".d_edit_item").bind("mouseup", function(){
+		$("body").unbind("mouseup");
+		//鼠标松开的时候，控件返回原位置
+		$(this).attr("style", "position: relative;");
+		hideEditLine();
+	});
+	
+	var isFirstCom = true;
+	function comEditorArea(){		
+		var w1 = $(window).width()-65-280-1;
+		var w2 = w1 - 200 -65 - 10;
+		edit_area_width = w2;
+		$(".d_edit_area").css("width", w2);
+		$(".d_edit_part_d").css("width", w2-20);
+		$("#text_form input[name='textTitle']").css("width", w2-20);
+		var d_hr_line = document.getElementById("d_hr_line");
+		if(d_hr_line != null){
+			var h = d_hr_line.getBoundingClientRect().top;
+			setTimeout(function(){	//延迟计算工具条的位置，并fadeIn，一开始工具条是隐藏的
+				if(isFirstCom){
+					$("#text_form .d_edit_item_area").css("margin-left", $(".d_project")[0].clientWidth - $(".d_edit_area")[0].clientWidth - 180);
+				}else{
+					if(h<=60){
+						$("#text_form .d_edit_item_area").css("margin-left", 0);
+						$("#text_form .d_edit_item_area").css("left", $("#d_content_area")[0].clientWidth + 360 - 203);
+					}else{
+						$("#text_form .d_edit_item_area").css("margin-left", $(".d_project")[0].clientWidth - $(".d_edit_area")[0].clientWidth - 180);
+						$("#text_form .d_edit_item_area").css("left", 0);
+					}
+				}
+				
+				isFirstCom = false;
+				$("#text_form .d_edit_item_area").fadeIn();
+			}, 100);
+		}
+	}
+	
+	//textarea 自适应高度
+	function resizeTextarea(a, row){
+	
+	    if(!a){return}
+	    var maxH = 21*row + 20;
+	    var h = a.scrollHeight;
+	    if(h < maxH){
+	    	h = maxH;
+	    }
+	    var hStr = a.style.height;
+	    var aH = hStr.substring(0, hStr.length-2);
+	    if(h < aH){
+	    	h = aH - 21;
+	    }
+	            $(a).css("height", h+"px");
+	}
+	
+	function textareaRightMenu(obj){
+		setTimeout(function(){ $(obj).trigger("click"); }, 5);
+	}
+	
+	
+	function changeCalloutType(obj, type, index){
+		$(obj).parent(".d_callout_icons").children("a").removeClass("d_callout_icon_info d_callout_icon_warn d_callout_icon_danger d_callout_icon_success");
+		$(obj).parent(".d_callout_icons").parent(".d_callout").removeClass("d_callout_info d_callout_warn d_callout_danger d_callout_success");
+		$(obj).addClass("d_callout_icon_"+type);
+		$(obj).parent(".d_callout_icons").parent(".d_callout").addClass("d_callout_"+type);
+		
+		$("input[name='remark_"+index+"']").val(type);
+	}
+	
+		var modTable = function(ti){
+		var rowStr = $("input[name='row_"+ti+"']").val();
+		var colStr = $("input[name='col_"+ti+"']").val();
+		if(!isInteger(rowStr)){
+			alert("行数必须为数字");
+			return;
+		}
+		if(!isInteger(colStr)){
+			alert("列数必须为数字");
+			return;
+		}
+		var row = parseInt(rowStr);
+		var col = parseInt(colStr);
+		var colNums = $("#d_table_header_"+ti+" th").length;
+		var rowNums = $("#d_table_body_"+ti+" tr[id*='d_table_row_"+ti+"_']").length;
+		if(col<colNums){
+			for(var i=(col+1); i<=colNums; i++){
+				$("#d_table_head_" + ti + "_" + i).remove();
+			}
+			for(var r=1; r<=rowNums; r++){
+				for(var i=(col+1); i<=colNums; i++){
+					$("#d_table_body_"+ ti + "_" + r + "_" + i).remove();
+				}
+			}
+		}else if(col>colNums){
+			for(var i=(colNums+1); i<=col; i++){
+				$("#d_table_header_"+ti).append(tableHead(ti, i));
+			}
+			for(var r=1; r<=rowNums; r++){
+				for(var i=(colNums+1); i<=col; i++){
+					$("#d_table_row_" + ti + "_" + r).append(tableCell(ti, r, i));
+				}
+			}
+		}
+		
+		if(row<rowNums){
+			for(var i= (row+1); i<=rowNums; i++){
+				$("#d_table_row_"+ ti + "_" + i).remove();
+			}
+		}else if(row>rowNums){
+			for(var i=(rowNums+1); i<=row; i++){
+				$("#d_table_body_"+ti).append(tableRow(ti, i, col));
+			}
+		}
+	}
+	
+	var tableRow = function(ti, row, col){
+		var html = '<tr id="d_table_row_'+ ti +"_"+row+'">';
+		for(i=1; i<=col; i++){
+			html = html + tableCell(ti, row, i);
+		}
+		html = html + "</tr>";
+		return html;
+	}
+	
+	var tableCell = function(ti, row, col){
+		return '<td id="d_table_body_'+ti+"_"+row+'_'+col+'" style="padding:0px;"><textarea class="table_text" onfocus="resizeTextarea(this,1);" onclick="resizeTextarea(this,1);" onkeyup="resizeTextarea(this,1);"'
+	        			+'style="height:41px;" placeholder="内容" name="content_tb_' + ti + '_'+row+'_'+col+'"'
+	        			+'></textarea>'
+	        	+'</td>'
+	}
+	
+	var tableHead = function(ti, col){
+		return '<th id="d_table_head_'+ti+"_"+col+'" style="padding: 10px;"><input class="d_input_text" type="text" name="content_th_'+ti+'"  placeholder="标题"/></th>'
+	}
+		
+	$(window).resize(function() {
+	  	comEditorArea();
+	});
+	
+	
+</script><script type="text/javascript">
+	contentEditArea.init(8540, 3346, "/action");
+	var userCode = "kuX9nWEIQIXP558qDgwciFEfXPyI2wjKECUeOdaA";
+	function reload(id){
+		showBg();
+		$("#loading_dialog").css("display", "block");
+		$("#d_content").load("/document/edit?textId="+id, function(){
+						closeBg();
+			$("#loading_dialog").css("display", "none");
+			$("#d_edit_area").fadeIn();
+			$("textarea").trigger("click");
+			
+			var docId = "3346";
+			$.ajax("/action/document/lock_text?textId="+id+"&docId="+docId+"&drd="+Math.round(Math.random() * 1000000)+"");
+		});
+	}
+	
+	function categoryListShow(textId){
+		showBg();
+		$("#category_text_dialog").fadeIn();
+		var tid = 8540;
+		$("#d_category_data").load("/action/document/category_of_text?textId="+textId+"", function(){
+			$("#d_m_category_child_0").load("/action/document/categories?textId="+tid+"&categoryId=0", function(){
+				showDialog("#d_m_category_child_0");
+			});
+		});
+	}
+	
+	function loadNextCategory(obj, cId){
+		if($(obj).data("open")==1){
+			$(obj).data("open", "0");
+			$("#d_folder1_close_"+cId).show();
+			$("#d_folder1_open_"+cId).hide();
+			$("#d_m_category_child_"+cId).slideUp();
+		}else{
+			$(obj).data("open", "1");
+			$("#d_folder1_close_"+cId).hide();
+			$("#d_folder1_open_"+cId).show();
+			var html = $("#d_m_category_child_"+cId).html();
+			var isLoad = $("#d_m_category_child_"+cId).data("load");
+			if(isLoad==0){
+				$("#d_m_category_child_"+cId).data("load", 1);
+				var tid = 8540;
+				$("#d_m_category_child_"+cId).load("/action/document/categories?textId="+tid+"&categoryId="+cId+"", function(){
+					$("#d_m_category_child_"+cId).slideDown();
+				});
+			}else{
+				$("#d_m_category_child_"+cId).slideDown();
+			}
+		}
+	}
+
+	function modCategoryOfText(){
+		$("#mod_category_loading_img").show();
+		buttonDisable("#mod_cat_of_tex_button");
+		jQuery("#d_mod_category_form").ajaxSubmit({
+			dataType: "json",
+			success: function(data){
+				$("#mod_category_loading_img").hide();
+				if(data.result){
+					alert(data.msg, "success");
+					closeBg();
+					setTimeout(function(){
+						loadPage("/document/detail?p1=ruiyou&nv=doc&dpid=3346&vid=3462");	
+					}, 2000);
+				}else{
+					buttonAble("#mod_cat_of_tex_button");
+					alert(data.msg);
+				}
+			}
+		});
+	}
+	
+	function copyDialogShow(textId){
+		showBg();
+		showDialog("#text_copy_dialog");
+		$("#d_copy_data").load("/action/document/text_copys?id="+textId+"");
+	}
+
+	function useThisCopy(id){
+		$.ajax({
+			url: "/action/document/update_current_copy?id="+id+"&user_code="+userCode+"",
+			dataType: "json",
+			success: function(data){
+				if(data.result){
+    				currentTextId = data.textId;
+					alert(data.msg, "success");
+					$("#d_content_title_"+currentTextId).html(data.title);
+					$("#d_content_title_"+currentTextId).parent(".d_tree_node_text").attr("title", data.title);
+					closeBg();
+    				setTimeout("reload("+currentTextId+")", 2000);
+				}else{
+					alert(data.msg);
+				}
+			}
+		});
+	}
+
+	function formSubmit(){
+	
+		var textTitle = $("#text_form input[name='textTitle']").val();
+		if(isNull(textTitle)){
+			alert("内容标题不能为空");
+			$("#text_form input[name='textTitle']").focus();
+			return;
+		}
+		if(textTitle.length>150){
+			alert("内容标题长度不能长于150");
+			$("#text_form input[name='textTitle']").focus();
+			return;
+		}
+		buttonDisable("#text_form .d_edit_btn");
+		$("#save_icon").attr("class", "fa fa-spinner fa-spin");
+		var wt = 0;
+		$(".d_edit_part").each(function(){
+			wt ++;
+			$(this).children("input[name*='weight_']").val(wt);
+		});
+		$("#text_form").attr("action", "/action/document/modify_text");
+		$("#text_form").attr("target", "_self");
+		widgetContent.disableCtrlS();
+		jQuery("#text_form").ajaxSubmit({
+    		dataType:'json',
+    		success:function(result){
+    			setTimeout(function(){
+					buttonAble("#text_form .d_edit_btn");
+					$("#save_icon").attr("class", "fa fa-save");
+    			}, 500);
+    			if(result.result){
+    				    				$("#d_content_title_8540").html(result.title);
+					$("#d_content_title_8540").parent(".d_tree_node_text").attr("title", result.title);
+					$("#d_content_title_8540").prev("i").attr("class", "fa fa-file-text-o");
+					
+					var check_html = "<span style=\"float: left;\">进行中</span>\n<i class=\"fa fa-check-square-o d_num_refresh_btn\" onclick=\"widgetContent.check(8540);\" title=\"标记为已完成\"></i>\n<div class=\"clear\"></div>";
+					$("#d_text_status").html(check_html);
+    				contentEditArea.isTextEdit = false;
+    			}else{
+	    			alert(result.msg);
+    			}
+    			
+				widgetContent.ableCtrlS();
+    		},
+    		error:function(){
+    			alert("保存失败，请稍后重新保存");
+    			buttonAble("#text_form .d_edit_btn");
+				$("#save_icon").attr("class", "fa fa-save");
+    		}
+    	});
+	}
+	
+	function previewText(){
+		var wt = 0;
+		$(".d_edit_part").each(function(){
+			wt ++;
+			$(this).children("input[name*='weight_']").val(wt);
+		});
+		$("#text_form").attr("action", "/action/document/preview_text");
+		$("#text_form").attr("target", "_blank");
+		$("#text_form").submit();
+		
+	}
+	
+	$(document).ready(function(){
+		comEditorArea();	
+		$( ".d_edit_item" ).draggable({containment:"#d_content"});
+		initMarkdownEditor();
+		
+		$("#text_form").on("change", "input", function(){
+			if(!contentEditArea.isTextEdit){
+				contentEditArea.isTextEdit = true;
+			}
+		});
+		$("#text_form").on("change", "textarea", function(){
+			if(!contentEditArea.isTextEdit){
+				contentEditArea.isTextEdit = true;
+			}
+		});
+		listCategoryOrContent(".simple_text, .replyeditor");
+		
+		$("#d_content_area").on("click", ".btn-group button", function(){
+			var obj = $(this).parent().parent().next(".replyeditor");
+			var isFirst = obj.attr("isfirst");
+			if(typeof(isFirst)=="undefined"){
+				obj.attr("isFirst", false);
+			}
+		});
+		
+		if(typeof(edit_area_width)!="undefined"){
+			resizePicWidth("#d_content_area", edit_area_width - 20);
+		}
+	});
+	
+	$(window).resize(function () {
+        if(typeof(edit_area_width)!="undefined"){
+			resizePicWidth("#d_content_area", edit_area_width - 20);
+		}
+    });
+	
+	window.onbeforeunload = function(){
+		var tId = 8540;
+		var docId = "3346";
+		$.ajax("/action/document/unlock_text?textId="+tId+"&docId="+docId+"&drd="+Math.round(Math.random() * 1000000)+"");
+		setTimeout(onunloadcancel, 0);
+		return "是否放弃保存当前正在编辑的内容？";
+	}
+	window.onunloadcancel = function(){
+		setTimeout(function(){
+			var tId = 8540;
+			var docId = "3346";
+			$.ajax("/action/document/lock_text?textId="+tId+"&docId="+docId+"&drd="+Math.round(Math.random() * 1000000)+"");
+		}, 1000);
+	}
+	
+	
+</script>
+
+<!-- Generated by OsChina.NET (init:0[ms],page:76[ms],ip:123.150.208.136) --></div>
+<script type="text/javascript">
+	    function listCategoryOrContent(selector) {
+        var url = "/action/document/content_suggest";
+        $(selector).atWho("\\[", {
+            limit: 10,
+            callback: function (query, callback) {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {'q': query, 'vId': 3462},
+                    dataType: 'json',
+                    success: function (json) {
+                        callback(json);
+                    }
+                });
+            }
+        });
+            $("#at-view").css("z-index", 99);
+    }
+</script>
+<!-- Generated by OsChina.NET (init:0[ms],page:17[ms],ip:123.150.208.136) --></div>
+
+<!-- loading -->	
+<div class="d_dialog ng-scope" id="loading_dialog" style="left: 50%; margin-left: -70px; width: 140px; top: 50%; margin-top: -23px; display: none;">
+	<i class="fa fa-spinner fa-spin"></i>
+	加载中……
+</div>
+<script class="ng-scope" type="text/javascript">
+$(document).ready(function(){
+	});
+</script>
+<!-- Generated by OsChina.NET (init:1[ms],page:13[ms],ip:123.150.208.136) --></div>
+<style>
+    .loading-animation {
+        position: fixed;
+
+        display: none;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 20;
+    }
+
+    .loading-picture {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .loading-content {
+        position: relative;
+        width: 50px;
+        height: 50px;
+        margin-top: -25px;
+        margin-left: -25px;
+        top: 50%;
+        left: 40%;
+    }
+
+    .loading-content img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .nd-panel{
+        display: none;
+        width:550px;
+    }
+    .nd-panel .top input{
+        height: 33px;
+        width: 390px;
+        padding-top: 1px;
+        margin-bottom: 5px;
+        padding-left: 8px;
+    }
+    .nd-panel .top select{
+        height: 33px;
+        width: 155px;
+        padding-left: 5px;
+    }
+    .textarea-ng input{
+        margin-top: 7px;
+    }
+    .move-right{
+        margin-left: 10px;
+    }
+
+    .issues_chart1 {
+        position: relative;
+        float: right;
+        z-index: 2;
+        top: -32px;
+        vertical-align: top;
+        right: -9px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .issues_chart1 .label-text {
+        fill: rgba(0, 0, 0, 0.0);
+        text-anchor: middle;
+        font-size: 24px;
+        font-family: "Microsoft YaHei","SimHei","SimSun","NSimSun","FangSong","Hiragino Sans GB";
+    }
+
+    .counter{
+        border: 2px solid transparent;
+        border-radius: 50%;
+        font-size: 12px;
+        height: 24px;
+        line-height: 19px;
+        position: absolute;
+        right: 11px;
+        text-align: center;
+        top: 8px;
+        width: 24px;
+    }
+
+    .issues_chart1 .background {
+        fill: #ffffff;
+        fill-opacity: 0.01;
+    }
+
+    .issues_chart1 .arc {
+        fill: #0db085;
+    }
+    .issues_chart1 .component {
+        fill: #e1e1e1;
+    }
+    .quick-issue{
+        width:1030px;
+        height: 759px;
+        display: none;
+        overflow: hidden;
+    }
+    .diary-header{
+        text-align: center;
+        /*border-bottom: 2px solid #BDBDBD;*/
+        /*padding-bottom: 15px;*/
+    }
+    .diary-footer{
+        position: relative;
+        top: 14px;
+    }
+    .diary-margin-left{
+        margin-left: 20px;
+    }
+    .diary-msg{
+        color:red;
+    }
+    .check-diary{
+        margin-top: 16px;
+    }
+    .quick-menu{
+        left: -48px;
+    }
+    .fancybox-cus a.fancybox-close {
+        z-index: 0;
+    }
+</style>
+<div style="display: none;" id="loading-animation" class="loading-animation">
+    <div class="loading-picture">
+        <div style="left: 50%;" class="loading-content loading-transition">
+            <img src="images/3012.GIF">
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/team-none.js"></script>
+<script type="text/javascript" src="js/team.js"></script>
+<script type="text/javascript" src="js/team-user-lib.js"></script>
+<script>
+    var current = 0;
+
+    $(".fancybox").fancybox();
+
+    function msg() {
+        location.href = "http://my.oschina.net/u/1785506";
+    }
+
+    function search() {
+        var keyword = encodeURI($("#keywords").val());
+        if (keyword.length > 0) {
+            var active_name = $("#active_name").val();
+            if (active_name === "任务") {
+                $("#issue_search_btn").click();
+            } else {
+                window.location.href = "/ruiyou/search?keywords=" + encodeURI(keyword);
+            }
+        } else {
+            alert("请输入要搜索的关键字");
+        }
+    }
+
+    $("#keywords").keydown(function (event) {
+        if (event.keyCode === 13) {
+            search();
+        }
+    });
+
+    $(".notestatus").on("click", function () {
+        var status = 0;
+        var team = $(this).data("team");
+        var user = 1785506;
+        var currentTime = new Date().getTime();
+        if ($(this).hasClass('showstatus')) {
+            status = 1;
+        }
+        $.ajax({
+            url: "/action/sticky/settingStickyStatus",
+            type: "get",
+            data: "status=" + status + "&team=" + team + "&user=" + user + "&time=" + currentTime,
+            success: function (data) {
+                if (data == "success") {
+                    if (status == 1) {
+                        $(".note").css("display", "none");
+                        $(".notestatus").removeClass("showstatus").addClass("hidestatus").attr("title", "显示便签");
+                    } else {
+                        if (current == 0) {
+                            $(".note").remove();
+                            /* 请求获取所有便签信息 */
+                            showAllNotes(1785506);
+                            $(".notestatus").removeClass("hidestatus").addClass("showstatus");
+                        } else {
+                            $(".note").css("display", "block");
+                        }
+                        $(".notestatus").removeClass("hidestatus").addClass("showstatus").attr("title", "隐藏便签");
+                    }
+                    current++;
+                } else {
+                    alert("操作失败！请重试！");
+                }
+            }
+        });
+    });
+
+    $('.notestatus').hover(function () {
+        $("#atmsg").addClass("open");
+        $('#dropdown-link').removeClass("open");
+        $("#dropdown").removeClass("open");
+    });
+
+    $("#atmsg").addClass("open");
+
+    $('#theme').hover(function () {
+        $("#atmsg").removeClass("open");
+        $('#dropdown').removeClass("open");
+        $('#dropdown-link').removeClass("open");
+        $('#dropdown-theme').addClass("open");
+
+        $('#dropdown-theme li').bind('click', function () {
+            var current = $(this);
+            var layout = 'theme_default.css';
+            if ('default' === current.attr('data-theme')) {
+                layout = 'theme_default.css';
+            } else if ('blue' === current.attr('data-theme')) {
+                layout = 'theme_blue.css';
+            } else if ('green' === current.attr('data-theme')) {
+                layout = 'theme_green.css';
+            } else {
+                layout = 'theme_default.css';
+            }
+
+            $.ajax({
+                url: "/action/team/changeLayout",
+                type: "get",
+                data: "layout=" + layout + "&team=30486",
+                success: function (data) {
+                    if (data == "success") {
+                        $('#link-theme').attr('href', '/css/team/' + layout);
+                    } else {
+                        alert("切换主题失败！请重试！");
+                    }
+                }
+            });
+            $('#dropdown-theme').removeClass("open");
+            $('#dropdown-theme li').unbind();
+        })
+    } ,  function(e){ $('#dropdown-theme').removeClass("open"); }  );
+
+    $('.topbar').hover(null, function () {
+        $("#atmsg").addClass("open");
+        $('#dropdown-theme').removeClass("open");
+        $('#dropdown-link').removeClass("open");
+        $("#dropdown").removeClass("open");
+    })
+
+    $(".topbar #dl-link").hover(function () {
+        $("#atmsg").removeClass("open");
+        $('#dropdown-theme').removeClass("open");
+        $('#dropdown').removeClass("open");
+        $("#dropdown-link").addClass("open");
+        $('#dropdown-link').bind('click', function (evt) {
+            $('#dropdown-link').removeClass("open");
+            $("#atmsg").addClass("open");
+            $('#dropdown-link').unbind();
+        });
+    });
+
+    $('#portrait').hover(function () {
+        $("#atmsg").removeClass("open");
+        $('#dropdown-theme').removeClass("open");
+        $('#dropdown-link').removeClass("open");
+        $("#dropdown").addClass("open");
+        $('#dropdown li').hover(function () {
+            if ($(this).is('li.switch')) {
+                $('#switchteammenu').css('display', 'block');
+                $('#switchteammenu').hover(null, function () {
+                    $('#switchteammenu').css('display', 'none');
+                });
+            } else if ($(this).is('li.first')) {
+                $('#switchteammenu').css('display', 'none');
+            } else if ($(this).is('li.my-setting')) {
+                $('#switchteammenu').css('display', 'none');
+            } else if ($(this).is('li.my-home')) {
+                $('#switchteammenu').css('display', 'none');
+            } else if ($(this).is('li.inbox')) {
+                $('#switchteammenu').css('display', 'none');
+            } else if ($(this).is('li.return')) {
+                $('#switchteammenu').css('display', 'none');
+            } else if ($(this).is('li.issues')) {
+                $('#switchteammenu').css('display', 'none');
+            } else if ($(this).is('li.email')) {
+                $('#switchteammenu').css('display', 'none');
+            }
+
+            $('#switchteammenu li').bind('click', function () {
+                $("#atmsg").addClass("open");
+                $('#dropdown-theme').removeClass("open");
+                $('#dropdown-link').removeClass("open");
+                $("#dropdown").removeClass("open");
+                $('#switchteammenu li').unbind();
+            })
+        });
+        $('#portrait ul li').bind('click', function () {
+            if (!$(this).is('li.switch')) {
+                $("#atmsg").addClass("open");
+                $('#dropdown-theme').removeClass("open");
+                $('#dropdown-link').removeClass("open");
+                $("#dropdown").removeClass("open");
+                $('#portrait ul li').unbind();
+            }
+        });
+    }, function () {
+        $('#switchteammenu').css('display', 'none');
+    });
+
+
+    $("#createnote").on("click", function () {
+        create(1785506, '#dl-link', "300", "200");
+    });
+
+
+
+                $(document).ready(function () {
+            /* 请求获取所有即时贴信息 */
+            showAllNotes(1785506);
+        });
+        
+    function atSbOfTeam(selector, teamId) {
+        var limitNums = 10;
+        var url = "/action/tweet/at_suggest";
+        if (typeof(teamId) != "undifined" && teamId > 0) {
+            limitNums = 11;
+            url = "/action/team/at_suggest";
+        }
+        $(selector).atWho("@", {
+            limit: limitNums,
+            callback: function (query, callback) {
+                //@人的时候隐藏表情、图片、代码框，避免下拉框重叠
+                //$('#TweetFormPopupWraper').slideUp();
+                jQuery.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {'q': query, 'team': teamId},
+                    dataType: 'json',
+                    success: function (json) {
+                        callback(json);
+                    }
+                });
+            }
+        });
+            $("#at-view").css("z-index", 9999);
+    }
+    
+    $("#msg_remind_area").on("click", "a", function(){
+    	$("#atmsg").remove();
+        $(".msg-tips").hide();
+    });
+
+    function addCookie(name,value,expiresHours){
+        var cookieString=name+"="+escape(value);
+        console.log(cookieString);
+        //判断是否设置过期时间
+        if(expiresHours>0){
+            var date=new Date();
+            date.setTime(date.getTime+expiresHours*3600*1000);
+            cookieString=cookieString+"; expires="+date.toGMTString();
+        }
+        document.cookie=cookieString;
+    }
+
+    function getCookie(name){
+        var strCookie=document.cookie;
+        var arrCookie=strCookie.split("; ");
+        for(var i=0;i<arrCookie.length;i++){
+            var arr=arrCookie[i].split("=");
+            if(arr[0]==name)return arr[1];
+        }
+        return "";
+    }
+
+    function deleteCookie(name){
+        var date=new Date();
+        date.setTime(date.getTime()-10000);
+        document.cookie=name+"=v; expires="+date.toGMTString();
+    }
+
+    var new_version = "1.0.3";
+    function check_team_news(){
+        $.cookie("team_version",new_version,{expires:365});
+        $('#news').css('display', 'none');
+        window.open('http://team.oschina.net/team_news');
+    }
+
+    $(document).ready(function () {
+        var cookie_version = $.cookie("team_version");
+        if(cookie_version == null || new_version != cookie_version){
+            $('#news').css('display', 'block');
+            $('#news').bind("click",function(){
+                check_team_news();
+            });
+        }
+
+        // 检查返回的内容是否存在消息
+        var check_msg = function(content){
+            if(content.indexOf("MsgTip") > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        // 检查初始是否有消息，隐藏消息框，绑定事件
+        var origin = $("#msg_remind_area").html();
+        if(check_msg(origin)){
+            $(".msg-tips").show();
+            $("#msg_remind_area").hide();
+            $("#message").unbind("mouseover").bind("mouseover", function(e){
+                $("#msg_remind_area").show();
+            }).unbind("mouseout").bind("mouseout", function(e){
+                $("#msg_remind_area").hide();
+            });
+        };
+
+        // 消息按钮单击调整事件
+        $('#message').click(function(e){
+            var url = $("#MsgTip>a").attr("href");
+
+            if(e.target==this){
+                if (typeof(url) == "undefined") {
+                    window.open("http://my.oschina.net/u/1785506");
+                }
+            }
+        });
+
+        // 动态获取消息，展示提醒，绑定事件
+        setInterval(function () {
+            $.ajax({
+                type: "GET",
+                url: "/action/team/msgReminds",
+                success: function(msg){
+                    if(check_msg(msg)){
+                        $(".msg-tips").show();
+                        $("#msg_remind_area").empty().append($(msg));
+
+                        $("#message").unbind("mouseover").bind("mouseover", function(e){
+                            $("#msg_remind_area").show();
+                        }).unbind("mouseout").bind("mouseout", function(e){
+                            $("#msg_remind_area").hide();
+                        });
+                    }else{
+                        $("#msg_remind_area").empty().append($(msg)).hide();
+                        $(".msg-tips").hide();
+                    }
+                }
+            });
+        }, 60000);
+
+        function _init_issues_chart() {
+            $('.issues_chart1').each(function(i, val){
+                var chartPerc=$(this).siblings('input').val();
+                //var liHeight=$(".secondLi").outerHeight(true);
+                var liHeight=40;
+                var rp1 = radialProgress(document.querySelector('#'+$(this).attr("id")))
+                        .size(36, 36)
+                        .onClick(function () {
+                        })
+                        .margin({top: -17, right: 0, bottom: 0, left: 0})
+                        .diameter(6)
+                        .value(chartPerc)
+                        .render();
+                var x=18;
+                var y=20+liHeight*i;
+                //$('#'+$(this).attr("id")+' path').attr("transform", 'translate('+x+','+y+')');
+                var top=8+liHeight*i;
+                $(this).siblings('div').css('top',top+'px');
+            });
+        };
+        _init_issues_chart();
+    });
+
+        var newDiscuss = {
+        showqickask: function() {
+            $("#create-nd").css("display", "block");
+            $("#subject-nd").focus();
+            $("#quickask-nd").markdown({language: 'zh', fullscreen: 'false',imgurl: '/action/upload/imgUpload'})
+            $("#subject-nd").val('');
+            $("#quickask-nd").val('');
+        },
+        load: function(){
+            $.fancybox($("#new-discuss-panel"),{wrapCSS:"fancybox-cus"});
+            newDiscuss.showqickask();
+        },
+        commit: function(){
+            if ($('#subject-nd').val().length > 128) {
+                alert('讨论标题太长');
+                return false;
+            }
+            var values = $('#create-nd').serializeArray();
+            if (values) {
+                $.each(values, function (i, item) {
+                    if (item['name'] === 'body') {
+                        item['value'] = marked(item['value']);
+                    }
+                });
+            }
+            values = jQuery.param(values);
+            ajax_post("/action/teamDiscuss/quickAsk", values, function (result) {
+                if (result) {
+                    var json = eval('(' + result + ')');
+                    if (json.error == 1)
+                        alert(json.msg);
+                } else {
+                    newDiscuss.cancel();
+                    Util.reload("discuss");
+                }
+            });
+        },
+        cancel: function(){
+            $.fancybox.close($("#new-discuss-panel"));
+        },
+    }
+
+        var quickShareFile = {
+        load: function(){
+            $("#fileupload-quick").click();
+        },
+        upload: function () {
+            $('#fileupload-quick').fileupload({
+                dataType: 'json',
+                dropZone: null,
+                pasteZone: null,
+                formData:[
+                    {
+                        name: 'group',
+                        value: $('#uploadteamid').val(),
+                    },
+                    {
+                        name: 'url',
+                        value: $('#uploadpath').val(),
+                    },
+                    {
+                        name: 'folder',
+                        value: 0,
+                    },
+                ],
+                limitMultiFileUploadSize:10 * 1000 * 1000,
+                done: function (e,data) {
+                    if(data.result.error){
+                        alert(data.result.msg);
+                    }else{
+                        Util.reload("share");
+                    }
+                },
+            });
+        },
+    }
+
+    var Util = {
+        reload: function(area){
+            var url = window.location.href;
+            if(url.indexOf("tweet")>0 ||$("#navHome").hasClass("active")){
+                $("#navHome").trigger("click");
+            }else if(url.indexOf("share")> 0 &&  area=="share"){
+                $("#navShare").trigger("click");
+            }else if(url.indexOf("discuss")>0 && area=="discuss"){
+                $("#navQuestion").trigger("click");
+            }else if(url.indexOf("diary")>0 && area=="diary"){
+                $("#navBook").trigger("click");
+            }
+//            else {
+//                alert("操作成功");
+//            }
+        }
+    }
+
+    $(function(){
+        // for quick file upload
+        quickShareFile.upload();
+                atSbOfTeam("#quickask-nd", 30486);
+    });
+
+        $(document).keydown(function(event){
+        //Alt+1
+        if (event.altKey && (event.keyCode == 49 || event.keyCode == 97)) {
+            $('#create-task-q').trigger('click');
+            //Alt+2
+        }else if(event.altKey && (event.keyCode == 50 || event.keyCode == 98)){
+            $("#createnote").trigger("click");
+            //Alt+3
+        }else if(event.altKey && (event.keyCode == 51 || event.keyCode == 99)){
+            $('#create-recent-q').trigger('click');
+            //Alt+4
+        }else if(event.altKey && (event.keyCode == 52 || event.keyCode == 100)){
+            $('#create-discuss-q').trigger('click');
+            //Alt+5
+        }else if(event.altKey && (event.keyCode == 53 || event.keyCode == 101)){
+            $('#fileupload-quick').trigger('click');
+        }
+    })
+
+
+        var newIssue = {
+        load: function(){
+            $.post("/action/ajax/get_issue_create_page",{"teamIdent":'ruiyou'},function(data,status){
+                if(status=="success"){
+                    $("#new-issue-panel").html(data);
+                    $("#q-title").focus();
+                    $.fancybox("#new-issue-panel",{wrapCSS:"fancybox-cus"});
+
+                }else{
+                    alert("服务器繁忙,请稍等一会儿")
+                }
+            });
+        },
+        close: function() {
+            $.fancybox.close("#new-issue-panel",{});
+        }
+    }
+
+        var newDiary = {
+        now: new Date(),
+        weekIndex: GetWeekIndex(new Date()),
+        load: function(){
+            $("#diary-content").markdown({language: 'zh', fullscreen: 'false'})
+            $("#week-index").text(newDiary.weekIndex);
+            $.fancybox("#q-commit-diary",{wrapCSS:"fancybox-cus"});
+        },
+        commit: function(){
+            var quickCommit = 0;
+            if($("#checkDiary").is(":checked")){
+                quickCommit = 1;
+            }
+            $.ajax({
+                url: "/action/teamDiary/commitWork",
+                type: "post",
+                data: {
+                    group: 30486,
+                    year: newDiary.now.getFullYear(),
+                    weekindex: GetWeekIndex(new Date()),
+                    summary: $("#diary-content").val(),
+                    quickCommit:quickCommit,
+                },
+                dataType: "json",
+                success: function (response) {
+                    if (response.msg == "success") {
+                        $.fancybox.close("#q-commit-diary");
+                        $("#create-recent-q").attr("onclick","newDiary.hasDiary()");
+                        Util.reload("diary");
+                    } else if (response.msg == "ids_is_null") {
+                        $("#diary-commit-msg").text("提交失败,请选择要提交的动态 :(");
+                    } else if (response.msg == "summary_is_null") {
+                        $("#diary-commit-msg").text("提交失败，请输入周报总结或者勾选动态。");
+                    }
+                },
+                error: function (response, status, headers, config) {
+                    $("#diary-commit-msg").text("提交失败,系统出错 ：（");
+                }
+            });
+        },
+        cancel: function(){
+            $("#diary-content").val("");
+            $.fancybox.close("#q-commit-diary");
+        },
+        hasDiary: function(){
+            alert("本周你已经提交周报,请前往周报页面更改");
+        }
+    }
+    window.onpopstate=function(){
+        $('body').removeClass('md-nooverflow');
+        $('.viewPage').css('z-index', 0);
+        $('.viewPage .contain').css('z-index', 0);
+        $('body>div.topbar').css({'z-index':9999,'position':'fixed','display':'block'});
+        $('body>#apps-bar').css({'z-index':9999,'position':'fixed','display':'block'});
+    };
+</script>
+<link rel="stylesheet" type="text/css" href="css/nature.css">
+<link rel="stylesheet" type="text/css" href="css/object.css">
+<link rel="stylesheet" type="text/css" href="css/people.css">
+<link rel="stylesheet" type="text/css" href="css/place.css">
+<link rel="stylesheet" type="text/css" href="css/Sysmbols.css">
+<link rel="stylesheet" type="text/css" href="css/twemoji.css">
+
+        
+<div style="width: 480px; position: fixed; left: 0px; right: 0px; margin-left: auto; margin-right: auto; top: 30px; z-index: 99999999; padding-bottom: 14px; padding-top: 14px; border-radius: 4px; border-width: 2px; border-style: solid; margin-bottom: 20px; text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.5); text-align: right; display: none;"><button style="line-height: 20px; position: relative; right: 15px; top: -10px; background: none repeat scroll 0px 0px transparent; border: 0px none; cursor: pointer; padding: 0px; color: rgb(0, 0, 0); float: right; font-size: 20px; font-weight: bold; opacity: 0.2; text-shadow: 0px 1px 0px rgb(255, 255, 255);">×</button><span><p id="alert_content" style="margin: 10px 0" align="center"></p></span></div><div class="modal fade" id="teamConfirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="top:50px"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button ype="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h4 class="modal-title">操作提示</h4></div><div class="modal-body" id="myModalBody"></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">取消</button><button type="button" class="btn btn-primary" id="modal_confirm_btn">确认</button></div></div></div></div><div style="z-index: 99;" id="at-view" class="at-view"><ul id="at-view-ul"></ul></div></body></html>
+<!-- Generated by OsChina.NET (init:1[ms],page:24[ms],ip:123.150.208.136) -->

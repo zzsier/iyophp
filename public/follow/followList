@@ -1,0 +1,59 @@
+﻿{
+    "code": 0,
+    "desc": 131,
+    "message": "获取成功",
+    "result":
+    {
+        "follow":
+        [ 
+            {
+                "username": "WE",
+                "id": "9999",
+                "type": "team",
+                "phone": "",
+                "email": "",
+                "image": "ico_image009.png",
+                "numOfFollow": "1111",
+                "description": "Team WE是希玛(上海)文化传播有限公司组建而成的水电费地方水电费水电费水电费撒的发水电费。",
+                "recommend": "1"
+            },
+             {
+                "username": "OMG",
+                "id": "9999",
+                "type": "team",
+                "phone": "",
+                "email": "",
+                "image": "ico_image010.png",
+                "numOfFollow": "1111",
+                "description": "创立于2012年6月，China公会旗下机构专注于…………。",
+                "recommend": "1"
+            }
+        ],
+        "recommend":
+        [
+         {
+                "username": "DreamCatcher",
+                "id": "675",
+                "type": "team",
+                "phone": "",
+                "email": "",
+                "image": "ico_image004.png",
+                "numOfFollow": "1111",
+                "description": "DreamCatcher战队是……",
+                "recommend": "1"
+            },
+            {
+                "username": "Team Name",
+                "id": "4444",
+                "type": "team",
+                "phone": "",
+                "email": "",
+                "image": "ico_image006.png",
+                "numOfFollow": "0",
+                "description": "DreamCatcher战队是……",
+                "recommend": 1
+            }
+           
+        ]
+    }
+}

@@ -1,0 +1,42 @@
+﻿{
+    "code": 0,
+    "desc": 131,
+    "message": "获取成功",
+    "result":
+    [
+        {
+                "username": "WE",
+                "id": "9999",
+                "type": "team",
+                "phone": "",
+                "email": "",
+                "image": "ico_image009.png",
+                "numOfFollow": "1111",
+                "description": "Team WE是希玛(上海)文化传播有限公司组建而成的……。",
+                "recommend": "1"
+            },
+             {
+                "username": "OMG",
+                "id": "9999",
+                "type": "team",
+                "phone": "",
+                "email": "",
+                "image": "ico_image010.png",
+                "numOfFollow": "1111",
+                "description": "创立于2012年6月，China公会旗下机构专注于…………。",
+                "recommend": "1"
+            },
+             {
+                "username": "OMG",
+                "id": "9999",
+                "type": "team",
+                "phone": "",
+                "email": "",
+                "image": "ico_im",
+                "numOfFollow": "1111",
+                "description": "创立于2012年6月，China公会旗下机构专注于…………。",
+                "recommend": "1"
+            }
+       
+    ]
+}

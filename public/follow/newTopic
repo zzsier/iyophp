@@ -1,0 +1,105 @@
+﻿{
+    "code": 0,
+    "desc": 216,
+    "message": "关注成功",
+    "result": [
+        {
+            "time": "2015年3月3日",
+            "value": [
+                {
+                    "title": "《寻江南春花繁锦，望水乡吴船泊岸》我的京-杭……",
+                    "image": "ico_image077.png",
+                    "content": "body10",
+                    "time": "昨天下午13:00",
+                    "numOfReplay": "1111",
+                    "numOfView": "111",
+                    "numOfLike": "111",
+                    "abstract": "《寻江南春花繁锦，望水乡吴船泊岸》我的京-杭……",
+                    "uid": "67",
+                    "user": {
+                        "username": "OMG战队",
+                        "id": "67",
+                        "type": "team",
+                        "phone": "",
+                        "email": "",
+                        "image": "ico_image010",
+                        "numOfFollow": "0",
+                        "description": "测试账户",
+                        "recommend": "1"
+                    }
+                },
+                {
+                    "title": "每当春风吹起的时候，我总仿佛听见一个声音 在远方轻声向我召唤， 这声音轻裹江南花雨， 柳絮芳菲。",
+                    "image": "ico_image079.png",
+                    "content": "body9",
+                    "time": "昨天下午13:00",
+                    "numOfReplay": "222",
+                    "numOfView": "222",
+                    "numOfLike": "222",
+                    "abstract": "每当春风吹起的时候，我总仿佛听见一个声音 在远方轻声向我召唤， 这声音轻裹江南花雨， 柳絮芳菲。",
+                    "uid": "67",
+                    "user": {
+                        "username": "WE战队",
+                        "id": "67",
+                        "type": "team",
+                        "phone": "",
+                        "email": "",
+                        "image": "ico_image009.png",
+                        "numOfFollow": "0",
+                        "description": "测试账户",
+                        "recommend": "1"
+                    }
+                }
+            ]
+        },
+        {
+            "time": "2015年3月2日",
+            "value": [
+                {
+                    "title": "《寻江南春花繁锦，望水乡吴船泊岸》我的京-杭……",
+                    "image": "ico_image077.png",
+                    "content": "body10",
+                    "time": "昨天下午13:00",
+                    "numOfReplay": "1111",
+                    "numOfView": "111",
+                    "numOfLike": "111",
+                    "abstract": "《寻江南春花繁锦，望水乡吴船泊岸》我的京-杭……",
+                    "uid": "67",
+                    "user": {
+                        "username": "OMG战队",
+                        "id": "67",
+                        "type": "team",
+                        "phone": "",
+                        "email": "",
+                        "image": "ico_image010",
+                        "numOfFollow": "0",
+                        "description": "测试账户",
+                        "recommend": "1"
+                    }
+                },
+                {
+                    "title": "每当春风吹起的时候，我总仿佛听见一个声音 在远方轻声向我召唤， 这声音轻裹江南花雨， 柳絮芳菲。",
+                    "image": "ico_image079.png",
+                    "content": "body9",
+                    "time": "昨天下午13:00",
+                    "numOfReplay": "222",
+                    "numOfView": "222",
+                    "numOfLike": "222",
+                    "abstract": "每当春风吹起的时候，我总仿佛听见一个声音 在远方轻声向我召唤， 这声音轻裹江南花雨， 柳絮芳菲。",
+                    "uid": "67",
+                    "user": {
+                        "username": "WE战队",
+                        "id": "67",
+                        "type": "team",
+                        "phone": "",
+                        "email": "",
+                        "image": "ico_image009.png",
+                        "numOfFollow": "0",
+                        "description": "测试账户",
+                        "recommend": "1"
+                    }
+                }
+            ]
+        }
+    ]
+}

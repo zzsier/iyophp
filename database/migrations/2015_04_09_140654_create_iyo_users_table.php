@@ -15,13 +15,16 @@ class CreateIyoUsersTable extends Migration {
 		Schema::create('iyo_users', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('email')->nullable();
-			$table->string('phone')->nullable()->unique();
-			$table->string('username')->nullable();
-			$table->string('password')->nullable();
-			$table->string('imageUrl')->nullable();
-			$table->string('token')->nullable();
-			$table->integer('activate')->nullable();
+			$table->string('email')->default('');
+			$table->string('phone')->default('')->unique();
+			$table->string('username')->default('');
+			$table->string('password')->default('');
+			$table->string('imageUrl')->default('');
+			$table->string('token')->default('');
+			$table->integer('activate')->default(0);
+			$table->integer('type')->default(0)->index();
+			$table->integer('follow_count')->default(0);
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}
@@ -33,7 +36,7 @@ class CreateIyoUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('tb_users');
+		Schema::drop('iyo_users');
 	}
 
 }

@@ -36,10 +36,10 @@ class Handler extends ExceptionHandler {
 	 */
 	public function render($request, Exception $e)
 	{
-        if ($e instanceof ModelNotFoundException)
-        {
-            array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserNotExist'));
-        }
+		if ($e instanceof ModelNotFoundException)
+		{
+			return array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserNotExist'));
+		}
 		return parent::render($request, $e);
 	}
 

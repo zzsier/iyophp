@@ -1,0 +1,54 @@
+﻿{
+    "code": 0,
+    "desc": 216,
+    "message": "关注成功",
+    "result":
+    [
+        {
+            "title": "OMG战队",
+            "image": "shouye_image27.png",
+            "content": "body10",
+          	"time": "昨天下午13:00",
+            "numOfReplay": "1111",
+            "numOfView": "111",
+            "numOfLike": "111",
+            "abstract": "新的起点，新的开始！",
+            "uid": "67",
+            "user":
+            {
+                "username": "OMG战队",
+                "id": "67",
+                "type": "team",
+                "phone": "",
+                "email": "",
+                "image": "ico_image010",
+                "numOfFollow": "0",
+                "description": "测试账户",
+                "recommend": "1"
+            }
+        },
+        {
+            "title": "WE战队",
+            "image": "shouye_image16.png",
+            "content": "body9",
+            "time": "昨天下午13:00",
+            "numOfReplay": "222",
+            "numOfView": "222",
+            "numOfLike": "222",
+            "abstract": "Team World Elite是由华人世界最大且最具专业性质 的电子竞技网站 Replays.Net 组建而成的中，……。",
+            "uid": "67",
+            "user":
+            {
+                "username": "WE战队",
+                "id": "67",
+                "type": "team",
+                "phone": "",
+                "email": "",
+                "image": "ico_image009.png",
+                "numOfFollow": "0",
+                "description": "测试账户",
+                "recommend": "1"
+            }
+        }
+    ]
+}

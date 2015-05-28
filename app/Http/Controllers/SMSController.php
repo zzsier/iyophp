@@ -86,7 +86,7 @@ class SMSController extends Controller {
 	{
 		$result = array('code' => trans('code.success'),'desc' => __LINE__, 'message' => trans('successmsg.SMSValidSuccess'));
 		$phoneKey = "PHONE_".$request->json("phone","");
-		$randNum = Cache::pull($phoneKey);
+		$randNum = Cache::get($phoneKey);
 		if( $randNum != $request->json("smscode","")) {
 			$result = array('code' => trans('code.ValidationCodeError'),'desc' => __LINE__, 'message' => trans('errormsg.ValidationCodeError'));
 		}
@@ -125,8 +125,8 @@ class SMSController extends Controller {
 		$public_key = "ucloudzz_stephen@163.com1426574643000586424250";
 		$private_key = "8c73c19c55c4e537bffc029eafd0c390d1ec10ef";
 
-		$content = "您的验证码是$randNum,请于5分钟内正确输入";
-		$content_sig = urlencode("您的验证码是$randNum,请于5分钟内正确输入");
+		$content = "您的验证码是$randNum,请于30分钟内正确输入";
+		$content_sig = urlencode("您的验证码是$randNum,请于30分钟内正确输入");
 
 		$public_key_sig = urlencode("ucloudzz_stephen@163.com1426574643000586424250");
 		$private_key_sig = "ucloudzz_stephen@163.com1426574643000586424250";
@@ -191,7 +191,7 @@ class SMSController extends Controller {
 		if( $parameter["RetCode"] == '0' )
 		{
 			$phoneKey = "PHONE_".$request->json("phone","");
-			Cache::put($phoneKey, $randNum, 5);
+			Cache::put($phoneKey, $randNum, 30);
 			$result = array('code' => trans('code.success'),'desc' => __LINE__, 'message' => trans('successmsg.SMSSendSuccess'));
 		}
 		else

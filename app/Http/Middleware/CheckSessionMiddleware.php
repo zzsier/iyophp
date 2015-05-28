@@ -16,10 +16,11 @@ class CheckSessionMiddleware {
 	{
 		$id = Cache::get($request->json("session",""));
                                                                                                                                            
-                if( $id == "" ) {
-                        $result = array('code' => trans('code.SessionAlreadyExpired'),'desc' => __LINE__, 'message' => trans('errormsg.SessionAlreadyExpired'));
-                        return $result;
-                }
+		if( $id == "" ) {
+		        $result = array('code' => trans('code.SessionAlreadyExpired'),'desc' => __LINE__, 'message' => trans('errormsg.SessionAlreadyExpired'));
+		        return $result;
+		}
+
 		$request["id"] = $id;
 
 		return $next($request);

@@ -1,0 +1,19 @@
+﻿{
+    "code": 0,
+    "desc": 302,
+    "message": "获取成功",
+    "result":
+    {
+        "username": "DreamCatcher",
+        "id": 0,
+        "type": "type.",
+        "phone": "",
+        "email": "",
+        "image": "ico_image004.png",
+        "numOfFollow": "5000",
+        "description": "DC战队，中国电子竞技俱乐部，中国电子竞技 俱乐部之一，英文名DreamCatcher 2013年2月 20日建立于首都北京。由北京的一名游戏爱好者旭旭投资的一家私人赞助运营的电子竞技俱乐部，2013年3月由小番茄开始着手建立第一个英雄联盟队。",
+        "official_description": "2015年3月日通过了IYO官方认证",
+        "recommend": "",
+        "follow": false
+    }
+}

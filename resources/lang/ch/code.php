@@ -13,6 +13,12 @@ return [
 	"SMSSendFailed" => 30,
 	"PhoneNumFailed" => 31,
 	"ValidationCodeError" => 32,
+	"InvalidParameter" => 33,
+
+	"RelationAlreadyExistsError" => 200,
+	"RelationNotExistsError" => 201,
+	"LikeAlreadyExistsError" => 210,
+	"LikeNotExistsError" => 211,
 
 	"NetworkError" => 100,
 ];
