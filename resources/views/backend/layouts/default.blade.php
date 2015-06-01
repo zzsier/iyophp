@@ -21,6 +21,7 @@
 		<script src="/js/jquery.fileupload-audio.js"></script>
 		<script src="/js/jquery.fileupload-video.js"></script>
 		<script src="/js/jquery.fileupload-validate.js"></script>
+		<script src="/js/tinymce/tinymce.min.js"></script>
 		<script src="/js/iyo.js"></script>
 
 	    @yield('styles')

@@ -1,45 +1,54 @@
-<html lang="zh-cn">
-	<head>
+@extends('backend.layouts.default')
 
-		<meta charset="utf-8">
-		<title>后台管理系统</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="/css/jquery.fileupload.css">
-		<link href="/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-		<link href="/css/docs.min.css" rel="stylesheet" type="text/css"/>
-		<link href="/css/iyo.css" rel="stylesheet" type="text/css"/>
-		<script src="/js/jquery.js"></script>
-		<script src="/js/bootstrap.js"></script>
-		<script src="/js/vendor/jquery.ui.widget.js"></script>
-		<script src="/js/load-image.all.min.js"></script>
-		<script src="/js/canvas-to-blob.min.js"></script>
-		<script src="/js/jquery.iframe-transport.js"></script>
-		<script src="/js/jquery.fileupload.js"></script>
-		<script src="/js/jquery.fileupload-process.js"></script>
-		<script src="/js/jquery.fileupload-image.js"></script>
-		<script src="/js/jquery.fileupload-audio.js"></script>
-		<script src="/js/jquery.fileupload-video.js"></script>
-		<script src="/js/jquery.fileupload-validate.js"></script>
-		<script src="/js/iyo.js"></script>
+@section('title')
+{{ '创建新文章' }}_@parent
+@stop
 
-	    @yield('styles')
-
-	</head>
-	<body id="body">
+@section('content')
 
 
+<div class="users-show">
+
+  <div class="main-col left-col">
+    <div class="panel panel-default">
+      <div class="panel-body ">
+        <div class="alert alert-warning">
+        </div>
+
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+    		<label class="col-sm-2 control-label" for="api">API名称</label>
+			<div class="col-sm-10">{{ $document->title }}</div>
+          </div>
+		  
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+    		<label class="col-sm-2 control-label" for="url">URL</label>
+			<div class="col-sm-10">{{ $document->url }}</div>
+          </div>
 
 
-<div class="topic_show media">
-  <div class="col-md-offset-3 col-md-6 col-xs-12 col-sm-12">
-  <div class="form-group" id="generateHTML">
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+    		<label class="col-sm-2 control-label" for="type">API描述</label>
+			<div class="col-sm-10"> {!! $document->body !!} </div>
+          </div>
+
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+    		<label class="col-sm-2 control-label" for="type">Request</label>
+			<div class="col-sm-10"> {!! $document->request !!} </div>
+          </div>
+
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+    		<label class="col-sm-2 control-label" for="type">Response</label>
+			<div class="col-sm-10"> {!! $document->response !!} </div>
+          </div>
+
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+			<div class="col-sm-12" id="showimage">
+			</div>
+		  </div>
+
+      </div>
+    </div>
   </div>
 </div>
 
-<script>
-var topic= <?php echo html_entity_decode(json_encode($topic, JSON_UNESCAPED_UNICODE)) ?>;
-render(topic);
-</script>
-
-	</body>
-</html>
+@stop

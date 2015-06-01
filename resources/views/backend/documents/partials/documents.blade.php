@@ -9,12 +9,16 @@
         <a class="pull-right" href="{{ URL::to('backend/document/destroy').'?id='.$document->id }}" >
             <span class="badge badge-reply-count"> 删除 </span>
         </a>
+        <a class="pull-right" href="{{ URL::to('backend/document/edit').'?id='.$document->id }}" >
+            <span class="badge badge-reply-count"> 编辑 </span>
+        </a>
+
 
         <div class="infos">
 
           <div class="media-heading row">
-            <a href="{{ URL::to('backend/document/edit').'?id='.$document->id }}" class="mkellipsis col-sm-8" title="{{{ $document->title }}}">
-                {{{ $dcument->title }}}
+            <a href="{{ URL::to('backend/document/show').'?id='.$document->id }}" class="mkellipsis col-sm-8" title="{{{ $document->title }}}">
+                {{{ $document->title }}}
             </a>
           </div>
           <div class="meta row">

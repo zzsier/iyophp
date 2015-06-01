@@ -7,10 +7,34 @@ use DB;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Illuminate\Log\Writer;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class IyoTopic extends Model {
 
+	use SoftDeletes;
+	protected $dates = ['deleted_at'];
+
 	const PREFIX="topic";
+
+	public static $attibutes = array(
+		"id" => "id",
+		"title" => "title",
+		"from" => "from",
+		"image" => "image",
+		"content" => "body",
+		"uid" => "uid",
+		"numOfReplay" => "reply_count",
+		"numOfView" => "view_count",
+		"numOfLike" => "like_count",
+		"abstract" => "abstract",
+		"created_at" => "created_at",
+		"numOfForward" => "forward_count",
+		"allowedComment" => "allowed_comment",
+		"deletedTimer" => "deleted_timer",
+		"pid" => "pid",
+	);
+
+	const ATTR_ID="id";
 	const ATTR_TITLE="title";
 	const ATTR_IMAGE="image";
 	const ATTR_CONTENT="content";
@@ -22,24 +46,26 @@ class IyoTopic extends Model {
 	const ATTR_ABSTRACT="abstract";
 	const ATTR_CREATEDAT="created_at";
 	const ATTR_NUMOFFORWARD="numOfForward";
+	const ATTR_ALLOWEDCOMMENT ="allowedComment";
+	const ATTR_DELETEDTIMER ="deletedTimer";
+	const ATTR_PID ="pid";
 
 	const TYPECOMMENTLIST="topiccomment";
 	const COMMENTLIST="topic:%s:comment";
 	const USERTIMELINE = "user:%s:ustimeline";
 	const USERTOPIC = "user:%s:topic";
-	const NEWTOPICMONTH = "user:%s:newtopicmonth";
 	const HOTTOPIC = "hot:1:topic";
 	const TYPEUSERTIMELINE = "ustimeline";
 	const TYPEUSERTOPIC = "usertopic";
 	const TYPEHOTTOPIC = "hottopic";
 	const TYPEEXPIRED=6;
 
-	public function asDateTime($value)
+	public static function converDateTime($value)
 	{
 		return date("Y年m月d日", strtotime($value));
 	}
 
-	public static function saveOrUpdate($title, $abstract, $from, $image, $uid, $body, $tid=0)
+	public static function saveOrUpdate($title, $abstract, $from, $image, $uid, $body, $tid=0, $pid=0, $allowedComment=1, $deletedTimer=NULL)
 	{
 		if( $tid == 0 ) {
 			$topic = new IyoTopic();
@@ -53,10 +79,15 @@ class IyoTopic extends Model {
 		$topic->image = $image;
 		$topic->uid = $uid;
 		$topic->body = $body;
+		$topic->pid = $pid;
+		$topic->allowed_comment = $allowedComment;
+		$topic->deleted_timer = $deletedTimer;
 
 		$topic->save();
 
-		IyoTopic::cleanCache($tid);
+		IyoTopic::reloadCache($tid);
+
+		return $topic;
 	}
 
 	public static function destroy($id)
@@ -102,15 +133,15 @@ class IyoTopic extends Model {
 
 			if( $attrname == IyoTopic::TYPEUSERTOPIC ) {
 				$list = IyoTopic::where('uid', $attrvalue)->orderBy('created_at', 'asc')
-					->take(1100)->get(["id"]);
+					->take(1100)->get(["id", "created_at"]);
 			} else if ( $attrname == IyoTopic::TYPEUSERTIMELINE) {
 				$list = IyoTopic::whereIn('uid', $attrvalue)->orderBy('created_at', 'asc')
-					->take(1100)->get(["id"]);
+					->take(1100)->get(["id", "created_at"]);
 			} else if ( $attrname == IyoTopic::TYPEHOTTOPIC ) {
 				$list = IyoTopic::where('created_at', '>', time()-1000*24*60*60)
-					->orderBy('view_count')->take(200)->get(["id"]);
+					->orderBy('view_count')->take(200)->get(["id", "created_at"]);
 			} else if ( $attrname == IyoTopic::TYPECOMMENTLIST ) {
-				$list = IyoComment::where('tid', $attrvalue)->orderby('created_at','asc')->get(["id"]);
+				$list = IyoComment::where('tid', $attrvalue)->orderby('created_at','asc')->get(["id", "created_at"]);
 			}
 
 			$logid = "";
@@ -126,17 +157,18 @@ class IyoTopic extends Model {
 			$logger->info($sqls);
 
 			foreach( $list as $tid ) {
-				$redis->lpush($name, $tid["id"]);
+				$logger->info($tid);
+				$redis->zadd($name,strtotime($tid["created_at"]),$tid['id']);
 			}
 
-			$redis->pexpire($name, IyoTopic::TYPEEXPIRED);
+			//$redis->pexpire($name, IyoTopic::TYPEEXPIRED);
 		}
 
-		$length = $redis->llen($name);
+		$length = $redis->zcard($name);
 		$tlist = [];
 		if( $num == 0 ) {
 			$stop = -1;
-			$tlist = $redis->lrange($name, $current, $stop);
+			$tlist = $redis->zrange($name, $current, $stop);
 		} else if( $current > 1000 ) {
 			$stop = $current + $num - 1;
 
@@ -144,8 +176,9 @@ class IyoTopic extends Model {
 				$tlist = IyoTopic::where('uid', $attrvalue)->orderBy(('created_at'))
 					->skip($current)->take($num)->get(["id"]);
 			} else if ( $attrname == IyoTopic::TYPEUSERTIMELINE) {
-				$tlist = IyoTopic::whereIn('uid', $uslist)->orderBy(('created_at'))
-					->skip($current)->take($num)->get(["id"]);
+				$tlist = [];
+				//$tlist = IyoTopic::whereIn('uid', $uslist)->orderBy(('created_at'))
+			//		->skip($current)->take($num)->get(["id"]);
 			} else if ( $attrname == IyoTopic::TYPEHOTTOPIC ) {
 				$tlist = [];
 			} else if ( $attrname == IyoTopic::TYPECOMMENTLIST ) {
@@ -153,27 +186,29 @@ class IyoTopic extends Model {
 				if( $stop > $length - 1 ) {
 					$stop = $length - 1;
 				}
-				$tlist = $redis->lrange($name, $current, $stop);
+				$tlist = $redis->zrange($name, $current, $stop);
 			}
 		} else {
 			$stop = $current + $num - 1;
 			if( $stop > $length - 1 ) {
 				$stop = $length - 1;
 			}
-			$tlist = $redis->lrange($name, $current, $stop);
+			$tlist = $redis->zrange($name, $current, $stop);
 		}
 
 		return $tlist;
 	}
 
 	public static function reloadCache($id) {
-		IyoUser::cleanCache($id);
-		IyoUser::loadDataInToCache($id);
+		IyoTopic::cleanCache($id);
+		IyoTopic::loadDataInToCache($id);
 	}
 
 	public static function loadDataInToCache($id) {
 		$redis = MyRedis::connection("default");
 		$dbtopic = IyoTopic::find($id);
+		if( is_null($dbtopic) ) return;
+		$redis->set(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_ID, $dbtopic["id"]);
 		$redis->set(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_TITLE, $dbtopic["title"]);
 		$redis->set(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_FROM, $dbtopic["from"]);
 		$redis->set(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_IMAGE, $dbtopic["image"]);
@@ -185,10 +220,14 @@ class IyoTopic extends Model {
 		$redis->set(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_ABSTRACT, $dbtopic["abstract"]);
 		$redis->set(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_CREATEDAT, $dbtopic["created_at"]);
 		$redis->set(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_NUMOFFORWARD, $dbtopic["forward_count"]);
+		$redis->set(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_ALLOWEDCOMMENT, $dbtopic["allowed_comment"]);
+		$redis->set(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_DELETEDTIMER, $dbtopic["deleted_timer"]);
+		$redis->set(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_PID, $dbtopic["pid"]);
 	}
 
 	public static function cleanCache($id) {
 		$redis = MyRedis::connection("default");
+		$redis->del(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_ID);
 		$redis->del(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_TITLE);
 		$redis->del(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_FROM);
 		$redis->del(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_IMAGE);
@@ -200,12 +239,27 @@ class IyoTopic extends Model {
 		$redis->del(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_ABSTRACT);
 		$redis->del(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_CREATEDAT);
 		$redis->del(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_NUMOFFORWARD);
+		$redis->del(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_ALLOWEDCOMMENT);
+		$redis->del(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_DELETEDTIMER);
+		$redis->del(IyoTopic::PREFIX.":$id:".IyoTopic::ATTR_PID);
+	}
+
+	public static function checkIfExists($tid) 
+	{
+		if( IyoTopic::getValue($tid, IyoTopic::ATTR_ID) == "" )
+			return false;
+		return true;
 	}
 
 	public static function queryById($id)
 	{
 		$result = [];
 		$result["tid"] = $id;
+
+		if( !IyoTopic::checkIfExists($result["tid"]) ) {
+			return null;
+		}
+
 		$result[IyoTopic::ATTR_TITLE] = IyoTopic::getValue($id, IyoTopic::ATTR_TITLE);
 		$result[IyoTopic::ATTR_FROM] = IyoTopic::getValue($id, IyoTopic::ATTR_FROM);
 		$result[IyoTopic::ATTR_IMAGE] = IyoTopic::getValue($id, IyoTopic::ATTR_IMAGE);
@@ -214,9 +268,12 @@ class IyoTopic extends Model {
 		$result[IyoTopic::ATTR_NUMOFREPLY] = IyoTopic::getValue($id, IyoTopic::ATTR_NUMOFREPLY);
 		$result[IyoTopic::ATTR_NUMOFVIEW] = IyoTopic::getValue($id, IyoTopic::ATTR_NUMOFVIEW);
 		$result[IyoTopic::ATTR_ABSTRACT] = IyoTopic::getValue($id, IyoTopic::ATTR_ABSTRACT);
-		$result[IyoTopic::ATTR_CREATEDAT] = IyoTopic::getValue($id, IyoTopic::ATTR_CREATEDAT);
+		$result[IyoTopic::ATTR_CREATEDAT] = IyoTopic::converDateTime(IyoTopic::getValue($id, IyoTopic::ATTR_CREATEDAT));
 		$result[IyoTopic::ATTR_NUMOFLIKE] = IyoTopic::getValue($id, IyoTopic::ATTR_NUMOFLIKE);
 		$result[IyoTopic::ATTR_NUMOFFORWARD] = IyoTopic::getValue($id, IyoTopic::ATTR_NUMOFFORWARD);
+		$result[IyoTopic::ATTR_ALLOWEDCOMMENT] = IyoTopic::getValue($id, IyoTopic::ATTR_ALLOWEDCOMMENT);
+		$result[IyoTopic::ATTR_DELETEDTIMER] = IyoTopic::getValue($id, IyoTopic::ATTR_DELETEDTIMER);
+		$result[IyoTopic::ATTR_PID] = IyoTopic::getValue($id, IyoTopic::ATTR_PID);
 
 		return $result;
 	}
@@ -225,6 +282,11 @@ class IyoTopic extends Model {
 	{
 		$result = [];
 		$result["tid"] = $id;
+
+		if( !IyoTopic::checkIfExists($id) ) {
+			return null;
+		}
+
 		$result[IyoTopic::ATTR_TITLE] = IyoTopic::getValue($id, IyoTopic::ATTR_TITLE);
 		$result[IyoTopic::ATTR_FROM] = IyoTopic::getValue($id, IyoTopic::ATTR_FROM);
 		$result[IyoTopic::ATTR_IMAGE] = IyoTopic::getValue($id, IyoTopic::ATTR_IMAGE);
@@ -233,9 +295,12 @@ class IyoTopic extends Model {
 		$result[IyoTopic::ATTR_NUMOFREPLY] = IyoTopic::getValue($id, IyoTopic::ATTR_NUMOFREPLY);
 		$result[IyoTopic::ATTR_NUMOFVIEW] = IyoTopic::getValue($id, IyoTopic::ATTR_NUMOFVIEW);
 		$result[IyoTopic::ATTR_ABSTRACT] = IyoTopic::getValue($id, IyoTopic::ATTR_ABSTRACT);
-		$result[IyoTopic::ATTR_CREATEDAT] = IyoTopic::getValue($id, IyoTopic::ATTR_CREATEDAT);
+		$result[IyoTopic::ATTR_CREATEDAT] = IyoTopic::converDateTime(IyoTopic::getValue($id, IyoTopic::ATTR_CREATEDAT));
 		$result[IyoTopic::ATTR_NUMOFLIKE] = IyoTopic::getValue($id, IyoTopic::ATTR_NUMOFLIKE);
 		$result[IyoTopic::ATTR_NUMOFFORWARD] = IyoTopic::getValue($id, IyoTopic::ATTR_NUMOFFORWARD);
+		$result[IyoTopic::ATTR_ALLOWEDCOMMENT] = IyoTopic::getValue($id, IyoTopic::ATTR_ALLOWEDCOMMENT);
+		$result[IyoTopic::ATTR_DELETEDTIMER] = IyoTopic::getValue($id, IyoTopic::ATTR_DELETEDTIMER);
+		$result[IyoTopic::ATTR_PID] = IyoTopic::getValue($id, IyoTopic::ATTR_PID);
 
 		return $result;
 	}

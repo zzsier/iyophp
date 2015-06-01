@@ -6,99 +6,96 @@
 
 @section('content')
 
-<div class="topic_create">
 
-  <div class="col-md-8 main-col">
+<div class="users-show">
 
-	<form accept-charset="utf-8" class="form-horizontal" method="POST">
+  <div class="main-col left-col">
+    <div class="panel panel-default">
+      <div class="panel-body ">
+        <div class="alert alert-warning">
+        </div>
 
-  <div class="form-group" id="generateHTML">
+		<form method="post" action="{{ URL::to('backend/document/save') }}">
 
-{{--
-	  <div class="alert alert-warning">
-		  {{ 'be_nice' }}
-	  </div>
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+			<div class="col-sm-10"><input type="hidden" name="id" class="form-control" value="{{ $document->id }}" /></div>
+		  </div>
 
-	  @include('backend.layouts.partials.errors')
---}}
-		<!--
-		<div class="form-group">
-		  <label for="title" class="control-label col-lg-1 col-sm-8" style="text-align:left;padding-left:0px;padding-right:0px;">文章名</label>
-		  <input class="form-control col-lg-8 col-sm-8" style="width:550px;text-align:left" id="title" type="text" name="title">
-		</div>
-		<label for="title" class="control-label" style="text-align:left;padding-left:0px;padding-right:0px;">摘要</label>
-		<div class="form-group" style="padding-top:10px;">
-		  <textarea row="5" id="abstract" class="col-lg-10 col-sm-8" style="height:100px;"></textarea>
-		</div>
-
-		<div class="form-group" id="wrappercontent">
-
-		</div>
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+    		<label class="col-sm-2 control-label" for="api">API名称</label>
+			<div class="col-sm-10"><input type="text" class="form-control" name="title" value="{{ $document->title }}" /></div>
+          </div>
+		  
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+    		<label class="col-sm-2 control-label" for="url">URL</label>
+			<div class="col-sm-10"><input type="text" name="url" class="form-control" value="{{ $document->url }}" /></div>
+          </div>
 
 
-		<div class="box preview markdown-body" id="preview-box" style="display:none;"></div>
-		-->
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+    		<label class="col-sm-2 control-label" for="type">所属章节</label>
+			<div class="col-sm-10">
+			<select class="form-control" name="type">
+				@foreach($nodes as $node)
+		            @if ($node->id == $document->nid)
+						<option value="{{ $node->id }}" selected="true">{{ $node->title }}</option>
+					@else
+						<option value="{{ $node->id }}">{{ $node->title }}</option>
+		            @endif
+				@endforeach
+            </select>
+			</div>
+          </div>
 
-  </div>
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+    		<label class="col-sm-2 control-label" for="type">API描述</label>
+			<div class="col-sm-10">
+		    <textarea row="5" name="description" class="form-control">{{ $document->description }}</textarea>
+			</div>
+          </div>
 
-  </form>
-  </div>
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+    		<label class="col-sm-2 control-label" for="type">Request</label>
+			<div class="col-sm-10">
+		    <textarea row="5" name="request" class="form-control">{{ $document->request }}</textarea>
+			</div>
+          </div>
 
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-	  <div class="modal-content">
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+    		<label class="col-sm-2 control-label" for="type">Response</label>
+			<div class="col-sm-10">
+		    <textarea row="5" name="response" class="form-control">{{ $document->response }}</textarea>
+			</div>
+          </div>
 
-		<div class="modal-header">
-		  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-		  <h4 class="modal-title" id="myModalLabel">文章编辑<a class="anchorjs-link" href="#myModalLabel"><span class="anchorjs-icon"></span></a></h4>
-		</div>
-		<div class="modal-body" id="textcontent">
-		  <textarea row="5" id="showcontent" class="form-control" style="height:100px;"></textarea>
-		</div>
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+			<div class="col-sm-12" id="showimage">
+			</div>
+		  </div>
 
-		<div class="modal-body" id="usercontent">
-			<select class="form-control selectpicker" id="userid" name="userid">
-			  @foreach ($unions as $user)
-				<option value="{{$user['id']}}">{{$user['username']}}</option>
-			  @endforeach
-			</select>
-		</div>
+          <div class="form-group status-post-submit col-sm-2 col-sm-offset-10" style="padding-top:15px;padding-bottom:15px;">
+			<button type="submit" class="btn btn-primary" /> 提 交 </button>
+			<button type="button" id="cancel" class="btn btn-default" /> 取 消 </button>
+          </div>
 
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-		  <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="savecontent();">保存</button>
-		</div>
-
-	  </div>
-	</div>
+        </form>
+      </div>
+    </div>
   </div>
 
   <script>
+	$('#cancel').click(function (e) {
+    	window.location.href = "http://"+window.location.host+'/backend/user/list';
+    });
+  </script>
 
-	render(topic, true);
-
+  <script type="text/javascript">
+    tinymce.init({
+        selector: "textarea"
+    });
   </script>
 
 
-
-  <div class="col-md-3 side-bar">
-	<div class="panel panel-default corner-radius help-box">
-	  <div class="panel-heading text-center">
-		<h3 class="panel-title">工具栏</h3>
-	  </div>
-	  <div class="panel-body">
-		  <input type="button" onclick="addcontent('title')" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block" value="添加标题"/>
-		  <input type="button" onclick="addcontent('abstract');" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block" value="添加简介"/>
-		  <input type="button" onclick="addcontent('from');" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block" value="添加来源"/>
-		  <input type="button" onclick="addcontent('headimage');" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block" value="添加头图"/>
-		  <input type="button" onclick="addcontent('uid');" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block" value="修改用户"/>
-		  <input type="button" onclick="addcontent('image');" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block" value="添加图片"/>
-		  <input type="button" onclick="addcontent('content');" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block" value="添加内容"/>
-		  <input type="button" onclick="save();" class="btn btn-danger btn-block" value="保存设置"/>
-		  <input type="button" onclick="cancel();" class="btn btn-block btn-default" value="取消返回"/>
-	  </div>
-	</div>
-  </div>
 </div>
 
 @stop

@@ -109,6 +109,54 @@ class TopicsController extends Controller {
 		return $result;
 	}
 
+	public function createMoment(Request $request) 
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '创建朋友圈成功');
+
+		$tid = $request->json("id", 0);
+		$title = $request->json("title", "");
+		$allowedComment = $request->json("allowedComment", 1);
+		$deletedTimer = $request->json("deletedTimer");
+		$uid = $request["id"];
+
+		$topic = IyoTopic::saveOrUpdate($title, "", "", "", $uid, "", $tid, 0, $allowedComment, $deletedTimer);
+
+		$result["result"] = $topic;
+
+		return $result;
+	}
+
+	public function deleteTopic(Request $request) 
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '删除朋友圈成功');
+
+		$tid = $request->json("tid", 0);
+		$uid = $request["id"];
+
+		$topic = IyoTopic::destroy($tid);
+		return $result;
+	}
+
+
+	public function forward(Request $request) 
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '转发成功');
+
+		$tid = $request->json("tid", 0);
+		$title = $request->json("title", "");
+		$uid = $request["id"];
+		$allowedComment = $request->json("allowedComment", 1);
+		$deletedTimer = $request->json("deletedTimer");
+
+		IyoTopic::saveOrUpdate($title, "", "", "", $uid, "", 0, $tid, $allowedComment, $deletedTimer);
+		IyoTopic::incrNumOfForward($tid);
+
+		return $result;
+	}
+
 	public function like(Request $request)
 	{
 		$result = array('code' => trans('code.success'),'desc' => __LINE__,
@@ -171,14 +219,44 @@ class TopicsController extends Controller {
 	public function query(Request $request)
 	{
 		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => trans('successmsg.FollowSuccess'));
+			'message' => '获取成功');
 
 		$tid = $request->json("tid",0);
 		$id = $request["id"];
 
-		IyoTopic::incrNumOfView($tid);
+		$topic = $this->queryTopic($id, $tid);
 
+		if( is_null($topic) ) {
+			$topic = [];
+			$topic["pid"] = 0;
+		}
+
+		$pid = $topic["pid"];
+
+		if( $pid != 0 ) {
+			$topic["parent"] = $this->queryTopic($id, $pid);
+		} else {
+			$topic["parent"] = [];
+		}
+
+		$result["result"] = $topic;
+		return $result;
+	}
+
+	public function queryTopic($id, $tid)
+	{
+		IyoTopic::incrNumOfView($tid);
 		$topic = IyoTopic::queryFullById($tid);
+
+		if( is_null($topic) ) {
+			return null;
+		}
+
+		if( strtotime($topic["deletedTimer"]) > strtotime(time()) ) {
+			IyoTopic::destroy($tid);
+			$topic = [];
+			return $topic;
+		}
 		$user = IyoUser::queryById($topic["uid"]);
 
 		if( IyoLike::checkIfLike($id, $tid) ) {
@@ -187,17 +265,22 @@ class TopicsController extends Controller {
 			$topic["like"] = false;
 		}
 
-
 		$topic["user"] = $user;
-		$result["result"] = $topic;
-
-		return $result;
+		return $topic;
 	}
 
 	public function queryTopicsByIds($ids, $uid) {
 		$topics = [];
 		foreach( $ids as $tid ) {
 			$topic = IyoTopic::queryById($tid);
+			if( is_null($topic) ) {
+				continue;
+			}
+
+			if( strtotime($topic["deletedTimer"]) > strtotime(time()) ) {
+				IyoTopic::destroy($tid);
+				continue;
+			}
 			$user = IyoUser::queryById($topic["uid"]);
 			if( IyoLike::checkIfLike($uid, $tid) ) {
 				$topic["like"] = true;
@@ -236,7 +319,7 @@ class TopicsController extends Controller {
 		$id = $request["id"];
 
 		$sf_ids = IyoRelation::queryStarAndFollowByFans($request["id"]);
-		$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $us_ids, $num, $current);
+		$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $sf_ids, $num, $current);
 
 		$result["result"] = $this->queryTopicsByIds($topic_ids, $id);
 		return $result;
@@ -275,44 +358,6 @@ class TopicsController extends Controller {
 		IyoTopic::destroy($request["id"]);
 		return Redirect::to('backend/topic/list');
 	}
-
-	public function uploadImage()
-	{
-		if ($file = Input::file('file')) {
-			$allowed_extensions = ["png", "jpg", "gif"];
-			if ($file->getClientOriginalExtension() && !in_array($file->getClientOriginalExtension(), $allowed_extensions)) {
-				return ['error' => 'You may only upload png, jpg or gif.'];
-			}
-
-			$fileName		= $file->getClientOriginalName();
-			$extension	   = $file->getClientOriginalExtension() ?: 'png';
-			$folderName	  = 'uploads/images/' . date("Ym", time()) .'/'.date("d", time()) .'/'. Auth::user()->id;
-			$destinationPath = public_path() . '/' . $folderName;
-			$safeName		= str_random(10).'.'.$extension;
-			$file->move($destinationPath, $safeName);
-
-			// If is not gif file, we will try to reduse the file size
-			if ($file->getClientOriginalExtension() != 'gif') {
-				// open an image file
-				$img = Image::make($destinationPath . '/' . $safeName);
-				// prevent possible upsizing
-				$img->resize(1440, null, function ($constraint) {
-					$constraint->aspectRatio();
-					$constraint->upsize();
-				});
-				// finally we save the image as a new file
-				$img->save();
-			}
-
-			$data['filename'] = getUserStaticDomain() . $folderName .'/'. $safeName;
-
-			SiteStatus::newImage();
-		} else {
-			$data['error'] = 'Error while uploading file';
-		}
-		return $data;
-	}
-
 	/**
 	 * ----------------------------------------
 	 * CreatorListener Delegate

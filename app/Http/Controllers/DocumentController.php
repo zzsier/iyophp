@@ -10,6 +10,7 @@ use App\Model\IyoRelation;
 use App\Model\IyoUser;
 use App\Model\IyoLike;
 use App\Model\IyoDocument;
+use App\Model\IyoNode;
 use Redirect;
 
 class DocumentController extends Controller {
@@ -23,43 +24,58 @@ class DocumentController extends Controller {
 	public function create()
 	{
 		$document = new IyoDocument();
+		$nodes = IyoNode::all();
 
-		return View::make('backend.documents.create_edit', compact("document"));
+		return View::make('backend.documents.create_edit', compact("document", "nodes"));
+	}
+
+	public function createNode()
+	{
+		$node = new IyoNode();
+		return View::make('backend.documents.create_node', compact("node"));
+	}
+
+	public function saveNode(Request $request)
+	{
+		$node = new IyoNode();
+		$node->title = $request["title"];
+		$node->save();
+		return Redirect::to('backend/documents/list');
 	}
 
 	public function showdetail(Request $request)
 	{
-		$topic = IyoTopic::findOrFail($request["id"]);
-		$topic['user'] = $topic->uid;
-		$user = IyoUser::findOrFail($topic->uid);
-		$topic['username'] = $user["username"];
-		$body = json_decode($topic['body']);
-		$topic['body'] = $body;
-		return View::make('backend.documents.show', compact('topic'));
+		$document = IyoDocument::findOrFail($request["id"]);
+		return View::make('backend.documents.show', compact('document'));
 	}
 
 	public function edit(Request $request)
 	{
 		$document = IyoDocument::find($request["id"]);
-		return View::make('backend.documents.create_edit', compact("document"));
+		$nodes = IyoNode::all();
+		return View::make('backend.documents.create_edit', compact("document", "nodes"));
 	}
 
-	public function saveOrUpdate(Request $request) 
-	{
-		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => trans('successmsg.FollowSuccess'));
+	public function saveOrUpdate(Request $request) {
 
-		$tid = $request->json("id", 0);
-		$title = $request->json("title", "");
-		$abstract = $request->json("abstract", "");
-		$from = $request->json("from", "");
-		$image = $request->json("headimage", "");
-		$uid = $request->json("uid", 0);
-		$body = json_encode($request->json("body", ""));
+		$id = $request["id"];
 
-		IyoTopic::saveOrUpdate($title, $abstract, $from, $image, $uid, $body, $tid);
+		if( $id == 0 ) {
+			$document = new IyoDocument();
+		} else {
+			$document = IyoDocument::find($id);
+		}
 
-		return $result;
+		$document->title = $request["title"];
+		$document->url = $request["url"];
+		$document->nid = $request["type"];
+		$document->body = $request["description"];
+		$document->request = $request["request"];
+		$document->response = $request["response"];
+
+		$document->save();
+
+		return Redirect::to('backend/document/list');
 	}
 
 	public function destroy(Request $request) {

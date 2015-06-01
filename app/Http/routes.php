@@ -72,6 +72,17 @@ Route::group(['prefix' => 'topic'], function()
 	Route::resource('query', 'TopicsController@query');
 });
 
+Route::group(['prefix' => 'moment','middleware' => 'cksession'], function()  
+{
+	Route::post('create', 'TopicsController@createMoment');
+	Route::post('query', 'TopicsController@query');
+	Route::post('forward', 'TopicsController@forward');
+	Route::post('delete', 'TopicsController@deleteTopic');
+	Route::post('timeline', 'TopicsController@querySFTopicsByTime');
+});
+
+Route::resource('moment/upload', 'UploadController@uploadMemoryImage');
+
 
 Route::group(['prefix' => 'backend'], function()  
 {
@@ -87,10 +98,13 @@ Route::group(['prefix' => 'backend'], function()
 	Route::resource('topic/destroy', 'TopicsController@destroy');
 
 	Route::resource('document/list', 'DocumentController@showlist');
+	Route::resource('document/node/create', 'DocumentController@createNode');
+	Route::resource('node/save', 'DocumentController@saveNode');
 	Route::resource('document/save', 'DocumentController@saveOrUpdate');
 	Route::resource('document/edit', 'DocumentController@edit');
 	Route::resource('document/create', 'DocumentController@create');
 	Route::resource('document/destroy', 'DocumentController@destroy');
+	Route::resource('document/show', 'DocumentController@showdetail');
 
 	Route::resource('upload', 'UploadController@uploadBEPhoto');
 	Route::resource('uploadUserPhoto', 'UploadController@uploadUserPhoto');

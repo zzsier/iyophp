@@ -5,12 +5,23 @@
     <div class="panel-body text-center">
       <div class="btn-group">
         <a href="
+          {{ URL::to('backend/document/node/create') }}
+          " class="btn btn-success btn-lg">
+          <i class="glyphicon glyphicon-pencil"> </i> {{ '新建章节' }}
+        </a>
+      </div>
+    </div>
+
+    <div class="panel-body text-center">
+      <div class="btn-group">
+        <a href="
           {{ URL::to('backend/document/create') }}
           " class="btn btn-success btn-lg">
           <i class="glyphicon glyphicon-pencil"> </i> {{ '新建文档' }}
         </a>
       </div>
     </div>
+
   </div>
 
   <div class="panel panel-default corner-radius">

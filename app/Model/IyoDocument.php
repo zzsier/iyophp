@@ -9,5 +9,6 @@ use Monolog\Handler\StreamHandler;
 use Illuminate\Log\Writer;
 
 class IyoDocument extends Model {
+	public $timestamps = false;
 
 }
