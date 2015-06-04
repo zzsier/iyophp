@@ -2,84 +2,118 @@
 
 use Illuminate\Database\Eloquent\Model;
 use MyRedis;
+use Log;
 
 class IyoComment extends Model {
 
-	const PREFIX="comment";
-	const ATTR_CONTENT="content";
-	const ATTR_CREATEDAT="created_at";
-	const ATTR_USER="user";
-	const ATTR_UID="uid";
-	const ATTR_TID="tid";
-	const TYPELEXPIRED=60000;
+	const COMMENT="comment:%s";
+	const COMMENTLIST="topic:%s:comment";
 
-	public function asDateTime($value)
-	{
-		return date("Y年m月d日", strtotime($value));
-	}
+	public static $attrnames = array(
+		array("cache"=>"content", "db"=> "body", "return"=>"content"),
+		array("cache"=>"created_at", "db"=> "created_at", "return"=>"created_at"),
+		array("cache"=>"cid", "db"=> "id", "return"=>"cid"),
+		array("cache"=>"uid", "db"=> "uid", "return"=>"uid"),
+		array("cache"=>"tid", "db"=> "tid", "return"=>"tid"),
+	);
 
-	public static function getValue($id, $attr) {
-		$redis = MyRedis::connection("default");
-		if(!$redis->exists(IyoComment::PREFIX.":$id:$attr")) {
-			IyoComment::loadDataInToCache($id);
-		}
-		if($redis->exists(IyoComment::PREFIX.":$id:$attr")) {
-			return $redis->get(IyoComment::PREFIX.":$id:$attr");
-		} else {
-			return "";
-		}
+	public static function reloadCache($id) {
+		IyoComment::cleanCache($id);
+		IyoComment::loadDataInToCache($id);
 	}
 
 	public static function loadDataInToCache($id) {
+		Log::info("IyoComment loadDataInToCache enter");
 		$redis = MyRedis::connection("default");
-		$comment = IyoComment::findOrFail($id);
-		$redis->set(IyoComment::PREFIX.":$id:".IyoComment::ATTR_CONTENT, $comment["body"]);
-		$redis->set(IyoComment::PREFIX.":$id:".IyoComment::ATTR_UID, $comment["uid"]);
-		$redis->set(IyoComment::PREFIX.":$id:".IyoComment::ATTR_TID, $comment["tid"]);
-		$redis->set(IyoComment::PREFIX.":$id:".IyoComment::ATTR_CREATEDAT, $comment["created_at"]);
+		$dbcomment = IyoComment::find($id);
+		if( is_null($dbcomment) ) return;
+		$key = sprintf(IyoComment::COMMENT, $id);
+		foreach( self::$attrnames as $attrname ) {
+			Log::info( "attribute is ".$attrname["cache"]." ".$attrname["db"]." ".$dbcomment[$attrname["db"]] );
+			$redis->hmset($key, $attrname["cache"], $dbcomment[$attrname["db"]]);
+		}
 	}
 
 	public static function cleanCache($id) {
+		Log::info("IyoComment cleanCache enter");
 		$redis = MyRedis::connection("default");
-		$redis->del(IyoComment::PREFIX.":$id:".IyoComment::ATTR_CONTENT);
-		$redis->del(IyoComment::PREFIX.":$id:".IyoComment::ATTR_UID);
-		$redis->del(IyoComment::PREFIX.":$id:".IyoComment::ATTR_TID);
-		$redis->del(IyoComment::PREFIX.":$id:".IyoComment::ATTR_CREATEDAT);
+		$key = sprintf(IyoComment::COMMENT, $id);
+		$redis->del($key);
 	}
 
-
-	public static function queryCommentById($cid)
+	public static function queryById($id)
 	{
-		$comment["cid"] = $cid;
-		$comment[IyoComment::ATTR_CONTENT] = IyoComment::getValue($cid, IyoComment::ATTR_CONTENT);
-		$comment[IyoComment::ATTR_UID] = IyoComment::getValue($cid, IyoComment::ATTR_UID);
-		$comment[IyoComment::ATTR_TID] = IyoComment::getValue($cid, IyoComment::ATTR_TID);
-		$comment[IyoComment::ATTR_CREATEDAT] = IyoComment::getValue($cid, IyoComment::ATTR_CREATEDAT);
-		return $comment;
-	}
+		$redis = MyRedis::connection("default");
+		$key = sprintf(IyoComment::COMMENT, $id);
 
-	public static function findTidByCid($cid) {
-		$tid = IyoComment::getValue($cid, IyoComment::ATTR_TID);
-		return $tid;
+		if( !$redis->exists($key) ) {
+			IyoComment::reloadCache($id);
+		}
+
+		if( !$redis->exists($key) ) {
+			return null;
+		}
+
+		$comment = [];
+		foreach( self::$attrnames as $attrname ) {
+			$comment[$attrname["return"]] = $redis->hget($key, $attrname["cache"]);
+			if( $attrname["cache"] == "created_at" ) {
+				$comment["created_at"] = date("Y年m月d日", strtotime($comment["created_at"]));
+			}
+			Log::info( "attribute is ".$attrname["return"]." ".$attrname["cache"]." ".$comment[$attrname["return"]]);
+		}
+		return $comment;
 	}
 
 	public static function delComment($cid)
 	{
+		$redis = MyRedis::connection("default");
+
 		$comment = IyoComment::find($cid);
 		$tid = $comment->tid;
 		$cid = $comment->id;
 		$comment->delete();
 		IyoComment::cleanCache($cid);
+
+		$key = sprintf(IyoComment::COMMENTLIST, $tid);
+		if($redis->exists($key)) {
+			$redis->zrem($key, $cid);
+		}
 	}
 
 	public static function addComment($uid, $tid, $body)
 	{
+		$redis = MyRedis::connection("default");
 		$comment = new IyoComment();
 		$comment->uid = $uid;
 		$comment->tid = $tid;
 		$comment->body = $body;
 		$comment->save();
+		IyoComment::reloadCache($comment->id);
+
+		$key = sprintf(IyoComment::COMMENTLIST, $tid);
+		if(!$redis->exists($key)) {
+			IyoComment::queryCommentIds($tid);
+		}
+		$redis->zadd($key,strtotime($comment["created_at"]),$comment['id']);
 	}
 
+	public static function queryCommentIds($tid, $num=0, $current=0) {
+		$redis = MyRedis::connection("default");
+		$key = sprintf(IyoComment::COMMENTLIST, $tid);
 
+		if(!$redis->exists($key)) {
+			$list = IyoComment::where('tid', $tid)->orderby('created_at','asc')->get(["id", "created_at"]);
+			foreach( $list as $cid ) {
+				$redis->zadd($key,strtotime($cid["created_at"]),$cid['id']);
+			}
+		}
+
+		$tlist = [];
+		if( $redis->exists($key) ) {
+			$tlist = $redis->zrevrange($key, $current, $current+$num-1);
+		}
+
+		return $tlist;
+	}
 }

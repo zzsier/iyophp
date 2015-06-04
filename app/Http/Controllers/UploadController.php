@@ -6,6 +6,7 @@ use App\Model\IyoUser;
 use App\Model\IyoTopic;
 use Input;
 use Cache;
+use Log;
 
 use Illuminate\Http\Request;
 
@@ -91,7 +92,11 @@ class UploadController extends Controller {
 
 		if ($file = Input::file('uploadedfile')) {
 
-			$extension = $file->getClientOriginalExtension();
+			$extension = "png";
+			if( $file->getClientOriginalExtension() && $file->getClientOriginalExtension() != "" ) {
+				$extension = $file->getClientOriginalExtension();
+			}
+
 			$destinationPath = 'uploads/'.date("Ymd");
 			$original = $file->getClientOriginalName();
 			$filename = sha1($original.time()).'.'.$extension;
@@ -113,7 +118,11 @@ class UploadController extends Controller {
 
 		if ($file = Input::file('uploadedfile')) {
 
-			$extension = $file->getClientOriginalExtension();
+			$extension = "png";
+			if( $file->getClientOriginalExtension() && $file->getClientOriginalExtension() != "" ) {
+				$extension = $file->getClientOriginalExtension();
+			}
+
 			$destinationPath = 'uploads/photos';
 			$id = $request["id"];
 			$filename =  'user_'.$id.'.'.$extension;
@@ -140,20 +149,27 @@ class UploadController extends Controller {
 		$result = array('code' => trans('code.success'),'desc' => __LINE__, 'message' => trans('successmsg.UploadSuccess'));
 
 		if ($file = Input::file('uploadedfile')) {
-			$tid = $file->getClientOriginalName();
+			//$tid = $file->getClientOriginalName();
 
-			if ( $tid == null) {
-				$result = array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => '文章不存在');
-				return $result;
+			//if ( $tid == null) {
+			//	$result = array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => '文章不存在');
+			//	return $result;
+			//}
+
+
+			$extension = "png";
+			if( $file->getClientOriginalExtension() && $file->getClientOriginalExtension() != "" ) {
+				$extension = $file->getClientOriginalExtension();
 			}
 
+			Log::info('extension:'.$extension." filename:".$file->getClientOriginalName());
 			$allowed_extensions = ["png", "jpg", "gif"];
-			if ($file->getClientOriginalExtension() && !in_array($file->getClientOriginalExtension(), $allowed_extensions)) {
+
+			if ( !in_array($extension, $allowed_extensions) ) {
 				$result = array('code' => trans('code.UploadExtError'),'desc' => __LINE__, 'message' => trans('errormsg.UploadExtError'));
 				return $result;
 			}
-
-			$extension = $file->getClientOriginalExtension();
+			
 			$destinationPath = 'uploads/'.date("Ymd");
 			$original = $file->getClientOriginalName();
 			$filename = sha1('topic'.$original.time()).'.'.$extension;
@@ -168,19 +184,19 @@ class UploadController extends Controller {
 			//	$img->save();
 			//}
 
-			$imageobj = [];
-			$newimage = $destinationPath.'/'.$filename;
-			$imageobj["image"] = $newimage;
+			//$imageobj = [];
+			//$newimage = $destinationPath.'/'.$filename;
+			//$imageobj["image"] = $newimage;
 
-			$topic = IyoTopic::find($tid);
-			$body = json_decode($topic->body);
-			$body[] = $imageobj;
-			$topic->body = json_encode($body);
+			//$topic = IyoTopic::find($tid);
+			//$body = json_decode($topic->body);
+			//$body[] = $imageobj;
+			//$topic->body = json_encode($body);
 
-			$topic->save();
+			//$topic->save();
 
-			IyoTopic::reloadCache($tid);
-			$result["result"] = $topic;
+			//IyoTopic::reloadCache($tid);
+			$result["result"] = $destinationPath.'/'.$filename;
 
 		} else {
 			$result = array('code' => trans('code.UploadFileFailed'),'desc' => __LINE__, 'message' => trans('errormsg.UploadFileFailed'));
@@ -202,13 +218,18 @@ class UploadController extends Controller {
 				return $result;
 			}
 
+			$extension = "png";
+			if( $file->getClientOriginalExtension() && $file->getClientOriginalExtension() != "" ) {
+				$extension = $file->getClientOriginalExtension();
+			}
+
 			$allowed_extensions = ["png", "jpg", "gif"];
-			if ($file->getClientOriginalExtension() && !in_array($file->getClientOriginalExtension(), $allowed_extensions)) {
+			if ( !in_array($extension, $allowed_extensions) ) {
 				$result = array('code' => trans('code.UploadExtError'),'desc' => __LINE__, 'message' => trans('errormsg.UploadExtError'));
 				return $result;
 			}
+	
 			$fileName = $file->getClientOriginalName();
-			$extension = $file->getClientOriginalExtension();
 			$destinationPath = 'uploads/photos';
 			$safeName =  'user_'.$id.'.'.$extension;
 			$file->move($destinationPath, $safeName);

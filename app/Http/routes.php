@@ -69,6 +69,7 @@ Route::group(['prefix' => 'topic'], function()
 	Route::post('saveOrUpdate', 'TopicsController@saveOrUpdate');
 	Route::get('saveOrUpdate', 'TopicsController@saveOrUpdate');
 	Route::resource('show', 'TopicsController@showdetail');
+	Route::resource('cleancache', 'TopicsController@cleanCache');
 	Route::resource('query', 'TopicsController@query');
 });
 
@@ -79,9 +80,13 @@ Route::group(['prefix' => 'moment','middleware' => 'cksession'], function()
 	Route::post('forward', 'TopicsController@forward');
 	Route::post('delete', 'TopicsController@deleteTopic');
 	Route::post('timeline', 'TopicsController@querySFTopicsByTime');
+	Route::resource('like', 'TopicsController@like');
+	Route::resource('unlike', 'TopicsController@unlike');
+	Route::resource('history', 'TopicsController@queryHistoryTopics');
 });
 
 Route::resource('moment/upload', 'UploadController@uploadMemoryImage');
+Route::resource('like/list', 'TopicsController@queryLikeList');
 
 
 Route::group(['prefix' => 'backend'], function()  

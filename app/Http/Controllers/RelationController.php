@@ -27,15 +27,9 @@ class RelationController extends Controller {
 
 		$user = IyoUser::queryById($fid);
 
-		if( $user["type"] == "2" ) {
-			IyoRelation::uadd($id, $fid);
-		} else if ( $user["type"] == "1" ) {
-			IyoRelation::sadd($id, $fid);
-		} else {
-			IyoRelation::fadd($id, $fid);
-		}
-
+		IyoRelation::add($id, $fid);
 		IyoUser::increaseNumOfFollow($fid);
+
 		return $result;
 	}
 
@@ -54,14 +48,7 @@ class RelationController extends Controller {
 		}
 
 		$user = IyoUser::queryById($fid);
-
-		if( $user["type"] == "2" ) {
-			IyoRelation::udel($id, $fid);
-		} else if ( $user["type"] == "1" ) {
-			IyoRelation::sdel($id, $fid);
-		} else {
-			IyoRelation::fdel($id, $fid);
-		}
+		IyoRelation::del($id, $fid);
 
 		IyoUser::decreaseNumOfFollow($fid);
 		return $result;
@@ -76,15 +63,17 @@ class RelationController extends Controller {
 		$num = $request->json("num",0);
 		$current = $request->json("current",0);
 
-		$union_ids = IyoRelation::queryFollowUnion($id, $num, $current);
-
+		$ids = IyoRelation::queryFollowingList($request["id"]);
 		$unions = [];
-		foreach ($union_ids as $uid) {
-			$unions[] = IyoUser::queryById($uid);
+
+		foreach( $ids as $fid ) {
+			$user = IyoUser::queryById($fid);
+			if( $user["type"] == "2" ) { 
+				$unions[] = $user;
+			}
 		}
 
 		$rec_unionids = IyoUser::queryListByType(2);
-
 		$rec_unions = [];
 		foreach ($rec_unionids as $uid) {
 			$rec_union = IyoUser::queryById($uid);

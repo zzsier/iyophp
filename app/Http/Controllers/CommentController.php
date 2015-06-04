@@ -41,7 +41,6 @@ class CommentController extends Controller
 		}
 
 		IyoComment::addComment($uid, $tid, $body);
-		IyoTopic::cleanCommentCache($tid);
 		IyoTopic::incrNumOfReply($tid);
 
 		return $result;
@@ -55,10 +54,10 @@ class CommentController extends Controller
 
 		$cid = $request->json("cid", 0);
 
-		$tid = IyoComment::findTidByCid($cid);
+		$comment = IyoComment::queryById($cid);
+		$tid = $comment["tid"];
 
 		IyoComment::delComment($cid);
-		IyoTopic::cleanCommentCache($tid);
 		IyoTopic::decrNumOfReply($tid);
 
 		return $result;
@@ -80,22 +79,16 @@ class CommentController extends Controller
 		}
 
 		$comments = [];
-		$commentIds = IyoTopic::queryCommentIds($tid, $num, $current);
+		$commentIds = IyoComment::queryCommentIds($tid, $num, $current);
 
 		foreach( $commentIds as $cid ) {
-			$comment = IyoComment::queryCommentById($cid);
-			$user = IyoUser::queryById($comment[IyoComment::ATTR_UID]);
+			$comment = IyoComment::queryById($cid);
+			$user = IyoUser::queryById($comment["uid"]);
 			$comment["user"] = $user;
 			$comments[] = $comment;
 		}
 		$result["result"] = $comments;
 
 		return $result;
-	}
-
-	public function creatorSucceed($reply)
-	{
-		Flash::success(lang('Operation succeeded.'));
-		return Redirect::route('topics.show', array(Input::get('topic_id'), '#reply'.$reply->id));
 	}
 }
