@@ -54,6 +54,76 @@ class RelationController extends Controller {
 		return $result;
 	}
 
+	public function queryFollowerList(Request $request)
+	{
+		$response = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '获取成功');
+
+		$id = $request["id"];
+		$num = $request->json("num",0);
+		$current = $request->json("current",0);
+
+		$ids = IyoRelation::queryFollowerList($request["id"],$num,$current);
+		$users = [];
+
+		foreach( $ids as $fid ) {
+			$user = IyoUser::queryById($fid);
+
+			if( IyoRelation::checkIfFollow($request["id"], $fid) ) {
+				$user["follow"] = true;
+			} else {
+				$user["follow"] = false;
+			}
+
+			$users[] = $user;
+
+		}
+
+		$response["result"] = $users;
+		return $response;
+	}
+
+	public function queryFollowList(Request $request)
+	{
+		$response = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '获取成功');
+
+		$id = $request["id"];
+		$num = $request->json("num",0);
+		$current = $request->json("current",0);
+
+		$ids = IyoRelation::queryFollowingListByType($request["id"],"SF",$num,$current);
+		$users = [];
+
+		foreach( $ids as $fid ) {
+			$users[] = IyoUser::queryById($fid);
+		}
+
+		$response["result"] = $users;
+		return $response;
+	}
+
+	public function queryFriendList(Request $request)
+	{
+		$response = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '获取成功');
+
+		$id = $request["id"];
+		$num = $request->json("num",0);
+		$current = $request->json("current",0);
+
+		$ids = IyoRelation::queryFriendList($request["id"],$num,$current);
+		$users = [];
+
+		foreach( $ids as $fid ) {
+			$users[] = IyoUser::queryById($fid);
+		}
+
+		$response["result"] = $users;
+		return $response;
+	}
+
+
 	public function queryFollowUnion(Request $request)
 	{
 		$response = array('code' => trans('code.success'),'desc' => __LINE__,
@@ -63,18 +133,16 @@ class RelationController extends Controller {
 		$num = $request->json("num",0);
 		$current = $request->json("current",0);
 
-		$ids = IyoRelation::queryFollowingList($request["id"]);
+		$ids = IyoRelation::queryFollowingListByType($request["id"],"US",$num,$current);
 		$unions = [];
 
 		foreach( $ids as $fid ) {
-			$user = IyoUser::queryById($fid);
-			if( $user["type"] == "2" ) { 
-				$unions[] = $user;
-			}
+			$unions[] = IyoUser::queryById($fid);
 		}
 
 		$rec_unionids = IyoUser::queryListByType(2);
 		$rec_unions = [];
+
 		foreach ($rec_unionids as $uid) {
 			$rec_union = IyoUser::queryById($uid);
 			if( $rec_union["recommend"] == 1 ) {

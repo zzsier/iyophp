@@ -81,10 +81,29 @@ class TopicsController extends Controller {
 		$image = $request->json("headimage", "");
 		$uid = $request->json("uid", 0);
 		$body = json_encode($request->json("body", ""));
+		$redis = MyRedis::connection("default");
 
-		IyoTopic::saveOrUpdate($title, $abstract, $from, $image, $uid, $body, $tid);
+		$topic = IyoTopic::saveOrUpdate($title, $abstract, $from, $image, $uid, $body, $tid);
+		$this->route($uid, $topic["tid"]);
 
 		return $result;
+	}
+
+	public function route($uid, $tid)
+	{
+		$ids = [];
+		$ids = IyoRelation::queryFollowerList($uid);
+		$ids[] = $uid;
+
+		$user = IyoUser::queryById($uid);
+		if( $user["type"] == "2" ) {
+			IyoTopic::routeUSList($ids,$tid);
+		} else if( $user["type"] == "0" ) {
+			IyoTopic::routeSFList($ids,$tid);
+		} else {
+			IyoTopic::routeUSList($ids,$tid);
+			IyoTopic::routeSFList($ids,$tid);
+		}
 	}
 
 	public function createMoment(Request $request) 
@@ -100,6 +119,7 @@ class TopicsController extends Controller {
 		$uid = $request["id"];
 
 		$topic = IyoTopic::saveOrUpdate($title, "", "", "", $uid, $content, 0, 0, $allowedComment, $deletedTimer);
+		$this->route($uid, $topic["tid"]);
 
 		$result["result"] = $topic;
 
@@ -134,8 +154,9 @@ class TopicsController extends Controller {
 		$allowedComment = $request->json("allowedComment", 1);
 		$deletedTimer = $request->json("deletedTimer");
 
-		IyoTopic::saveOrUpdate($title, "", "", "", $uid, "", 0, $tid, $allowedComment, $deletedTimer);
+		$topic = IyoTopic::saveOrUpdate($title, "", "", "", $uid, "", 0, $tid, $allowedComment, $deletedTimer);
 		IyoTopic::incrNumOfForward($tid);
+		$this->route($uid, $topic["tid"]);
 
 		return $result;
 	}
@@ -259,7 +280,7 @@ class TopicsController extends Controller {
 		}
 
 		if( $topic["deletedTimer"] != "" && strtotime($topic["deletedTimer"]) < time() ) {
-			IyoTopic::destroy($tid);
+			IyoTopic::destroy($tid, $id);
 			return null;
 		}
 
@@ -287,7 +308,7 @@ class TopicsController extends Controller {
 	
 			$parent = null;
 			if( $pid != 0 ) {
-				$parent = $this->queryTopic($uid, $tid);
+				$parent = $this->queryTopic($uid, $pid);
 			}
 
 			if( !is_null($parent) ) {
@@ -308,17 +329,14 @@ class TopicsController extends Controller {
 		$current = $request->json("current", 0);
 		$id = $request["id"];
 
-		$ids = IyoRelation::queryFollowingList($request["id"]);
 		$us_ids = [];
-
-		foreach( $ids as $fid ) {
-			$user = IyoUser::queryById($fid);
-			if( $user["type"] == "2" || $user["type"] == "1" ) { 
-				$us_ids[] = $fid;
-			}
+		if( IyoTopic::isNullTimeline($request["id"], "USTIMELINE") ) {
+			$us_ids = IyoRelation::queryFollowingListByType($request["id"],"US");
+			$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $us_ids, "USTIMELINE", $num, $current);
+		} else {
+			$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $us_ids, "USTIMELINE", $num, $current);
 		}
 
-		$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $us_ids, "USTIMELINE", $num, $current);
 		$result["result"] = $this->queryTopicsByIds($topic_ids, $id);
 		return $result;
 	}
@@ -332,17 +350,14 @@ class TopicsController extends Controller {
 		$current = $request->json("current", 0);
 		$id = $request["id"];
 
-		$ids = IyoRelation::queryFollowingList($request["id"]);
 		$sf_ids = [];
-
-		foreach( $ids as $fid ) {
-			$user = IyoUser::queryById($fid);
-			if( $user["type"] == "0" || $user["type"] == "1" ) { 
-				$sf_ids[] = $fid;
-			}
+		if( IyoTopic::isNullTimeline($request["id"], "SFTIMELINE") ) {
+			$sf_ids = IyoRelation::queryFollowingListByType($request["id"],"SF");
+			$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $sf_ids, "SFTIMELINE", $num, $current);
+		} else {
+			$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $sf_ids, "SFTIMELINE", $num, $current);
 		}
 
-		$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $sf_ids, "SFTIMELINE", $num, $current);
 		$result["result"] = $this->queryTopicsByIds($topic_ids, $id);
 		return $result;
 	}

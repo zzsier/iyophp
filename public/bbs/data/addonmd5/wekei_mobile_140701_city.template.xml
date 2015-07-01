@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Addon MD5]]></item>
+	<item id="ID"><![CDATA[wekei_mobile_140701_city.template]]></item>
+	<item id="RevisionID"><![CDATA[37307]]></item>
+	<item id="SN"><![CDATA[2015022711bboqYy4OOz]]></item>
+	<item id="RevisionDateline"><![CDATA[1405587601]]></item>
+	<item id="Data">
+		<item id="/preview_large.jpg"><![CDATA[5a1f551ee0b09612aa20910aafbdfe0d]]></item>
+		<item id="/preview.jpg"><![CDATA[1898e0a43ff277ab8ebb5d97aa744195]]></item>
+		<item id="/index.htm"><![CDATA[7215ee9c7d9dc229d2921a40e899ec5f]]></item>
+		<item id="/touch/forum/guide.htm"><![CDATA[7a8f27e115917eff10278a0461c7522b]]></item>
+		<item id="/touch/forum/index.htm"><![CDATA[d41d8cd98f00b204e9800998ecf8427e]]></item>
+		<item id="/touch/forum/discuz.htm"><![CDATA[5072551ac572ee3ea314206f69db72b0]]></item>
+		<item id="/touch/search/forum.htm"><![CDATA[8567446d18f46249ca98a1b3a9802f2e]]></item>
+		<item id="/touch/index.htm"><![CDATA[d41d8cd98f00b204e9800998ecf8427e]]></item>
+		<item id="/touch/common/index.htm"><![CDATA[d41d8cd98f00b204e9800998ecf8427e]]></item>
+		<item id="/touch/common/header.htm"><![CDATA[5d89f9770e7c42d0a547b3619270da45]]></item>
+		<item id="/touch/member/login.htm"><![CDATA[ec4a6b15824a849e61f575b0a518b416]]></item>
+		<item id="/touch/member/register.htm"><![CDATA[649baa86e81719d1c8b1d279967cffa2]]></item>
+		<item id="/touch/home/space_profile.htm"><![CDATA[7738e7ed675f840f09ecdf8beb7f5661]]></item>
+		<item id="/img/images/vk_fun_icon_forum.png"><![CDATA[1326c5710845aa32408fb7e26c5f423c]]></item>
+		<item id="/img/images/logo.png"><![CDATA[32d931f655e21d21781487c00cbd3970]]></item>
+		<item id="/img/images/vk_fun_icon_search.png"><![CDATA[c7b44e9ce2cc8ffee1e23ff8e559efb3]]></item>
+		<item id="/img/images/vk_header.png"><![CDATA[7de224652a45c34dbc481d8a71044d75]]></item>
+		<item id="/img/images/collapsed_no.png"><![CDATA[bca50958f635d7ebf3facdcff75ab865]]></item>
+		<item id="/img/images/vk_fun_icon_user.png"><![CDATA[fc00b599ac5a22789f64d386bea62649]]></item>
+		<item id="/img/images/titlebg.png"><![CDATA[b819c2a733ee85da493b1640bf13f0fa]]></item>
+		<item id="/img/images/index.htm"><![CDATA[7215ee9c7d9dc229d2921a40e899ec5f]]></item>
+		<item id="/img/images/collapsed_yes.png"><![CDATA[a9032ca9c2968a336334b61df43aea72]]></item>
+		<item id="/img/images/vk_fun_icon_hot.png"><![CDATA[63f29e2241177bdf880ca40098324dcb]]></item>
+		<item id="/img/index.htm"><![CDATA[7215ee9c7d9dc229d2921a40e899ec5f]]></item>
+		<item id="/img/vk_mobile_touch_plus.css"><![CDATA[f6d6114cd18a17125445eea98436dbf9]]></item>
+		<item id="/discuz_style_wekei_mobile_140701_city.xml"><![CDATA[8abe41351b3f233cc314b98841ca0f28]]></item>
+	</item>
+</root>

@@ -52,7 +52,7 @@ return [
 	|
 	*/
 
-	'locale' => 'ch',
+	'locale' => 'zh-CN',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return [
 	|
 	*/
 
-	'fallback_locale' => 'ch',
+	'fallback_locale' => 'zh-CN',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -146,6 +146,8 @@ return [
 		'App\Providers\RouteServiceProvider',
 		'Former\FormerServiceProvider',
 		'Laracasts\Flash\FlashServiceProvider',
+		'Zizaco\Entrust\EntrustServiceProvider',
+		'Collective\Html\HtmlServiceProvider',
 
 	],
 
@@ -196,7 +198,9 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Former'   => 'Former\Facades\Former',
 		'Flash' => 'Laracasts\Flash\Flash',
-
+		'Entrust' => 'Zizaco\Entrust\EntrustFacade',
+		'Form' => 'Collective\Html\FormFacade',
+		'Html' => 'Collective\Html\HtmlFacade',
 	],
 
 ];

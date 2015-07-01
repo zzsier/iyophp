@@ -1,0 +1,21 @@
+<!--{subtemplate common/header}-->
+
+<div class="threadlist">
+	<h2 class="thread_tit">
+		<a href="forum.php?mod=guide&view=hot"<!--{if $_GET['view']=='hot'}-->style="background:#d9d8d8; "<!--{/if}-->>{lang hotest_thread}</a>
+		<a href="forum.php?mod=guide&view=digest"<!--{if $_GET['view']=='digest'}-->style="background:#d9d8d8;"<!--{/if}-->>{echo $lang['newjinghua'];}</a>
+		<a href="forum.php?mod=guide&view=newthread"<!--{if $_GET['view']=='newthread'}-->style="background:#d9d8d8; "<!--{/if}-->>{echo $lang['newfabu'];}</a>
+	</h2>
+
+	<!--{loop $data $key $list}-->
+		<!--{subtemplate forum/guide_list_row}-->
+	<!--{/loop}-->
+
+</div>
+<!-- main threadlist end -->
+
+$multipage
+
+
+
+<!--{subtemplate common/footer}-->

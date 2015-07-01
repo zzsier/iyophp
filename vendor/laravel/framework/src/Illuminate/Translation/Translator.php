@@ -116,10 +116,6 @@ class Translator extends NamespacedItemResolver implements TranslatorInterface {
 		{
 			return $line;
 		}
-		else
-		{
-			return $line;
-		}
 	}
 
 	/**

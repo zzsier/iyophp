@@ -1,0 +1,336 @@
+@charset "utf-8";
+/*
+昕竹轩工作室
+自定义或重定义 默认 module.css 文件相关属性
+http://www.jmxzw.com
+*/
+
+
+
+
+/* ----------------------------------- 文章、日志等页面样式 */
+/** portal::list,home::space **/
+.bm_h .addnew { margin-left: 10px; padding-left: 20px; font-size:14px; color:#06c; background: url({IMGDIR}/addbuddy.gif) no-repeat 0 45%; }
+.bm_h .rss { margin-left: 10px; padding-left: 30px; font-size:14px; background: url({STYLEIMGDIR}/feed.png) no-repeat 0 45%; }
+
+/* 修复IE7下 文章列表右侧时间换行问题 */
+.xzw_module_list { position: relative;}
+.xzw_module_list dt { margin-bottom:10px !important;}
+.xzw_module_list em { position:absolute; right:0px;}
+.xzw_module_list a.xi2 { height:30px; line-height:30px; font-size:14px !important;}
+
+/** end **/
+
+
+
+/** forum::forumdisplay **/
+.bdl { float: left; overflow: hidden; border: 1px solid #ddd; background-color: #f6f6f6; }
+.ie6 .bdl { position: relative; }
+.bdl_h { height: 32px; line-height: 22px; }
+.bdl .tbn { margin: 10px; }
+
+	.bdl dl { margin: -1px -10px 0; }
+		.bdl dt { overflow: hidden; height: 33px; line-height: 33px; border: solid #e6e6e6; border-width: 1px 0; background: #f0f0f0 url({STYLEIMGDIR}/titlebg_sd.png) repeat-x 100% 0; }
+			.bdl dt a { display: block; padding: 0 15px 0 10px; font-size:14px; color:#333; }
+				.bdl dt a:hover, .bdl_a a:hover { text-decoration: none; color:#15b; }
+	.bdl dd { display: none; }
+		.bdl dd a { display: block; margin: 0 3px; padding: 0 7px; height:26px ; line-height:26px; overflow: hidden; }
+	.bdl dl.a { padding-bottom: 4px; background-color: #FFF; }
+		.bdl dl.a dt { margin-bottom: 3px; background-position: 100% -33px; }
+		.bdl dl.a dd, .bdl_fav dd { display: block; overflow: hidden; zoom: 1; }
+			.bdl dd.bdl_a a { background-color: #F5F9FB; font-weight: 700; color: {HIGHLIGHTLINK}; }
+
+/** end **/
+
+
+/** forum::index **/
+#chart { margin: 10px 0 0; }
+/** end **/
+
+/** forum::forumdisplay**/
+/* class info */
+.tsm { margin-bottom:0px;}
+	.tl .by_field { width: 100px; overflow:hidden;  padding-right: 10px; text-align: right; line-height: 24px; height:24px; }
+	.tl .by_field_short { width: 60px; overflow:hidden;  padding-right: 15px; text-align: right; line-height: 24px; height:24px; }
+	.tl .by_field_long { width: 120px; overflow:hidden;  padding-right: 15px; text-align: right; line-height: 24px; height:24px; }
+
+.xzw_xst_append { font-size:12px; color:#999; }
+.xzw_xst_price  { font-size:14px; color:#e00; }
+/** end **/
+
+
+
+/** forum::index,forum::forumdisplay,group::index,group::group,search::group **/
+
+.fl {}
+.fl {
+	border: 0px;
+	border-top: 1px solid #EEE;
+	background: none;
+}
+
+.fl .bm {
+	border: 0;
+}
+
+.fl .bm_h { 
+	border-color:#ccc; 
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px 8px 0px 0px; 
+	border: 1px solid #E9E9E9;
+} 
+
+.fl .bm .bm_h h2 a {
+	font-size: 16px;
+	font-weight: 100;
+	color: #333;
+}
+
+.fl .bm .bm_h .o img {
+	margin-top: 16px;
+}
+
+.fl .bm .bm_h .o,.fl .bm .bm_h .o a,.fl .bm .bm_h .y,.fl .bm .bm_h .y a {
+	font-size: 12px;
+	font-weight: 100;
+	color: #666;
+}
+
+.fl .bm .bm_c {
+	padding: 5px 10px;
+	border-left: 1px solid #E9E9E9;
+	border-right: 1px solid #E9E9E9;
+	border-bottom: 5px solid #FF9900;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 0px 0px 8px 8px;
+}
+
+.fl_tb td {
+	padding: 10px 0;
+}
+
+.fl_row td {
+	border-top: 1px solid #F5F5F5;
+}
+
+.fl_icn {
+	width: 56px;
+}
+
+.fl_icn_g {
+	width: 56px;
+}
+
+.fl_g dl {
+	margin-left: 56px;
+}
+
+.fl_tb h2,.fl_g dt {
+	font-weight: 100;
+}
+
+.fl_tb h2 a,.fl_g dt a {
+	font-size: 14px;
+	color: #333;
+}
+
+.fl_tb p,.fl_g dd {
+	line-height: 20px;
+	color: #888;
+}
+
+.fl_tb p a,.fl_g dd a {
+	color: #888;
+}
+
+/** end **/
+
+/** forum::forumdisplay **/
+/*#atarget { margin: 0px 0 0 0px; }
+
+.imagemode, .txtmode { overflow: hidden; float: right; margin:0px 0 0 7px; width: 16px; height: 16px; text-indent: -9999px; background: url({STYLEIMGDIR}/chk.png) no-repeat 0 -16px; outline: none; }
+.imagemode { background-position: -16px -16px; }
+	.ichked { background-position: -16px 0; }
+	.tchked { background-position: 0 0; }
+*/
+/** end **/
+
+/** forum::forumdisplay,forum::viewthread,forum::viewthread_list,forum::guide **/
+.boardnav .bml { border: none !important; }
+#pt {  }
+.pgs #newspecial, .pgs #newspecialtmp, .pgs #post_reply, .pgs #post_replytmp { float: left; margin-right: 20px; }
+	
+.xzw_newspecial { float: left; width: 100px; height: 35px; display:block; overflow: hidden; text-indent: -9999px; box-shadow:0px 1px 3px #ccc; /*-webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px; */ background: url({STYLEIMGDIR}/xzw_pn_post.png) no-repeat 0 0;}
+	.xzw_newspecial:hover{ background-position: 0 -35px; }
+	.xzw_newspecial:active { background-position: 0 -35px; }
+
+
+.xzw_post_reply { float: left; width: 100px; height: 35px; display:block; overflow: hidden; text-indent: -9999px; box-shadow:0px 1px 3px #ccc; /*-webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px; */ background: url({STYLEIMGDIR}/xzw_pn_reply.png) no-repeat 0 0;}
+	.xzw_post_reply:hover{ background-position: 0 -35px; }
+	.xzw_post_reply:active { background-position: 0 -35px; }
+
+.tl { border-radius:8px;  box-shadow:1px 1px 3px #ccc; line-height: 15px;} 
+.xst {font-family:"Microsoft yahei","微软雅黑" ;}
+	.tl td { border-bottom:1px solid #eee; padding:8px 5px; }
+	.tl th { border-bottom:1px solid #eee; padding:10px 0; }
+
+	.tl tr:hover th, .tl tr:hover td { background: #f8f8f8; }
+/*	.tl tr:hover a { color:#f60; }
+*/	.bw0_all tr:hover th, .bw0_all tr:hover td { background: none; }
+	
+	/*.tl .th { padding: 5px 15px 5px 10px; background: #EBF1FC; }*/
+
+	.tl .th { padding: 0px 10px; background: #FaFaFa; height: 45px; }
+	
+	.tl tbody:last-child th, .tl tbody:last-child td { border-bottom: none; }
+/*
+	#threadlist.addradius { -moz-border-radius:3px; -webkit-border-radius:3px; border-radius: 3px;  }
+*/
+
+
+	.addradius .th { border-radius: 5px 5px 0 0; }
+
+	.tl .tf a {  margin-right: 5px; /*padding: 4px 2px 3px;*/ height: 16px; background-color: transparent;  -moz-border-radius:3px; -webkit-border-radius:3px; border-radius: 3px;  }
+		.tl .tf a.a { background-color: #367DD3; color: #FFF; }
+		.tl .tf a.a:hover { text-decoration: none; }
+		.tl .tf .showmenu { padding-right: 20px; background-image: url({STYLEIMGDIR}/xzw_arrwd.png); }
+
+	.tl .xst, .newthread .new em, .newthread .new em a { font-size: 14px !important; }
+
+	.list_pic { margin-left: 0; }
+	.list_pic img { width: 100px; height: 80px; }
+	
+	
+.pgbtn { margin: 5px 0 10px; }
+	.pgbtn a { display: block; height: 40px; line-height: 40px; letter-spacing: 5px; text-align: center; border: 1px solid #DCDCDC; background: #F5F5F5 url({IMGDIR}/bg_pgbtn.png) repeat-x 0 0; font-size: 14px; outline: none; border-radius: 5px; box-shadow: 0 1px 0 #F5F5F5; }
+		.pgbtn a:hover { border-color: #BABABA; text-decoration: none; }
+		.pgbtn a:active { background: #EEE; border-color: #D0D0D0; box-shadow: none; }
+
+/*
+.waterfall { position: relative; margin-top: 15px; }
+	.waterfall li { margin: 0 10px 10px 0; padding: 0 0 3px 0; text-align: left; border-width: 1px 0 0; border-top: 1px solid #EAEAEA; background: url({STYLEIMGDIR}/bg_waterfall.png) no-repeat 100% 100%; }
+	.waterfall .c, .waterfall h3 { padding: 10px; border: solid #EAEAEA; border-width: 0 1px; background-color: #F8F8F8; }
+		.waterfall .c { overflow: hidden; padding-bottom: 0; max-height: 800px; }
+		.waterfall .c .nopic { display: block; background:{WRAPBG} url({IMGDIR}/nophototiny.png) no-repeat 50% 50%; cursor: pointer; }
+	.waterfall .auth { padding: 0 10px 10px; border-width: 0 1px 1px; border-style: solid; border-color: transparent #EAEAEA #B9B9B9; background: #F8F8F8; }
+		.waterfall .auth img { display: inline-block; margin: 0 1px; }
+*/	
+/** end **/
+
+
+
+/** forum::viewthread,group::viewthread,forum::trade,forum::misc **/
+
+.pl { margin-top: 8px; }
+
+.xzw_pl .bm { border:none; }
+/*	.xzw_pl_block_title { border:1px solid #ddd; border-bottom:none; -webkit-border-radius:5px 5px 0 0; -moz-border-radius:5px 5px 0 0; border-radius:5px 5px 0 0;  margin-bottom:0px; }
+	.xzw_pl_block { border:1px solid #ddd; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius: 5px;  box-shadow:0px 1px 3px rgba(0,0,0,.15); margin-bottom:15px; }
+*/
+	.xzw_pl_block_title { border:1px solid #ddd; border-bottom:none; -webkit-border-radius:0px; -moz-border-radius:0px; border-radius:0px;  margin-bottom:0px; }
+	.xzw_pl_block { border:1px solid #ddd; -webkit-border-radius:0px; -moz-border-radius:0px; border-radius: 0px;  box-shadow:0px 1px 3px rgba(0,0,0,.15); margin-bottom:15px; }
+.pl .quote { background-color: #f8f8f8 !important; }
+.pl table { }
+.ad .plc { border-right: none; background-color:#f8f8f8; }
+.pls, .ad .pls { background:#f8f8f8; border-right:1px solid #ddd; }
+.pls p, .pls .pil, .pls .o { }
+.pls .avatar, #f_pst .avatar {padding-bottom:22px; text-align:center;   background: url({STYLEIMGDIR}/xzw_pl_avt_bg.png) no-repeat center bottom; }
+.pls .avatar img { margin:5px 5px 0px 5px; padding:0px;}
+.pls .avatar img, .bui, .bui .m img {/* min-width:90px;*/ margin:0 auto;/*  box-shadow:0px 1px 3px #aaa; */ -moz-border-radius:5px; -webkit-border-radius:5px; border-radius: 5px;}
+.pls .pi { }
+.pls .pi a { }
+
+.pls .o li { display: inline; margin-left: 0px; width: 120px; height: 30px; line-height: 30px; font-size:14px; text-indent: 0; border: 1px solid #555;  -moz-border-radius:3px; -webkit-border-radius:3px; border-radius: 3px; background: #555 url({STYLEIMGDIR}/bg_btn_diy.png) repeat-x 0 100% !important;}
+.pls .o .addflw a { color:#0ef; display: block; padding-left: 50px; background: url({STYLEIMGDIR}/flw_ico.png) no-repeat 15px 50%; }
+.pls .o .pm2 a { color:#fe0; display: block; padding-left: 50px; background: url({STYLEIMGDIR}/pmto.gif) no-repeat 15px 50%; }
+.tath { margin: 0 13px 0 17px; padding-left: 40px; }
+.tath img { position: absolute; margin-left: -40px; width: 36px; height: 36px; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius: 3px; }
+.cp_pls { text-align: center; }
+.cp_pls a { float: none; margin-right: 0; }
+
+	.plc { background-color: #fff; }
+.ad .plc { padding: 5px 0; }
+
+.ad .xzw_ad_plc { padding: 8px 0;  border-right: none; background-color: transparent; }
+
+
+/* 帖子作者、时间、楼层等一些属性所在区块 */
+.pi { height:30px; line-height:36px; }
+
+.plc .pgbtn { margin: -5px 0 0; }
+.ts { font-size: 18px; }
+.plc .pi { border-bottom: none; }
+.plc .pi strong a, .plc .pi sup { margin: 0 0 0 5px; padding: 0; border: none; vertical-align: bottom; font-size: 16px; font-weight: 400; }
+.plc .pi strong a em { line-height: 1; font-size: 26px; }
+.pdbt { margin-top: 0; }
+.authicn { cursor: default; }
+.t_fsz, .pcbs { min-height: 60px; }
+.replycredit { padding-left: 30px; background: #FFF url({STYLEIMGDIR}/thread_prize_s.png) no-repeat 9px 9px; }
+.rewardfloor { padding-left: 30px; background: #FFF url({STYLEIMGDIR}/rushreply_s.png) no-repeat 9px 9px; }
+
+#p_btn { margin: 3em 0 6em; text-align: center; /* height:30px; */ line-height:30px; }
+#p_btn a { float: none; display: inline-block; margin: 0 5px; padding: 0; border: 1px solid #ddd;-moz-border-radius:5px; -webkit-border-radius:5px; border-radius: 5px;  background: url({STYLEIMGDIR}/bg_btn.png) repeat-x 0 0;}
+#p_btn a i { padding: 0 8px; border-bottom: 1px solid #feee; background: none; }
+#p_btn img { margin-right: 5px; }
+
+
+/* 修复 QQ分享到 内边距 */
+#p_btn .tshare a, #p_btn .tshare i { padding:0 5px; }
+
+	.pl .quote {  -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px;  background: #fefefe url({STYLEIMGDIR}/icon_quote_s.png) no-repeat 20px 6px; }
+		.pl .quote blockquote {  background: url({STYLEIMGDIR}/icon_quote_e.png) no-repeat 100% 100%; }
+
+
+.psth, .cm .psth { background: #EDEDF1 url({STYLEIMGDIR}/arw.gif) no-repeat 100% 50%; }
+	.psth { width:auto;} /* 针对 发帖际遇 官方默认的 240px 宽 */
+.locked { background-color: #FCFCFC; }
+
+.rpost .pls { background-image: url({STYLEIMGDIR}/bg_arrow_left_r.png); }
+.rpost .plc { background-color: #FFFAE8; }
+
+.ttp { padding: 5px 0 0; background: none; }
+.ttp a { background-color: #F2F2F2; }
+.ttp .a a, .ttp .a a:hover { background-color: #367DD3; color: #FFF; text-decoration: none; }
+
+/** end **/
+
+
+
+
+
+
+/** forum::forumdisplay,forum::viewthread,group::viewthread,portal::list,portal::view **/
+.pgs { text-align:center;}
+	.pgs #newspecial, .pgs #newspecialtmp, .pgs #post_reply, .pgs #post_replytmp { float: left; margin-right: 5px; }
+	.pg { float: right; }
+	.pg, .pgb { line-height: 26px; }
+	/* order btn */
+
+		.pg label { float: left; display: inline; margin-left: 5px; padding:0 8px;  height:30px; border:1px solid #ccc;  background:#eee; }
+		.pg a, .pg strong, .pgb a { float: left; display: inline; margin-left: 5px; padding: 0px; width:30px; height:30px;
+		 border: none;  background:url({STYLEIMGDIR}/bg_xzw_pg_a.png) no-repeat; }
+
+			.pgb a { padding: 0 10px; }
+			.pg a.nxt{ padding:0 15px 0 10px; }
+			.pg a:hover, .pgb a:hover { border-color: {HIGHLIGHTLINK}; color: {HIGHLIGHTLINK}; }
+/*			.pg a.nxt { padding-right:25px; background-image: url({STYLEIMGDIR}/arw_r.gif); background-position: 90% 50%; }
+*/			.pg a.nxt {width:80px; height:30px;  background: url({STYLEIMGDIR}/bg_xzw_arw_r.png) no-repeat; background-position: 80% 50%; }
+
+			.pg a.prev {width:30px; height:30px; background: url({STYLEIMGDIR}/bg_xzw_arw_l.png) no-repeat; /* arw_l.gif */   /*  background-position: 50% 50%; */}
+
+			/*
+			.pg strong { background-color: {SPECIALBG}; }
+			*/
+			.pg strong { background-color: transparent; color:#fff;  background: url({STYLEIMGDIR}/bg_xzw_arw_a_on.png) no-repeat;  }
+
+/*		.pgb a { padding-left: 25px; background-image: url({STYLEIMGDIR}/arw_l.gif); background-position: 10px 50%; }
+*/
+		.pgb a { padding-left: 35px; background: url({STYLEIMGDIR}/bg_xzw_arw_l.png) no-repeat;  }
+		.pg label { cursor: text; }
+			.ie6 .pg label { padding-top: 3px; height: 23px; }
+
+			.pg label .px { padding: 0; width: 25px; height: 16px; line-height: 16px; }
+	#pgt .pg, #pgt .pgb { margin-top: 5px; }
+/** end **/

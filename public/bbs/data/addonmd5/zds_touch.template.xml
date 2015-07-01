@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Addon MD5]]></item>
+	<item id="ID"><![CDATA[zds_touch.template]]></item>
+	<item id="RevisionID"><![CDATA[37747]]></item>
+	<item id="SN"><![CDATA[20150227115wPIX2HOX2]]></item>
+	<item id="RevisionDateline"><![CDATA[1417658402]]></item>
+	<item id="Data">
+		<item id="/preview_large.jpg"><![CDATA[53e520131dad450752d6410c58b517f7]]></item>
+		<item id="/preview.jpg"><![CDATA[d4fd700abba2d64235d82b2a7c80be98]]></item>
+		<item id="/Thumbs.db"><![CDATA[314bb4779b4bd498262ac7b468d95b1f]]></item>
+		<item id="/discuz_style_zds_touch.xml"><![CDATA[bcc08320d274b9ebba97504dcf56dda6]]></item>
+		<item id="/touch/forum/discuz.php"><![CDATA[b5d5d4a849d2fef64f6ab05a43e6561f]]></item>
+		<item id="/touch/forum/discuzcode.php"><![CDATA[8635f34e4842d580675093c6f4aa0ee5]]></item>
+		<item id="/touch/forum/post.php"><![CDATA[7fab40d108934467c56bb6bdb0d4600e]]></item>
+		<item id="/touch/images/style.css"><![CDATA[fb0a6024a1c540e9eea6389304b062db]]></item>
+		<item id="/touch/images/img/logo.png"><![CDATA[d37e4844cc257c72b41e338f317e78a4]]></item>
+		<item id="/touch/images/img/user_bg.jpg"><![CDATA[1b5e786c42de3873abb3252dada57938]]></item>
+		<item id="/touch/images/img/collapsed_no.png"><![CDATA[ce09f7aec037a0a22eec8d3f1e446bc5]]></item>
+		<item id="/touch/images/img/image_s.png"><![CDATA[ec3272387da1f8eec7bfe98041290dd8]]></item>
+		<item id="/touch/images/img/title-bg.png"><![CDATA[13063cf451f0d0393ac524d99f4b8d43]]></item>
+		<item id="/touch/images/img/forum_new.gif"><![CDATA[3199be8bcbcaf7b51bad311b746d2846]]></item>
+		<item id="/touch/images/img/pllb.png"><![CDATA[55d2db08364e63e2759bc59ed8e9e737]]></item>
+		<item id="/touch/images/img/collapsed_yes.png"><![CDATA[e460600212c0da23756057ed259bd5fa]]></item>
+		<item id="/touch/images/img/pn.png"><![CDATA[81cfd8f4730a8797464bc5599ef53bff]]></item>
+		<item id="/touch/images/img/log2o.png"><![CDATA[da6425500028a6bfa4f66ae7c8382eea]]></item>
+		<item id="/touch/images/img/tbg.png"><![CDATA[980abfae839a06d3d94209224f89c757]]></item>
+		<item id="/touch/images/img/forum.gif"><![CDATA[9d817c3242e1d8cb9a90108a8810327a]]></item>
+		<item id="/touch/images/img/b.png"><![CDATA[748753d31c67f6fd251e429a5eb9a657]]></item>
+		<item id="/touch/images/img/list-r.png"><![CDATA[23ba855dba27d6510ca9106459f7ea35]]></item>
+		<item id="/touch/images/img/ico_header.png"><![CDATA[d3400a6bdbbb801b179ff48bf6c487fd]]></item>
+		<item id="/touch/images/js/TouchSlide.1.1.js"><![CDATA[3e95743d48ab5ae9cbeda7114fc5c2c9]]></item>
+		<item id="/touch/index.htm"><![CDATA[d41d8cd98f00b204e9800998ecf8427e]]></item>
+		<item id="/touch/common/showmessage.php"><![CDATA[83fc82ba06d445571bac3cec1f8abcc9]]></item>
+		<item id="/touch/common/header.php"><![CDATA[13d36685bd720ec198291def6e08a142]]></item>
+		<item id="/touch/common/footer.php"><![CDATA[6b881494c50260d6c37269f5543b9a70]]></item>
+		<item id="/touch/portal/index.php"><![CDATA[54bfa737d9dd7038292d28a4d689431d]]></item>
+		<item id="/touch/home/space_profile.php"><![CDATA[e15b42e4a1882724ad673b3a58d97886]]></item>
+	</item>
+</root>

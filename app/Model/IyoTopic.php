@@ -1,4 +1,5 @@
-<?php namespace App\Model;
+<?php 
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use MyRedis;
@@ -35,10 +36,12 @@ class IyoTopic extends Model {
 	);
 
 	const TOPIC="topic:%s";
+	const USTEMPTIMELINE = "user:%s:tempustimeline";
+	const SFTEMPTIMELINE = "user:%s:tempsftimeline";
 	const USTIMELINE = "user:%s:ustimeline";
 	const SFTIMELINE = "user:%s:sftimeline";
+	const USERTIMELINE = "user:%s:timeline";
 	const USERTOPIC = "user:%s:topic";
-	const USERMONTHTOPIC = "user:%s:month";
 	const HOTTOPIC = "hot:topic";
 
 	public static function converDateTime($value)
@@ -70,21 +73,66 @@ class IyoTopic extends Model {
 
 		$redis = MyRedis::connection("default");
 		$key = sprintf(IyoTopic::USERTOPIC, $uid);
-		$redis->zadd($key,strtotime($topic["created_at"]),$topic['id']);
+		if( $redis->exists($key) ) {
+			$redis->zadd($key,strtotime($topic["created_at"]),$topic['id']);
+		}
 
+		$tid = $topic->id;
 		IyoTopic::reloadCache($tid);
 		$topic = IyoTopic::queryById($tid);
 
 		return $topic;
 	}
 
-	public static function destroy($id)
+	public static function routeSFList($ids, $tid) {
+		$redis = MyRedis::connection("default");
+
+		foreach( $ids as $uid ) {
+			$key = sprintf(IyoTopic::SFTIMELINE, $uid);
+			$redis->lpush($key, 0, $tid);
+			$redis->ltrim($key,0,1000);
+			$mosquitto = new \Mosquitto\Client();
+			$mosquitto->connect("localhost", 1883, 5);
+			$mosquitto->publish("iyo_id_".$uid, '{"fan":"0","friend":"0","moment":"1","topic":"0"}', 1, 0);
+			$mosquitto->disconnect();
+		}
+	}
+
+	public static function routeUSList($ids, $tid) {
+		$redis = MyRedis::connection("default");
+
+		foreach( $ids as $uid ) {
+			$key = sprintf(IyoTopic::USTIMELINE, $uid);
+			$redis->lpush($key, 0, $tid);
+			$redis->ltrim($key,0,1000);
+			$mosquitto = new \Mosquitto\Client();
+			$mosquitto->connect("localhost", 1883, 5);
+			$mosquitto->publish("iyo_id_".$uid, '{"fan":"0","friend":"0","moment":"0","topic":"1"}', 1, 0);
+			$mosquitto->disconnect();
+		}
+	}
+
+	public static function destroy($id, $uid=0)
 	{
+		$redis = MyRedis::connection("default");
 		$topic = IyoTopic::find($id);
 		if( !is_null($topic) ) {
+			$key = sprintf(IyoTopic::USERTOPIC, $topic->uid);
+			if( $redis->exists($key) ) {
+				$redis->zrem($key, $id);
+			}
 			$topic->delete();
 		}
+
 		IyoTopic::cleanCache($id);
+		$key = sprintf(IyoTopic::USTIMELINE, $uid);
+		if( $redis->exists($key) ) {
+			$redis->lrem($key, 0, $id);
+		}
+		$key = sprintf(IyoTopic::SFTIMELINE, $uid);
+		if( $redis->exists($key) ) {
+			$redis->lrem($key, 0, $id);
+		}
 	}
 
 	public static function reloadCache($id) {
@@ -135,14 +183,14 @@ class IyoTopic extends Model {
 		return $topic;
 	}
 
-	public static function queryTopicIdsByTime($uid, $uslist, $type, $num=0, $current=0)
+	public static function queryTempTopicIdsByTime($uid, $uslist, $type, $num=0, $current=0)
 	{
 		$redis = MyRedis::connection("default");
 
 		if( $type == "USTIMELINE" ) {
-			$key = sprintf(IyoTopic::USTIMELINE, $uid);
+			$key = sprintf(IyoTopic::USTEMPTIMELINE, $uid);
 		} else {
-			$key = sprintf(IyoTopic::SFTIMELINE, $uid);
+			$key = sprintf(IyoTopic::SFTEMPTIMELINE, $uid);
 		}
 
 		if( $current == 0 ) {
@@ -165,11 +213,6 @@ class IyoTopic extends Model {
 					$redisunion[] = $userlist;
 				}
 			}
-			//array_unshift($redisunion, count($redisunion));
-			//Log::info("json value is ".json_encode($redisunion));
-			//$redis->command('zunionstore', $key, $redisunion);
-			//$redis->command($redisunion);
-
 
 			if( count($redisunion) > 0 ) {
 				$redis->zunionstore($key, 1, $redisunion[0]);
@@ -181,6 +224,45 @@ class IyoTopic extends Model {
 
 		if( $redis->exists($key) ) {
 			$tlist = $redis->zrevrange($key, $current, $current+$num-1);
+		}
+
+		return $tlist;
+	}
+
+	public static function isNullTimeline($uid, $type) {
+		$redis = MyRedis::connection("default");
+		if( $type == "USTIMELINE" ) {
+			$key = sprintf(IyoTopic::USTIMELINE, $uid);
+		} else {
+			$key = sprintf(IyoTopic::SFTIMELINE, $uid);
+		}
+		if( $redis->exists($key) ) {
+			return false;
+		}
+		return true;
+	}
+
+	public static function queryTopicIdsByTime($uid, $uslist, $type, $num=0, $current=0)
+	{
+		$redis = MyRedis::connection("default");
+
+		if( $type == "USTIMELINE" ) {
+			$key = sprintf(IyoTopic::USTIMELINE, $uid);
+		} else {
+			$key = sprintf(IyoTopic::SFTIMELINE, $uid);
+		}
+
+		$uslist[] = $uid;
+		$tlist = [];
+
+		if( !$redis->exists($key) ) {
+			$templist = [];
+			$templist = IyoTopic::queryTempTopicIdsByTime($uid, $uslist, $type);
+			$redis->rpush($key, $templist);
+		}
+
+		if( $redis->exists($key) ) {
+			$tlist = $redis->lrange($key, $current, $current+$num-1);
 		}
 
 		return $tlist;
@@ -206,28 +288,6 @@ class IyoTopic extends Model {
 
 		return $tlist;
 	}
-
-	public static function queryTopicIdsByMonthUser($uid, $num=0, $current=0)
-	{
-		$redis = MyRedis::connection("default");
-
-		$key = sprintf(IyoTopic::USERMONTHTOPIC, $uid);
-		if(!$redis->exists($key)) {
-			$list = IyoTopic::where('uid', $uid)->orderBy('created_at', 'asc')
-				->get(["id", "created_at"]);
-			foreach( $list as $tid ) {
-				$redis->zadd($key,strtotime($tid["created_at"]),$tid['id']);
-			}
-		}
-
-		$tlist = [];
-		if( $redis->exists($key) ) {
-			$tlist = $redis->zrevrange($key, $current, $current+$num-1);
-		}
-
-		return $tlist;
-	}
-
 
 	public static function queryHotTopicIds($union_ids, $num=0, $current=0)
 	{
@@ -287,10 +347,10 @@ class IyoTopic extends Model {
 	}
 
 	public static function incrNumOfReply($id) {
-		IyoTopic::incrValue(IyoTopic::PREFIX.":$id", $id, "reply_count", "numOfReply");
+		IyoTopic::incrValue(IyoTopic::PREFIX.":$id", $id, "reply_count", "numOfReplay");
 	}
 
 	public static function decrNumOfReply($id) {
-		IyoTopic::decrValue(IyoTopic::PREFIX.":$id", $id, "reply_count", "numOfReply");
+		IyoTopic::decrValue(IyoTopic::PREFIX.":$id", $id, "reply_count", "numOfReplay");
 	}
 }

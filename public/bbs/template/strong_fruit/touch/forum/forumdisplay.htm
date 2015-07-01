@@ -1,0 +1,153 @@
+<!--{template common/header}-->
+
+
+
+
+
+<div class="forumlistnve postbutton">
+	<a href="forum.php?mod=post&action=newthread&fid=$_G[fid]" title="{lang send_threads}" class="post" style=" background:#FF9900;">{lang send_threads}</a>
+	<!--{if ($_G['forum']['threadtypes'] && $_G['forum']['threadtypes']['listable']) || count($_G['forum']['threadsorts']['types']) > 0}-->
+		<a href="#" id="fenleiid" class="qt">{echo $lang['thtys'];}</a>
+    <!--{/if}-->
+   	<!--{if $subexists}--><a href="#" id="subnamelistid" class="qt">{echo $lang['subfrm'];}</a><!--{/if}-->
+	<a href="home.php?mod=spacecp&ac=favorite&type=forum&id=$_G[fid]&handlekey=favoriteforum&formhash={FORMHASH}" class="qt">{echo $lang['shouchang'];}</a>
+    
+</div>
+		<!--{if $subexists}-->
+		<div id="subnamelist" class="subname_list" style="display:none;">
+				<ul>
+				<!--{loop $sublist $sub}-->
+				<li>
+					<a href="forum.php?mod=forumdisplay&fid={$sub[fid]}">{$sub['name']}</a>
+				</li>
+				<!--{/loop}-->
+			</ul>
+		</div>
+		<!--{/if}-->
+
+
+<script>
+    $(document).ready(function(){
+
+    	$("#subnamelistid").click(function(){
+   	 	   $("#subnamelist").fadeToggle(0);
+   	 	   $("#fenlei").hide(0);
+		   if($("#subnamelist").css("display") == 'none'){$("#subnamelistid").removeClass('post');}else{$("#subnamelistid").addClass('post');}
+		   if($("#fenlei").css("display") == 'none'){$("#fenleiid").removeClass('post');}else{$("#fenleiid").addClass('post');}
+   		});
+
+
+
+    	$("#fenleiid").click(function(){
+   	      $("#fenlei").fadeToggle(0);
+   	 	  $("#subnamelist").hide(0);
+		   if($("#subnamelist").css("display") == 'none'){$("#subnamelistid").removeClass('post');}else{$("#subnamelistid").addClass('post');}
+		   if($("#fenlei").css("display") == 'none'){$("#fenleiid").removeClass('post');}else{$("#fenleiid").addClass('post');}
+   		});
+
+});
+</script>
+
+
+<!-- header end -->
+
+<!--{hook/forumdisplay_top_mobile}-->
+
+<div id="fenlei" style="display:none;">
+<!--{if ($_G['forum']['threadtypes'] && $_G['forum']['threadtypes']['listable']) || count($_G['forum']['threadsorts']['types']) > 0}-->
+<div class="forumthreadtypes">
+					<ul id="thread_types" class="threads_types">
+						<!--{hook/forumdisplay_threadtype_inner}-->
+						<li id="ttp_all" {if !$_GET['typeid'] && !$_GET['sortid']}class="xw1 a"{/if}><a href="forum.php?mod=forumdisplay&fid=$_G[fid]{if $_G['forum']['threadsorts']['defaultshow']}&filter=sortall&sortall=1{/if}{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">{lang forum_viewall}</a></li>
+						<!--{if $_G['forum']['threadtypes']}-->
+							<!--{loop $_G['forum']['threadtypes']['types'] $id $name}-->
+								<!--{if $_GET['typeid'] == $id}-->
+								<li class="xw1 a"><a href="forum.php?mod=forumdisplay&fid=$_G[fid]{if $_GET['sortid']}&filter=sortid&sortid=$_GET['sortid']{/if}{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}"><!--{if $_G[forum][threadtypes][icons][$id] && $_G['forum']['threadtypes']['prefix'] == 2}--><img class="vm" src="$_G[forum][threadtypes][icons][$id]" alt="" /> <!--{/if}-->$name</a></li>
+								<!--{else}-->
+								<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&typeid=$id$forumdisplayadd[typeid]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}"><!--{if $_G[forum][threadtypes][icons][$id] && $_G['forum']['threadtypes']['prefix'] == 2}--><img class="vm" src="$_G[forum][threadtypes][icons][$id]" alt="" /> <!--{/if}-->$name</a></li>
+								<!--{/if}-->
+							<!--{/loop}-->
+						<!--{/if}-->
+
+						<!--{if $_G['forum']['threadsorts']}-->
+							<!--{if $_G['forum']['threadtypes']}--><li><span class="pipe">|</span></li><!--{/if}-->
+							<!--{loop $_G['forum']['threadsorts']['types'] $id $name}-->
+								<!--{if $_GET['sortid'] == $id}-->
+								<li class="xw1 a"><a href="forum.php?mod=forumdisplay&fid=$_G[fid]{if $_GET['typeid']}&filter=typeid&typeid=$_GET['typeid']{/if}{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">$name</a></li>
+								<!--{else}-->
+								<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=sortid&sortid=$id$forumdisplayadd[sortid]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">$name</a></li>
+								<!--{/if}-->
+							<!--{/loop}-->
+						<!--{/if}-->
+						<!--{hook/forumdisplay_filter_extra}-->
+					</ul>
+
+					<script type="text/javascript">showTypes('thread_types');</script>
+</div>
+<!--{/if}-->
+<!--{if $quicksearchlist && !$_GET['archiveid']}-->
+	<!--{subtemplate forum/search_sortoption}-->
+<!--{/if}-->
+</div>
+
+
+<!-- main threadlist start -->
+<!--{if !$subforumonly}-->
+<div class="threadlist ">
+			<ul>
+			<!--{if $_G['forum_threadcount']}-->
+				<!--{loop $_G['forum_threadlist'] $key $thread}-->
+					<!--{if !$_G['setting']['mobile']['mobiledisplayorder3'] && $thread['displayorder'] > 0}-->
+						{eval continue;}
+					<!--{/if}-->
+                	<!--{if $thread['displayorder'] > 0 && !$displayorder_thread}-->
+                		{eval $displayorder_thread = 1;}
+                    <!--{/if}-->
+					<!--{if $thread['moved']}-->
+						<!--{eval $thread[tid]=$thread[closed];}-->
+					<!--{/if}-->
+					<li>
+					<!--{hook/forumdisplay_thread_mobile $key}-->
+
+                    <a href="forum.php?mod=viewthread&tid=$thread[tid]&extra=$extra" $thread[highlight] >
+					<!--{if in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
+						<img src="./template/strong_fruit/images/icon_top.png">
+					<!--{elseif $thread['special'] == 4}-->
+						<img src="./template/strong_fruit/images/activitysmall.png"  />
+					<!--{elseif $thread['digest'] > 0}-->
+						<img src="./template/strong_fruit/images/icon_digest.png">
+					<!--{elseif $thread['attachment'] == 2 && $_G['setting']['mobile']['mobilesimpletype'] == 0}-->
+						<img src="./template/strong_fruit/images/icon_tu.png">
+					<!--{elseif $thread['special'] == 1}-->
+						<img src="./template/strong_fruit/images/pollsmall.png"  />
+					<!--{elseif $thread['special'] == 3}-->
+						<img src="./template/strong_fruit/images/rewardsmall.png"  />
+					<!--{elseif $thread['special'] == 2}-->
+						<img src="./template/strong_fruit/images/tradesmall.png"  />
+					<!--{/if}-->
+					{$thread[subject]}
+					<span class="by">$thread[author]&nbsp;&nbsp;$thread[dateline]</span>
+					</a>
+					<span class="num">{$thread[replies]}</span>
+
+					</li>
+                <!--{/loop}-->
+            <!--{else}-->
+			<li>{lang forum_nothreads}</li>
+			<!--{/if}-->
+		</ul>
+</div>
+$multipage
+
+<!--{/if}-->
+
+
+
+
+
+
+<!-- main threadlist end -->
+<!--{hook/forumdisplay_bottom_mobile}-->
+<div class="scroll" id="scroll" style="display:none;">{echo $lang['stop'];}</div>
+<script type="text/javascript" src="./template/strong_fruit/js/scroll.js"></script>
+<!--{template common/footer}-->

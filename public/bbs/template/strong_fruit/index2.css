@@ -1,0 +1,39 @@
+@charset "utf-8";
+/* CSS Document */
+.s-por{ margin:0; padding:0; width:100%; height:auto; -webkit-box-shadow:2px 1px 2px #c3c1c1;-moz-box-shadow: 2px 1px 2px #c3c1c1;box-shadow:2px 1px 2px #c3c1c1; float:left; background:#fff;}
+.s-por a,.s-por a:visited{width:20%; height:35px; line-height:35px; float:left; text-align:center; font-size:18px; font-weight:600; }
+.s-por-top{width:100%; text-align:center; margin:10px auto; float:left;}
+.s-por-top h3{text-align:center; width:94%; margin:7px 3% 5px 3%;  text-overflow:ellipsis; overflow:hidden; white-space:nowrap; float:left; font-size:16px;}
+.s-por-top h3 a{font-size:16px; color:#ff4200; text-align:center; overflow:hidden; font-weight:600;}
+.s-por-top p{ width:94%; float:left; text-align:center; margin:0 3%;  }
+.s-por-top p span{ width:50%; height:30px; line-height:30px; display:block; float:left; text-align:center;  text-overflow:ellipsis; overflow:hidden; white-space:nowrap;}
+.s-por-top p span a,.s-por-top p span a:visited{font-size:14px;  color:#333333; font-weight:400; display:block; width:96%; margin:0 2%; float:left; text-align:center; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;  }
+
+.huandeng {width:88%; float:left; margin:8px 6%;}
+.s-por-list{width:100%; margin:10px 0; float:left;}
+.s-por-list h2{font-size:16px;}
+.s-por-pic{width:100%; float:left; margin:10px auto; text-align:center;}
+.s-por-pic ul li{position:relative;float:left; width:46%; margin:0 2%; height:100px; overflow:hidden; margin-bottom:10px;}
+.s-por-pic ul li a{display:block; height:100px; width:100%;}
+.s-por-pic ul li a img{width:100%; height:100px; overflow:hidden;}
+.s-por-pic ul li span{position:relative; bottom:30px;z-index:999; font-size:14px; color:#fff; display:block; width:100%; height:25px;line-height:25px; background-color:#000000; opacity:0.4;}
+.s-por-lists{width:100%; float:left;}
+.s-por-lists h4{margin-top:15px;}
+.s-por-lists h4 a{width:100%; text-align:center; font-size:16px; font-weight:600; color:#ff4200; float:left;  text-overflow:ellipsis; overflow:hidden; white-space:nowrap;}
+.s-por-lists ul{float:left; width:100%;}
+.s-por-lists ul li{width:94%; margin:0 3%; height:30px; line-height:30px;}
+.s-por-lists ul li a{color:#4C4C4C; font-size:16px; display:block; height:35px; line-height:35px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;}
+
+.s-hoth{width:100%; border-top:solid #c3c1c1 1px; border-bottom:solid #c3c1c1 1px; height:40px;line-height:40px;  background:#fff; }
+.s-hoth span{font-size:18px; color:#000; display:block; float:right;padding:0 10px 0 0; font-weight:bold; font-weight:400;}
+.s-hoth a{ font-size:16px; border-left:4px solid #2693cd; padding-left:7px; margin-left:10px;}
+.s-hoth span a,.s-hoth span a:visited{ font-size:16px; text-align:right; height:35px;float:right; display:block; border:none; font-weight:700; color:#2693cd;}
+.s-por-button{width:96%; height:28px; clear:both; margin:20px 2% 0px 2%; padding:5px 0;  color:#333333; font-size:16px; text-align:center; border-radius:4px; border:solid #c3c1c1 1px; float:left;}
+.s-por-button a{color:#333; font-size:16px; display:block; width:100%; height:28px; line-height:28px;}
+.s-por-piclist{ float:left; margin:10px; width:100% }
+.s-por-piclist ul li{width:100%; height:60px;clear:both; margin-bottom:10px;}
+.s-por-piclist ul li a{ display:block; width:100%; height:60px;}
+.s-por-piclist ul li a img{float:left; width:60px; height:60px; padding-right:10px;}
+.s-por-piclist ul li a h3{float:left; font-size:16px; color:#333; width:auto;height:60px;line-height:60px;}
+.s-por-piclist ul li a span{float:right; display:block;  font-size:12px; color:#333; border-radius:8px; margin:19px 0; margin-right:20px; line-height:22px; }
+

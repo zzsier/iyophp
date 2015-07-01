@@ -1,6 +1,11 @@
 <?php 
 namespace App\Http\Controllers;
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Illuminate\Log\Writer;
+use DB;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Model\IyoUser;
@@ -15,6 +20,7 @@ use Illuminate\Support\Facades\Redis;
 use Input;
 use View;
 use Cache;
+use Log;
 
 class UserController extends Controller {
 
@@ -100,7 +106,7 @@ class UserController extends Controller {
 		//$user->imageUrl= $request["image"];
 
 		$user->save();
-		IyoUser::cleanCache($request["id"]);
+		IyoUser::cleanAll($request["id"]);
 
 		return Redirect::to('backend/user/list');
 	}
@@ -115,7 +121,7 @@ class UserController extends Controller {
 	public function edit(Request $request)
 	{
 		$user = IyoUser::find($request["id"]);
-		IyoUser::cleanCache($request["id"]);
+		IyoUser::cleanAll($request["id"]);
 		return View::make('backend.users.edit', compact('user'));
 	}
 
@@ -133,7 +139,7 @@ class UserController extends Controller {
 	public function destroy(Request $request)
 	{
 		$user = IyoUser::findOrFail($request["id"]);
-		IyoUser::cleanCache($request["id"]);
+		IyoUser::cleanAll($request["id"]);
 		$user->delete();
 		return Redirect::to('backend/user/list');
 	}
@@ -145,12 +151,16 @@ class UserController extends Controller {
 		$phone = $request->json("phone","");
 		$password = $request->json("password","");
 		$smscode = $request->json("smscode","");
+		if( $phone == "" || $password == "" ) {
+			$result = array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => "用户名或者密码为空");
+			return $result;
+		}
 		$person = IyoUser::where('phone', $phone)->first();
 
-		unset($person["token"]); 
-		unset($person["activate"]); 
-		unset($person["created_at"]); 
-		unset($person["updated_at"]); 
+        $sqls = DB::getQueryLog();
+        $logger = new Writer(new Logger("info"));
+        $logger->useFiles(storage_path().'/logs/sql.log');
+        $logger->info($sqls);
 
 		if( $smscode == "" ) {
 			if($person == null) {
@@ -159,8 +169,13 @@ class UserController extends Controller {
 			} elseif($person->password != $password) {
 				$result = array('code' => trans('code.PasswordError'),'desc' => __LINE__, 'message' => trans('errormsg.PasswordError'));
 			} else {
-				Cache::put("session_id_$person->id", $person->id, 3600);
-				$person["session"] = "session_id_$person->id";
+				if( $person->hxuser == "" ) {
+					$this->registerHXUser($person["id"]);
+					$person = IyoUser::queryById($person["id"]);
+				}
+				$uid = $person["id"];
+				Cache::put("session_id_$uid", $uid, 3600);
+				$person["session"] = "session_id_$uid";
 				$result["result"] = $person;
 			}
 		} else {
@@ -173,8 +188,12 @@ class UserController extends Controller {
 			if( $randNum != $request->json("smscode","")) {
 				$result = array('code' => trans('code.ValidationCodeError'),'desc' => __LINE__, 'message' => trans('errormsg.ValidationCodeError'));
 			} else {
-				Cache::put("session_id_$person->id", $person->id, 3600);
-				$person["session"] = "session_id_$person->id";
+				if( $person->hxuser == "" ) {
+					$this->registerHXUser($person->id);
+					$person = IyoUser::queryById($person->id);
+				}
+				Cache::put("session_id_$uid", $uid, 3600);
+				$person["session"] = "session_id_$uid";
 				$result["result"] = $person;
 			}
 		}
@@ -198,7 +217,7 @@ class UserController extends Controller {
 			return $result;
 		} else {
 			Cache::forget("session_id_$person->id");
-			IyoUser::cleanCache($person->id);
+			IyoUser::cleanAll($person->id);
 		}
 
 		$person->delete();
@@ -206,6 +225,69 @@ class UserController extends Controller {
 		return $result;
 	}
 
+	//curl -X POST -i "https://a1.easemob.com/iyo/iyo/users" -d '{"username":"jliu","password":"123456"}' 
+	/*
+HTTP/1.1 200 OK
+Server: Tengine/2.0.3
+Date: Tue, 16 Jun 2015 14:48:01 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Set-Cookie: rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Mon, 15-Jun-2015 14:48:01 GMT
+Access-Control-Allow-Origin: *
+
+{
+  "action" : "post",
+  "application" : "87a4f7b0-d87b-11e4-bc70-2d7e51356303",
+  "path" : "/users",
+  "uri" : "https://a1.easemob.com/iyo/iyo/users",
+  "entities" : [ {
+    "uuid" : "aff9525a-1436-11e5-96c5-ef938e1f8c2b",
+    "type" : "user",
+    "created" : 1434466081781,
+    "modified" : 1434466081781,
+    "username" : "jliu",
+    "activated" : true
+  } ],
+  "timestamp" : 1434466081780,
+  "duration" : 36,
+  "organization" : "iyo",
+  "applicationName" : "iyo"
+*/
+
+	public function registerHXUser($id) 
+	{
+		$user = IyoUser::find($id);
+		$token = md5($user->phone.$user->password.$user->email.$user->username);
+
+		$user["hxuser"] = $token;
+		$user["hxpassword"] = md5($token);
+		$username = $user["hxuser"];
+		$password = $user["hxpassword"];
+
+		$url="https://a1.easemob.com/iyo/iyo/users";
+		$body= "{\"username\":\"$username\",\"password\":\"$password\"}";
+		$header = array("Content-Type:application/json;charset=utf-8");
+
+		$ch = curl_init(); 
+		$res= curl_setopt ($ch, CURLOPT_URL,$url);  
+		curl_setopt ($ch, CURLOPT_HEADER, 1);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch,CURLOPT_HTTPHEADER,$header);
+		$response = curl_exec ($ch);
+		curl_close($ch);
+
+		if( strpos($response, "error") != FALSE ) {
+			Log::info($response);
+			return FALSE;
+		}
+
+		$user->save();
+		IyoUser::cleanCache($id);
+		return TRUE;
+	}
 
 	public function register(Request $request)
 	{
@@ -223,9 +305,9 @@ class UserController extends Controller {
 			return $result;
 		}
 			
-		$user["token"] = md5($user->phone.$user->password.$user->email);
+		$token = md5($user->phone.$user->password.$user->email);
+		$user["token"] = $token;
 		$user["activate"] = 0;
-
 		$user->save();
 
 		if( $user->email != "" ) {
@@ -236,11 +318,17 @@ class UserController extends Controller {
 				$message->to($data['email'], $data['name'])->subject('欢迎注册IYO应用，请激活您的账号！');
 			});
 		}
-
 		$user->save();
 
-		$user["session"] = "session_id_$user->id";
-		Cache::put("session_id_$user->id", $user->id, 3600);
+		if( $this->registerHXUser($user->id) == FALSE ) {
+			$result = array('code' => trans('code.UserAleadyExist'),'desc' => __LINE__, 'message' => "环信用户注册失败");
+			return $result;
+		}
+
+		$user = IyoUser::queryById($user->id);
+		$uid = $user["id"];
+		$user["session"] = "session_id_$uid";
+		Cache::put("session_id_$uid", $uid, 3600);
 
 		unset($user["token"]); 
 		unset($user["activate"]); 
@@ -268,6 +356,52 @@ class UserController extends Controller {
 		return $result;
 	}
 
+	public function search(Request $request) {
+
+		$response = array('code' => trans('code.success'),'desc' => __LINE__,'messsage' => "搜索成功");
+
+		$username = $request->json("search","");
+		$num = $request->json("num",0);
+		$current = $request->json("current",0);
+
+		if( $username == "" ) {
+			$result = array('code' => trans('code.InvalidParameter'),'desc' => __LINE__,
+				'message' => '参数不完整');
+			return $result;
+		}
+
+		$user_ids = IyoUser::search($username, $num, $current);
+
+		$stars = [];
+		foreach ($user_ids as $uid) {
+			$stars[] = IyoUser::queryById($uid);
+		}
+
+		$response["result"] = $stars;
+		return $response;
+	}
+
+	public function searchByHXName(Request $request) {
+
+		$response = array('code' => trans('code.success'),'desc' => __LINE__,'messsage' => "搜索成功");
+
+		$username = $request->json("search","");
+
+		if( $username == "" ) {
+			$result = array('code' => trans('code.InvalidParameter'),'desc' => __LINE__,
+				'message' => '参数不完整');
+			return $result;
+		}
+
+		$uid = IyoUser::searchByHXName($username);
+		$user = IyoUser::queryById($uid);
+
+		$response["result"] = $user;
+		return $response;
+	}
+
+
+
 
 	public function validateEmail(Request $request)
 	{
@@ -289,23 +423,24 @@ class UserController extends Controller {
 		return view('validatemail')->with('message', '邮箱验证通过');
 	}
 
-	public function queryById(Request $request)
-	{
-		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => trans('successmsg.FollowSuccess'));
-		
-		$union = $this->queryId($request["id"]);
-		$result["result"] = $union;
-		
-		return $result;
-	}
-	
 	public function queryUser(Request $request)
 	{
 		$result = array('code' => trans('code.success'),'desc' => __LINE__,
 			'message' => "获取成功");
 
 		$user = IyoUser::queryById($request->json("fid",0));
+
+		if( $user["id"] == "" ) {
+			$result = array('code' => 1,'desc' => __LINE__,
+				'message' => "用户不存在");
+			return $result;
+		}
+
+		if( $user["hxuser"] == "" ) {
+			$this->registerHXUser($user["id"]);
+			$user = IyoUser::queryById($user["id"]);
+		}
+
 		if( IyoRelation::checkIfFollow($request["id"], $request->json("fid",0)) ) {
 			$user["follow"] = true;
 		} else {

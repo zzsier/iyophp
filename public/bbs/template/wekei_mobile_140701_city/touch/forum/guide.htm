@@ -1,0 +1,19 @@
+<!--{template common/header}-->
+<!-- header start -->
+
+<!-- header end -->
+<!-- main threadlist start -->
+<div class="threadlist">
+	<h2 class="thread_tit">{lang hotest_thread}</h2>
+
+	<!--{loop $data $key $list}-->
+		<!--{subtemplate forum/guide_list_row}-->
+	<!--{/loop}-->
+
+</div>
+<!-- main threadlist end -->
+
+$multipage
+
+<div class="pullrefresh" style="display:none;"></div>
+<!--{template common/footer}-->

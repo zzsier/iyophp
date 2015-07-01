@@ -5,8 +5,20 @@ use MyRedis;
 use DB;
 use Carbon\Carbon;
 use Log;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class IyoUser extends Model {
+class IyoUser extends Model implements AuthenticatableContract, CanResetPasswordContract {
+
+	use EntrustUserTrait;
+	use SoftDeletes;
+	use Authenticatable, CanResetPassword;
+
+	protected $dates = ['deleted_at'];
 
 	const PREFIX="user";
 
@@ -23,6 +35,8 @@ class IyoUser extends Model {
 		array("cache"=>"recommend", "db"=> "recommend", "return"=>"recommend"),
 		array("cache"=>"created_at", "db"=> "created_at", "return"=>"created_at"),
 		array("cache"=>"sex", "db"=> "sex", "return"=>"sex"),
+		array("cache"=>"hxuser", "db"=> "hxuser", "return"=>"hxuser"),
+		array("cache"=>"hxpassword", "db"=> "hxpassword", "return"=>"hxpassword"),
 	);
 
 	const USER="user:%s";
@@ -61,6 +75,14 @@ class IyoUser extends Model {
 		$key = sprintf(IyoUser::USER, $id);
 		$redis->del($key);
 	}
+
+	public static function cleanAll($id) {
+		Log::info("IyoTopic cleanAll enter");
+		$redis = MyRedis::connection("default");
+		$redis->del("user:1:list");
+		$redis->del("user:2:list");
+	}
+
 
 	public static function queryById($id)
 	{
@@ -145,5 +167,35 @@ class IyoUser extends Model {
 
 		return $ids;
 	}
+
+	public static function searchByHXName($hxname) {
+		$list = IyoUser::where('hxuser', $hxname)->get(["id"]);
+
+		$uid = 0;
+		foreach( $list as $tid ) {
+			$uid = $tid["id"];
+		}
+
+		return $uid;
+	}
+
+	public static function search($val, $num=0, $current=0) {
+		$list = [];
+		$ids = [];
+		if( $num == 0 ) {
+			$list = IyoUser::where("phone", $val)->orWhere("id",$val)->orWhere('username', 'like', '%'.$val.'%')
+				->orderby('follow_count')->get(["id"]);
+		} else {
+			$list = IyoUser::where("phone", $val)->orWhere("id",$val)->orWhere('username', 'like', '%'.$val.'%')
+				->orderby('follow_count')->skip($current)->take($num)->get(["id"]);
+		}
+
+		foreach( $list as $tid ) {
+			$ids[] = $tid["id"];
+		}
+
+		return $ids;
+	}
+
 
 }
