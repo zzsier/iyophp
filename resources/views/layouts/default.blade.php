@@ -52,6 +52,14 @@ PHPHub  - PHP & Laravel的中文社区
 		<script src="/js/iyo.js"></script>
 		<link href="/css/main.css" rel="stylesheet" type="text/css"/>
 
+		<link href="demo/Bbs_index.css" rel="stylesheet">
+		<script async="" src="demo/gw.js"></script>
+		<script src="demo/iparea.htm"></script>
+		<script src="demo/Bbs_index.js" charset="gbk"></script>
+		<link href="demo/rotate-plate.css" rel="stylesheet">
+		<script type="text/javascript" src="demo/md5.js"></script>
+		<link href="demo/suggest20150320.css" rel="stylesheet"></head>
+		<script src="demo/53013749.js" type="text/javascript"></script>
 
         <script>
             Config = {
