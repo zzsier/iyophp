@@ -58,6 +58,7 @@
 
 </div>
 
+
 <!-- header -->
 <div class="header box-shadow">
     <div class="header-inner clearfix">
@@ -68,13 +69,13 @@
                 <a href="http://detail.zol.com.cn/index.php?keyword=&amp;c=SearchList">产品</a>
                 <a href="http://search.zol.com.cn/s/search.php?keyword=&amp;c=SearchList">资讯</a>
                 <a class="current" href="javascript:void(0);">论坛</a>
-                <a href="http://xiazai.zol.com.cn/search?wd=&amp;type=1">下载</a>
+                <a href="http://xiazai.zol.com.cn/search?type=1">下载</a>
                 <a href="http://ask.zol.com.cn/new/search.php?kword=">问答</a>
             </div>
             <div class="searchbox border-radius-s3 clearfix">
                 <form action="/index.php" method="get" onsubmit="return checkKword();">
                     <input name="c" value="search" type="hidden">
-                    <input data-source="" id="searchBox" autocomplete="off" style="height:40px" class="search-txt placeholder" name="kword" value="请输入帖子关键词" type="text">
+                    <input data-source="" id="searchBox" autocomplete="off" class="search-txt placeholder" name="kword" value="请输入帖子关键词" type="text">
                     <input class="search-btn border-radius-s3" value="搜索" type="submit">
                 </form>
             </div>
@@ -85,24 +86,104 @@
 <div class="wrapper">
     <div class="bbs-navbox border-radius-s3">
         <ul class="bbs-nav-list clearfix">
-            <li class="current"><a href="###">首页</a>
+            <li class="current"><a href="###">IYO首页</a>
             </li>
-            <li class=""><a href="http://bbs.zol.com.cn/huodong/" target="_blank">视频</a>
+            <li class=""><a href="http://localhost/bbs/video" target="_blank">游戏视频</a>
             </li>
-            <li class=""><a href="http://try.zol.com.cn/" target="_blank">MOBA</a>
+            <li class=""><a href="http://localhost/bbs/moba" target="_blank">MOBA</a>
                 <i class="hot-ico"></i>
             </li>
-            <li class=""><a href="http://bbs.zol.com.cn/quanzi/" target="_blank">网游</a>
+            <li class=""><a href="http://localhost/bbs/netgame" target="_blank">网游论坛</a>
             </li>
-            <li class=""><a href="http://bbs.zol.com.cn/vip/" target="_blank">FPS</a>
+            <li class=""><a href="http://localhost/bbs/fps" target="_blank">FPS游戏</a>
             </li>
-            <li class=""><a href="http://bbs.zol.com.cn/top/" target="_blank">交易</a>
+            <li class=""><a href="http://localhost/bbs/trade" target="_blank">游戏交易</a>
                 <i class="hot-ico"></i>
             </li>
-            <li class=""><a href="http://jindou.zol.com/" target="_blank">比赛</a>
+            <li class=""><a href="http://localhost/bbs/game" target="_blank">比赛</a>
             </li>
 
         </ul>
     </div>
 </div>
+
+<div class="wrapper">
+    <div class="category-nav-box box-shadow border-radius-s3">
+        <div class="main-category clearfix">
+            <dl class="sjbbs">
+                <dt><a href="http://bbs.zol.com.cn/sjbbs/" target="_blank">手机论坛</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/sjbbs/" target="_blank">手机论坛</a></h3>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/sjbbs/d1763.html" target="_blank">联想手机</a>
+                    </p>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/sjbbs/d33855.html" target="_blank">朵唯手机<i class="new-ico"></i></a>
+                    </p>
+                </dd>
+            </dl>
+            <dl class="dcbbs">
+                <dt><a href="http://bbs.zol.com.cn/dcbbs/" target="_blank">摄影论坛</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/dcbbs/" target="_blank">摄影论坛</a></h3>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/dcbbs/jingxuan/" target="_blank">精彩推荐</a>
+                    </p>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/dcbbs/region/sitemap.html" target="_blank">地方俱乐部</a>
+                    </p>
+                </dd>
+            </dl>
+            <dl class="diybbs">
+                <dt><a href="http://bbs.zol.com.cn/diybbs/" target="_blank">硬件论坛</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/diybbs/" target="_blank">硬件论坛</a></h3>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/diybbs/d231.html" target="_blank">DIY与攒机</a>
+                    </p>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/diybbs/d446.html" target="_blank">HKC</a>
+                    </p>
+                </dd>
+            </dl>
+            <dl class="nbbbs">
+                <dt><a href="http://bbs.zol.com.cn/nbbbs/" target="_blank">笔记本论坛</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/nbbbs/" target="_blank">笔记本论坛</a></h3>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/nbbbs/d160.html" target="_blank">联想专区</a>
+                    </p>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/nbbbs/c1.html" target="_blank">本本大讨论</a>
+                    </p>
+                </dd>
+            </dl>
+            <dl class="padbbs">
+                <dt><a href="http://bbs.zol.com.cn/padbbs/" target="_blank">平板论坛</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/padbbs/" target="_blank">平板论坛</a></h3>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/padbbs/d173.html" target="_blank">诺基亚专区</a>
+                    </p>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/padbbs/c4.html" target="_blank">平板汇</a>
+                    </p>
+                </dd>
+            </dl>
+        </div>
+        <div class="other-bbs clearfix">
+            <span>其他论坛：</span>
+            <a href="http://bbs.zol.com.cn/otherbbs/d598.html" target="_blank">新手区</a>
+            <a href="http://bbs.zol.com.cn/sjbbs/d36776.html" target="_blank">手把手ROM</a>
+            <a href="http://bbs.zol.com.cn/index.php?c=search&amp;a=topic&amp;kword=ZOL%D0%C2%BB%FA%B1%ED" target="_blank">ZOL新机表</a>
+            <a href="http://bbs.zol.com.cn/jdbbs/d58_m613.html" target="_blank">华为盒子</a>
+            <a href="http://bbs.zol.com.cn/brand/c9.html" target="_blank">海能达</a>
+            <a href="http://bbs.zol.com.cn/brand/c8.html" target="_blank">航嘉机电</a>
+            <a href="http://bbs.zol.com.cn/techbbs/" target="_blank">技术论坛</a>
+            <a href="http://bbs.zol.com.cn/gpsbbs/" target="_blank">GPS论坛</a>
+            <a href="http://bbs.zol.com.cn/quanzi/d643.html" target="_blank">有问必答</a>
+        </div>
+    </div>
+</div>
+
 

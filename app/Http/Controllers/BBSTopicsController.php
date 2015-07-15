@@ -36,6 +36,17 @@ class BBSTopicsController extends BaseController implements CreatorListener
         return View::make('topics.index', compact('topics', 'nodes', 'links'));
     }
 
+    public function showvideo()
+    {
+        //$filter = $this->topic->present()->getTopicFilter();
+        $filter = 'default';
+        $topics = $this->topic->getTopicsWithFilter($filter);
+        $nodes  = Node::allLevelUp();
+        //$links  = Link::remember(1440)->get();
+
+        return View::make('topics.index', compact('topics', 'nodes', 'links'));
+    }
+
     public function create()
     {
         $node = Node::find(Input::get('node_id'));

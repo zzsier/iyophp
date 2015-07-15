@@ -1,533 +1,531 @@
 <!DOCTYPE html>
 <html><head>
-<meta http-equiv="content-type" content="text/html; charset=gbk">
-<meta charset="gb2312">
-<title>IYO游戏论坛</title>
-<meta http-equiv="mobile-agent" content="format=html5; url=http://m.zol.com.cn/bbs/">
+    <meta http-equiv="content-type" content="text/html; charset=gbk">
+    <meta charset="gb2312">
+    <title>IYO游戏论坛</title>
+    <meta http-equiv="mobile-agent" content="format=html5; url=http://m.zol.com.cn/bbs/">
 
-<link href="demo/Bbs_index.css" rel="stylesheet">
-<script async="" src="demo/gw.js"></script>
-<script src="demo/iparea.htm"></script>
-<script src="demo/Bbs_index.js" charset="gbk"></script>
-<link href="demo/rotate-plate.css" rel="stylesheet">
-<script type="text/javascript" src="demo/md5.js"></script>
-<link href="demo/suggest20150320.css" rel="stylesheet"></head>
+    <link href="demo/Bbs_index.css" rel="stylesheet">
+    <script async="" src="demo/gw.js"></script>
+    <script src="demo/iparea.htm"></script>
+    <script src="demo/Bbs_index.js" charset="gbk"></script>
+    <link href="demo/rotate-plate.css" rel="stylesheet">
+    <script type="text/javascript" src="demo/md5.js"></script>
+    <link href="demo/suggest20150320.css" rel="stylesheet"></head>
 <script src="demo/53013749.js" type="text/javascript"></script>
 <body>
 <!-- 公共头部 -->
 <!-- pub-bbs-top -->
 <div class="pub-bbs-top">
-	<!-- 给下面的展开内容pub-menu 添加类名pub-more-on内容即可展开 -->
-	<div class="pub-bbs-top-inner clearfix">
-		<ul class="pub-bbs-nav">
+    <!-- 给下面的展开内容pub-menu 添加类名pub-more-on内容即可展开 -->
+    <div class="pub-bbs-top-inner clearfix">
+        <ul class="pub-bbs-nav">
             <li class="pub-nav-home"><a target="_blank" href="http://www.zol.com.cn/">IYO首页</a></li>
-        	<li><a target="_blank" href="http://detail.zol.com.cn/">商城</a></li>
-        	<li><a target="_blank" href="http://www.zol.com/">更多</a></li>
+            <li><a target="_blank" href="http://detail.zol.com.cn/">商城</a></li>
+            <li><a target="_blank" href="http://www.zol.com/">更多</a></li>
             <li><a target="_blank" href="http://sjbbs.zol.com.cn/help/index.html">论坛帮助</a></li>
         </ul>
-		
-		<script>	
-		var userid = userid || '';
-        if (userid){
-        	var userlogin = '<ul class="pub-bbs-login"><li class="pub-user-bar">'
-					+'<a href="http://my.zol.com.cn/'+userid+'/" target="_blank">'+userid+'</a></li>'
-					+'<li class="pub-menu" id="pubMyBbs" onMouseOver="__mores(\'pubMyBbs\')" onMouseOut="__moreh(\'pubMyBbs\')">'
-					+'<span class="ismore"><a href="http://my.zol.com.cn/bbs/'+userid+'/" target="_blank">我的论坛</a>'
-					+'<i class="ar-ico"></i></span><div class="pub-more-list" id="pubMyBbsDetailNotice">'
-					+'<a href="http://my.zol.com.cn/bbs/'+userid+'/" target="_blank">我的帖子</a>'
-					+'<a href="http://my.zol.com.cn/index.php?c=bbs&a=myreply&userid='+userid+'" target="_blank">我的回复</a>'
-					+'<a href="http://my.zol.com.cn/index.php?c=bbs&a=myattention&userid='+userid+'" target="_blank">我的关注</a>'
-					+'<a href="http://my.zol.com.cn/collection/" target="_blank">我的收藏</a>'
-					+'<a href="http://ask.zol.com.cn/me/" target="_blank">我的问答</a>'
-					+'<a href="http://my.zol.com.cn/index.php?c=task" target="_blank">我的任务</a></div></li>'
-					+'<li class="pub-menu" id="pubMessage" onMouseOver="__mores(\'pubMessage\')" onMouseOut="__moreh(\'pubMessage\')">'
-					+'<span class="ismore">'
-					+'<a id="messageSpanA" class="msg-ico msg-null" href="http://my.zol.com.cn/'+userid+'/message/" target="_blank" onclick="msgClear();">收件箱</a>'
-					+'<i class="ar-ico"></i></span><div class="pub-more-list pub-msg" id="pubMessageDetailNotice">'
-					+'<a href="http://my.zol.com.cn/index.php?c=Message_Private" target="_blank" onclick="msgClear();">私信</a>'
-					+'<a href="http://my.zol.com.cn/index.php?c=Message_Reply" target="_blank" onclick="msgClear();">回复</a>'
-					+'<a href="http://my.zol.com.cn/index.php?c=Message_At" target="_blank" onclick="msgClear();">@我</a>'
-					+'<a href="http://my.zol.com.cn/index.php?c=Message_Remind" target="_blank" onclick="msgClear();">提醒</a>'
-					+'<a href="http://my.zol.com.cn/index.php?c=Message_Notice" target="_blank" onclick="msgClear();">系统通知</a></div></li>'
-					+'<li class="pub-menu" id="pubFeed" onMouseOver="__mores(\'pubFeed\')" onMouseOut="__moreh(\'pubFeed\')">'
-					+'<span class="ismore"><a href="http://my.zol.com.cn/follow/" target="_blank" onclick="msgClear();">关注</a>'
-					+'<i class="ar-ico"></i></span><div class="pub-more-list pub-follow" id="pubFeedDetailNotice">'
-					+'<a href="http://my.zol.com.cn/index.php?c=me&a=default&userid='+userid+'" target="_blank" onclick="msgClear();">新动态</a>'
-					+'<a href="http://my.zol.com.cn/follower/" target="_blank" onclick="msgClear();">新粉丝</a></div></li>'
-					+'<li class="pub-menu" id="pubUser" onMouseOver="__mores(\'pubUser\')" onMouseOut="__moreh(\'pubUser\')">'
-					+'<span class="ismore"><a href="http://my.zol.com.cn/'+userid+'/settings/" target="_blank">账号</a><i class="ar-ico"></i></span>'
-					+'<div class="pub-more-list" id="pubUserDetailNotice"><a href="http://my.zol.com.cn/info_base.php" target="_blank">修改资料</a>'
-					+'<a href="http://my.zol.com.cn/info_pic.php" target="_blank">更改头像</a>'
-					+'<a href="http://my.zol.com.cn/change_pwd.php" target="_blank">修改密码</a>';
-					+'<a class="pub-logout" href="http://service.zol.com.cn/user/login.php?type=quit" target="_self">退出</a></div></li></ul>';
-        	document.write(userlogin);
-        }else{
-			var registerhtml = '<ul class="pub-bbs-login"><li class="pub-user-bar">'
-					+'<span>请 [<a target="_blank" href="http://service.zol.com.cn/user/register.php">注册</a>]</span>'
-					+'|<span>[<a target="_self" href="http://service.zol.com.cn/user/login.php">登录</a>]</span>'
-					+'</li>'
-					+'</ul>';
 
-        	document.write(registerhtml);
-        }
+        <script>
+            var userid = userid || '';
+            if (userid){
+                var userlogin = '<ul class="pub-bbs-login"><li class="pub-user-bar">'
+                        +'<a href="http://my.zol.com.cn/'+userid+'/" target="_blank">'+userid+'</a></li>'
+                        +'<li class="pub-menu" id="pubMyBbs" onMouseOver="__mores(\'pubMyBbs\')" onMouseOut="__moreh(\'pubMyBbs\')">'
+                        +'<span class="ismore"><a href="http://my.zol.com.cn/bbs/'+userid+'/" target="_blank">我的论坛</a>'
+                        +'<i class="ar-ico"></i></span><div class="pub-more-list" id="pubMyBbsDetailNotice">'
+                        +'<a href="http://my.zol.com.cn/bbs/'+userid+'/" target="_blank">我的帖子</a>'
+                        +'<a href="http://my.zol.com.cn/index.php?c=bbs&a=myreply&userid='+userid+'" target="_blank">我的回复</a>'
+                        +'<a href="http://my.zol.com.cn/index.php?c=bbs&a=myattention&userid='+userid+'" target="_blank">我的关注</a>'
+                        +'<a href="http://my.zol.com.cn/collection/" target="_blank">我的收藏</a>'
+                        +'<a href="http://ask.zol.com.cn/me/" target="_blank">我的问答</a>'
+                        +'<a href="http://my.zol.com.cn/index.php?c=task" target="_blank">我的任务</a></div></li>'
+                        +'<li class="pub-menu" id="pubMessage" onMouseOver="__mores(\'pubMessage\')" onMouseOut="__moreh(\'pubMessage\')">'
+                        +'<span class="ismore">'
+                        +'<a id="messageSpanA" class="msg-ico msg-null" href="http://my.zol.com.cn/'+userid+'/message/" target="_blank" onclick="msgClear();">收件箱</a>'
+                        +'<i class="ar-ico"></i></span><div class="pub-more-list pub-msg" id="pubMessageDetailNotice">'
+                        +'<a href="http://my.zol.com.cn/index.php?c=Message_Private" target="_blank" onclick="msgClear();">私信</a>'
+                        +'<a href="http://my.zol.com.cn/index.php?c=Message_Reply" target="_blank" onclick="msgClear();">回复</a>'
+                        +'<a href="http://my.zol.com.cn/index.php?c=Message_At" target="_blank" onclick="msgClear();">@我</a>'
+                        +'<a href="http://my.zol.com.cn/index.php?c=Message_Remind" target="_blank" onclick="msgClear();">提醒</a>'
+                        +'<a href="http://my.zol.com.cn/index.php?c=Message_Notice" target="_blank" onclick="msgClear();">系统通知</a></div></li>'
+                        +'<li class="pub-menu" id="pubFeed" onMouseOver="__mores(\'pubFeed\')" onMouseOut="__moreh(\'pubFeed\')">'
+                        +'<span class="ismore"><a href="http://my.zol.com.cn/follow/" target="_blank" onclick="msgClear();">关注</a>'
+                        +'<i class="ar-ico"></i></span><div class="pub-more-list pub-follow" id="pubFeedDetailNotice">'
+                        +'<a href="http://my.zol.com.cn/index.php?c=me&a=default&userid='+userid+'" target="_blank" onclick="msgClear();">新动态</a>'
+                        +'<a href="http://my.zol.com.cn/follower/" target="_blank" onclick="msgClear();">新粉丝</a></div></li>'
+                        +'<li class="pub-menu" id="pubUser" onMouseOver="__mores(\'pubUser\')" onMouseOut="__moreh(\'pubUser\')">'
+                        +'<span class="ismore"><a href="http://my.zol.com.cn/'+userid+'/settings/" target="_blank">账号</a><i class="ar-ico"></i></span>'
+                        +'<div class="pub-more-list" id="pubUserDetailNotice"><a href="http://my.zol.com.cn/info_base.php" target="_blank">修改资料</a>'
+                        +'<a href="http://my.zol.com.cn/info_pic.php" target="_blank">更改头像</a>'
+                        +'<a href="http://my.zol.com.cn/change_pwd.php" target="_blank">修改密码</a>';
+                +'<a class="pub-logout" href="http://service.zol.com.cn/user/login.php?type=quit" target="_self">退出</a></div></li></ul>';
+                document.write(userlogin);
+            }else{
+                var registerhtml = '<ul class="pub-bbs-login"><li class="pub-user-bar">'
+                        +'<span>请 [<a target="_blank" href="http://service.zol.com.cn/user/register.php">注册</a>]</span>'
+                        +'|<span>[<a target="_self" href="http://service.zol.com.cn/user/login.php">登录</a>]</span>'
+                        +'</li>'
+                        +'</ul>';
+
+                document.write(registerhtml);
+            }
         </script>
         <script src="demo/index.js"></script>
-	</div>
+    </div>
 </div>
 
 
 <!-- header -->
 <div class="header box-shadow">
-	<div class="header-inner clearfix">
-		   <a href="http://bbs.zol.com.cn/" class="logo"><h1>ZOL论坛</h1></a>
-			<!-- 当搜索结果页时 给下面的div添加类名 search-result-page 同时加上下面的search-nav -->
-		<div class="search-module bbs-index-search">
-			<div class="search-nav" style="display:none;">
-				<a href="http://detail.zol.com.cn/index.php?keyword=&amp;c=SearchList">产品</a> 
-				<a href="http://search.zol.com.cn/s/search.php?keyword=&amp;c=SearchList">资讯</a>
-				<a class="current" href="javascript:void(0);">论坛</a>
-				<a href="http://xiazai.zol.com.cn/search?wd=&amp;type=1">下载</a>
-				<a href="http://ask.zol.com.cn/new/search.php?kword=">问答</a>
-			</div>
-			<div class="searchbox border-radius-s3 clearfix">
-				<form action="/index.php" method="get" onsubmit="return checkKword();">
-				    <input name="c" value="search" type="hidden">
-					<input data-source="" id="searchBox" autocomplete="off" class="search-txt placeholder" name="kword" value="请输入帖子关键词" type="text">
-					<input class="search-btn border-radius-s3" value="搜索" type="submit">
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-
-<div class="wrapper">
-<div class="bbs-navbox border-radius-s3">
-	<ul class="bbs-nav-list clearfix">
-				<li class="current"><a href="###">首页</a>
-				</li>
-				<li class=""><a href="http://bbs.zol.com.cn/huodong/" target="_blank">论坛活动</a>
-				</li>
-				<li class=""><a href="http://try.zol.com.cn/" target="_blank">试用中心</a>
-				<i class="hot-ico"></i>
-				</li>
-				<li class=""><a href="http://bbs.zol.com.cn/quanzi/" target="_blank">兴趣圈子</a>
-				</li>
-				<li class=""><a href="http://bbs.zol.com.cn/vip/" target="_blank">Z神通联盟</a>
-				</li>
-				<li class=""><a href="http://bbs.zol.com.cn/top/" target="_blank">排行榜</a>
-				<i class="hot-ico"></i>
-				</li>
-				<li class=""><a href="http://jindou.zol.com/" target="_blank">Z金豆俱乐部</a>
-				</li>
-				
-	</ul>
-</div>
-</div>
-
-<div class="wrapper">
-	<div class="category-nav-box box-shadow border-radius-s3">
-		<div class="main-category clearfix">
-		    			<dl class="sjbbs">
-				<dt><a href="http://bbs.zol.com.cn/sjbbs/" target="_blank">手机论坛</a></dt>
-				<dd>
-					<h3><a href="http://bbs.zol.com.cn/sjbbs/" target="_blank">手机论坛</a></h3>
-										<p>
-					    <a href="http://bbs.zol.com.cn/sjbbs/d1763.html" target="_blank">联想手机</a>
-					</p>
-										<p>
-					    <a href="http://bbs.zol.com.cn/sjbbs/d33855.html" target="_blank">朵唯手机<i class="new-ico"></i></a>
-					</p>
-									</dd>
-			</dl>
-						<dl class="dcbbs">
-				<dt><a href="http://bbs.zol.com.cn/dcbbs/" target="_blank">摄影论坛</a></dt>
-				<dd>
-					<h3><a href="http://bbs.zol.com.cn/dcbbs/" target="_blank">摄影论坛</a></h3>
-										<p>
-					    <a href="http://bbs.zol.com.cn/dcbbs/jingxuan/" target="_blank">精彩推荐</a>
-					</p>
-										<p>
-					    <a href="http://bbs.zol.com.cn/dcbbs/region/sitemap.html" target="_blank">地方俱乐部</a>
-					</p>
-									</dd>
-			</dl>
-						<dl class="diybbs">
-				<dt><a href="http://bbs.zol.com.cn/diybbs/" target="_blank">硬件论坛</a></dt>
-				<dd>
-					<h3><a href="http://bbs.zol.com.cn/diybbs/" target="_blank">硬件论坛</a></h3>
-										<p>
-					    <a href="http://bbs.zol.com.cn/diybbs/d231.html" target="_blank">DIY与攒机</a>
-					</p>
-										<p>
-					    <a href="http://bbs.zol.com.cn/diybbs/d446.html" target="_blank">HKC</a>
-					</p>
-									</dd>
-			</dl>
-						<dl class="nbbbs">
-				<dt><a href="http://bbs.zol.com.cn/nbbbs/" target="_blank">笔记本论坛</a></dt>
-				<dd>
-					<h3><a href="http://bbs.zol.com.cn/nbbbs/" target="_blank">笔记本论坛</a></h3>
-										<p>
-					    <a href="http://bbs.zol.com.cn/nbbbs/d160.html" target="_blank">联想专区</a>
-					</p>
-										<p>
-					    <a href="http://bbs.zol.com.cn/nbbbs/c1.html" target="_blank">本本大讨论</a>
-					</p>
-									</dd>
-			</dl>
-						<dl class="padbbs">
-				<dt><a href="http://bbs.zol.com.cn/padbbs/" target="_blank">平板论坛</a></dt>
-				<dd>
-					<h3><a href="http://bbs.zol.com.cn/padbbs/" target="_blank">平板论坛</a></h3>
-										<p>
-					    <a href="http://bbs.zol.com.cn/padbbs/d173.html" target="_blank">诺基亚专区</a>
-					</p>
-										<p>
-					    <a href="http://bbs.zol.com.cn/padbbs/c4.html" target="_blank">平板汇</a>
-					</p>
-									</dd>
-			</dl>
-					</div>
-				<div class="other-bbs clearfix">
-			<span>其他论坛：</span>
-						<a href="http://bbs.zol.com.cn/otherbbs/d598.html" target="_blank">新手区</a>
-						<a href="http://bbs.zol.com.cn/sjbbs/d36776.html" target="_blank">手把手ROM</a>
-						<a href="http://bbs.zol.com.cn/index.php?c=search&amp;a=topic&amp;kword=ZOL%D0%C2%BB%FA%B1%ED" target="_blank">ZOL新机表</a>
-						<a href="http://bbs.zol.com.cn/jdbbs/d58_m613.html" target="_blank">华为盒子</a>
-						<a href="http://bbs.zol.com.cn/brand/c9.html" target="_blank">海能达</a>
-						<a href="http://bbs.zol.com.cn/brand/c8.html" target="_blank">航嘉机电</a>
-						<a href="http://bbs.zol.com.cn/techbbs/" target="_blank">技术论坛</a>
-						<a href="http://bbs.zol.com.cn/gpsbbs/" target="_blank">GPS论坛</a>
-						<a href="http://bbs.zol.com.cn/quanzi/d643.html" target="_blank">有问必答</a>
-					</div>
-			</div>
-	<!-- //category-nav-box -->
-	
-	    <div class="ad_div ad_div-focus">
+    <div class="header-inner clearfix">
+        <a href="http://bbs.zol.com.cn/" class="logo"><h1>ZOL论坛</h1></a>
+        <!-- 当搜索结果页时 给下面的div添加类名 search-result-page 同时加上下面的search-nav -->
+        <div class="search-module bbs-index-search">
+            <div class="search-nav" style="display:none;">
+                <a href="http://detail.zol.com.cn/index.php?keyword=&amp;c=SearchList">产品</a>
+                <a href="http://search.zol.com.cn/s/search.php?keyword=&amp;c=SearchList">资讯</a>
+                <a class="current" href="javascript:void(0);">论坛</a>
+                <a href="http://xiazai.zol.com.cn/search?wd=&amp;type=1">下载</a>
+                <a href="http://ask.zol.com.cn/new/search.php?kword=">问答</a>
+            </div>
+            <div class="searchbox border-radius-s3 clearfix">
+                <form action="/index.php" method="get" onsubmit="return checkKword();">
+                    <input name="c" value="search" type="hidden">
+                    <input data-source="" id="searchBox" autocomplete="off" class="search-txt placeholder" name="kword" value="请输入帖子关键词" type="text">
+                    <input class="search-btn border-radius-s3" value="搜索" type="submit">
+                </form>
+            </div>
+        </div>
     </div>
-    	
-	<div class="focus-box">
-	    <!-- 
-		<span class="prev" id="focus_top_prev" style="display: block;"><i class="icon">上一页</i></span>
-		<span class="next" id="focus_top_next" style="display: block;"><i class="icon">下一页</i></span>
-		 -->
-		<div class="focus-date">
-			<div style="max-width: 100%;" class="bx-wrapper"><div style="width: 100%; overflow: hidden; position: relative; height: 405px;" class="bx-viewport"><ul style="width: 515%; position: relative; transition-duration: 0s; transform: translate3d(-3000px, 0px, 0px);" class="focus-list"><li style="float: left; list-style: outside none none; position: relative; width: 1000px;" class="focus-item  bx-clone" data-role="2">
-					<div class="item item-1">
-					    						<a href="http://bbs.zol.com.cn/dcbbs/d16_88241.html#picIndex9" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWIsgaIapuDAAChc6wWpM0AAF1OQCZTNEAAKGL003.jpg" alt="兔女郎" height="405" width="285">
+</div>
+
+<div class="wrapper">
+
+
+    <div class="bbs-navbox border-radius-s3">
+        <ul class="bbs-nav-list clearfix">
+            <li class="current"><a href="###">首页</a>
+            </li>
+            <li class=""><a href="http://bbs.zol.com.cn/huodong/" target="_blank">论坛活动</a>
+            </li>
+            <li class=""><a href="http://try.zol.com.cn/" target="_blank">试用中心</a>
+                <i class="hot-ico"></i>
+            </li>
+            <li class=""><a href="http://bbs.zol.com.cn/quanzi/" target="_blank">兴趣圈子</a>
+            </li>
+            <li class=""><a href="http://bbs.zol.com.cn/vip/" target="_blank">Z神通联盟</a>
+            </li>
+            <li class=""><a href="http://bbs.zol.com.cn/top/" target="_blank">排行榜</a>
+                <i class="hot-ico"></i>
+            </li>
+            <li class=""><a href="http://jindou.zol.com/" target="_blank">Z金豆俱乐部</a>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<div class="wrapper">
+    <div class="category-nav-box box-shadow border-radius-s3">
+        <div class="main-category clearfix">
+            <dl class="sjbbs">
+                <dt><a href="http://bbs.zol.com.cn/sjbbs/" target="_blank">手机论坛</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/sjbbs/" target="_blank">手机论坛</a></h3>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/sjbbs/d1763.html" target="_blank">联想手机</a>
+                    </p>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/sjbbs/d33855.html" target="_blank">朵唯手机<i class="new-ico"></i></a>
+                    </p>
+                </dd>
+            </dl>
+            <dl class="dcbbs">
+                <dt><a href="http://bbs.zol.com.cn/dcbbs/" target="_blank">摄影论坛</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/dcbbs/" target="_blank">摄影论坛</a></h3>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/dcbbs/jingxuan/" target="_blank">精彩推荐</a>
+                    </p>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/dcbbs/region/sitemap.html" target="_blank">地方俱乐部</a>
+                    </p>
+                </dd>
+            </dl>
+            <dl class="diybbs">
+                <dt><a href="http://bbs.zol.com.cn/diybbs/" target="_blank">硬件论坛</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/diybbs/" target="_blank">硬件论坛</a></h3>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/diybbs/d231.html" target="_blank">DIY与攒机</a>
+                    </p>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/diybbs/d446.html" target="_blank">HKC</a>
+                    </p>
+                </dd>
+            </dl>
+            <dl class="nbbbs">
+                <dt><a href="http://bbs.zol.com.cn/nbbbs/" target="_blank">笔记本论坛</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/nbbbs/" target="_blank">笔记本论坛</a></h3>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/nbbbs/d160.html" target="_blank">联想专区</a>
+                    </p>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/nbbbs/c1.html" target="_blank">本本大讨论</a>
+                    </p>
+                </dd>
+            </dl>
+            <dl class="padbbs">
+                <dt><a href="http://bbs.zol.com.cn/padbbs/" target="_blank">平板论坛</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/padbbs/" target="_blank">平板论坛</a></h3>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/padbbs/d173.html" target="_blank">诺基亚专区</a>
+                    </p>
+                    <p>
+                        <a href="http://bbs.zol.com.cn/padbbs/c4.html" target="_blank">平板汇</a>
+                    </p>
+                </dd>
+            </dl>
+        </div>
+        <div class="other-bbs clearfix">
+            <span>其他论坛：</span>
+            <a href="http://bbs.zol.com.cn/otherbbs/d598.html" target="_blank">新手区</a>
+            <a href="http://bbs.zol.com.cn/sjbbs/d36776.html" target="_blank">手把手ROM</a>
+            <a href="http://bbs.zol.com.cn/index.php?c=search&amp;a=topic&amp;kword=ZOL%D0%C2%BB%FA%B1%ED" target="_blank">ZOL新机表</a>
+            <a href="http://bbs.zol.com.cn/jdbbs/d58_m613.html" target="_blank">华为盒子</a>
+            <a href="http://bbs.zol.com.cn/brand/c9.html" target="_blank">海能达</a>
+            <a href="http://bbs.zol.com.cn/brand/c8.html" target="_blank">航嘉机电</a>
+            <a href="http://bbs.zol.com.cn/techbbs/" target="_blank">技术论坛</a>
+            <a href="http://bbs.zol.com.cn/gpsbbs/" target="_blank">GPS论坛</a>
+            <a href="http://bbs.zol.com.cn/quanzi/d643.html" target="_blank">有问必答</a>
+        </div>
+    </div>
+    <!-- //category-nav-box -->
+</div>
+
+<div class="wrapper">
+    <div class="focus-box">
+        <!--
+        <span class="prev" id="focus_top_prev" style="display: block;"><i class="icon">上一页</i></span>
+        <span class="next" id="focus_top_next" style="display: block;"><i class="icon">下一页</i></span>
+         -->
+        <div class="focus-date">
+            <div style="max-width: 100%;" class="bx-wrapper"><div style="width: 100%; overflow: hidden; position: relative; height: 405px;" class="bx-viewport"><ul style="width: 515%; position: relative; transition-duration: 0s; transform: translate3d(-3000px, 0px, 0px);" class="focus-list"><li style="float: left; list-style: outside none none; position: relative; width: 1000px;" class="focus-item  bx-clone" data-role="2">
+                <div class="item item-1">
+                    <a href="http://bbs.zol.com.cn/dcbbs/d16_88241.html#picIndex9" target="_blank" class="pic">
+                        <img src="demo/Cg-4WVWIsgaIapuDAAChc6wWpM0AAF1OQCZTNEAAKGL003.jpg" alt="兔女郎" height="405" width="285">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>兔女郎</em></span>
 									<span>2015-06-22&nbsp;&nbsp;&nbsp;&nbsp;10063阅读&nbsp;/&nbsp;51回复</span>
 								</span>
-								<span class="pic-intro-body"></span>								
+								<span class="pic-intro-body"></span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-2">
-					   						<a href="http://bbs.zol.com.cn/sjbbs/d297_589805.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWDtMuIIMXuAACvxyRj-FEAAFpbwH2hl8AAK_f433.jpg" alt="Win10手机重磅功能曝光!" height="200" width="400">
+                    </a>
+                </div>
+                <div class="item item-2">
+                    <a href="http://bbs.zol.com.cn/sjbbs/d297_589805.html" target="_blank" class="pic">
+                        <img src="demo/Cg-4WlWDtMuIIMXuAACvxyRj-FEAAFpbwH2hl8AAK_f433.jpg" alt="Win10手机重磅功能曝光!" height="200" width="400">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>Win10手机重磅功能曝光!</em></span>
 									<span>2015-06-19&nbsp;&nbsp;&nbsp;&nbsp;12006阅读&nbsp;/&nbsp;27回复</span>
 								</span>
-								<span class="pic-intro-body">Windows Phone系统一直都不支持通话录音功能，对于一些WPer来说不免遗憾。</span>								
+								<span class="pic-intro-body">Windows Phone系统一直都不支持通话录音功能，对于一些WPer来说不免遗憾。</span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-3">
-												<a href="http://bbs.zol.com.cn/sjbbs/d34130_133320.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWDtiWIBiiyAACOyTkahyQAAFpdAO_tKcAAI7h479.jpg" alt="锤子新机价格曝光 不叫小锤子！" height="200" width="305">
+                    </a>
+                </div>
+                <div class="item item-3">
+                    <a href="http://bbs.zol.com.cn/sjbbs/d34130_133320.html" target="_blank" class="pic">
+                        <img src="demo/Cg-4WVWDtiWIBiiyAACOyTkahyQAAFpdAO_tKcAAI7h479.jpg" alt="锤子新机价格曝光 不叫小锤子！" height="200" width="305">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>锤子新机价格曝光 不叫小锤子！</em></span>
 									<span>2015-06-19&nbsp;&nbsp;&nbsp;&nbsp;45582阅读&nbsp;/&nbsp;104回复</span>
 								</span>
-								<span class="pic-intro-body">随着锤子新机YQ601在工信部的亮相，不少人都将该机戏称为“小锤子”，并且主要配置也可谓全面曝光。不过，锤子科技CEO罗永浩显然并不认可这样的说法</span>								
+								<span class="pic-intro-body">随着锤子新机YQ601在工信部的亮相，不少人都将该机戏称为“小锤子”，并且主要配置也可谓全面曝光。不过，锤子科技CEO罗永浩显然并不认可这样的说法</span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-4">
-												<a href="http://bbs.zol.com.cn/quanzi/d14_4732.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWDtXqIUDUcAADJ_PTxQIEAAFpcgGgHLQAAMoU280.jpg" alt="苹果Watch二代曝光 可FaceTime" height="200" width="305">
+                    </a>
+                </div>
+                <div class="item item-4">
+                    <a href="http://bbs.zol.com.cn/quanzi/d14_4732.html" target="_blank" class="pic">
+                        <img src="demo/Cg-4WlWDtXqIUDUcAADJ_PTxQIEAAFpcgGgHLQAAMoU280.jpg" alt="苹果Watch二代曝光 可FaceTime" height="200" width="305">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>苹果Watch二代曝光 可FaceTime</em></span>
 									<span>2015-06-19&nbsp;&nbsp;&nbsp;&nbsp;15336阅读&nbsp;/&nbsp;18回复</span>
 								</span>
-								<span class="pic-intro-body">国外媒体9to5Mac报道今天已经收到苹果婊的第二代消息，称苹果计划在2016年发布第二代产品，增加Face Time摄像头</span>								
+								<span class="pic-intro-body">国外媒体9to5Mac报道今天已经收到苹果婊的第二代消息，称苹果计划在2016年发布第二代产品，增加Face Time摄像头</span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-5">
-												<a href="http://bbs.zol.com.cn/sjbbs/d34130_133319.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWDtHuIAGplAACPuVTOvvEAAFpbQP9rnwAAI_R987.jpg" alt="新iPhone或增新配色 机身变厚!" height="200" width="400">
+                    </a>
+                </div>
+                <div class="item item-5">
+                    <a href="http://bbs.zol.com.cn/sjbbs/d34130_133319.html" target="_blank" class="pic">
+                        <img src="demo/Cg-4WVWDtHuIAGplAACPuVTOvvEAAFpbQP9rnwAAI_R987.jpg" alt="新iPhone或增新配色 机身变厚!" height="200" width="400">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>新iPhone或增新配色 机身变厚!</em></span>
 									<span>2015-06-19&nbsp;&nbsp;&nbsp;&nbsp;15175阅读&nbsp;/&nbsp;33回复</span>
 								</span>
-								<span class="pic-intro-body">以往下一代iPhone的传闻都是该机会变得更薄，但现在最新的消息则声称机身厚度略有增加。日前，根据KGI证券知名分析师郭明池提交的报告预测</span>								
+								<span class="pic-intro-body">以往下一代iPhone的传闻都是该机会变得更薄，但现在最新的消息则声称机身厚度略有增加。日前，根据KGI证券知名分析师郭明池提交的报告预测</span>
 							</span>
-						</a>
-					</div>
-				</li>
-			    				<li class="focus-item current" data-role="0" style="margin-left: 0px; float: left; list-style: outside none none; position: relative; width: 1000px;">
-					<div class="item item-1">
-					    						<a href="http://bbs.zol.com.cn/dcbbs/d16_88238.html#picIndex1" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWJ_q2INpXYAABxZ4bONwoAAF4pQGVnTsAAHF_383.jpg" alt="艺妓回忆录" height="405" width="285">
+                    </a>
+                </div>
+            </li>
+                <li class="focus-item current" data-role="0" style="margin-left: 0px; float: left; list-style: outside none none; position: relative; width: 1000px;">
+                    <div class="item item-1">
+                        <a href="http://bbs.zol.com.cn/dcbbs/d16_88238.html#picIndex1" target="_blank" class="pic">
+                            <img src="demo/Cg-4WlWJ_q2INpXYAABxZ4bONwoAAF4pQGVnTsAAHF_383.jpg" alt="艺妓回忆录" height="405" width="285">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>艺妓回忆录</em></span>
 									<span>2015-06-22&nbsp;&nbsp;&nbsp;&nbsp;7188阅读&nbsp;/&nbsp;54回复</span>
 								</span>
-								<span class="pic-intro-body"></span>								
+								<span class="pic-intro-body"></span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-2">
-					   						<a href="http://bbs.zol.com.cn/sjbbs/d34130_133482.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWKHqSIUUwRAADYdzTo2GIAAF49gO0nmAAANiP932.jpg" alt="碉堡了！6S有望配备3D悬浮触控技术" height="200" width="400">
+                        </a>
+                    </div>
+                    <div class="item item-2">
+                        <a href="http://bbs.zol.com.cn/sjbbs/d34130_133482.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WVWKHqSIUUwRAADYdzTo2GIAAF49gO0nmAAANiP932.jpg" alt="碉堡了！6S有望配备3D悬浮触控技术" height="200" width="400">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>碉堡了！6S有望配备3D悬浮触控技术</em></span>
 									<span>2015-06-23&nbsp;&nbsp;&nbsp;&nbsp;18992阅读&nbsp;/&nbsp;38回复</span>
 								</span>
-								<span class="pic-intro-body">据AppleInsider报道，在苹果新递交的专利文件中显示，一种可以通过多种传感器和补偿手段实现3D“悬浮”手势支持，扩展人机交互手段的技术专利赫然在里。</span>								
+								<span class="pic-intro-body">据AppleInsider报道，在苹果新递交的专利文件中显示，一种可以通过多种传感器和补偿手段实现3D“悬浮”手势支持，扩展人机交互手段的技术专利赫然在里。</span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-3">
-												<a href="http://bbs.zol.com.cn/diybbs/d34448_7908.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWKVXiIakCvAAJaKeRKBr0AAF5nQPwvfwAAlpB448.png" alt="H7爆款来袭 冰点低价还送话费" height="200" width="305">
+                        </a>
+                    </div>
+                    <div class="item item-3">
+                        <a href="http://bbs.zol.com.cn/diybbs/d34448_7908.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WlWKVXiIakCvAAJaKeRKBr0AAF5nQPwvfwAAlpB448.png" alt="H7爆款来袭 冰点低价还送话费" height="200" width="305">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>H7爆款来袭 冰点低价还送话费</em></span>
 									<span>2015-06-24&nbsp;&nbsp;&nbsp;&nbsp;273阅读&nbsp;/&nbsp;3回复</span>
 								</span>
-								<span class="pic-intro-body">海美迪芒果嗨Q H7三代网络机顶盒！原价399元，ZOL玩家抢先版体验价299元！还送话费！</span>								
+								<span class="pic-intro-body">海美迪芒果嗨Q H7三代网络机顶盒！原价399元，ZOL玩家抢先版体验价299元！还送话费！</span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-4">
-												<a href="http://bbs.zol.com.cn/diybbs/d231_810515.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWKH3GIDJdZAADDwwEG6IAAAF4-ANPntcAAMPb978.jpg" alt="夜深人静男男齐测蓝宝石380ITX" height="200" width="305">
+                        </a>
+                    </div>
+                    <div class="item item-4">
+                        <a href="http://bbs.zol.com.cn/diybbs/d231_810515.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WVWKH3GIDJdZAADDwwEG6IAAAF4-ANPntcAAMPb978.jpg" alt="夜深人静男男齐测蓝宝石380ITX" height="200" width="305">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>夜深人静男男齐测蓝宝石380ITX</em></span>
 									<span>2015-06-23&nbsp;&nbsp;&nbsp;&nbsp;25033阅读&nbsp;/&nbsp;54回复</span>
 								</span>
-								<span class="pic-intro-body">上周五刚下班，小伙伴给我打电话，说让我去他家，还让我谁也别告诉，去他家要偷偷的。突然想起上次我们一起去爬山的时候，他竟然直接拿我喝过的水去喝了，难道他</span>								
+								<span class="pic-intro-body">上周五刚下班，小伙伴给我打电话，说让我去他家，还让我谁也别告诉，去他家要偷偷的。突然想起上次我们一起去爬山的时候，他竟然直接拿我喝过的水去喝了，难道他</span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-5">
-												<a href="http://bbs.zol.com.cn/huodong/d2_26136.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWKGZKIMs02AACAh1bRmhAAAF46AP5VToAAICf323.jpg" alt="晒毕业旅行计划赢取vivo X5Pro" height="200" width="400">
+                        </a>
+                    </div>
+                    <div class="item item-5">
+                        <a href="http://bbs.zol.com.cn/huodong/d2_26136.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WVWKGZKIMs02AACAh1bRmhAAAF46AP5VToAAICf323.jpg" alt="晒毕业旅行计划赢取vivo X5Pro" height="200" width="400">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>晒毕业旅行计划赢取vivo X5Pro</em></span>
 									<span>2015-06-23&nbsp;&nbsp;&nbsp;&nbsp;1419阅读&nbsp;/&nbsp;27回复</span>
 								</span>
-								<span class="pic-intro-body">约上同学一起，制定你的专属旅行计划，我们将选取5个最佳的旅行方案，送出vivo X5Pro最美手机，高考学子可以使用vivo手机来纪念专属的毕业旅行！</span>								
+								<span class="pic-intro-body">约上同学一起，制定你的专属旅行计划，我们将选取5个最佳的旅行方案，送出vivo X5Pro最美手机，高考学子可以使用vivo手机来纪念专属的毕业旅行！</span>
 							</span>
-						</a>
-					</div>
-				</li>
-								<li class="focus-item " data-role="1" style="margin-left: 0px; float: left; list-style: outside none none; position: relative; width: 1000px;">
-					<div class="item item-1">
-					    						<a href="http://bbs.zol.com.cn/dcbbs/d16_88118.html#picIndex6" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWIshWIZdzrAACVkCUaO-YAAF1OQDqsp4AAJWo182.jpg" alt="模特黄冰洁" height="405" width="285">
+                        </a>
+                    </div>
+                </li>
+                <li class="focus-item " data-role="1" style="margin-left: 0px; float: left; list-style: outside none none; position: relative; width: 1000px;">
+                    <div class="item item-1">
+                        <a href="http://bbs.zol.com.cn/dcbbs/d16_88118.html#picIndex6" target="_blank" class="pic">
+                            <img src="demo/Cg-4WVWIshWIZdzrAACVkCUaO-YAAF1OQDqsp4AAJWo182.jpg" alt="模特黄冰洁" height="405" width="285">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>模特黄冰洁</em></span>
 									<span>2015-06-19&nbsp;&nbsp;&nbsp;&nbsp;4578阅读&nbsp;/&nbsp;46回复</span>
 								</span>
-								<span class="pic-intro-body"></span>								
+								<span class="pic-intro-body"></span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-2">
-					   						<a href="http://bbs.zol.com.cn/sjbbs/d1673_15591.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWDtz2IAT7qAACjVHN-ck0AAFpdwIlHOMAAKNs033.jpg" alt="闪拍利器 OPPO R7零触感体验" height="200" width="400">
+                        </a>
+                    </div>
+                    <div class="item item-2">
+                        <a href="http://bbs.zol.com.cn/sjbbs/d1673_15591.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WVWDtz2IAT7qAACjVHN-ck0AAFpdwIlHOMAAKNs033.jpg" alt="闪拍利器 OPPO R7零触感体验" height="200" width="400">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>闪拍利器 OPPO R7零触感体验</em></span>
 									<span>2015-06-18&nbsp;&nbsp;&nbsp;&nbsp;4512阅读&nbsp;/&nbsp;22回复</span>
 								</span>
-								<span class="pic-intro-body">说到手机品牌，很多人会联想到苹果，三星这些国际大牌，而联想到国产手机，相信会有很多人会想到强大的山寨军团，当然国产手机绝对不是只有山寨机</span>								
+								<span class="pic-intro-body">说到手机品牌，很多人会联想到苹果，三星这些国际大牌，而联想到国产手机，相信会有很多人会想到强大的山寨军团，当然国产手机绝对不是只有山寨机</span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-3">
-												<a href="http://bbs.zol.com.cn/sjbbs/d34130_133526.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWKHwmIO169AACfGO8OV4sAAF49wNzL4cAAJ8w996.jpg" alt="悲剧！Apple Watch开始5折回收" height="200" width="305">
+                        </a>
+                    </div>
+                    <div class="item item-3">
+                        <a href="http://bbs.zol.com.cn/sjbbs/d34130_133526.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WlWKHwmIO169AACfGO8OV4sAAF49wNzL4cAAJ8w996.jpg" alt="悲剧！Apple Watch开始5折回收" height="200" width="305">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>悲剧！Apple Watch开始5折回收</em></span>
 									<span>2015-06-24&nbsp;&nbsp;&nbsp;&nbsp;12800阅读&nbsp;/&nbsp;5回复</span>
 								</span>
-								<span class="pic-intro-body">距Apple Watch正式发售已经有2个月的时间了，那么那些悔恨买了Apple Watch的用户怎么办？没错，“悔恨药”也已经来了...</span>								
+								<span class="pic-intro-body">距Apple Watch正式发售已经有2个月的时间了，那么那些悔恨买了Apple Watch的用户怎么办？没错，“悔恨药”也已经来了...</span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-4">
-												<a href="http://bbs.zol.com.cn/huodong/d2_26089.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVV1JxKIcxsQAABEEayjd4MAAE0gAH1Dh0AAEQp403.jpg" alt="时代华为盒子M330免费试用" height="200" width="305">
+                        </a>
+                    </div>
+                    <div class="item item-4">
+                        <a href="http://bbs.zol.com.cn/huodong/d2_26089.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WVV1JxKIcxsQAABEEayjd4MAAE0gAH1Dh0AAEQp403.jpg" alt="时代华为盒子M330免费试用" height="200" width="305">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>时代华为盒子M330免费试用</em></span>
 									<span>2015-06-08&nbsp;&nbsp;&nbsp;&nbsp;64148阅读&nbsp;/&nbsp;410回复</span>
 								</span>
-								<span class="pic-intro-body">禁锢在客厅的筒子们，现在给你个机会，只有一个机会，享受超高清时代的电视体验，不用大张旗鼓的更换电视。</span>								
+								<span class="pic-intro-body">禁锢在客厅的筒子们，现在给你个机会，只有一个机会，享受超高清时代的电视体验，不用大张旗鼓的更换电视。</span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-5">
-												<a href="http://bbs.zol.com.cn/sjbbs/d1795_6536.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWDtrSINOIYAADQ-pwbD8wAAFpdgGv7EEAANES260.jpg" alt="网友实测vivo X5Pro音效！" height="200" width="400">
+                        </a>
+                    </div>
+                    <div class="item item-5">
+                        <a href="http://bbs.zol.com.cn/sjbbs/d1795_6536.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WlWDtrSINOIYAADQ-pwbD8wAAFpdgGv7EEAANES260.jpg" alt="网友实测vivo X5Pro音效！" height="200" width="400">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>网友实测vivo X5Pro音效！</em></span>
 									<span>2015-06-19&nbsp;&nbsp;&nbsp;&nbsp;7590阅读&nbsp;/&nbsp;104回复</span>
 								</span>
-								<span class="pic-intro-body">从XPlay起，提到HIFI音效，人们就自然的想到了vivo。可想而知首个推出差异化，并且做到极致的效果就是容易被人们记住。</span>								
+								<span class="pic-intro-body">从XPlay起，提到HIFI音效，人们就自然的想到了vivo。可想而知首个推出差异化，并且做到极致的效果就是容易被人们记住。</span>
 							</span>
-						</a>
-					</div>
-				</li>
-								<li style="float: left; list-style: outside none none; position: relative; width: 1000px;" class="focus-item " data-role="2">
-					<div class="item item-1">
-					    						<a href="http://bbs.zol.com.cn/dcbbs/d16_88241.html#picIndex9" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWIsgaIapuDAAChc6wWpM0AAF1OQCZTNEAAKGL003.jpg" alt="兔女郎" height="405" width="285">
+                        </a>
+                    </div>
+                </li>
+                <li style="float: left; list-style: outside none none; position: relative; width: 1000px;" class="focus-item " data-role="2">
+                    <div class="item item-1">
+                        <a href="http://bbs.zol.com.cn/dcbbs/d16_88241.html#picIndex9" target="_blank" class="pic">
+                            <img src="demo/Cg-4WVWIsgaIapuDAAChc6wWpM0AAF1OQCZTNEAAKGL003.jpg" alt="兔女郎" height="405" width="285">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>兔女郎</em></span>
 									<span>2015-06-22&nbsp;&nbsp;&nbsp;&nbsp;10063阅读&nbsp;/&nbsp;51回复</span>
 								</span>
-								<span class="pic-intro-body"></span>								
+								<span class="pic-intro-body"></span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-2">
-					   						<a href="http://bbs.zol.com.cn/sjbbs/d297_589805.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWDtMuIIMXuAACvxyRj-FEAAFpbwH2hl8AAK_f433.jpg" alt="Win10手机重磅功能曝光!" height="200" width="400">
+                        </a>
+                    </div>
+                    <div class="item item-2">
+                        <a href="http://bbs.zol.com.cn/sjbbs/d297_589805.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WlWDtMuIIMXuAACvxyRj-FEAAFpbwH2hl8AAK_f433.jpg" alt="Win10手机重磅功能曝光!" height="200" width="400">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>Win10手机重磅功能曝光!</em></span>
 									<span>2015-06-19&nbsp;&nbsp;&nbsp;&nbsp;12006阅读&nbsp;/&nbsp;27回复</span>
 								</span>
-								<span class="pic-intro-body">Windows Phone系统一直都不支持通话录音功能，对于一些WPer来说不免遗憾。</span>								
+								<span class="pic-intro-body">Windows Phone系统一直都不支持通话录音功能，对于一些WPer来说不免遗憾。</span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-3">
-												<a href="http://bbs.zol.com.cn/sjbbs/d34130_133320.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWDtiWIBiiyAACOyTkahyQAAFpdAO_tKcAAI7h479.jpg" alt="锤子新机价格曝光 不叫小锤子！" height="200" width="305">
+                        </a>
+                    </div>
+                    <div class="item item-3">
+                        <a href="http://bbs.zol.com.cn/sjbbs/d34130_133320.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WVWDtiWIBiiyAACOyTkahyQAAFpdAO_tKcAAI7h479.jpg" alt="锤子新机价格曝光 不叫小锤子！" height="200" width="305">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>锤子新机价格曝光 不叫小锤子！</em></span>
 									<span>2015-06-19&nbsp;&nbsp;&nbsp;&nbsp;45582阅读&nbsp;/&nbsp;104回复</span>
 								</span>
-								<span class="pic-intro-body">随着锤子新机YQ601在工信部的亮相，不少人都将该机戏称为“小锤子”，并且主要配置也可谓全面曝光。不过，锤子科技CEO罗永浩显然并不认可这样的说法</span>								
+								<span class="pic-intro-body">随着锤子新机YQ601在工信部的亮相，不少人都将该机戏称为“小锤子”，并且主要配置也可谓全面曝光。不过，锤子科技CEO罗永浩显然并不认可这样的说法</span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-4">
-												<a href="http://bbs.zol.com.cn/quanzi/d14_4732.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWDtXqIUDUcAADJ_PTxQIEAAFpcgGgHLQAAMoU280.jpg" alt="苹果Watch二代曝光 可FaceTime" height="200" width="305">
+                        </a>
+                    </div>
+                    <div class="item item-4">
+                        <a href="http://bbs.zol.com.cn/quanzi/d14_4732.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WlWDtXqIUDUcAADJ_PTxQIEAAFpcgGgHLQAAMoU280.jpg" alt="苹果Watch二代曝光 可FaceTime" height="200" width="305">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>苹果Watch二代曝光 可FaceTime</em></span>
 									<span>2015-06-19&nbsp;&nbsp;&nbsp;&nbsp;15336阅读&nbsp;/&nbsp;18回复</span>
 								</span>
-								<span class="pic-intro-body">国外媒体9to5Mac报道今天已经收到苹果婊的第二代消息，称苹果计划在2016年发布第二代产品，增加Face Time摄像头</span>								
+								<span class="pic-intro-body">国外媒体9to5Mac报道今天已经收到苹果婊的第二代消息，称苹果计划在2016年发布第二代产品，增加Face Time摄像头</span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-5">
-												<a href="http://bbs.zol.com.cn/sjbbs/d34130_133319.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWDtHuIAGplAACPuVTOvvEAAFpbQP9rnwAAI_R987.jpg" alt="新iPhone或增新配色 机身变厚!" height="200" width="400">
+                        </a>
+                    </div>
+                    <div class="item item-5">
+                        <a href="http://bbs.zol.com.cn/sjbbs/d34130_133319.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WVWDtHuIAGplAACPuVTOvvEAAFpbQP9rnwAAI_R987.jpg" alt="新iPhone或增新配色 机身变厚!" height="200" width="400">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>新iPhone或增新配色 机身变厚!</em></span>
 									<span>2015-06-19&nbsp;&nbsp;&nbsp;&nbsp;15175阅读&nbsp;/&nbsp;33回复</span>
 								</span>
-								<span class="pic-intro-body">以往下一代iPhone的传闻都是该机会变得更薄，但现在最新的消息则声称机身厚度略有增加。日前，根据KGI证券知名分析师郭明池提交的报告预测</span>								
+								<span class="pic-intro-body">以往下一代iPhone的传闻都是该机会变得更薄，但现在最新的消息则声称机身厚度略有增加。日前，根据KGI证券知名分析师郭明池提交的报告预测</span>
 							</span>
-						</a>
-					</div>
-				</li>
-							<li class="focus-item current bx-clone" data-role="0" style="margin-left: 0px; float: left; list-style: outside none none; position: relative; width: 1000px;">
-					<div class="item item-1">
-					    						<a href="http://bbs.zol.com.cn/dcbbs/d16_88238.html#picIndex1" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWJ_q2INpXYAABxZ4bONwoAAF4pQGVnTsAAHF_383.jpg" alt="艺妓回忆录" height="405" width="285">
+                        </a>
+                    </div>
+                </li>
+                <li class="focus-item current bx-clone" data-role="0" style="margin-left: 0px; float: left; list-style: outside none none; position: relative; width: 1000px;">
+                    <div class="item item-1">
+                        <a href="http://bbs.zol.com.cn/dcbbs/d16_88238.html#picIndex1" target="_blank" class="pic">
+                            <img src="demo/Cg-4WlWJ_q2INpXYAABxZ4bONwoAAF4pQGVnTsAAHF_383.jpg" alt="艺妓回忆录" height="405" width="285">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>艺妓回忆录</em></span>
 									<span>2015-06-22&nbsp;&nbsp;&nbsp;&nbsp;7188阅读&nbsp;/&nbsp;54回复</span>
 								</span>
-								<span class="pic-intro-body"></span>								
+								<span class="pic-intro-body"></span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-2">
-					   						<a href="http://bbs.zol.com.cn/sjbbs/d34130_133482.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWKHqSIUUwRAADYdzTo2GIAAF49gO0nmAAANiP932.jpg" alt="碉堡了！6S有望配备3D悬浮触控技术" height="200" width="400">
+                        </a>
+                    </div>
+                    <div class="item item-2">
+                        <a href="http://bbs.zol.com.cn/sjbbs/d34130_133482.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WVWKHqSIUUwRAADYdzTo2GIAAF49gO0nmAAANiP932.jpg" alt="碉堡了！6S有望配备3D悬浮触控技术" height="200" width="400">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>碉堡了！6S有望配备3D悬浮触控技术</em></span>
 									<span>2015-06-23&nbsp;&nbsp;&nbsp;&nbsp;18992阅读&nbsp;/&nbsp;38回复</span>
 								</span>
-								<span class="pic-intro-body">据AppleInsider报道，在苹果新递交的专利文件中显示，一种可以通过多种传感器和补偿手段实现3D“悬浮”手势支持，扩展人机交互手段的技术专利赫然在里。</span>								
+								<span class="pic-intro-body">据AppleInsider报道，在苹果新递交的专利文件中显示，一种可以通过多种传感器和补偿手段实现3D“悬浮”手势支持，扩展人机交互手段的技术专利赫然在里。</span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-3">
-												<a href="http://bbs.zol.com.cn/diybbs/d34448_7908.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWKVXiIakCvAAJaKeRKBr0AAF5nQPwvfwAAlpB448.png" alt="H7爆款来袭 冰点低价还送话费" height="200" width="305">
+                        </a>
+                    </div>
+                    <div class="item item-3">
+                        <a href="http://bbs.zol.com.cn/diybbs/d34448_7908.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WlWKVXiIakCvAAJaKeRKBr0AAF5nQPwvfwAAlpB448.png" alt="H7爆款来袭 冰点低价还送话费" height="200" width="305">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>H7爆款来袭 冰点低价还送话费</em></span>
 									<span>2015-06-24&nbsp;&nbsp;&nbsp;&nbsp;273阅读&nbsp;/&nbsp;3回复</span>
 								</span>
-								<span class="pic-intro-body">海美迪芒果嗨Q H7三代网络机顶盒！原价399元，ZOL玩家抢先版体验价299元！还送话费！</span>								
+								<span class="pic-intro-body">海美迪芒果嗨Q H7三代网络机顶盒！原价399元，ZOL玩家抢先版体验价299元！还送话费！</span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-4">
-												<a href="http://bbs.zol.com.cn/diybbs/d231_810515.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWKH3GIDJdZAADDwwEG6IAAAF4-ANPntcAAMPb978.jpg" alt="夜深人静男男齐测蓝宝石380ITX" height="200" width="305">
+                        </a>
+                    </div>
+                    <div class="item item-4">
+                        <a href="http://bbs.zol.com.cn/diybbs/d231_810515.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WVWKH3GIDJdZAADDwwEG6IAAAF4-ANPntcAAMPb978.jpg" alt="夜深人静男男齐测蓝宝石380ITX" height="200" width="305">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>夜深人静男男齐测蓝宝石380ITX</em></span>
 									<span>2015-06-23&nbsp;&nbsp;&nbsp;&nbsp;25033阅读&nbsp;/&nbsp;54回复</span>
 								</span>
-								<span class="pic-intro-body">上周五刚下班，小伙伴给我打电话，说让我去他家，还让我谁也别告诉，去他家要偷偷的。突然想起上次我们一起去爬山的时候，他竟然直接拿我喝过的水去喝了，难道他</span>								
+								<span class="pic-intro-body">上周五刚下班，小伙伴给我打电话，说让我去他家，还让我谁也别告诉，去他家要偷偷的。突然想起上次我们一起去爬山的时候，他竟然直接拿我喝过的水去喝了，难道他</span>
 							</span>
-						</a>
-					</div>
-					<div class="item item-5">
-												<a href="http://bbs.zol.com.cn/huodong/d2_26136.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWKGZKIMs02AACAh1bRmhAAAF46AP5VToAAICf323.jpg" alt="晒毕业旅行计划赢取vivo X5Pro" height="200" width="400">
+                        </a>
+                    </div>
+                    <div class="item item-5">
+                        <a href="http://bbs.zol.com.cn/huodong/d2_26136.html" target="_blank" class="pic">
+                            <img src="demo/Cg-4WVWKGZKIMs02AACAh1bRmhAAAF46AP5VToAAICf323.jpg" alt="晒毕业旅行计划赢取vivo X5Pro" height="200" width="400">
 							<span class="pic-intro">
 								<span class="pic-intro-head">
 									<span class="pic-intro-title"><em>晒毕业旅行计划赢取vivo X5Pro</em></span>
 									<span>2015-06-23&nbsp;&nbsp;&nbsp;&nbsp;1419阅读&nbsp;/&nbsp;27回复</span>
 								</span>
-								<span class="pic-intro-body">约上同学一起，制定你的专属旅行计划，我们将选取5个最佳的旅行方案，送出vivo X5Pro最美手机，高考学子可以使用vivo手机来纪念专属的毕业旅行！</span>								
+								<span class="pic-intro-body">约上同学一起，制定你的专属旅行计划，我们将选取5个最佳的旅行方案，送出vivo X5Pro最美手机，高考学子可以使用vivo手机来纪念专属的毕业旅行！</span>
 							</span>
-						</a>
-					</div>
-				</li></ul></div><div class="bx-controls bx-has-pager bx-has-controls-direction"><div class="bx-pager bx-default-pager"><div class="bx-pager-item"><a href="" data-slide-index="0" class="bx-pager-link">1</a></div><div class="bx-pager-item"><a href="" data-slide-index="1" class="bx-pager-link">2</a></div><div class="bx-pager-item"><a href="" data-slide-index="2" class="bx-pager-link active">3</a></div></div><div class="bx-controls-direction"><a class="bx-prev" href="">Prev</a><a class="bx-next" href="">Next</a></div></div></div>
-		</div>		
-		<!-- <div class="focus-index"><span class="current">1</span><span>2</span><span>3</span></div> -->
-	</div>
-	<!-- //focus-box -->
+                        </a>
+                    </div>
+                </li></ul></div><div class="bx-controls bx-has-pager bx-has-controls-direction"><div class="bx-pager bx-default-pager"><div class="bx-pager-item"><a href="" data-slide-index="0" class="bx-pager-link">1</a></div><div class="bx-pager-item"><a href="" data-slide-index="1" class="bx-pager-link">2</a></div><div class="bx-pager-item"><a href="" data-slide-index="2" class="bx-pager-link active">3</a></div></div><div class="bx-controls-direction"><a class="bx-prev" href="">Prev</a><a class="bx-next" href="">Next</a></div></div></div>
+        </div>
+        <!-- <div class="focus-index"><span class="current">1</span><span>2</span><span>3</span></div> -->
+    </div>
+    <!-- //focus-box -->
 
     <div class="bbs-content clearfix">
 
@@ -1310,21 +1308,21 @@
             </div>
         </div>
 
-	    <div class="bbs-body">
-		<div class="bbs-main">
-			<!-- 数码摄影论坛模块 -->
-						<div class="section sec-sjbbs box-shadow">
-				<div class="section-header">
-				    <span class="today-num">今日:&nbsp;<a href="http://bbs.zol.com.cn/sjbbs/" target="_blank">3221</a></span>
-					<h2><i class="line"></i><a href="http://bbs.zol.com.cn/sjbbs/" target="_blank" title="手机论坛">手机论坛</a>&nbsp;·<span>一位插班生的梦想！</span>
-										<span style="display: inline-block"><script>write_group_ad('forums_user_textlink','forums_user_textlink.inc.inc');</script></span>
-															</h2>
-				</div>
-				
-				<ul class="section-pics clearfix">
-				    					<li class="first">
-					    <a href="http://bbs.zol.com.cn/quanzi/d14_4757.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWJFXGIf49oAAFAHV0h2hIAAF2aQEGuxAAAUA1877.jpg" alt="乐视超级手机Max体验" height="245" width="340">
+        <div class="bbs-body">
+            <div class="bbs-main">
+                <!-- 数码摄影论坛模块 -->
+                <div class="section sec-sjbbs box-shadow">
+                    <div class="section-header">
+                        <span class="today-num">今日:&nbsp;<a href="http://bbs.zol.com.cn/sjbbs/" target="_blank">3221</a></span>
+                        <h2><i class="line"></i><a href="http://bbs.zol.com.cn/sjbbs/" target="_blank" title="手机论坛">手机论坛</a>&nbsp;·<span>一位插班生的梦想！</span>
+                            <span style="display: inline-block"><script>write_group_ad('forums_user_textlink','forums_user_textlink.inc.inc');</script></span>
+                        </h2>
+                    </div>
+
+                    <ul class="section-pics clearfix">
+                        <li class="first">
+                            <a href="http://bbs.zol.com.cn/quanzi/d14_4757.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WlWJFXGIf49oAAFAHV0h2hIAAF2aQEGuxAAAUA1877.jpg" alt="乐视超级手机Max体验" height="245" width="340">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-intro-head">
 									<span class="pic-title">乐视超级手机Max体验</span>
@@ -1333,58 +1331,58 @@
 								</span>
 								<span class="pic-intro-body">乐视同学的这份答卷能不能够战胜苹果同学呢？我们今天就搬好小板凳一起看戏。</span>
 							</span>
-						</a>
-					</li>
-															<li>
-						<a href="http://bbs.zol.com.cn/sjbbs/d227_2677.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWJFc-IdrHgAAAvadSBZJQAAF2agLEPDEAAC-B115.jpg" alt="Zenfone 2红色开箱" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/sjbbs/d227_2677.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WlWJFc-IdrHgAAAvadSBZJQAAF2agLEPDEAAC-B115.jpg" alt="Zenfone 2红色开箱" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">Zenfone 2红色开箱</span>
 								<span class="pic-nums"><span class="view-num">8001</span><span class="reply-num">9</span></span>
 							</span>
-						</a>
-					</li>
-										<li>
-						<a href="http://bbs.zol.com.cn/sjbbs/d1763_202125.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWDzWKIYwG1AAB2zFdZR1wAAFpvgOp6ckAAHbk384.jpg" alt="乐檬K3 Note给你好看" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/sjbbs/d1763_202125.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WlWDzWKIYwG1AAB2zFdZR1wAAFpvgOp6ckAAHbk384.jpg" alt="乐檬K3 Note给你好看" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">乐檬K3 Note给你好看</span>
 								<span class="pic-nums"><span class="view-num">8313</span><span class="reply-num">9</span></span>
 							</span>
-						</a>
-					</li>
-										<li>
-						<a href="http://bbs.zol.com.cn/sjbbs/d33080_82242.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWDzTKIVASgAACO9D9Yk70AAFpvgIfUVoAAI8M546.jpg" alt="看妹子玩转HTC M9+" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/sjbbs/d33080_82242.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WVWDzTKIVASgAACO9D9Yk70AAFpvgIfUVoAAI8M546.jpg" alt="看妹子玩转HTC M9+" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">看妹子玩转HTC M9+</span>
 								<span class="pic-nums"><span class="view-num">2150</span><span class="reply-num">9</span></span>
 							</span>
-						</a>
-					</li>
-										<li>
-						<a href="http://bbs.zol.com.cn/quanzi/d14_4723.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWDzOqIW65yAACanpTHDYMAAFpvQM8IVcAAJq2486.jpg" alt="聆听vivo X5Pro" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/quanzi/d14_4723.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WlWDzOqIW65yAACanpTHDYMAAFpvQM8IVcAAJq2486.jpg" alt="聆听vivo X5Pro" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">聆听vivo X5Pro</span>
 								<span class="pic-nums"><span class="view-num">3307</span><span class="reply-num">7</span></span>
 							</span>
-						</a>
-					</li>
-									</ul>
-			</div>
-						<div class="section sec-dcbbs box-shadow">
-				<div class="section-header">
-				    <span class="today-num">今日:&nbsp;<a href="http://bbs.zol.com.cn/dcbbs/" target="_blank">32728</a></span>
-					<h2><i class="line"></i><a href="http://bbs.zol.com.cn/dcbbs/" target="_blank" title="摄影论坛">摄影论坛</a>&nbsp;·<span>欣赏美丽 享受快乐</span>
-															<span style="display: inline-block"><script>write_group_ad('forums_jinghua_ad_0','forums_jinghua_ad_0.inc.inc.inc');</script></span>
-										</h2>
-				</div>
-				
-				<ul class="section-pics clearfix">
-				    					<li class="first">
-					    <a href="http://bbs.zol.com.cn/dcbbs/d16_88191.html#picIndex5" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWJ_sqIZdQnAABLO6sXmlAAAF4pQLNwPkAAEtT628.jpg" alt="致时光" height="245" width="340">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section sec-dcbbs box-shadow">
+                    <div class="section-header">
+                        <span class="today-num">今日:&nbsp;<a href="http://bbs.zol.com.cn/dcbbs/" target="_blank">32728</a></span>
+                        <h2><i class="line"></i><a href="http://bbs.zol.com.cn/dcbbs/" target="_blank" title="摄影论坛">摄影论坛</a>&nbsp;·<span>欣赏美丽 享受快乐</span>
+                            <span style="display: inline-block"><script>write_group_ad('forums_jinghua_ad_0','forums_jinghua_ad_0.inc.inc.inc');</script></span>
+                        </h2>
+                    </div>
+
+                    <ul class="section-pics clearfix">
+                        <li class="first">
+                            <a href="http://bbs.zol.com.cn/dcbbs/d16_88191.html#picIndex5" target="_blank" class="pic">
+                                <img src="demo/Cg-4WlWJ_sqIZdQnAABLO6sXmlAAAF4pQLNwPkAAEtT628.jpg" alt="致时光" height="245" width="340">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-intro-head">
 									<span class="pic-title">致时光</span>
@@ -1393,62 +1391,62 @@
 								</span>
 								<span class="pic-intro-body"></span>
 							</span>
-						</a>
-					</li>
-															<li>
-						<a href="http://bbs.zol.com.cn/dcbbs/d16_88257.html#picIndex1" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWJ_vaITF3lAAAXveJsg3oAAF4pgBL3VwAABfV172.jpg" alt="冷&#8226;暖" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/dcbbs/d16_88257.html#picIndex1" target="_blank" class="pic">
+                                <img src="demo/Cg-4WVWJ_vaITF3lAAAXveJsg3oAAF4pgBL3VwAABfV172.jpg" alt="冷&#8226;暖" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">冷&#8226;暖</span>
 								<span class="pic-nums"><span class="view-num">361</span><span class="reply-num">12</span></span>
 							</span>
-						</a>
-					</li>
-										<li>
-						<a href="http://bbs.zol.com.cn/dcbbs/d33509_16695.html#picIndex6" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWJ_uiIFiL9AAA4SvE9DzUAAF4pQO5ZNUAADhi131.jpg" alt="古色古香的旗袍风情" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/dcbbs/d33509_16695.html#picIndex6" target="_blank" class="pic">
+                                <img src="demo/Cg-4WlWJ_uiIFiL9AAA4SvE9DzUAAF4pQO5ZNUAADhi131.jpg" alt="古色古香的旗袍风情" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">古色古香的旗袍风情</span>
 								<span class="pic-nums"><span class="view-num">126</span><span class="reply-num">5</span></span>
 							</span>
-						</a>
-					</li>
-										<li>
-						<a href="http://bbs.zol.com.cn/dcbbs/d657_578222.html#picIndex7" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWJ_tyIMVOHAAA3bCsAsGQAAF4pQNe3BMAADeE995.jpg" alt="端午-夏影nico" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/dcbbs/d657_578222.html#picIndex7" target="_blank" class="pic">
+                                <img src="demo/Cg-4WVWJ_tyIMVOHAAA3bCsAsGQAAF4pQNe3BMAADeE995.jpg" alt="端午-夏影nico" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">端午-夏影nico</span>
 								<span class="pic-nums"><span class="view-num">419</span><span class="reply-num">14</span></span>
 							</span>
-						</a>
-					</li>
-										<li>
-						<a href="http://bbs.zol.com.cn/dcbbs/d16_88078.html#picIndex7" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWIspiIY9__AAAm1KDy-S8AAF1OgBLWkwAACbs451.jpg" alt="公主日记" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/dcbbs/d16_88078.html#picIndex7" target="_blank" class="pic">
+                                <img src="demo/Cg-4WVWIspiIY9__AAAm1KDy-S8AAF1OgBLWkwAACbs451.jpg" alt="公主日记" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">公主日记</span>
 								<span class="pic-nums"><span class="view-num">11603</span><span class="reply-num">24</span></span>
 							</span>
-						</a>
-					</li>
-									</ul>
-			</div>
-					</div>
-	</div>
-	
-	    <div class="bbs-body">
-		<div class="bbs-main">
-			<!-- 数码摄影论坛模块 -->
-						<div class="section sec-diybbs box-shadow">
-				<div class="section-header">
-				    <span class="today-num">今日:&nbsp;<a href="http://bbs.zol.com.cn/diybbs/" target="_blank">2322</a></span>
-					<h2><i class="line"></i><a href="http://bbs.zol.com.cn/diybbs/" target="_blank" title="硬件论坛">硬件论坛</a>&nbsp;·<span>高效性能背后必有给力做工和用料！</span></h2>
-				</div>
-				
-				<ul class="section-pics clearfix">
-				    					<li class="first">
-					    <a href="http://bbs.zol.com.cn/diybbs/d34446_18757.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWJGCuIYqdBAAB6ydjeQZwAAF2cQNaUkcAAHrh622.jpg" alt="750W纯正金牌电源全拆解" height="245" width="340">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bbs-body">
+            <div class="bbs-main">
+                <!-- 数码摄影论坛模块 -->
+                <div class="section sec-diybbs box-shadow">
+                    <div class="section-header">
+                        <span class="today-num">今日:&nbsp;<a href="http://bbs.zol.com.cn/diybbs/" target="_blank">2322</a></span>
+                        <h2><i class="line"></i><a href="http://bbs.zol.com.cn/diybbs/" target="_blank" title="硬件论坛">硬件论坛</a>&nbsp;·<span>高效性能背后必有给力做工和用料！</span></h2>
+                    </div>
+
+                    <ul class="section-pics clearfix">
+                        <li class="first">
+                            <a href="http://bbs.zol.com.cn/diybbs/d34446_18757.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WVWJGCuIYqdBAAB6ydjeQZwAAF2cQNaUkcAAHrh622.jpg" alt="750W纯正金牌电源全拆解" height="245" width="340">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-intro-head">
 									<span class="pic-title">750W纯正金牌电源全拆解</span>
@@ -1457,66 +1455,66 @@
 								</span>
 								<span class="pic-intro-body">非常想知道到底是采用的什么材料才能组成这样一款全能的纯正金牌电源。为了一探究竟，今天就把它一拆到底，到底用料如何，是不是和之前宣传的一样，我们拭目以待。</span>
 							</span>
-						</a>
-					</li>
-															<li>
-						<a href="http://bbs.zol.com.cn/diybbs/d231_810510.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWJGE-IZ1g4AAAnCTSGodkAAF2cgI3coAAACch182.jpg" alt="老平台的坦克大战" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/diybbs/d231_810510.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WlWJGE-IZ1g4AAAnCTSGodkAAF2cgI3coAAACch182.jpg" alt="老平台的坦克大战" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">老平台的坦克大战</span>
 								<span class="pic-nums"><span class="view-num">7250</span><span class="reply-num">112</span></span>
 							</span>
-						</a>
-					</li>
-										<li>
-						<a href="http://bbs.zol.com.cn/diybbs/d34441_78616.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWD0nKIQjudAACeeYZT8wMAAFp1ACXAbMAAJ6R092.jpg" alt="iGame 960U升级记！" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/diybbs/d34441_78616.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WVWD0nKIQjudAACeeYZT8wMAAFp1ACXAbMAAJ6R092.jpg" alt="iGame 960U升级记！" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">iGame 960U升级记！</span>
 								<span class="pic-nums"><span class="view-num">4385</span><span class="reply-num">15</span></span>
 							</span>
-						</a>
-					</li>
-										<li>
-						<a href="http://bbs.zol.com.cn/diybbs/d34446_18748.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWD0ZGIYG6ZAAB2avEHTYQAAFpygGx8a0AAHaC718.jpg" alt="纯正金牌，霸气模组" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/diybbs/d34446_18748.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WlWD0ZGIYG6ZAAB2avEHTYQAAFpygGx8a0AAHaC718.jpg" alt="纯正金牌，霸气模组" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">纯正金牌，霸气模组</span>
 								<span class="pic-nums"><span class="view-num">369</span><span class="reply-num">9</span></span>
 							</span>
-						</a>
-					</li>
-										<li>
-						<a href="http://bbs.zol.com.cn/quanzi/d14_4720.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWD0DiIVl6RAACDY2I5nSgAAFpxgGVr98AAIN7123.jpg" alt="AMD R9 380 村内首测" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/quanzi/d14_4720.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WVWD0DiIVl6RAACDY2I5nSgAAFpxgGVr98AAIN7123.jpg" alt="AMD R9 380 村内首测" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">AMD R9 380 村内首测</span>
 								<span class="pic-nums"><span class="view-num">5967</span><span class="reply-num">12</span></span>
 							</span>
-						</a>
-					</li>
-									</ul>
-			</div>
-					</div>
-		
-		
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-		
-	</div>
-	
-	    <div class="bbs-body">
-		<div class="bbs-main">
-			<!-- 数码摄影论坛模块 -->
-						<div class="section sec-nbbbs box-shadow">
-				<div class="section-header">
-				    <span class="today-num">今日:&nbsp;<a href="http://bbs.zol.com.cn/nbbbs/" target="_blank">1398</a></span>
-					<h2><i class="line"></i><a href="http://bbs.zol.com.cn/nbbbs/" target="_blank" title="笔记本论坛">笔记本论坛</a>&nbsp;·<span>贵有贵的价值！</span></h2>
-				</div>
-				
-				<ul class="section-pics clearfix">
-				    					<li class="first">
-					    <a href="http://bbs.zol.com.cn/nbbbs/d34013_171389.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWEDJaISspoAACaLL_rkyoAAFqhwIMwN4AAJpE091.jpg" alt="技嘉小一万游戏本性能评测" height="245" width="340">
+
+
+
+        </div>
+
+        <div class="bbs-body">
+            <div class="bbs-main">
+                <!-- 数码摄影论坛模块 -->
+                <div class="section sec-nbbbs box-shadow">
+                    <div class="section-header">
+                        <span class="today-num">今日:&nbsp;<a href="http://bbs.zol.com.cn/nbbbs/" target="_blank">1398</a></span>
+                        <h2><i class="line"></i><a href="http://bbs.zol.com.cn/nbbbs/" target="_blank" title="笔记本论坛">笔记本论坛</a>&nbsp;·<span>贵有贵的价值！</span></h2>
+                    </div>
+
+                    <ul class="section-pics clearfix">
+                        <li class="first">
+                            <a href="http://bbs.zol.com.cn/nbbbs/d34013_171389.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WlWEDJaISspoAACaLL_rkyoAAFqhwIMwN4AAJpE091.jpg" alt="技嘉小一万游戏本性能评测" height="245" width="340">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-intro-head">
 									<span class="pic-title">技嘉小一万游戏本性能评测</span>
@@ -1525,56 +1523,56 @@
 								</span>
 								<span class="pic-intro-body">P55W是技嘉在2015年台北电子展上推出的一款全新外观的游戏本电脑，机身两侧为橘色线条，凸显出电竞游戏本王者风范</span>
 							</span>
-						</a>
-					</li>
-															<li>
-						<a href="http://bbs.zol.com.cn/nbbbs/d21_54894.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWEDVKIEPWvAACUC8JBN4sAAFqigLjgmYAAJQj646.jpg" alt="Dell灵越24视频评测" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/nbbbs/d21_54894.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WVWEDVKIEPWvAACUC8JBN4sAAFqigLjgmYAAJQj646.jpg" alt="Dell灵越24视频评测" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">Dell灵越24视频评测</span>
 								<span class="pic-nums"><span class="view-num">2976</span><span class="reply-num">5</span></span>
 							</span>
-						</a>
-					</li>
-										<li>
-						<a href="http://bbs.zol.com.cn/nbbbs/d34019_712.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWEDdmIMPA7AABzgp9eJZsAAFqjQD7sVoAAHOa807.jpg" alt="对911M神补刀" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/nbbbs/d34019_712.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WlWEDdmIMPA7AABzgp9eJZsAAFqjQD7sVoAAHOa807.jpg" alt="对911M神补刀" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">对911M神补刀</span>
 								<span class="pic-nums"><span class="view-num">6822</span><span class="reply-num">16</span></span>
 							</span>
-						</a>
-					</li>
-										<li>
-						<a href="http://bbs.zol.com.cn/nbbbs/d34019_713.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWEDiSIKTa2AAClaI-KXhcAAFqjgO8EfgAAKWA404.jpg" alt="妈妈说贴膜一定要帅" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/nbbbs/d34019_713.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WVWEDiSIKTa2AAClaI-KXhcAAFqjgO8EfgAAKWA404.jpg" alt="妈妈说贴膜一定要帅" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">妈妈说贴膜一定要帅</span>
 								<span class="pic-nums"><span class="view-num">4694</span><span class="reply-num">5</span></span>
 							</span>
-						</a>
-					</li>
-										<li>
-						<a href="http://bbs.zol.com.cn/nbbbs/d34019_709.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWCk_2IPiNEAACLrHk1nyQAAFmfAAkxMIAAIvE758.jpg" alt="911E1B 就是拉风的suai" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/nbbbs/d34019_709.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WlWCk_2IPiNEAACLrHk1nyQAAFmfAAkxMIAAIvE758.jpg" alt="911E1B 就是拉风的suai" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">911E1B 就是拉风的sua</span>
 								<span class="pic-nums"><span class="view-num">5222</span><span class="reply-num">12</span></span>
 							</span>
-						</a>
-					</li>
-									</ul>
-			</div>
-						<div class="section sec-padbbs box-shadow">
-				<div class="section-header">
-				    <span class="today-num">今日:&nbsp;<a href="http://bbs.zol.com.cn/padbbs/" target="_blank">759</a></span>
-					<h2><i class="line"></i><a href="http://bbs.zol.com.cn/padbbs/" target="_blank" title="平板论坛">平板论坛</a>&nbsp;·<span>一款专为“留守”人员开发的平板</span></h2>
-				</div>
-				
-				<ul class="section-pics clearfix">
-				    					<li class="first">
-					    <a href="http://bbs.zol.com.cn/quanzi/d14_4743.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWJGTOIcVYUAADd_83lMiIAAF2dgAqNSIAAN4X383.jpg" alt="爱华W1030虎鲨平板上手记" height="245" width="340">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section sec-padbbs box-shadow">
+                    <div class="section-header">
+                        <span class="today-num">今日:&nbsp;<a href="http://bbs.zol.com.cn/padbbs/" target="_blank">759</a></span>
+                        <h2><i class="line"></i><a href="http://bbs.zol.com.cn/padbbs/" target="_blank" title="平板论坛">平板论坛</a>&nbsp;·<span>一款专为“留守”人员开发的平板</span></h2>
+                    </div>
+
+                    <ul class="section-pics clearfix">
+                        <li class="first">
+                            <a href="http://bbs.zol.com.cn/quanzi/d14_4743.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WVWJGTOIcVYUAADd_83lMiIAAF2dgAqNSIAAN4X383.jpg" alt="爱华W1030虎鲨平板上手记" height="245" width="340">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-intro-head">
 									<span class="pic-title">爱华W1030虎鲨平板上手记</span>
@@ -1583,287 +1581,287 @@
 								</span>
 								<span class="pic-intro-body">爱华W1030平板电脑眼光独到，看准了这一领域，采用远程电教的方式，给“留守”一族带来科教之光。我们今天就来体验一下这款专为“留守”人员开发的平板电脑，有人也称之为“老年平板”、“少儿平板”学习机。</span>
 							</span>
-						</a>
-					</li>
-															<li>
-						<a href="http://bbs.zol.com.cn/padbbs/d294_27517.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWJGguISBu1AAA9WVsH34MAAF2eQGPGhQAAD1x926.jpg" alt="酷比魔方8x 全程高能" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/padbbs/d294_27517.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WVWJGguISBu1AAA9WVsH34MAAF2eQGPGhQAAD1x926.jpg" alt="酷比魔方8x 全程高能" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">酷比魔方8x 全程高能</span>
 								<span class="pic-nums"><span class="view-num">934</span><span class="reply-num">8</span></span>
 							</span>
-						</a>
-					</li>
-										<li>
-						<a href="http://bbs.zol.com.cn/padbbs/d413_39.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWD2CqIBYqYAABIPGRSi3kAAFp7QBmrHkAAEhU923.jpg" alt="近距离赏析EZpad4s" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/padbbs/d413_39.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WVWD2CqIBYqYAABIPGRSi3kAAFp7QBmrHkAAEhU923.jpg" alt="近距离赏析EZpad4s" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">近距离赏析EZpad4s</span>
 								<span class="pic-nums"><span class="view-num">1087</span><span class="reply-num">6</span></span>
 							</span>
-						</a>
-					</li>
-										<li>
-						<a href="http://bbs.zol.com.cn/padbbs/d294_27468.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WVWD18aIB9t8AAEnI6480oQAAFp6gPjTt4AASc7484.jpg" alt="品铂W8媲美笔电" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/padbbs/d294_27468.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WVWD18aIB9t8AAEnI6480oQAAFp6gPjTt4AASc7484.jpg" alt="品铂W8媲美笔电" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">品铂W8媲美笔电</span>
 								<span class="pic-nums"><span class="view-num">27619</span><span class="reply-num">8</span></span>
 							</span>
-						</a>
-					</li>
-										<li>
-						<a href="http://bbs.zol.com.cn/padbbs/d173_8723.html" target="_blank" class="pic">
-							<img src="demo/Cg-4WlWD1k2IW4A1AAB0Fz6H9BYAAFp5QPl4_QAAHQv148.jpg" alt="回顾N1同城会" height="120" width="160">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://bbs.zol.com.cn/padbbs/d173_8723.html" target="_blank" class="pic">
+                                <img src="demo/Cg-4WlWD1k2IW4A1AAB0Fz6H9BYAAFp5QPl4_QAAHQv148.jpg" alt="回顾N1同城会" height="120" width="160">
 							<span class="pic-intro border-radius-bottom">
 								<span class="pic-title">回顾N1同城会</span>
 								<span class="pic-nums"><span class="view-num">1886</span><span class="reply-num">11</span></span>
 							</span>
-						</a>
-					</li>
-									</ul>
-			</div>
-					</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
 
-		
-	</div>
+
+        </div>
 
     </div>
 
-	<div class="bbs-mapbox">
-		<div class="bbs-map-header"><h3><i class="line"></i>论坛热版地图</h3></div>
-		<div class="bbs-mapbody clearfix">
-		    			<!-- 手机论坛 -->
-			<dl class="sjbbs">
-				<dt><a href="http://bbs.zol.com.cn/sjbbs/" target="_blank">手机论坛</a></dt>
-				<dd>
-					<h3><a href="http://bbs.zol.com.cn/sjbbs/" target="_blank">手机论坛</a></h3>
-															<p>					<a href="http://bbs.zol.com.cn/sjbbs/d544.html" target="_blank">苹果</a>
-					|																				<a href="http://bbs.zol.com.cn/sjbbs/d34002.html" target="_blank">小米</a>
-					|																				<a href="http://bbs.zol.com.cn/sjbbs/d98.html" target="_blank">三星</a>
-										</p>										<p>					<a href="http://bbs.zol.com.cn/sjbbs/d1434.html" target="_blank">魅族</a>
-					|																				<a href="http://bbs.zol.com.cn/sjbbs/d297.html" target="_blank">诺基亚</a>
-					|																				<a href="http://bbs.zol.com.cn/sjbbs/d1069.html" target="_blank">索尼</a>
-										</p>									</dd>
-			</dl>
-						<!-- 手机论坛 -->
-			<dl class="dcbbs">
-				<dt><a href="http://bbs.zol.com.cn/dcbbs/" target="_blank">摄影论坛</a></dt>
-				<dd>
-					<h3><a href="http://bbs.zol.com.cn/dcbbs/" target="_blank">摄影论坛</a></h3>
-															<p>					<a href="http://bbs.zol.com.cn/dcbbs/d16.html" target="_blank">人像摄影</a>
-					|																				<a href="http://bbs.zol.com.cn/dcbbs/d14.html" target="_blank">自然风景</a>
-					|																				<a href="http://bbs.zol.com.cn/dcbbs/d17.html" target="_blank">人文纪实</a>
-										</p>										<p>					<a href="http://bbs.zol.com.cn/dcbbs/d20.html" target="_blank">街拍夜景</a>
-					|																				<a href="http://bbs.zol.com.cn/dcbbs/d19.html" target="_blank">旅游摄影</a>
-					|																				<a href="http://bbs.zol.com.cn/dcbbs/d15.html" target="_blank">动物植物</a>
-										</p>									</dd>
-			</dl>
-						<!-- 手机论坛 -->
-			<dl class="diybbs">
-				<dt><a href="http://bbs.zol.com.cn/diybbs/" target="_blank">硬件论坛</a></dt>
-				<dd>
-					<h3><a href="http://bbs.zol.com.cn/diybbs/" target="_blank">硬件论坛</a></h3>
-															<p>					<a href="http://bbs.zol.com.cn/diybbs/d231.html" target="_blank">DIY与攒机</a>
-					|																				<a href="http://bbs.zol.com.cn/diybbs/d34439.html" target="_blank">硬件改造</a>
-					|																				<a href="http://bbs.zol.com.cn/diybbs/d34434.html" target="_blank">超频技术</a>
-										</p>										<p>					<a href="http://bbs.zol.com.cn/diybbs/c2.html" target="_blank">CPU论坛</a>
-					|																				<a href="http://bbs.zol.com.cn/diybbs/c4.html" target="_blank">主板论坛</a>
-					|																				<a href="http://bbs.zol.com.cn/diybbs/c3.html" target="_blank">显卡论坛</a>
-										</p>									</dd>
-			</dl>
-						<!-- 手机论坛 -->
-			<dl class="nbbbs">
-				<dt><a href="http://bbs.zol.com.cn/nbbbs/" target="_blank">笔记本论坛</a></dt>
-				<dd>
-					<h3><a href="http://bbs.zol.com.cn/nbbbs/" target="_blank">笔记本论坛</a></h3>
-															<p>					<a href="http://bbs.zol.com.cn/nbbbs/d160.html" target="_blank">联想</a>
-					|																				<a href="http://bbs.zol.com.cn/nbbbs/d1191.html" target="_blank">神舟</a>
-					|																				<a href="http://bbs.zol.com.cn/nbbbs/d218.html" target="_blank">宏碁</a>
-										</p>										<p>					<a href="http://bbs.zol.com.cn/nbbbs/d227.html" target="_blank">华硕</a>
-					|																				<a href="http://bbs.zol.com.cn/nbbbs/d544.html" target="_blank">苹果</a>
-					|																				<a href="http://bbs.zol.com.cn/nbbbs/d223.html" target="_blank">惠普</a>
-										</p>									</dd>
-			</dl>
-						<!-- 手机论坛 -->
-			<dl class="padbbs">
-				<dt><a href="http://bbs.zol.com.cn/padbbs/" target="_blank">平板论坛</a></dt>
-				<dd>
-					<h3><a href="http://bbs.zol.com.cn/padbbs/" target="_blank">平板论坛</a></h3>
-															<p>					<a href="http://bbs.zol.com.cn/padbbs/d117.html" target="_blank">苹果iPad</a>
-					|																				<a href="http://bbs.zol.com.cn/padbbs/d119.html" target="_blank">三星</a>
-					|																				<a href="http://bbs.zol.com.cn/padbbs/d118.html" target="_blank">联想</a>
-										</p>										<p>					<a href="http://bbs.zol.com.cn/padbbs/d229.html" target="_blank">colorful</a>
-					|																				<a href="http://bbs.zol.com.cn/padbbs/d220.html" target="_blank">原道</a>
-					|																				<a href="http://bbs.zol.com.cn/padbbs/d126.html" target="_blank">台电</a>
-										</p>									</dd>
-			</dl>
-						<!-- 手机论坛 -->
-			<dl class="hobbies-circles">
-				<dt><a href="http://bbs.zol.com.cn/quanzi/" target="_blank">兴趣圈子</a></dt>
-				<dd>
-					<h3><a href="http://bbs.zol.com.cn/quanzi/" target="_blank">兴趣圈子</a></h3>
-															<p>					<a href="http://bbs.zol.com.cn/quanzi/d14.html" target="_blank">Z神通联盟</a>
-					|																				<a href="http://bbs.zol.com.cn/quanzi/d29.html" target="_blank">手机摄影</a>
-					|																				<a href="http://bbs.zol.com.cn/quanzi/d25.html" target="_blank">美女影像</a>
-										</p>										<p>					<a href="http://bbs.zol.com.cn/quanzi/d26.html" target="_blank">拆机堂</a>
-					|																				<a href="http://bbs.zol.com.cn/quanzi/d27.html" target="_blank">拆本办</a>
-					|																				<a href="http://bbs.zol.com.cn/quanzi/d28.html" target="_blank">二次元</a>
-										</p>									</dd>
-			</dl>
-						<!-- 手机论坛 -->
-			<dl class="bbs-active">
-				<dt><a href="http://bbs.zol.com.cn/huodong/" target="_blank">论坛活动区</a></dt>
-				<dd>
-					<h3><a href="http://bbs.zol.com.cn/huodong/" target="_blank">论坛活动区</a></h3>
-										<div class="bbs-active-describe">积极参与拿大奖！论坛所有活动汇聚于此</div>
-									</dd>
-			</dl>
-						<!-- 手机论坛 -->
-			<dl class="used-trade">
-				<dt><a href="http://bbs.zol.com.cn/jiaoyi/" target="_blank">二手交易区</a></dt>
-				<dd>
-					<h3><a href="http://bbs.zol.com.cn/jiaoyi/" target="_blank">二手交易区</a></h3>
-															<p>					<a href="http://bbs.zol.com.cn/jiaoyi/s34.html" target="_blank">PC硬件</a>
-					|																				<a href="http://bbs.zol.com.cn/jiaoyi/s37.html" target="_blank">手机</a>
-					|																				<a href="http://bbs.zol.com.cn/jiaoyi/s38.html" target="_blank">笔记本</a>
-										</p>										<p>					<a href="http://bbs.zol.com.cn/jiaoyi/s35.html" target="_blank">相机镜头</a>
-					|																				<a href="http://bbs.zol.com.cn/otherbbs/s39.html" target="_blank">平板</a>
-					|																				<a href="http://bbs.zol.com.cn/jiaoyi/s40.html" target="_blank">其他</a>
-										</p>									</dd>
-			</dl>
-						<!-- 手机论坛 -->
-			<dl class="bbs-depot">
-				<dt><a href="http://bbs.zol.com.cn/otherbbs/d4.html" rel="nofollow" target="_blank">论坛站务区</a></dt>
-				<dd>
-					<h3><a href="http://bbs.zol.com.cn/otherbbs/d4.html" rel="nofollow" target="_blank">论坛站务区</a></h3>
-										<div class="bbs-active-describe">疑问？公告？建议？来站务区发帖询问吧</div>
-									</dd>
-			</dl>
-					</div>
-	</div>
-	<!-- //bbs-mapbox -->
+    <div class="bbs-mapbox">
+        <div class="bbs-map-header"><h3><i class="line"></i>论坛热版地图</h3></div>
+        <div class="bbs-mapbody clearfix">
+            <!-- 手机论坛 -->
+            <dl class="sjbbs">
+                <dt><a href="http://bbs.zol.com.cn/sjbbs/" target="_blank">手机论坛</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/sjbbs/" target="_blank">手机论坛</a></h3>
+                    <p>					<a href="http://bbs.zol.com.cn/sjbbs/d544.html" target="_blank">苹果</a>
+                        |																				<a href="http://bbs.zol.com.cn/sjbbs/d34002.html" target="_blank">小米</a>
+                        |																				<a href="http://bbs.zol.com.cn/sjbbs/d98.html" target="_blank">三星</a>
+                    </p>										<p>					<a href="http://bbs.zol.com.cn/sjbbs/d1434.html" target="_blank">魅族</a>
+                    |																				<a href="http://bbs.zol.com.cn/sjbbs/d297.html" target="_blank">诺基亚</a>
+                    |																				<a href="http://bbs.zol.com.cn/sjbbs/d1069.html" target="_blank">索尼</a>
+                </p>									</dd>
+            </dl>
+            <!-- 手机论坛 -->
+            <dl class="dcbbs">
+                <dt><a href="http://bbs.zol.com.cn/dcbbs/" target="_blank">摄影论坛</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/dcbbs/" target="_blank">摄影论坛</a></h3>
+                    <p>					<a href="http://bbs.zol.com.cn/dcbbs/d16.html" target="_blank">人像摄影</a>
+                        |																				<a href="http://bbs.zol.com.cn/dcbbs/d14.html" target="_blank">自然风景</a>
+                        |																				<a href="http://bbs.zol.com.cn/dcbbs/d17.html" target="_blank">人文纪实</a>
+                    </p>										<p>					<a href="http://bbs.zol.com.cn/dcbbs/d20.html" target="_blank">街拍夜景</a>
+                    |																				<a href="http://bbs.zol.com.cn/dcbbs/d19.html" target="_blank">旅游摄影</a>
+                    |																				<a href="http://bbs.zol.com.cn/dcbbs/d15.html" target="_blank">动物植物</a>
+                </p>									</dd>
+            </dl>
+            <!-- 手机论坛 -->
+            <dl class="diybbs">
+                <dt><a href="http://bbs.zol.com.cn/diybbs/" target="_blank">硬件论坛</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/diybbs/" target="_blank">硬件论坛</a></h3>
+                    <p>					<a href="http://bbs.zol.com.cn/diybbs/d231.html" target="_blank">DIY与攒机</a>
+                        |																				<a href="http://bbs.zol.com.cn/diybbs/d34439.html" target="_blank">硬件改造</a>
+                        |																				<a href="http://bbs.zol.com.cn/diybbs/d34434.html" target="_blank">超频技术</a>
+                    </p>										<p>					<a href="http://bbs.zol.com.cn/diybbs/c2.html" target="_blank">CPU论坛</a>
+                    |																				<a href="http://bbs.zol.com.cn/diybbs/c4.html" target="_blank">主板论坛</a>
+                    |																				<a href="http://bbs.zol.com.cn/diybbs/c3.html" target="_blank">显卡论坛</a>
+                </p>									</dd>
+            </dl>
+            <!-- 手机论坛 -->
+            <dl class="nbbbs">
+                <dt><a href="http://bbs.zol.com.cn/nbbbs/" target="_blank">笔记本论坛</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/nbbbs/" target="_blank">笔记本论坛</a></h3>
+                    <p>					<a href="http://bbs.zol.com.cn/nbbbs/d160.html" target="_blank">联想</a>
+                        |																				<a href="http://bbs.zol.com.cn/nbbbs/d1191.html" target="_blank">神舟</a>
+                        |																				<a href="http://bbs.zol.com.cn/nbbbs/d218.html" target="_blank">宏碁</a>
+                    </p>										<p>					<a href="http://bbs.zol.com.cn/nbbbs/d227.html" target="_blank">华硕</a>
+                    |																				<a href="http://bbs.zol.com.cn/nbbbs/d544.html" target="_blank">苹果</a>
+                    |																				<a href="http://bbs.zol.com.cn/nbbbs/d223.html" target="_blank">惠普</a>
+                </p>									</dd>
+            </dl>
+            <!-- 手机论坛 -->
+            <dl class="padbbs">
+                <dt><a href="http://bbs.zol.com.cn/padbbs/" target="_blank">平板论坛</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/padbbs/" target="_blank">平板论坛</a></h3>
+                    <p>					<a href="http://bbs.zol.com.cn/padbbs/d117.html" target="_blank">苹果iPad</a>
+                        |																				<a href="http://bbs.zol.com.cn/padbbs/d119.html" target="_blank">三星</a>
+                        |																				<a href="http://bbs.zol.com.cn/padbbs/d118.html" target="_blank">联想</a>
+                    </p>										<p>					<a href="http://bbs.zol.com.cn/padbbs/d229.html" target="_blank">colorful</a>
+                    |																				<a href="http://bbs.zol.com.cn/padbbs/d220.html" target="_blank">原道</a>
+                    |																				<a href="http://bbs.zol.com.cn/padbbs/d126.html" target="_blank">台电</a>
+                </p>									</dd>
+            </dl>
+            <!-- 手机论坛 -->
+            <dl class="hobbies-circles">
+                <dt><a href="http://bbs.zol.com.cn/quanzi/" target="_blank">兴趣圈子</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/quanzi/" target="_blank">兴趣圈子</a></h3>
+                    <p>					<a href="http://bbs.zol.com.cn/quanzi/d14.html" target="_blank">Z神通联盟</a>
+                        |																				<a href="http://bbs.zol.com.cn/quanzi/d29.html" target="_blank">手机摄影</a>
+                        |																				<a href="http://bbs.zol.com.cn/quanzi/d25.html" target="_blank">美女影像</a>
+                    </p>										<p>					<a href="http://bbs.zol.com.cn/quanzi/d26.html" target="_blank">拆机堂</a>
+                    |																				<a href="http://bbs.zol.com.cn/quanzi/d27.html" target="_blank">拆本办</a>
+                    |																				<a href="http://bbs.zol.com.cn/quanzi/d28.html" target="_blank">二次元</a>
+                </p>									</dd>
+            </dl>
+            <!-- 手机论坛 -->
+            <dl class="bbs-active">
+                <dt><a href="http://bbs.zol.com.cn/huodong/" target="_blank">论坛活动区</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/huodong/" target="_blank">论坛活动区</a></h3>
+                    <div class="bbs-active-describe">积极参与拿大奖！论坛所有活动汇聚于此</div>
+                </dd>
+            </dl>
+            <!-- 手机论坛 -->
+            <dl class="used-trade">
+                <dt><a href="http://bbs.zol.com.cn/jiaoyi/" target="_blank">二手交易区</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/jiaoyi/" target="_blank">二手交易区</a></h3>
+                    <p>					<a href="http://bbs.zol.com.cn/jiaoyi/s34.html" target="_blank">PC硬件</a>
+                        |																				<a href="http://bbs.zol.com.cn/jiaoyi/s37.html" target="_blank">手机</a>
+                        |																				<a href="http://bbs.zol.com.cn/jiaoyi/s38.html" target="_blank">笔记本</a>
+                    </p>										<p>					<a href="http://bbs.zol.com.cn/jiaoyi/s35.html" target="_blank">相机镜头</a>
+                    |																				<a href="http://bbs.zol.com.cn/otherbbs/s39.html" target="_blank">平板</a>
+                    |																				<a href="http://bbs.zol.com.cn/jiaoyi/s40.html" target="_blank">其他</a>
+                </p>									</dd>
+            </dl>
+            <!-- 手机论坛 -->
+            <dl class="bbs-depot">
+                <dt><a href="http://bbs.zol.com.cn/otherbbs/d4.html" rel="nofollow" target="_blank">论坛站务区</a></dt>
+                <dd>
+                    <h3><a href="http://bbs.zol.com.cn/otherbbs/d4.html" rel="nofollow" target="_blank">论坛站务区</a></h3>
+                    <div class="bbs-active-describe">疑问？公告？建议？来站务区发帖询问吧</div>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <!-- //bbs-mapbox -->
 
-	<!-- zol论坛合作媒体 -->
-	<div class="cooperation-box">
-		<div class="bbs-map-header clearfix">
-			<a class="more-link" href="http://link.zol.com.cn/application.php?cid=50" target="_blank">申请友链</a>
-			<a class="more-link" href="http://link.zol.com.cn/" target="_blank">查看更多</a>
-			<h3><i class="line"></i>ZOL论坛合作媒体</h3>
-		</div>
-		<div class="cooperation-links">
-				<a href="http://club.tech.sina.com.cn/" target="_blank">新浪数码部落</a>
-	    		<a href="http://bbs.dvbbs.net/" target="_blank">动网论坛</a>
-	    		<a href="http://bbs.goumin.com/" target="_blank">狗狗论坛</a>
-	    		<a href="http://bbs.anjian.com/forum.php" target="_blank">按键精灵</a>
-	    		<a href="http://brand.vip.com/" target="_blank">唯品会</a>
-	    		<a href="http://www.55188.com/" target="_blank">理想股票论坛</a>
-	    		<a href="http://bbs.letv.com/" target="_blank">乐迷论坛</a>
-	    		<a href="http://www.45fan.com/" target="_blank">无线路由器设置</a>
-	    		<a href="http://bbs.8264.com/" target="_blank">驴友论坛</a>
-	    		<a href="http://bbs.ofweek.com/portal.php" target="_blank">OFweek社区</a>
-	    		<a href="http://fans.tcl.com/portal.php" target="_blank">TCL铁粉社区</a>
-	    		<a href="http://bbs.25pp.com/" target="_blank">苹果论坛</a>
-	    		<a href="http://www.unjs.com/" target="_blank">中国大学网</a>
-	    		<a href="http://www.meadin.com/" target="_blank">迈点网</a>
-	    		<a href="http://club.sohu.com/" target="_blank">搜狐社区</a>
-	    		<a href="http://club.gongchang.com/" target="_blank">工厂网厂商社区</a>
-	    		<a href="http://www.xinfengit.com/" target="_blank">IT教育</a>
-	    		<a href="http://www.admaimai.com/" target="_blank">广告网</a>
-	    		<a href="http://bbs.o.cn/" target="_blank">广州论坛</a>
-	    		<a href="http://bbs.55bbs.com/" target="_blank">购物论坛</a>
-	    		<a href="http://bbs.ithome.com/forum.php" target="_blank">IT之家社区</a>
-	    		<a href="http://bbs.yaolan.com/" target="_blank">育儿论坛</a>
-	    		<a href="http://www.henan100.com/" target="_blank">河南一百度</a>
-	    		<a href="http://bbs.house365.com/index.html" target="_blank">南京业主论坛</a>
-	    		</div>
-	</div>
+    <!-- zol论坛合作媒体 -->
+    <div class="cooperation-box">
+        <div class="bbs-map-header clearfix">
+            <a class="more-link" href="http://link.zol.com.cn/application.php?cid=50" target="_blank">申请友链</a>
+            <a class="more-link" href="http://link.zol.com.cn/" target="_blank">查看更多</a>
+            <h3><i class="line"></i>ZOL论坛合作媒体</h3>
+        </div>
+        <div class="cooperation-links">
+            <a href="http://club.tech.sina.com.cn/" target="_blank">新浪数码部落</a>
+            <a href="http://bbs.dvbbs.net/" target="_blank">动网论坛</a>
+            <a href="http://bbs.goumin.com/" target="_blank">狗狗论坛</a>
+            <a href="http://bbs.anjian.com/forum.php" target="_blank">按键精灵</a>
+            <a href="http://brand.vip.com/" target="_blank">唯品会</a>
+            <a href="http://www.55188.com/" target="_blank">理想股票论坛</a>
+            <a href="http://bbs.letv.com/" target="_blank">乐迷论坛</a>
+            <a href="http://www.45fan.com/" target="_blank">无线路由器设置</a>
+            <a href="http://bbs.8264.com/" target="_blank">驴友论坛</a>
+            <a href="http://bbs.ofweek.com/portal.php" target="_blank">OFweek社区</a>
+            <a href="http://fans.tcl.com/portal.php" target="_blank">TCL铁粉社区</a>
+            <a href="http://bbs.25pp.com/" target="_blank">苹果论坛</a>
+            <a href="http://www.unjs.com/" target="_blank">中国大学网</a>
+            <a href="http://www.meadin.com/" target="_blank">迈点网</a>
+            <a href="http://club.sohu.com/" target="_blank">搜狐社区</a>
+            <a href="http://club.gongchang.com/" target="_blank">工厂网厂商社区</a>
+            <a href="http://www.xinfengit.com/" target="_blank">IT教育</a>
+            <a href="http://www.admaimai.com/" target="_blank">广告网</a>
+            <a href="http://bbs.o.cn/" target="_blank">广州论坛</a>
+            <a href="http://bbs.55bbs.com/" target="_blank">购物论坛</a>
+            <a href="http://bbs.ithome.com/forum.php" target="_blank">IT之家社区</a>
+            <a href="http://bbs.yaolan.com/" target="_blank">育儿论坛</a>
+            <a href="http://www.henan100.com/" target="_blank">河南一百度</a>
+            <a href="http://bbs.house365.com/index.html" target="_blank">南京业主论坛</a>
+        </div>
+    </div>
 </div>
 
-<!-- <div class="fix-layout"> 
+<!-- <div class="fix-layout">
     	<a style="display:none;" class="backTop border-radius-s3" href="###" title="回到顶部" id="backHeadBtn"><i></i>回到顶部</a>
 </div> -->
 
 <script src="demo/search.js"></script>
-    <script>
-	//搜索提示处理
-	$(function(){
-		$('#searchBox').zsuggest({offsetX:0, offsetY:20, width: 419, source: 'bbs', bbsid: 0, isSuggest: true});
-	});
+<script>
+    //搜索提示处理
+    $(function(){
+        $('#searchBox').zsuggest({offsetX:0, offsetY:20, width: 419, source: 'bbs', bbsid: 0, isSuggest: true});
+    });
 </script>
 <script src="demo/login.js"></script>
 <script src="demo/bbs_task_guide.js"></script>
 <!-- 公共底部 -->
 <!-- <a class="fixed-call-survey" href="http://survey.zol.com.cn/front/1/734.html" target="_blank">意见反馈</a> -->
 <div class="wrapper foot">
-<script>
-if (typeof WEB_CONFIG != 'undefined' && WEB_CONFIG.bbsid==1 && WEB_CONFIG.bookid) {
-	var __publicNavWidth=$(".wrapper").width();	
-} else {
-	var __publicNavWidth=1000;
-}
-</script>
-<script language="JavaScript" type="text/javascript" src="demo/web_footc.js"></script>
-<script language="JavaScript" type="text/javascript" src="demo/web_foot.js"></script><script type="text/javascript" id="pv_d" src="demo/pv_009.htm" border="0" height="0" width="0"></div>
+    <script>
+        if (typeof WEB_CONFIG != 'undefined' && WEB_CONFIG.bbsid==1 && WEB_CONFIG.bookid) {
+            var __publicNavWidth=$(".wrapper").width();
+        } else {
+            var __publicNavWidth=1000;
+        }
+    </script>
+    <script language="JavaScript" type="text/javascript" src="demo/web_footc.js"></script>
+    <script language="JavaScript" type="text/javascript" src="demo/web_foot.js"></script><script type="text/javascript" id="pv_d" src="demo/pv_009.htm" border="0" height="0" width="0"></div>
 </div>
 
 <div class="active-loginbox" id="activeLoginBox" style="display: none;">
     <input id="ONLINE_ACTIVE_BOOKURL" value="http://bbs.zol.com.cn/topic/4975880.html" ;="" type="hidden">
-	<div class="active-login-inner">
-		<span class="fixed-login-bar-close"></span>
-		<a class="active-login-bg" href="http://bbs.zol.com.cn/topic/4975880.html" target="_blank"></a>
-		<div class="active-login">
-			<div class="active-login-header">登录zol新论坛</div>
-			<div class="active-login-itembox active-login-user-name">
-				<div class="active-login-item border-radius-s3">
-					<i class="ico"></i>
-					<label for="J_LoginUser" class="txt-tip">用户名/注册邮箱/注册手机号</label>
-					<input id="J_LoginUser" class="txt" type="text">
-				</div>
-			</div>
-			
-			<div class="active-login-itembox active-login-user-pwd">
-				<div class="active-login-item border-radius-s3">
-					<i class="ico"></i>
-					<label for="J_LoginPsw" class="txt-tip">密码</label>
-					<input id="J_LoginPsw" class="txt" value="" type="password">
-				</div>
-			</div>
-			
-			<div class="active-login-member-pass clearfix">
-				<span class="active-login-wrong-tip" style="display: none;"></span><a class="forget-pwd" href="http://my.zol.com.cn/index.php?c=getPassword">忘记密码?</a>				
-			</div>
-			<input id="J_LoginBtn" value="马上登录" class="pass-btn" type="submit">
-			<div class="active-login-pass-reglink"><a class="switch" href="http://service.zol.com.cn/user/register.php">免费注册</a></div>
-			
-			<div class="active-login-usually clearfix">
-				<a href="http://service.zol.com.cn/user/api/sina/jump.php" class="active-login-sina">微博登录</a>
-				<a href="http://service.zol.com.cn/user/api/qq/libs/oauth/redirect_to_login.php" class="active-login-qq">qq登录</a>
-			</div>
-			
-			<div class="active-login-btns">
-				<div class="active-login-btns-title">其他第三方号登录</div>
-				<div class="active-login-btns-body">
-					<a href="http://service.zol.com.cn/user/api/renren/redirect_login.php" class="active-login-renren">人人</a>
-					<a href="http://service.zol.com.cn/user/api/douban/login.php" class="active-login-douban">豆瓣</a>
-					<a href="http://service.zol.com.cn/user/api/kaixin/login.php" class="active-login-kaixin">开心网</a>
-					<a href="http://service.zol.com.cn/user/api/baidu/jump.php" class="active-login-baidu">百度</a>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="active-login-inner">
+        <span class="fixed-login-bar-close"></span>
+        <a class="active-login-bg" href="http://bbs.zol.com.cn/topic/4975880.html" target="_blank"></a>
+        <div class="active-login">
+            <div class="active-login-header">登录zol新论坛</div>
+            <div class="active-login-itembox active-login-user-name">
+                <div class="active-login-item border-radius-s3">
+                    <i class="ico"></i>
+                    <label for="J_LoginUser" class="txt-tip">用户名/注册邮箱/注册手机号</label>
+                    <input id="J_LoginUser" class="txt" type="text">
+                </div>
+            </div>
+
+            <div class="active-login-itembox active-login-user-pwd">
+                <div class="active-login-item border-radius-s3">
+                    <i class="ico"></i>
+                    <label for="J_LoginPsw" class="txt-tip">密码</label>
+                    <input id="J_LoginPsw" class="txt" value="" type="password">
+                </div>
+            </div>
+
+            <div class="active-login-member-pass clearfix">
+                <span class="active-login-wrong-tip" style="display: none;"></span><a class="forget-pwd" href="http://my.zol.com.cn/index.php?c=getPassword">忘记密码?</a>
+            </div>
+            <input id="J_LoginBtn" value="马上登录" class="pass-btn" type="submit">
+            <div class="active-login-pass-reglink"><a class="switch" href="http://service.zol.com.cn/user/register.php">免费注册</a></div>
+
+            <div class="active-login-usually clearfix">
+                <a href="http://service.zol.com.cn/user/api/sina/jump.php" class="active-login-sina">微博登录</a>
+                <a href="http://service.zol.com.cn/user/api/qq/libs/oauth/redirect_to_login.php" class="active-login-qq">qq登录</a>
+            </div>
+
+            <div class="active-login-btns">
+                <div class="active-login-btns-title">其他第三方号登录</div>
+                <div class="active-login-btns-body">
+                    <a href="http://service.zol.com.cn/user/api/renren/redirect_login.php" class="active-login-renren">人人</a>
+                    <a href="http://service.zol.com.cn/user/api/douban/login.php" class="active-login-douban">豆瓣</a>
+                    <a href="http://service.zol.com.cn/user/api/kaixin/login.php" class="active-login-kaixin">开心网</a>
+                    <a href="http://service.zol.com.cn/user/api/baidu/jump.php" class="active-login-baidu">百度</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 <style type="text/css">.zol-global-footer{min-width:1000px; margin: 20px auto 0; background: #333; clear:both;}.zol-global-footer,.zol-global-footer *{float: none;}.zol-footer {float: none; height: 40px; min-width: 960px; overflow: hidden; float: none; clear: both; padding: 0 10px; background: #333; color: #ccc; text-align: left; font-size: 12px; font-family: arial; line-height: 40px;}.zol-footer *{float: none;}.zol-footer span {_display: inline; float:right; margin: 0 -7px 0 0; color:#666; font-family:"宋体"; font-size:10px; -webkit-text-size-adjust:none;}.zol-footer a{padding: 0 6px 0 7px; color:#ccc; text-decoration:none; font-family:Arial; font-size:12px;}.zol-footer a:hover{color:#ccc; text-decoration: underline;} .zol-footer i {display: none;}.zol-footer .footerw-2015{float: none; height: 40px; width:1000px; margin: 0 auto;}.zol-global-footer-fixed{position: fixed; bottom: 0; left: 0; width: 100%;}</style><div class="zol-global-footer" id="zolGlobalFooter"><div class="zol-footer"><div class="footerw-2015"><span><a href="http://www.zol.com.cn/marketing/profile.html">公司简介</a>|<a href="http://www.zol.com.cn/marketing/milestone.html">公司历程</a>|<a href="http://e.zol.com.cn/">营销推广</a>|<a href="http://link.zol.com.cn/">媒体合作</a>|<a href="http://www.zol.com.cn/brand.html">品牌大全</a>|<a href="http://service.zol.com.cn/user/login.php?type=reg">帐号注册</a>|<a href="http://zhaopin.zol.com.cn/">招聘信息</a>|<a href="http://www.zol.com.cn/marketing/customer_service.html">联系方式</a>|<a href="http://service.zol.com.cn/user/privacy.php">隐私声明</a>|<a href="http://www.zol.com.cn/webcenter/map.html">站点地图</a>|<a href="http://service.zol.com.cn/complain/">反馈纠错</a></span>&nbsp;&#169;2015 中关村在线 版权所有</div></div></div><div class="zST-ask-box" id="zAvatarLayer" style="top: 235px;">                <div class="zST-ask-photo"></div>                <div class="zST-ask-inner border-radius-s3">                    <a href="http://bbs.zol.com.cn/quanzi/d643.html" target="_blank" class="zST-ask-header">神通哥有问必答</a>                    <div class="zST-ask-title">						<ul class="zST-ask-filter clearfix">							<li type-num="1"><span class="sj" title="移动设备"></span></li>							<li type-num="2"><span class="dc" title="数码影像"></span></li>							<li type-num="3"><span class="diy" title="攒机硬件"></span></li>							<li type-num="4"><span class="else" title="其他"></span></li>						</ul>						<input class="title-txt" value="请输入提问标题" type="text">					</div>                    <div class="zST-ask-textarea">                        <textarea style="display:block;" value="">我是神通哥，问题在这问，表白在这说。</textarea>                        <div class="zST-ask-tip" style="display:none;">                            <span class="zST-ask-close"></span>                            <p>哥已收到, 约会回来回复你!请密切关注消息中心!</p>                            <p><a href="#" target="_blank">点这里查看刚发布的问题!</a></p>                        </div>                    </div>                    <div class="zST-ask-btn"><a href="javascript:;">发布</a></div>                </div>            </div><!-- 任务体系3.0  每日任务&等级任务  -->
 
 <div class="bbs-tasks-layer" id="ZolTaskLayerJBW" style="top: 455px;">
-	<h3 class="tasks-title">论坛升级任务单</h3>
-	<div class="btafixed-nologin">
-		<span class="pic"></span>
-		<p>Hi，你好！</p>
-		<p>任务已打包备好</p>
-		<a href="javascript:;" data-role="user-login" class="go-btn">马上领取</a>
-	</div>
-</div></body></html>
+<h3 class="tasks-title">论坛升级任务单</h3>
+                                 <div class="btafixed-nologin">
+<span class="pic"></span>
+                    <p>Hi，你好！</p>
+                               <p>任务已打包备好</p>
+                                           <a href="javascript:;" data-role="user-login" class="go-btn">马上领取</a>
+                                                                                                              </div>
+                                                                                                                </div></body></html>
