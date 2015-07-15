@@ -1,3 +1,4 @@
 *.png
 *.jpg
-uploads/*
+*.jpeg
+public/uploads/*
