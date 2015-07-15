@@ -28,6 +28,7 @@ class Kernel extends HttpKernel {
 		'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
 		'csrf' => 'App\Http\Middleware\VerifyCsrfToken',
 		'cksession' => 'App\Http\Middleware\CheckSessionMiddleware',
+		'htmlsession' => 'App\Http\Middleware\AuthSessionHTMLMiddleware',
 	];
 
 }

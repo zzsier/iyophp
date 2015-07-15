@@ -91,6 +91,27 @@ Route::group(['prefix' => 'moment','middleware' => 'cksession'], function()
 	Route::resource('alist', 'TopicsController@queryTopicsByUser');
 });
 
+Route::group(['prefix' => 'question','middleware' => 'htmlsession'], function()  
+{
+	Route::resource('show', 'QuestionController@showquestion');
+	Route::resource('answer', 'QuestionController@answer');
+	Route::resource('new', 'QuestionController@latestquestion');
+});
+
+Route::group(['prefix' => 'question'], function()  
+{
+	Route::post('save', 'QuestionController@saveOrUpdate');
+	Route::post('delete', 'QuestionController@deleteQuestion');
+	Route::resource('query', 'QuestionController@query');
+	Route::resource('chanageQuestionStatus', 'QuestionController@changestatus');
+	Route::post('list', 'QuestionController@showlist');
+	Route::resource('edit', 'QuestionController@qedit');
+	Route::resource('create', 'QuestionController@createquestion');
+	Route::resource('listquestion', 'QuestionController@listquestion');
+});
+
+
+
 Route::resource('moment/upload', 'UploadController@uploadMemoryImage');
 Route::resource('like/list', 'TopicsController@queryLikeList');
 
@@ -132,6 +153,7 @@ Route::group(['prefix' => 'backend'], function()
 Route::group(['prefix' => 'user','middleware' => 'cksession'], function()  
 {
 	Route::post('resetpassword', 'UserController@resetPassword');
+	Route::resource('update', 'UserController@updateUser');
 });
 
 Route::resource('user/validationEmail', 'UserController@validateEmail');

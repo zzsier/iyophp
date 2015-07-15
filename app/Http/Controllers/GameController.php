@@ -3,71 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Model\IyoTopic;
-use View;
+use App\Model\IyoGame;
 use Illuminate\Http\Request;
-use App\Model\IyoRelation;
-use App\Model\IyoUser;
-use App\Model\IyoLike;
+use App\Model\IyoServer;
+use App\Model\IyoPlayer;
 use Redirect;
 use Log;
 
-class TopicsController extends Controller {
-
-	public function showlist()
-	{
-		$topics = IyoTopic::all();
-		foreach ($topics as $topic) {
-			$user = IyoUser::queryById($topic->uid);
-			$topic->username = $user["username"];
-		}
-		return View::make('backend.topics.index', compact('topics'));
-	}
-
-	public function create()
-	{
-		$union_ids = IyoUser::queryListByType(2);
-		$unions = [];
-		foreach ($union_ids as $uid) {
-			$unions[] = IyoUser::queryById($uid);
-		}
-		return View::make('backend.topics.create_edit', compact("unions"));
-	}
-
-	public function store()
-	{
-		return App::make('Phphub\Creators\TopicCreator')->create($this, Input::except('_token'));
-	}
-
-	public function showdetail(Request $request)
-	{
-		$topic = IyoTopic::findOrFail($request["id"]);
-		$topic['user'] = $topic->uid;
-		$user = IyoUser::findOrFail($topic->uid);
-		$topic['username'] = $user["username"];
-		$body = json_decode($topic['body']);
-		$topic['body'] = $body;
-		return View::make('backend.topics.show', compact('topic'));
-	}
-
-	public function edit(Request $request)
-	{
-		$topic = IyoTopic::find($request["id"]);
-		$body = json_decode($topic['body']);
-		$topic['body'] = $body;
-
-		$user = IyoUser::find($topic->uid);
-		$topic['username'] = $user["username"];
-
-		$union_ids = IyoUser::queryListByType(2);
-
-		$unions = [];
-		foreach ($union_ids as $uid) {
-			$unions[] = IyoUser::queryById($uid);
-		}
-
-		return View::make('backend.topics.create_edit', compact("topic","unions"));
-	}
+class GameController extends Controller {
 
 	public function saveOrUpdate(Request $request) 
 	{
@@ -81,10 +24,29 @@ class TopicsController extends Controller {
 		$image = $request->json("headimage", "");
 		$uid = $request->json("uid", 0);
 		$body = json_encode($request->json("body", ""));
+		$redis = MyRedis::connection("default");
 
-		IyoTopic::saveOrUpdate($title, $abstract, $from, $image, $uid, $body, $tid);
+		$topic = IyoTopic::saveOrUpdate($title, $abstract, $from, $image, $uid, $body, $tid);
+		$this->route($uid, $topic["tid"]);
 
 		return $result;
+	}
+
+	public function route($uid, $tid)
+	{
+		$ids = [];
+		$ids = IyoRelation::queryFollowerList($uid);
+		$ids[] = $uid;
+
+		$user = IyoUser::queryById($uid);
+		if( $user["type"] == "2" ) {
+			IyoTopic::routeUSList($ids,$tid);
+		} else if( $user["type"] == "0" ) {
+			IyoTopic::routeSFList($ids,$tid);
+		} else {
+			IyoTopic::routeUSList($ids,$tid);
+			IyoTopic::routeSFList($ids,$tid);
+		}
 	}
 
 	public function createMoment(Request $request) 
@@ -100,6 +62,7 @@ class TopicsController extends Controller {
 		$uid = $request["id"];
 
 		$topic = IyoTopic::saveOrUpdate($title, "", "", "", $uid, $content, 0, 0, $allowedComment, $deletedTimer);
+		$this->route($uid, $topic["tid"]);
 
 		$result["result"] = $topic;
 
@@ -134,8 +97,9 @@ class TopicsController extends Controller {
 		$allowedComment = $request->json("allowedComment", 1);
 		$deletedTimer = $request->json("deletedTimer");
 
-		IyoTopic::saveOrUpdate($title, "", "", "", $uid, "", 0, $tid, $allowedComment, $deletedTimer);
+		$topic = IyoTopic::saveOrUpdate($title, "", "", "", $uid, "", 0, $tid, $allowedComment, $deletedTimer);
 		IyoTopic::incrNumOfForward($tid);
+		$this->route($uid, $topic["tid"]);
 
 		return $result;
 	}
@@ -259,7 +223,7 @@ class TopicsController extends Controller {
 		}
 
 		if( $topic["deletedTimer"] != "" && strtotime($topic["deletedTimer"]) < time() ) {
-			IyoTopic::destroy($tid);
+			IyoTopic::destroy($tid, $id);
 			return null;
 		}
 
@@ -287,7 +251,7 @@ class TopicsController extends Controller {
 	
 			$parent = null;
 			if( $pid != 0 ) {
-				$parent = $this->queryTopic($uid, $tid);
+				$parent = $this->queryTopic($uid, $pid);
 			}
 
 			if( !is_null($parent) ) {
@@ -308,17 +272,14 @@ class TopicsController extends Controller {
 		$current = $request->json("current", 0);
 		$id = $request["id"];
 
-		$ids = IyoRelation::queryFollowingList($request["id"]);
 		$us_ids = [];
-
-		foreach( $ids as $fid ) {
-			$user = IyoUser::queryById($fid);
-			if( $user["type"] == "2" || $user["type"] == "1" ) { 
-				$us_ids[] = $fid;
-			}
+		if( IyoTopic::isNullTimeline($request["id"], "USTIMELINE") ) {
+			$us_ids = IyoRelation::queryFollowingListByType($request["id"],"US");
+			$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $us_ids, "USTIMELINE", $num, $current);
+		} else {
+			$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $us_ids, "USTIMELINE", $num, $current);
 		}
 
-		$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $us_ids, "USTIMELINE", $num, $current);
 		$result["result"] = $this->queryTopicsByIds($topic_ids, $id);
 		return $result;
 	}
@@ -332,17 +293,14 @@ class TopicsController extends Controller {
 		$current = $request->json("current", 0);
 		$id = $request["id"];
 
-		$ids = IyoRelation::queryFollowingList($request["id"]);
 		$sf_ids = [];
-
-		foreach( $ids as $fid ) {
-			$user = IyoUser::queryById($fid);
-			if( $user["type"] == "0" || $user["type"] == "1" ) { 
-				$sf_ids[] = $fid;
-			}
+		if( IyoTopic::isNullTimeline($request["id"], "SFTIMELINE") ) {
+			$sf_ids = IyoRelation::queryFollowingListByType($request["id"],"SF");
+			$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $sf_ids, "SFTIMELINE", $num, $current);
+		} else {
+			$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $sf_ids, "SFTIMELINE", $num, $current);
 		}
 
-		$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $sf_ids, "SFTIMELINE", $num, $current);
 		$result["result"] = $this->queryTopicsByIds($topic_ids, $id);
 		return $result;
 	}
@@ -388,22 +346,5 @@ class TopicsController extends Controller {
 		$topic_ids = IyoTopic::queryHotTopicIds($union_ids, $num, $current);
 		$result["result"] = $this->queryTopicsByIds($topic_ids, $id);
 		return $result;
-	}
-
-	public function destroy(Request $request) {
-		IyoTopic::destroy($request["id"]);
-		return Redirect::to('backend/topic/list');
-	}
-
-	public function creatorFailed($errors)
-	{
-		return Redirect::to('/');
-	}
-
-	public function creatorSucceed($topic)
-	{
-		Flash::success(lang('Operation succeeded.'));
-
-		return Redirect::route('topics.show', array($topic->id));
 	}
 }

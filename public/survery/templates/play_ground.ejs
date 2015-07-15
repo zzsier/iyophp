@@ -1,0 +1,96 @@
+
+<div class="panel panel-default">
+
+    <table class="table">
+    <tr>
+       <td width="100">页面名称</td><td><b><%= title %></b></td>
+    </tr>
+    <tr>
+        <td>页面类型:</td><td><b><%= PageType["t"+type] %></b></td>
+    </tr>
+    <tr>
+        <td>描述：</td><td><b><%= description %></b></td>
+    </tr>
+    </table>
+
+</div>
+<ul class="list-group">
+	<% for(var i=0; i < questions.length; i++) { %>
+		<% var question = questions[i]%>
+			<li class="list-group-item">
+				<div class="col-lg-12">
+				    <p data-action="match_dest-<%=i%>" class="matchDest" id="title_<%= i %>">
+				    	<%= 1+i %>.<%=question.title%>
+				    </p>
+				    <% if("tel" === question.type) { %>
+				    	<input type="text" readonly class="form-control"></input>
+				    <% }else if("text" === question.type) { %>
+				    	<textarea type="text" readonly rows=3 class="form-control"></textarea>
+				    <% }else if("radio" === question.type) {%>
+				    	<% for(var j=0;j<question.data.length;j++) {%>
+				    		<label>
+					    		<input type="checkbox" name="option<%=i%>"  <%= question.data[j].next ? "checked" : ""%> data-action="match_src-<%=i%>_<%=j%>" id="option_<%=i%>_<%=j%>">
+					    			<%= question.data[j].title %>
+					    		</input>
+				    		</label>
+				    	<%}%>
+				    <% } else if("checkbox" === question.type || "vote" == question.type) { %>
+				    	<%for(var j=0;j<question.data.length;j++) {%>
+				    	   <label>
+					    	   <input type=checkbox name="option<%=i%>"   <%= question.data[j].next ? "checked" : ""%> data-action="match_src-<%=i%>_<%=j%>" id="option_<%=i%>_<%=j%>">
+					    			<%= question.data[j].title %>
+					    	   </input>
+				    	   </label>
+				    	<%}%>
+				    <% } else if("matrix" == question.type) { %>
+
+						<% var columns = question.columns;%>
+						<% var rows = question.rows;%>
+						<table class="table">
+							<tr>
+								<th>&nbsp;&nbsp;</th>
+								<% for(var column = 0,cl = columns.length;column < cl;column++){ %>
+									<th><%= question.columns[column].title %></th>
+								<% } %>
+							</tr>
+							<%for(var row=0;row<rows.length;row++) {%>
+								<tr>
+									<td><%=rows[row].title%></td>
+									<% for(var column = 0,cl = columns.length;column < cl;column++){ %>
+										<td>
+								    	   <label>
+									    	   <input type=checkbox name="option<%=i%>_<%=row%>"   <%= false ? "checked" : ""%> data-action="match_src-<%=i%>_<%=row%>_<%=column%>" id="option_<%=i%>_<%=row%>_<%=column%>">
+									    	   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									    	   </input>
+								    	   </label>
+							    	   </td>
+						    	   <% } %>
+					    	   </tr>
+					    	<%}%>
+						</table>
+				    <%} %>
+				</div>
+				<div class="col-lg-4" style="margin-top:10px;">
+					<button class="btn btn-default btn-sm" data-action="edit-<%=i%>"  data-toggle="modal" data-target="#myModal">修改</button>
+					<button class="btn btn-danger btn-sm" data-action="del-question-<%=i%>">删除</button>
+				</div>
+		    </li>
+	    
+	<% } %>
+
+    <li class="list-group-item express-list">
+    <% for( var i = 0; i < express.length; i++ ){ %>
+        <div class="input-group">
+            <input class="form-control" data-action="input-express-<%= i %>"  type="text" id="express_<%= i %>" name="express_<%= i %>" placeholder="如: 1,2,3,4" maxlength="50" value="<%= express[i] %>"/>
+            <span class="input-group-btn">
+                <button class="btn btn-danger glyphicon glyphicon-remove" type="button" data-action="del-express-<%= i %>"></button>
+            </span>
+        </div>
+    <% } %>
+        <button class="btn btn-default btn-sm" id="addExpress" data-action="add-express">添加表达式</button>
+    </li>
+
+	<% if(Page.questions && Page.questions.length>=1){%>
+		<li class="list-group-item"><button data-action="submit" class="btn btn-success" style="margin-top:20px;">提交调查页面</button></li>
+	<% } %>
+</ul>

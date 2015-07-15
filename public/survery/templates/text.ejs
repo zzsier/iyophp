@@ -1,0 +1,10 @@
+<input type=hidden value="text" data-def="type">
+<div class="form-horizontal">
+	<label for="title" class="control-label" style="margin-top:0;">请输入题目标题</label>
+	<textarea name="title" data-def="title" class="form-control"><%= question.title %></textarea>
+</div>
+<% if(config.brandnew) {%>
+	<button class="btn btn-success add" data-dismiss="modal" data-action="add-question">添加</button>
+<% } else { %>
+    <button class="btn btn-primary update" data-dismiss="modal" data-action="update-<%=config.index%>">修改</button>
+<% } %>

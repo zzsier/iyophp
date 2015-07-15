@@ -400,9 +400,6 @@ Access-Control-Allow-Origin: *
 		return $response;
 	}
 
-
-
-
 	public function validateEmail(Request $request)
 	{
 		$id = $request->input('id', '');
@@ -492,6 +489,34 @@ Access-Control-Allow-Origin: *
 
 		$user->bind = $uid;
 
+		$user->save();
+
+		IyoUser::cleanCache($request["id"]);
+		return $result;
+	}
+
+	public function updateUser(Request $request) {
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '更新成功');
+		
+		$user = IyoUser::find($request["id"]);
+		$username = $request->json("username", "");
+		$age = $request->json("age","");
+		$sex = $request->json("sex","");
+		$loc = $request->json("loc","");
+
+		if( $username != "" ) {
+			$user->username = $username;
+		}
+		if( $age != "" ) {
+			$user->age = $age;
+		}
+		if( $sex != "" ) {
+			$user->sex = $sex;
+		}
+		if( $loc != "" ) {
+			$user->loc = $loc;
+		}
 		$user->save();
 
 		IyoUser::cleanCache($request["id"]);

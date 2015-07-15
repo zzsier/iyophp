@@ -37,6 +37,11 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 		array("cache"=>"sex", "db"=> "sex", "return"=>"sex"),
 		array("cache"=>"hxuser", "db"=> "hxuser", "return"=>"hxuser"),
 		array("cache"=>"hxpassword", "db"=> "hxpassword", "return"=>"hxpassword"),
+		array("cache"=>"age", "db"=> "age", "return"=>"age"),
+		array("cache"=>"loc", "db"=> "loc", "return"=>"loc"),
+		array("cache"=>"score", "db"=> "score", "return"=>"score"),
+		array("cache"=>"exp", "db"=> "exp", "return"=>"exp"),
+		array("cache"=>"dailyjob_at", "db"=> "dailyjob_at", "return"=>"dailyjob_at"),
 	);
 
 	const USER="user:%s";
@@ -83,7 +88,6 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 		$redis->del("user:2:list");
 	}
 
-
 	public static function queryById($id)
 	{
 		$redis = MyRedis::connection("default");
@@ -113,6 +117,28 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 		if( $redis->exists(IyoUser::PREFIX.":$id") )
 		{
 			$redis->hincrby(IyoUser::PREFIX.":$id:", "numOfFollow", 1);
+		}
+	}
+
+	public static function increaseDialyQuestion($id)
+	{
+		$user = IyoUser::find($id);
+		$user->score = $user->score + 50;
+		$user->dailyjob_at = date('Y-m-d H:i:s');
+		$union = $user->bind;
+		$user->save();
+
+		$redis = MyRedis::connection("default");
+
+		if( $union != 0 ) {
+			DB::table('iyo_users')->where('id', $union)->increment('score', 50);
+			if( $redis->exists(IyoUser::PREFIX.":$union") ) {
+				$redis->hincrby(IyoUser::PREFIX.":$union:", "score", 50);
+			}
+		}
+
+		if( $redis->exists(IyoUser::PREFIX.":$id") ) {
+			$redis->hincrby(IyoUser::PREFIX.":$id:", "score", 50);
 		}
 	}
 
