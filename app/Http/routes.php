@@ -114,6 +114,7 @@ Route::group(['prefix' => 'question'], function()
 
 Route::resource('moment/upload', 'UploadController@uploadMemoryImage');
 Route::resource('like/list', 'TopicsController@queryLikeList');
+Route::resource('video', 'BBSTopicsController@showvideo');
 
 
 Route::group(['prefix' => 'backend'], function()  
