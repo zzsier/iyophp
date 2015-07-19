@@ -71,9 +71,6 @@
                     <a href="http://bbs.zol.com.cn/sjbbs/topic.html#c"><span class="topic">话题</span></a>
                     <a href="http://bbs.zol.com.cn/sjbbs/resource.html#c"><span class="resource">资源</span></a>
                     <a href="http://bbs.zol.com.cn/sjbbs/pic.html#c"><span class="pic">图片模式</span></a>
-                    <div class="classify-morebox" id="moreType">
-                        <div class="classify-more-tip"><span class="close" onclick="this.parentNode.style.display=&#39;none&#39;;return false;"></span></div>
-                    </div>
                 </div>
             </div><!-- end class="list-main-top -->
 
