@@ -12,6 +12,28 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class IyoServer extends Model {
 
+	public static $servers = array(
+		array(
+			array("id"=>"1", "name"=>"艾欧尼亚 电信"),
+			array("id"=>"2", "name"=>"比尔吉沃特 网通"),
+		),
+		array(
+			array("id"=>"1", "name"=>"魔兽世界 电信"),
+			array("id"=>"2", "name"=>"魔兽世界 网通"),
+		),
+		array(
+			array("id"=>"1", "name"=>"风暴英雄 电信"),
+			array("id"=>"2", "name"=>"风暴英雄 网通"),
+		),
+		array(
+			array("id"=>"1", "name"=>"炉石传说 电信"),
+			array("id"=>"2", "name"=>"炉石传说 网通"),
+		),
+
+	);
+
+
+
 	use SoftDeletes;
 	protected $dates = ['deleted_at'];
 

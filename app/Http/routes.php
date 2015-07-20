@@ -158,6 +158,23 @@ Route::group(['prefix' => 'user','middleware' => 'cksession'], function()
 	Route::resource('update', 'UserController@updateUser');
 });
 
+Route::group(['prefix' => 'game','middleware' => 'cksession'], function()  
+{
+	Route::post('list', 'GameController@queryGameList');
+	Route::resource('update', 'UserController@updateUser');
+});
+
+Route::group(['prefix' => 'player','middleware' => 'cksession'], function()  
+{
+	Route::post('save', 'GameController@savePlayer');
+	Route::post('update', 'GameController@savePlayer');
+	Route::post('delete', 'GameController@deletePlayer');
+	Route::resource('list', 'GameController@queryPlayersByUser');
+});
+
+
+Route::post('server/list', 'GameController@queryServerList');
+
 Route::resource('user/validationEmail', 'UserController@validateEmail');
 
 Route::group(['prefix' => 'topic'], function()  

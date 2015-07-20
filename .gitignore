@@ -2,3 +2,5 @@
 *.jpg
 *.jpeg
 public/uploads/*
+.env
+config/database.php

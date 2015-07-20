@@ -12,72 +12,54 @@ use Log;
 
 class GameController extends Controller {
 
-	public function saveOrUpdate(Request $request) 
+	public function savePlayer(Request $request) 
 	{
 		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => trans('successmsg.FollowSuccess'));
+			'message' => '游戏角色添加成功' );
 
-		$tid = $request->json("id", 0);
-		$title = $request->json("title", "");
-		$abstract = $request->json("abstract", "");
-		$from = $request->json("from", "");
-		$image = $request->json("headimage", "");
-		$uid = $request->json("uid", 0);
-		$body = json_encode($request->json("body", ""));
-		$redis = MyRedis::connection("default");
+		$gid = $request->json("gid", 0);
+		$sid = $request->json("sid", 0);
+		$uid = $request["id"];
+		$playername = $request->json("name", "");
 
-		$topic = IyoTopic::saveOrUpdate($title, $abstract, $from, $image, $uid, $body, $tid);
-		$this->route($uid, $topic["tid"]);
+		$player = IyoPlayer::saveOrUpdate($playername, $gid, $sid, $uid);
 
 		return $result;
 	}
 
-	public function route($uid, $tid)
+	public function queryGameList(Request $request) 
 	{
-		$ids = [];
-		$ids = IyoRelation::queryFollowerList($uid);
-		$ids[] = $uid;
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '获取游戏列表成功');
 
-		$user = IyoUser::queryById($uid);
-		if( $user["type"] == "2" ) {
-			IyoTopic::routeUSList($ids,$tid);
-		} else if( $user["type"] == "0" ) {
-			IyoTopic::routeSFList($ids,$tid);
-		} else {
-			IyoTopic::routeUSList($ids,$tid);
-			IyoTopic::routeSFList($ids,$tid);
+		$result["result"] = IyoGame::$games;
+		return $result;
+	}
+
+	public function queryServerList(Request $request) 
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '获取游戏服务器列表成功');
+
+		$gid = $request->json("gid", 0);
+
+		if( $gid != 0 ) {
+			$result["result"] = IyoServer::$servers[$gid-1];
 		}
-	}
-
-	public function createMoment(Request $request) 
-	{
-		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => '创建朋友圈成功');
-
-		$title = $request->json("title", "");
-		$allowedComment = $request->json("allowedComment", 1);
-		$deletedTimer = $request->json("deletedTimer");
-		$content = json_encode($request->json("content"));
-
-		$uid = $request["id"];
-
-		$topic = IyoTopic::saveOrUpdate($title, "", "", "", $uid, $content, 0, 0, $allowedComment, $deletedTimer);
-		$this->route($uid, $topic["tid"]);
-
-		$result["result"] = $topic;
 
 		return $result;
 	}
 
-	public function deleteTopic(Request $request) 
+
+	public function deletePlayer(Request $request) 
 	{
 		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => '删除朋友圈成功');
+			'message' => '删除游戏用户成功');
 
-		$tid = $request->json("tid", 0);
+		$pid = $request->json("pid", 0);
 		$uid = $request["id"];
 
-		$topic = IyoTopic::destroy($tid);
+		$topic = IyoTopic::destroy($pid);
 		return $result;
 	}
 
@@ -144,45 +126,6 @@ class GameController extends Controller {
 		return $result;
 	}
 
-	public function incrForward(Request $request)
-	{
-		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => '增加转发成功');
-		
-		$uid = $request["id"];
-		$tid = $request->json("tid",0);
-
-		if( $tid == 0 ) {
-			$result = array('code' => trans('code.InvalidParameter'),'desc' => __LINE__,
-				'message' => '参数不完整');
-			return $result;
-		}
-
-		IyoTopic::incrNumOfForward($tid);
-
-		return $result;
-	}
-
-	public function unlike(Request $request)
-	{
-		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => '取消点赞成功');
-
-		$uid = $request["id"];
-		$tid = $request->json("tid",0);
-
-		if( ! IyoLike::checkIfLike($uid, $tid) ) {
-			$result = array('code' => trans('code.LikeNotExistsError'),'desc' => __LINE__,
-				'message' => '用户尚未点赞');
-			return $result;
-		}
-
-		IyoLike::unlike($uid, $tid);
-		IyoTopic::decrNumOfLike($tid);
-
-		return $result;
-	}
-
 	public function query(Request $request)
 	{
 		$result = array('code' => trans('code.success'),'desc' => __LINE__,
@@ -214,122 +157,45 @@ class GameController extends Controller {
 		return $result;
 	}
 
-	public function queryTopic($id, $tid)
-	{
-		$topic = IyoTopic::queryById($tid);
-
-		if( is_null($topic) ) {
-			return null;
-		}
-
-		if( $topic["deletedTimer"] != "" && strtotime($topic["deletedTimer"]) < time() ) {
-			IyoTopic::destroy($tid, $id);
-			return null;
-		}
-
-		$user = IyoUser::queryById($topic["uid"]);
-
-		if( IyoLike::checkIfLike($id, $tid) ) {
-			$topic["like"] = true;
-		} else {
-			$topic["like"] = false;
-		}
-
-		$topic["user"] = $user;
-		return $topic;
-	}
-
-	public function queryTopicsByIds($ids, $uid) {
-		$topics = [];
-		foreach( $ids as $tid ) {
-			$topic = $this->queryTopic($uid, $tid);
-			if( is_null($topic) ) {
+	public function queryPlayersByIds($ids) {
+		$players = [];
+		foreach( $ids as $id ) {
+			$player = IyoPlayer::queryById($id);
+			if( is_null($player) ) {
 				continue;
 			}
 
-			$pid = $topic["pid"];
+			$gid = $player["gid"];
+			$sid = $player["sid"];
+
+			if( $gid == 0 ) {
+				continue;
+			}
+
+			if( $sid == 0 ) {
+				continue;
+			}
+
+			$player["game"] = IyoGame::$games[$gid-1];
+			$player["server"] = IyoServer::$servers[$gid-1][$sid-1];
 	
-			$parent = null;
-			if( $pid != 0 ) {
-				$parent = $this->queryTopic($uid, $pid);
-			}
-
-			if( !is_null($parent) ) {
-				$topic["parent"] = $parent;
-			}
-
-			$topics[] = $topic;
+			$players[] = $player;
 		}
-		return $topics;
+		return $players;
 	}
 
-	public function queryUSTopicsByTime(Request $request)
+	public function queryPlayersByUser(Request $request)
 	{
 		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => '获取最新文章成功');
+			'message' => '获取游戏角色成功');
 
 		$num = $request->json("num", 0);
 		$current = $request->json("current", 0);
-		$id = $request["id"];
+		$id = $request->json("fid", 0);
 
-		$us_ids = [];
-		if( IyoTopic::isNullTimeline($request["id"], "USTIMELINE") ) {
-			$us_ids = IyoRelation::queryFollowingListByType($request["id"],"US");
-			$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $us_ids, "USTIMELINE", $num, $current);
-		} else {
-			$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $us_ids, "USTIMELINE", $num, $current);
-		}
+		$pids = IyoPlayer::queryPlayerIdsByUser($id, $num, $current);
+		$result["result"] = $this->queryPlayersByIds($pids);
 
-		$result["result"] = $this->queryTopicsByIds($topic_ids, $id);
-		return $result;
-	}
-
-	public function querySFTopicsByTime(Request $request)
-	{
-		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => '获取最新文章成功');
-
-		$num = $request->json("num", 0);
-		$current = $request->json("current", 0);
-		$id = $request["id"];
-
-		$sf_ids = [];
-		if( IyoTopic::isNullTimeline($request["id"], "SFTIMELINE") ) {
-			$sf_ids = IyoRelation::queryFollowingListByType($request["id"],"SF");
-			$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $sf_ids, "SFTIMELINE", $num, $current);
-		} else {
-			$topic_ids = IyoTopic::queryTopicIdsByTime($request["id"], $sf_ids, "SFTIMELINE", $num, $current);
-		}
-
-		$result["result"] = $this->queryTopicsByIds($topic_ids, $id);
-		return $result;
-	}
-
-	public function queryHistoryTopics(Request $request)
-	{
-		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => '获取用户文章成功');
-
-		$num = $request->json("num", 0);
-		$current = $request->json("current", 0);
-		$id = $request["id"];
-
-		$topic_ids = IyoTopic::queryTopicIdsByUser($id, $num, $current);
-		$result["result"] = $this->queryTopicsByIds($topic_ids, $id);
-		return $result;
-	}
-
-	public function queryTopicsByUser(Request $request)
-	{
-		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => '获取用户文章成功');
-
-		$num = $request->json("num", 0);
-		$current = $request->json("current", 0);
-		$id = $request["id"];
-
-		$topic_ids = IyoTopic::queryTopicIdsByUser($request->json("fid",0), $num, $current);
-		$result["result"] = $this->queryTopicsByIds($topic_ids, $id);
 		return $result;
 	}
 

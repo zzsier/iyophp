@@ -258,7 +258,10 @@ class IyoTopic extends Model {
 		if( !$redis->exists($key) ) {
 			$templist = [];
 			$templist = IyoTopic::queryTempTopicIdsByTime($uid, $uslist, $type);
-			$redis->rpush($key, $templist);
+
+			if( count($templist) != 0 ) {
+				$redis->rpush($key, $templist);
+			}
 		}
 
 		if( $redis->exists($key) ) {

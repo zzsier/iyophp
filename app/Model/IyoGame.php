@@ -12,6 +12,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class IyoGame extends Model {
 
+	public static $games = array(
+		array("id"=>"1", "name"=>"英雄联盟"),
+		array("id"=>"2", "name"=>"魔兽世界"),
+		array("id"=>"3", "name"=>"风暴英雄"),
+		array("id"=>"4", "name"=>"炉石传说"),
+	);
+
 	public $timestamps = false;
 	protected $dates = ['deleted_at'];
 

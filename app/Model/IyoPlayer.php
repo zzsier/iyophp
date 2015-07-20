@@ -20,6 +20,7 @@ class IyoPlayer extends Model {
 		array("cache"=>"name", "db"=> "name", "return"=>"name"),
 		array("cache"=>"gid", "db"=> "gid", "return"=>"gid"),
 		array("cache"=>"sid", "db"=> "sid", "return"=>"sid"),
+		array("cache"=>"uid", "db"=> "uid", "return"=>"uid"),
 	);
 
 	const PLAYER="player:%s";
@@ -30,7 +31,7 @@ class IyoPlayer extends Model {
 		return date("Y年m月d日", strtotime($value));
 	}
 
-	public static function saveOrUpdate($name, $gid, $sid, $pid=0)
+	public static function saveOrUpdate($name, $gid, $sid, $uid, $pid=0)
 	{
 		if( $pid == 0 ) {
 			$player = new IyoPlayer();
@@ -41,6 +42,7 @@ class IyoPlayer extends Model {
 		$player->name = $name;
 		$player->gid = $gid;
 		$player->sid = $sid;
+		$player->uid = $uid;
 
 		$player->save();
 
@@ -117,96 +119,11 @@ class IyoPlayer extends Model {
 		return $topic;
 	}
 
-	public static function queryTempTopicIdsByTime($uid, $uslist, $type, $num=0, $current=0)
+	public static function queryPlayerIdsByUser($uid, $num=0, $current=0)
 	{
 		$redis = MyRedis::connection("default");
 
-		if( $type == "USTIMELINE" ) {
-			$key = sprintf(IyoPlayer::USTEMPTIMELINE, $uid);
-		} else {
-			$key = sprintf(IyoPlayer::SFTEMPTIMELINE, $uid);
-		}
-
-		if( $current == 0 ) {
-			if( $redis->exists($key) ) {
-				$redis->del($key);
-			}
-		}
-
-		$uslist[] = $uid;
-		$redisunion = [];
-		$tlist = [];
-
-		if( !$redis->exists($key) ) {
-			foreach( $uslist as $fid ) {
-				$userlist = sprintf(IyoPlayer::USERTOPIC, $fid);
-				if( !$redis->exists($userlist) ) {
-					IyoPlayer::queryTopicIdsByUser($fid);
-				}
-				if( $redis->exists($userlist) ) {
-					$redisunion[] = $userlist;
-				}
-			}
-
-			if( count($redisunion) > 0 ) {
-				$redis->zunionstore($key, 1, $redisunion[0]);
-				for( $i = 1; $i<count($redisunion); $i++ ) {
-					$redis->zunionstore($key, 2, $key, $redisunion[$i], "AGGREGATE", "MIN");
-				}
-			}
-		}
-
-		if( $redis->exists($key) ) {
-			$tlist = $redis->zrevrange($key, $current, $current+$num-1);
-		}
-
-		return $tlist;
-	}
-
-	public static function isNullTimeline($uid, $type) {
-		$redis = MyRedis::connection("default");
-		if( $type == "USTIMELINE" ) {
-			$key = sprintf(IyoPlayer::USTIMELINE, $uid);
-		} else {
-			$key = sprintf(IyoPlayer::SFTIMELINE, $uid);
-		}
-		if( $redis->exists($key) ) {
-			return false;
-		}
-		return true;
-	}
-
-	public static function queryTopicIdsByTime($uid, $uslist, $type, $num=0, $current=0)
-	{
-		$redis = MyRedis::connection("default");
-
-		if( $type == "USTIMELINE" ) {
-			$key = sprintf(IyoPlayer::USTIMELINE, $uid);
-		} else {
-			$key = sprintf(IyoPlayer::SFTIMELINE, $uid);
-		}
-
-		$uslist[] = $uid;
-		$tlist = [];
-
-		if( !$redis->exists($key) ) {
-			$templist = [];
-			$templist = IyoPlayer::queryTempTopicIdsByTime($uid, $uslist, $type);
-			$redis->rpush($key, $templist);
-		}
-
-		if( $redis->exists($key) ) {
-			$tlist = $redis->lrange($key, $current, $current+$num-1);
-		}
-
-		return $tlist;
-	}
-
-	public static function queryTopicIdsByUser($uid, $num=0, $current=0)
-	{
-		$redis = MyRedis::connection("default");
-
-		$key = sprintf(IyoPlayer::USERTOPIC, $uid);
+		$key = sprintf(IyoPlayer::PLAYER, $uid);
 		if(!$redis->exists($key)) {
 			$list = IyoPlayer::where('uid', $uid)->orderBy('created_at', 'asc')
 				->get(["id", "created_at"]);
@@ -220,27 +137,6 @@ class IyoPlayer extends Model {
 			$tlist = $redis->zrevrange($key, $current, $current+$num-1);
 		}
 
-		return $tlist;
-	}
-
-	public static function queryHotTopicIds($union_ids, $num=0, $current=0)
-	{
-		$redis = MyRedis::connection("default");
-
-		if(!$redis->exists(IyoPlayer::HOTTOPIC)) {
-			$list = [];
-			$list = IyoPlayer::where('created_at', '>', time()-10*24*60*60)
-				->whereIn("uid", $union_ids)->orderBy('view_count')->take(200)->get(["id", "view_count"]);
-			foreach( $list as $tid ) {
-				$redis->zadd(IyoPlayer::HOTTOPIC,$tid["view_count"],$tid['id']);
-			}
-			$redis->pexpire(IyoPlayer::HOTTOPIC, 24*60*60);
-		}
-
-		$tlist = [];
-		if( $redis->exists(IyoPlayer::HOTTOPIC) ) {
-			$tlist = $redis->zrevrange(IyoPlayer::HOTTOPIC, $current, $current+$num-1);
-		}
 		return $tlist;
 	}
 }
