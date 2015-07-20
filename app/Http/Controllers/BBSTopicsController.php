@@ -57,24 +57,27 @@ class BBSTopicsController extends BaseController implements CreatorListener
 
     public function store()
     {
-        $topic = new Topic();
-		$topic->user_id = Auth::id();
-        $replies = $topic->getRepliesWithLimit(Config::get('phphub.replies_perpage'));
+        $result = array('info' => 'ok','desc' => __LINE__,
+            'tips' => '文章创建成功');
 
-        //$markdown = new Markdown;
-        $topic['body_original'] = Input::get('body');
-        $topic['body'] = Input::get('body');
+        $topic = new Topic();
+		//$topic->user_id = Auth::id();
+        $topic->user_id = 87;
+        //$replies = $topic->getRepliesWithLimit(Config::get('phphub.replies_perpage'));
+
+        $topic['body'] = Input::get('content');
+        $topic['title'] = Input::get('title');
         //$topic['body'] = $markdown->convertMarkdownToHtml(Input::get('body'));
         //$topic['excerpt'] = Topic::makeExcerpt(Input::get('body'));
 
         //$this->form->validate($topic);
-		$topic->node_id = Input::get('node_id');
+		$topic->node_id = Input::get('boardid');
+        $topic->cate_id = Input::get('subid');
 
         //Robot::notify($data['body_original'], 'Topic', $topic, Auth::user());
 		$topic->save();
 
-        return $this->creatorSucceed($topic);
-
+        return $result;
     }
 
     public function show($id)

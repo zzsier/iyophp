@@ -6,9 +6,9 @@
 
 @section('content')
 
-    <link href="/Bbs/Bbs_list.css" rel="stylesheet" />
-    <script src="/sjbbs/index.js"></script>
-    <script src="/bbsmain/list.js"></script>
+    <link href="../Bbs/Bbs_list.css" rel="stylesheet" />
+    <script src="../sjbbs/index.js"></script>
+    <script src="../bbsmain/list.js"></script>
 
     <div class="wrapper">
 

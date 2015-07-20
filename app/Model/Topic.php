@@ -226,9 +226,4 @@ class Topic extends Model
         $excerpt = trim(preg_replace('/\s\s+/', ' ', strip_tags($html)));
         return str_limit($excerpt, 200);
     }
-
-    public function setTitleAttribute($value)
-    {
-        $this->attributes['title'] = (new AutoCorrect)->convert($value);
-    }
 }

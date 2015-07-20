@@ -17,7 +17,7 @@ class Category extends Model {
 
     protected $fillable = [];
 
-    public function topics($filter)
+    public function categories($filter)
     {
         return $this->hasMany('Topic')->getTopicsWithFilter($filter);
     }
