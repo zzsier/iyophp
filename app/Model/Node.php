@@ -24,12 +24,13 @@ class Node extends Model {
 
     public static function allLevelUp()
     {
+        Log::info("enter allLevelUp");
         return Cache::remember(self::CACHE_KEY, self::CACHE_MINUTES, function () {
             $nodes = Node::all();
-
+            Log::info("enter allLevelUp cache remember");
             $result = array();
             foreach ($nodes as $key => $node) {
-                if ($node->parent_node == null) {
+                if ($node->parent_node == null || $node->parent_node == 0) {
                     $result['top'][] = $node;
                     foreach ($nodes as $skey => $snode) {
                         if ($snode->parent_node == $node->id) {

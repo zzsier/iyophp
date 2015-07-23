@@ -86,28 +86,14 @@
 <div class="wrapper">
     <div class="bbs-navbox border-radius-s3">
         <ul class="bbs-nav-list clearfix">
-            <li class="current"><a href="###">IYO首页</a>
-            </li>
-            <li class=""><a href="http://localhost/bbs/video" target="_blank">游戏视频</a>
-            </li>
-            <li class=""><a href="http://localhost/bbs/moba" target="_blank">MOBA</a>
-                <i class="hot-ico"></i>
-            </li>
-            <li class=""><a href="http://localhost/bbs/netgame" target="_blank">网游论坛</a>
-            </li>
-            <li class=""><a href="http://localhost/bbs/fps" target="_blank">FPS游戏</a>
-            </li>
-            <li class=""><a href="http://localhost/bbs/trade" target="_blank">游戏交易</a>
-                <i class="hot-ico"></i>
-            </li>
-            <li class=""><a href="http://localhost/bbs/game" target="_blank">比赛</a>
-            </li>
-
+            @foreach ($nodes['top'] as $index => $top_node)
+                <li class><a href="http://localhost/nodes/{{{ $top_node->id }}}" target="_blank">{{{ $top_node->name }}}</a></li>
+            @endforeach
         </ul>
     </div>
 </div>
 
-<div class="wrapper">
+<!--<div class="wrapper">
     <div class="category-nav-box box-shadow border-radius-s3">
         <div class="main-category clearfix">
             <dl class="sjbbs">
@@ -184,6 +170,6 @@
             <a href="http://bbs.zol.com.cn/quanzi/d643.html" target="_blank">有问必答</a>
         </div>
     </div>
-</div>
+</div>-->
 
 

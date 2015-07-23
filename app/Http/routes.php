@@ -182,6 +182,10 @@ Route::group(['prefix' => 'topic'], function()
 	Route::post('create', 'TopicController@resetPassword');
 });
 
+Route::get('/nodes/{id}', [
+    'as' => 'nodes.topics',
+    'uses' => 'BBSTopicsController@showtopics',
+]);
 
 /*
 

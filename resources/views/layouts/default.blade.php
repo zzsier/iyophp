@@ -3,14 +3,14 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>IYO 游戏论坛</title>
-		<link href="demo/Bbs_index.css" rel="stylesheet">
-		<script async="" src="demo/gw.js"></script>
-		<script src="demo/iparea.htm"></script>
-		<script src="demo/Bbs_index.js" charset="gbk"></script>
-		<link href="demo/rotate-plate.css" rel="stylesheet">
-		<script type="text/javascript" src="demo/md5.js"></script>
-		<link href="demo/suggest20150320.css" rel="stylesheet">
-		<script src="demo/53013749.js" type="text/javascript"></script>
+		<link href={{{URL::asset('demo/Bbs_index.css')}}} rel="stylesheet">
+		<script async="" src={{{URL::asset('demo/gw.js')}}}></script>
+		<script src={{{URL::asset('demo/iparea.htm')}}}></script>
+		<script src={{{URL::asset('demo/Bbs_index.js')}}} charset="gbk"></script>
+		<link href={{{URL::asset('demo/rotate-plate.css')}}} rel="stylesheet">
+		<script type="text/javascript" src={{{URL::asset('demo/md5.js')}}}></script>
+		<link href={{{URL::asset('demo/suggest20150320.css')}}} rel="stylesheet">
+		<script src={{{URL::asset('demo/53013749.js')}}} type="text/javascript"></script>
 
         <script>
             Config = {
