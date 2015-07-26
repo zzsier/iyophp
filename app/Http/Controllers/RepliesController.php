@@ -1,9 +1,12 @@
 <?php
 
+namespace App\Http\Controllers;
 use Phphub\Core\CreatorListener;
 use App\Model\Reply;
+use Input;
+use Auth;
 
-class RepliesController extends \BaseController implements CreatorListener
+class RepliesController extends BaseController
 {
     public function __construct()
     {
@@ -11,10 +14,20 @@ class RepliesController extends \BaseController implements CreatorListener
         $this->beforeFilter('auth');
     }
 
-    public function store()
-    {
-        return App::make('Phphub\Creators\ReplyCreator')->create($this, Input::except('_token'));
-    }
+	public function store()
+	{
+		$result = array('info' => 'ok','desc' => __LINE__,
+			'tips' => '文章评论成功', 'url' => 'http://123.59.53.158/nodes/'.Input::get('boardid'));
+
+		$reply = new Reply();
+		$reply->user_id = Auth::id();
+		$reply->topic_id = Input::get("toid");
+		$reply->body = Input::get("content");
+
+		$reply->save();
+
+		return $result;
+	}
 
     public function vote($id)
     {

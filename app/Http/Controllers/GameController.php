@@ -59,7 +59,7 @@ class GameController extends Controller {
 		$pid = $request->json("pid", 0);
 		$uid = $request["id"];
 
-		$topic = IyoTopic::destroy($pid);
+		$player = IyoPlayer::destoryPlayer($uid, $pid);
 		return $result;
 	}
 
@@ -83,46 +83,6 @@ class GameController extends Controller {
 		IyoTopic::incrNumOfForward($tid);
 		$this->route($uid, $topic["tid"]);
 
-		return $result;
-	}
-
-	public function like(Request $request)
-	{
-		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => '点赞成功');
-		
-		$uid = $request["id"];
-		$tid = $request->json("tid",0);
-
-		if( IyoLike::checkIfLike($uid, $tid) ) {
-			$result = array('code' => trans('code.LikeAlreadyExistsError'),'desc' => __LINE__,
-				'message' => '用户已点赞');
-			return $result;
-		}
-
-		IyoLike::like($uid, $tid);
-		IyoTopic::incrNumOfLike($tid);
-
-		return $result;
-	}
-
-	public function queryLikeList(Request $request)
-	{
-		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => '获取点赞列表成功');
-		$uid = $request["id"];
-		$tid = $request->json("tid",0);
-		$num = $request->json("num", 0);
-		$current = $request->json("current", 0);
-
-		$fids = IyoLike::queryLikeList($uid, $tid, $num, $current);
-		$userlist = [];
-
-		foreach( $fids as $fid ) {
-			$userlist[] = IyoUser::queryById($fid);
-		}
-
-		$result["result"] = $userlist;
 		return $result;
 	}
 

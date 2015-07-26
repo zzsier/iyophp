@@ -148,7 +148,7 @@ return [
 		'Laracasts\Flash\FlashServiceProvider',
 		'Zizaco\Entrust\EntrustServiceProvider',
 		'Collective\Html\HtmlServiceProvider',
-
+		'Jenssegers\Agent\AgentServiceProvider',
 	],
 
 	/*
@@ -201,6 +201,7 @@ return [
 		'Entrust' => 'Zizaco\Entrust\EntrustFacade',
 		'Form' => 'Collective\Html\FormFacade',
 		'Html' => 'Collective\Html\HtmlFacade',
+		'Agent' => 'Jenssegers\Agent\Facades\Agent',
 	],
 
 ];

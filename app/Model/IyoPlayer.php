@@ -47,7 +47,7 @@ class IyoPlayer extends Model {
 		$player->save();
 
 		$redis = MyRedis::connection("default");
-		$key = sprintf(IyoPlayer::PLAYER, $pid);
+		$key = sprintf(IyoPlayer::USERPLAYER, $uid);
 		if( $redis->exists($key) ) {
 			$redis->zadd($key,strtotime($player["created_at"]),$player['id']);
 		}
@@ -59,18 +59,17 @@ class IyoPlayer extends Model {
 		return $player;
 	}
 
-	public static function destroy($id)
+	public static function destoryPlayer($uid, $id)
 	{
 		$redis = MyRedis::connection("default");
 		$player = IyoPlayer::find($id);
 		if( !is_null($player) ) {
-			$key = sprintf(IyoPlayer::PLAYER, $player->id);
+			$key = sprintf(IyoPlayer::USERPLAYER, $uid);
 			if( $redis->exists($key) ) {
 				$redis->zrem($key, $id);
 			}
 			$player->delete();
 		}
-
 		IyoPlayer::cleanCache($id);
 	}
 
@@ -122,8 +121,7 @@ class IyoPlayer extends Model {
 	public static function queryPlayerIdsByUser($uid, $num=0, $current=0)
 	{
 		$redis = MyRedis::connection("default");
-
-		$key = sprintf(IyoPlayer::PLAYER, $uid);
+		$key = sprintf(IyoPlayer::USERPLAYER, $uid);
 		if(!$redis->exists($key)) {
 			$list = IyoPlayer::where('uid', $uid)->orderBy('created_at', 'asc')
 				->get(["id", "created_at"]);

@@ -1,0 +1,107 @@
+body{background:#FFF;font-family:"Î¢ÈíÑÅºÚ","Helvetica";font-size:16px;color: #000;position: relative;}
+a,body,h1,h2,h3,h6,p,dl,dt,dd,ul,ol,li,form,button,input,img,div,pre,section,header,nav,footer{margin:0;padding:0;border:0;font-weight: normal;}
+ul,ol{list-style:none}
+img{vertical-align: middle;max-width: 100%;}
+a:link,a:visited{text-decoration:none;color:#000;font-family:"Î¢ÈíÑÅºÚ","Helvetica"}
+a:hover,a:active{color:#00aeef;}
+header,.cont,footer{width: 100%;}
+header .logo{width: 100%;height: 45px;background: #fff;}
+header .logo .logoimg{float: left;height: 30px;padding: 8px 10px 0;}
+header .logo .logoimg img{height: 30px;}
+header .logo .appdload{float: right;height: 28px;padding: 8px 18px 9px 23px;font-size: 12px;line-height: 14px;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/wbg.png") 0 -155px no-repeat;}
+header .logo .appdload:link,header .logo .appdload:visited{color: #00aeef;}
+header nav{height: 45px;line-height: 45px;color: #fff;padding-left: 10px;background: #4c9ada;font-size: 18px;}
+header nav a:link,header nav a:visited,footer li a:link,footer li a:visited{color: #fff;}
+/*content*/
+.wrap{padding: 10px;}
+.newstitle{width: 100%;border-bottom: 1px solid #f3f3f9;}
+.newstitle h1{line-height: 31px;font-size: 22px;}
+.newstitle dl{width: 100%;height: 20px;line-height: 20px;padding: 10px 0;}
+.newstitle dl dt{float:left;font-size:12px;color:#999;padding-right: 10px;}
+.newstitle dl dt .orange{color: #ff6600;padding-left: 16px;}
+.newstitle dl dd{float:right;font-size:20px;font-style:italic;color: #00aeef;margin-top: -6px;cursor: pointer;}
+.newstitle dl dd sup{font-style:normal}
+.newscontentbox{float:left;width:100%;line-height:30px;padding: 14px 0;}
+.newscontent{margin:auto;}
+.newscontent p{margin-bottom: 15px;width:auto;overflow:hidden;}
+.newscontent img{max-width:100%;height:auto;margin:10px 0 5px}
+.newscontent table td{border-right:#000 1px solid;border-top:#000 1px solid}
+.newscontent table{border-left:#000 1px solid;border-bottom:#000 1px solid}
+.newscontent EMBED{display:none}
+.newspage{margin:auto;width:300px;padding:10px 0 20px}
+.newspage a{display:inline-block;padding:5px 11px 4px;margin:0 5px 5px 0;font-size:14px;border:1px solid #C2C3C6;background:-webkit-gradient(linear,0 0,0 bottom,from(#FFFFFF),to(#DDE0E5));background:-moz-linear-gradient(#FFFFFF,#DDE0E5);background:linear-gradient(#FFFFFF,#DDE0E5);-pie-background:linear-gradient(#FFFFFF,#DDE0E5);behavior:url(PIE.htc)}
+.newspage span{display:inline-block;padding:5px 11px 4px;margin:0 5px 5px 0;font-size:14px;font-weight:bold}
+.newsshare{width:280px;height: 46px;overflow:auto;padding-bottom: 10px;}
+.newsshare dl{height: 44px;line-height: 44px;padding-left: 10px;width: 225px;border: 1px solid #dcdcdc;}
+.newsshare dt{color:#999;float: left;}
+.newsshare dd{height:44px;overflow: hidden;}
+.newsshare .bdshare-button-style1-32 a{padding-right: 10px;margin-left: 4px;border-right: 1px solid #dcdcdc;}
+.newsshare .bdshare-button-style1-32 a:last-child{border-right-color:#fff;}
+.productlist{margin:0 auto;padding-bottom: 10px;overflow:auto;}
+.productlist h2{line-height: 32px;font-size:20px;font-weight:normal;padding-bottom: 10px;}
+.productlist h2 a:link,.productlist h2 a:visited{color: #ff6600;}
+.productlist dt{float:left;width: 110px;}
+.productlist img{border:1px solid #dcdcdc;height: 95px;width: 95px;padding: 2px;}
+.productlist dd{float: right;width: 62%;text-align: center;}
+.productlist dd.first{height: 32px;line-height: 32px;}
+.productlist dd .price{font-size: 14px;color: #999;float: left;}
+.productlist dd .olbuy{float: right;height: 28px;line-height: 28px;padding: 0 15px;margin: 1px 0;border: 1px solid #33bef2;border-radius: 14px;}
+.productlist dd .olbuy:link,.productlist dd .olbuy:visited{color: #33bef2;}
+.productlist dd .bfont{font-size: 24px;}
+.productlist dd span{color:#dc0000;}
+.productlist dd.info a{float: left;width: 49%;height: 30px;line-height: 30px;background: #f3f3f9;margin-top: 4px;font-size: 14px;}
+.productlist dd.info .fright{float: right;}
+.productlist dd.info a.last{width: 100%;}
+.guesslist h1{height: 46px;line-height: 46px;font-size: 24px;color: #000;border-top: 2px solid #000;}
+.guesslist h2{height: 46px;line-height: 46px;font-size: 24px;color: #000;border-top: 2px solid #000;}
+.guesslist ul{width: 100%;margin: 0 auto;}
+.guesslist li{float: left;width: 47%;height: 140px;text-align: center;padding-bottom: 15px;}
+.guesslist li.float-r{float: right;}
+.guesslist li img{height: 90px;}
+.guesslist li p{font-size: 14px;line-height: 20px;text-align: left;padding-top: 10px;word-break: break-all;}
+.newslist{clear: both;border-top: 1px solid #f3f3f9;padding-bottom: 6px;}
+.newslist li{width: 100%;height: 40px;line-height: 40px;}
+.newslist li a{float: left;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 80%;}
+.newslist li time{float: right;font-size: 10px;color: #999;}
+.flayer{width: 100%;height: 60px;background: rgba(255,140,64,0.8);position: fixed;bottom: 0;z-index: 9999;}
+.tjsm{height: 45px;padding: 8px 10px 7px 30px;position: relative;}
+.tjsm dt{float: left;padding-right: 10px;}
+.tjsm dt img{height: 45px;}
+.tjsm dd{line-height: 26px;color: #fff;position: relative;}
+.tjsm dd div{font-size: 12px;color: #000;line-height: 18px;}
+.tjsm dd .dlbtn{display: inline-block;height: 30px;line-height: 30px;padding: 0 8px;border-radius: 5px;background: #00aeef;position: absolute;top: 7px;right: 0;}
+.tjsm .closebtn{display: inline-block;width: 0;height: 28px;padding-left: 28px;overflow: hidden;cursor: pointer;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/cbtn.png") no-repeat;position: absolute;top: 0;left: 0;}
+/*old_ad*/
+.adv_ywap_topcolumn,.adv_ywap_column1{margin:auto;padding:0;position: relative;margin-left: -12px;}
+/*new_ad 
+.mlp_ywap_topcolumn,.mlp_ywap_column1{margin:auto;padding-bottom: 5px;width:320px;overflow:hidden;display: none}
+.mlp_ywap_column1{position:relative;margin-left:-10px;}
+.midad{display:none}
+*/
+/*gfapp*/
+.gfapp {display: none;text-align: left;position: relative;}
+.gfapp dl{height: 58px;padding: 10px 0;border-bottom: 1px solid #e1e1e1;border-top: 1px solid #e1e1e1;;background:#fafafa;}
+.gfapp dl img{width: 58px;height: 58px;}
+.gfapp dt{float: left;padding:0 10px;}
+.gfapp dd{line-height: 30px;font-size: 16px;}
+.gfapp span{display: inline-block;padding: 0 5px;cursor: pointer;}
+.gfapp dd h3 span{height: 20px;line-height: 20px;margin: 5px 10px;color: #fff;background: #4c9ada;}
+.gfapp dd div{line-height: 20px;padding-top: 8px;color: #7b7b7b;font-size: 14px;}
+.gfapp span.clabel,.gfapp dd span.dlnow{height: 30px;line-height: 30px;position: absolute;top: 24px;right: 5px;}
+.gfapp span.clabel{width: 30px;text-indent: 40px;overflow: hidden;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/clabel.gif") center no-repeat;}
+.gfapp dd span.dlnow{color: #fff;padding: 0 8px;border-radius: 5px;background: #0168b7;top: 15px;}
+
+
+.mlp_ywap_column1{position:relative;margin-left:-10px;}
+
+
+/*footer*/
+footer{clear: both;}
+footer nav{width: 100%;height: 45px;line-height: 45px;text-align:center;font-size: 18px;background: #4c9ada;}
+footer nav li{float: left;width: 20%;height: 45px;}
+footer{height: 210px;margin-top: 5px;text-align: center;}
+footer li.last a:link,footer li.last a:visited{color: #ffe100}
+footer div{width: 100%;height: 36px;margin-top: 15px;}
+footer div a{float: left;width: 25%;height: 36px;line-height: 36px;}
+footer div a:link,footer div a:visited{color: #666;}
+footer p{clear: both;font-size: 12px;line-height: 22px;height: 22px;padding-top: 10px;color: #999;}

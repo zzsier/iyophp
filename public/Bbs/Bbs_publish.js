@@ -7078,7 +7078,7 @@ FB.Aattachment = 5;
 FB.ToHighlight = 50;
 FB.ToTop = 100;
 FB.replyMinLen = 5;
-FB.replyTips = '<p><a href="http://jindou.zol.com/" target="_blank">Z\u91d1\u8c46\u5151\u6362\u8d85\u503c\u793c\u54c1,\u5feb\u6765\u56f4\u89c2&nbsp;&gt;&gt;</a></p>';
+FB.replyTips = '<p></p>';
 FB.verify = function() {
     if (typeof FB.isCurPublish != "undefined" && FB.isCurPublish == 1) {
         return false
@@ -7192,11 +7192,19 @@ FB.verify = function() {
         src = src.replace(/,$/, "");
         $("#fenLouArr").val(src)
     }
+
+	var image = "";
+    $("#picUploadArea li").each(function(key, val) {
+		image = $(this).find("img").attr("src");
+		return false;
+    });
+ 
     var fenlou = $("#fenLouArr").val();
     var p_size = parseInt($("#picSize").text()),
         book_type = Publish_Config.book_type || 0;
     var data = {
         title: title,
+		image: image,
         content: content,
         cateid: Publish_Config.cateid,
         boardid: Publish_Config.boardid,
@@ -7452,14 +7460,14 @@ FB.listQuickPbBook = function(type) {
     return data
 };
 FB.getConFromList = function() {
-    $.post("/bbs/store?c=Ajax_Publish&a=getConFromList", {},
-        function(json) {
-            if (json.info == "ok" && json.data) {
-                $("#titleInput").val(json.data.title);
-                ue.setContent(json.data.content)
-            }
-        },
-        "json")
+    //$.post("/bbs/store?c=Ajax_Publish&a=getConFromList", {},
+    //    function(json) {
+    //        if (json.info == "ok" && json.data) {
+    //            $("#titleInput").val(json.data.title);
+    //            ue.setContent(json.data.content)
+    //        }
+    //    },
+    //    "json")
 };
 FB.publishBook = function(data) {
     if (!data || typeof data != "object") {
@@ -7468,7 +7476,7 @@ FB.publishBook = function(data) {
     FB.isCurPublish = 1;
     data.attach_info = $("#attachForm").serialize();
     data.atuser = FB.getAtUser();
-    $.post("/bbs/store?t=" + (new Date()).getTime(), data,
+    $.post("/topics?t=" + (new Date()).getTime(), data,
         function(json) {
             if (json.info == "err") {
                 Layer.showTips({
@@ -8123,37 +8131,8 @@ FB.createAttachment = function() {
     fileSize = WEB_CONFIG.attachFilesize || "5MB";
     var _html = '<div class="popbox" style="display:none;" id="zolAttachLayer">        <div class="popbox-inner">            <div class="popbox-head">                <span class="popbox-close border-radius" onclick="javascript:$(\'#zolAttachLayer\').hide();">\u5173\u95ed</span>                <h3><i class="line"></i>\u4e0a\u4f20\u9644\u4ef6</h3>            </div>            <div class="popbox-main">                <div class="upload-attach">                    <div class="attach-func clearfix">                        <div class="color-set">                            <label for="postSetTopAttach">                                <input id="postSetTopAttach" type="checkbox">                                <span class="color-title">\u53d1\u5e03\u6536\u8d39\u9644\u4ef6</span>                            </label>                            <span class="color-set-tip">\uff01\u9700\u6d88\u80175Z\u91d1\u8c46</span>                        </div>                        <span class="btn-blue border-radius" id="uploadAttachBtn"></span>                    </div>                    <div class="attach-listbox">                        <div class="attach-list-head">                            <span class="file-name">\u6587\u4ef6\u540d\uff08<a href="javascript:;" onclick="FB.insertAttachment(0);">\u63d2\u5165\u5168\u90e8\u9644\u4ef6</a>\uff09</span>                            <span class="file-describe">\u63cf\u8ff0</span>                            <span class="file-price">\u552e\u4ef7</span>                        </div>                        <form id="attachForm"><ul class="attach-list" id="attachUploadArea"></ul></form>                        <div class="attach-tip">                            <i class="ico"></i>                            <p>\u70b9\u51fb\u9644\u4ef6\u6587\u4ef6\u540d\u6dfb\u52a0\u5230\u5e16\u5b50\u5185\u5bb9\u4e2d</p>							<p>\u6bcf\u5e16\u6700\u591a\u4e0a\u4f205\u4e2a\u9644\u4ef6\uff0c\u5355\u4e2a\u9644\u4ef6\u5c3a\u5bf8\u5c0f\u4e8e<em>' + fileSize + '</em>,\uff0c \u53ef\u7528\u6269\u5c55\u540d\uff1a<em> chm,zip,rar,tar,gif,jpg,png</em></p>                            <p>\u5355\u4e2a\u9644\u4ef6\u51fa\u552e\u6700\u9ad8\u6536\u5165\u4e0a\u9650\u4e3a 20 \u4e2aZ\u91d1\u8c46</p>                        </div>                    </div>                    <div class="popbox-btns">                       <span class="btn-blue border-radius" onclick="javascript:FB.insertAttachment(0);">\u786e\u5b9a</span>                       <span class="btn-gray border-radius" onclick="javascript:$(\'#zolAttachLayer\').hide();">\u53d6\u6d88</span></div>                </div>            </div>        </div>    </div>';
     $("body").append(_html);
-    var atta_settings = {
-        flash_url: "/js/swfupload/swfupload.swf",
-        upload_url: "/index.php?c=Ajax_Upload&a=uploadAttachment",
-        file_size_limit: fileSize,
-        file_types: "*.chm;*.zip;*.rar;*.jpg;*.gif;*.png;",
-        file_types_description: "Attach Files",
-        file_upload_limit: 5,
-        file_queue_limit: 5,
-        button_cursor: "-2",
-        debug: false,
-        progressWraper: 0,
-        button_image_url: "http://icon.zol.com.cn/community/publish/select-file-bg.png",
-        button_width: "117",
-        button_height: "33",
-        button_placeholder_id: "uploadAttachBtn",
-        button_text: "",
-        button_text_style: "",
-        button_text_left_padding: 0,
-        button_text_top_padding: 0,
-        file_queued_handler: swfUpload.fileQueued_Attach,
-        file_queue_error_handler: swfUpload.fileQueueError_Attach,
-        file_dialog_complete_handler: swfUpload.fileDialogComplete_Attach,
-        upload_start_handler: swfUpload.uploadStart_Attach,
-        upload_progress_handler: swfUpload.uploadProgress_Attach,
-        upload_error_handler: swfUpload.uploadError_Attach,
-        upload_success_handler: swfUpload.uploadSuccess_Attach,
-        upload_complete_handler: swfUpload.uploadComplete_Attach,
-        queue_complete_handler: swfUpload.queueComplete_Attach
-    };
-    swfa = new SWFUpload(atta_settings)
 };
+
 FB.showAttachment = function() {
     FB.hiddenAllLayer();
     App.toCenter("#zolAttachLayer");
@@ -8372,51 +8351,51 @@ $(function() {
                         })
                     }
                 });
-            setTimeout(function() {
-                    FB.autoSaveContent()
-                },
-                30000);
-            $("#edui1_saveContent").click(function() {
-                FB.saveContent()
-            });
-            $("#edui1_recoverContent").click(function() {
-                Layer.showConfirm({
-                    title: "\u6062\u590d\u6570\u636e",
-                    content: "\u6b64\u64cd\u4f5c\u5c06\u8986\u76d6\u5f53\u524d\u5e16\u5b50\u5185\u5bb9\uff0c\u786e\u5b9a\u8981\u6062\u590d\u6570\u636e\u5417\uff1f",
-                    sure: function() {
-                        FB.getAutoSaveContent()
-                    }
-                })
-            });
-            setInterval(function() {
-                    var n = parseInt($("#edui1_saveTime").text().substr(0, 2)) - 10;
-                    n = (n <= 0) ? 30: n;
-                    $("#edui1_saveTime").text(n + "\u79d2\u540e\u81ea\u52a8\u4fdd\u5b58")
-                },
-                10000);
-            $("#edui1_clearContent").click(function() {
-                Layer.showConfirm({
-                    title: "\u6e05\u9664\u5185\u5bb9",
-                    content: "\u60a8\u786e\u8ba4\u8981\u6e05\u9664\u6240\u6709\u5185\u5bb9\u5417\uff1f",
-                    sure: function() {
-                        ue.execCommand("cleardoc")
-                    }
-                })
-            });
-            $("#edui1_wordCheck").click(function() {
-                var len = ue.getContentTxt().length;
-                var content = "\u5f53\u524d\u957f\u5ea6\uff1a" + len + " \u5b57\uff0c\u7cfb\u7edf\u9650\u5236: " + FB.MinConLen + " \u5230 " + FB.MaxConLen + " \u5b57\u3002";
-                var otips = {
-                    title: "\u5b57\u6570\u68c0\u67e5",
-                    type: "",
-                    content: content,
-                    confirm: 1
-                };
-                if (len < FB.MinConLen || len >= FB.MaxConLen) {
-                    otips.type = "warn"
-                }
-                Layer.showTips(otips)
-            });
+            //setTimeout(function() {
+            //        FB.autoSaveContent()
+            //    },
+            //    30000);
+            //$("#edui1_saveContent").click(function() {
+            //    FB.saveContent()
+            //});
+            //$("#edui1_recoverContent").click(function() {
+            //    Layer.showConfirm({
+            //        title: "\u6062\u590d\u6570\u636e",
+            //        content: "\u6b64\u64cd\u4f5c\u5c06\u8986\u76d6\u5f53\u524d\u5e16\u5b50\u5185\u5bb9\uff0c\u786e\u5b9a\u8981\u6062\u590d\u6570\u636e\u5417\uff1f",
+            //        sure: function() {
+            //            FB.getAutoSaveContent()
+            //        }
+            //    })
+            //});
+            //setInterval(function() {
+            //        var n = parseInt($("#edui1_saveTime").text().substr(0, 2)) - 10;
+            //        n = (n <= 0) ? 30: n;
+            //        $("#edui1_saveTime").text(n + "\u79d2\u540e\u81ea\u52a8\u4fdd\u5b58")
+            //    },
+            //    10000);
+            //$("#edui1_clearContent").click(function() {
+            //    Layer.showConfirm({
+            //        title: "\u6e05\u9664\u5185\u5bb9",
+            //        content: "\u60a8\u786e\u8ba4\u8981\u6e05\u9664\u6240\u6709\u5185\u5bb9\u5417\uff1f",
+            //        sure: function() {
+            //            ue.execCommand("cleardoc")
+            //        }
+            //    })
+            //});
+            //$("#edui1_wordCheck").click(function() {
+            //    var len = ue.getContentTxt().length;
+            //    var content = "\u5f53\u524d\u957f\u5ea6\uff1a" + len + " \u5b57\uff0c\u7cfb\u7edf\u9650\u5236: " + FB.MinConLen + " \u5230 " + FB.MaxConLen + " \u5b57\u3002";
+            //    var otips = {
+            //        title: "\u5b57\u6570\u68c0\u67e5",
+            //        type: "",
+            //        content: content,
+            //        confirm: 1
+            //    };
+            //    if (len < FB.MinConLen || len >= FB.MaxConLen) {
+            //        otips.type = "warn"
+            //    }
+            //    Layer.showTips(otips)
+            //});
             $("#previewBook").live("click",
                 function() {
                     ue.execCommand("preview")
@@ -9521,16 +9500,17 @@ swfUpload.uploadProgress = function(file, bytesLoaded, bytesTotal) {
 };
 swfUpload.handleServerData = function(serverData) {
     var li_html = "";
-    var msg = serverData.split("#");
-    var picurl = msg[0];
-    var picid = msg[1];
-    var exif = msg[2];
-    var height = msg[3];
-    var suffix = msg[4];
-    var hasCustWater = typeof msg[5] != "undefined" ? msg[5] : false;
+    //var msg = serverData.split("#");
+	var response = eval('(' + serverData + ')');
+    var picurl = "http://123.59.53.158/"+response["result"];
+    var picid = response["result"];
+    //var exif = msg[2];
+    //var height = msg[3];
+    //var suffix = msg[4];
+    //var hasCustWater = typeof msg[5] != "undefined" ? msg[5] : false;
     var preview_src = picurl.replace("t_s80x60", "t_s210x6000");
     if (picid) {
-        li_html += '<li id="li_' + picid + "\" onmouseover=\"$(this).addClass('hover');$('#preview img').attr('src', '" + preview_src + "').attr('height', '" + height + "');$('#preview').show();\" onmouseout=\"$(this).removeClass('hover');$('#preview img').attr('src', '').attr('height', '');$('#preview').hide();\">            <img class=\"border-radius\" src=\"" + picurl + '" alt="">            <input type="hidden" value="' + picurl + '" />            <em class="close" onclick="javascript:FB.delUploadPic(' + picid + ')"></em>            <span class="mask-layer" data-exif="' + exif + '">                <span class="pic-edit" onclick="FB.editUploadPic(\'' + picurl + "','" + picid + '\');">\u7f8e\u5316</span>                <span class="insert-btn" onclick="FB.insertUploadPic(\'' + picurl + "',this,'" + picid + "',0,'" + suffix + "', '" + hasCustWater + "');\">\u63d2\u5165</span>            </span>        </li>";
+        li_html += '<li id="' + picid + "\" onmouseover=\"$(this).addClass('hover');$('#preview img').attr('src', '" + preview_src + "').attr('height',200);$('#preview').show();\" onmouseout=\"$(this).removeClass('hover');$('#preview img').attr('src', '').attr('height', '');$('#preview').hide();\">            <img class=\"border-radius\" src=\"" + picurl + '" alt="">            <input type="hidden" value="' + picurl + '" />            <em class="close" onclick="javascript:FB.delUploadPic(' + picid + ')"></em>            <span class="mask-layer" data-exif="2">                <span class="pic-edit" onclick="FB.editUploadPic(\'' + picurl + "','" + picid + '\');">\u7f8e\u5316</span>                <span class="insert-btn" onclick="FB.insertUploadPic(\'' + picurl + "');\">\u63d2\u5165</span>            </span>        </li>";
         swfUpload.uploadArea.append(li_html)
     }
 };
@@ -9656,17 +9636,19 @@ swfUpload.uploadSuccess_Attach = function(file, serverData) {
     try {
         if (serverData) {
             var li_html = "";
+			alert(serverData);
+			var response = eval('(' + serverData + ')');
             var msg = serverData.split("#");
             var picurl = msg[0];
             var attachid = msg[1];
             if (picurl.length > 0) {
                 var preview_src = picurl.replace("t_s80x60", "t_s210x6000");
-                li_html += '<li id="attach_' + attachid + '" >				    <img class="attach-pic border-radius" width="192" height="142" src="' + preview_src + '" alt="">					<span onclick="javascript:FB.insertAttachment(\'' + attachid + "')\" onmouseover=\"$(this).closest('li').addClass('attach-list-hover');\" onmouseout=\"$(this).closest('li').removeClass('attach-list-hover');\" class=\"file-pic-name\"><i class=\"ico\"></i>" + file.name + "</span>"
+                li_html += '<li id="' + response["result"] + '" >				    <img class="attach-pic border-radius" width="192" height="142" src="http://123.59.53.158/' + response["result"] + '" alt="">					<span onclick="javascript:FB.insertAttachment(\'' + response["result"] + "')\" onmouseover=\"$(this).closest('li').addClass('attach-list-hover');\" onmouseout=\"$(this).closest('li').removeClass('attach-list-hover');\" class=\"file-pic-name\"><i class=\"ico\"></i>" + file.name + "</span>"
             } else {
-                li_html += '<li id="attach_' + attachid + '" >				<span class="file-name" onclick="javascript:FB.insertAttachment(\'' + attachid + '\')"><i class="ico"></i>' + file.name + "</span>"
+                li_html += '<li id="' + response["result"] + '" >				<span class="file-name" onclick="javascript:FB.insertAttachment(\'' + response["result"] + '\')"><i class="ico"></i>' + file.name + "</span>"
             }
             li_html += '<input type="hidden" value="' + file.name + '" name="fileName[]"/>';
-            li_html += '<input type="hidden" value="' + attachid + '" name="attachid[]"/>';
+            li_html += '<input type="hidden" value="' + response["result"] + '" name="attachid[]"/>';
             if ($("#postSetTopAttach").attr("checked") == "checked") {
                 var is_disabled = "";
                 var class_name = ""
@@ -9727,6 +9709,7 @@ if (SWFUpload == undefined) {
         this.initSWFUpload(settings)
     }
 }
+
 SWFUpload.prototype.initSWFUpload = function(settings) {
     try {
         this.customSettings = {};
@@ -9740,9 +9723,10 @@ SWFUpload.prototype.initSWFUpload = function(settings) {
         this.displayDebugInfo()
     } catch(ex) {
         delete SWFUpload.instances[this.movieName];
-        throw ex
+        throw ex;
     }
 };
+
 SWFUpload.instances = {};
 SWFUpload.movieCount = 0;
 SWFUpload.version = "2.2.0 Beta 2";
@@ -9790,7 +9774,7 @@ SWFUpload.prototype.initSettings = function() {
         this.settings[settingName] = (this.settings[settingName] == undefined) ? defaultValue: this.settings[settingName]
     };
     this.ensureDefault("upload_url", "");
-    this.ensureDefault("file_post_name", "Filedata");
+    this.ensureDefault("file_post_name", "uploadedfile");
     this.ensureDefault("post_params", {});
     this.ensureDefault("use_query_string", false);
     this.ensureDefault("requeue_on_error", false);

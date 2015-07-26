@@ -112,19 +112,19 @@ return [
 
 
 
+    /*
 	'redis' => [
 		'cluster' => false,
 		'default' => array('host' => 'localhost', 'port' => 6379),
 		'cache' => array('host' => 'localhost', 'port' => 6379),
 		'session' => array('host' => 'localhost', 'port' => 6379),
 	],
+        */
 
-    /*
     'redis' => [
         'cluster' => false,
         'default' => array('host' => '10.10.65.235', 'port' => 6379),
         'cache' => array('host' => '10.10.65.235', 'port' => 6379),
         'session' => array('host' => '10.10.65.235', 'port' => 6379),
     ],
-        */
 ];

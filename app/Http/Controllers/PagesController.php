@@ -21,12 +21,13 @@ class PagesController extends BaseController
      */
     public function home()
     {
-        $topics = $this->topic->getTopicsWithFilter('excellent');
         $nodes  = Node::allLevelUp();
+		$topics = [];
 
-		if( Auth::check() ) {
-			$currentUser = Auth::user();
-			return View::make('pages.home', compact('topics', 'nodes', 'currentUser'));
+		foreach( $nodes["top"] as $pnode ) {
+			$subtopics = Topic::where("is_excellent", true)->where("node_id", $pnode->id)
+				->orderBy("created_at", "asc")->paginate(5);
+			$topics[] = $subtopics;
 		}
 
         return View::make('pages.home', compact('topics', 'nodes'));

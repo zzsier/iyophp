@@ -1,4 +1,21 @@
 <?php
+use Jenssegers\Agent\Agent as Agent;
+use Log;
+
+$agent = new Agent();
+
+$viewPath = 'resources/views';
+$stoPath = '/framework/views';
+
+if ($agent->isMobile()) {
+	$viewPath = 'resources/views';
+	$stoPath = '/framework/views';
+} else {
+	$viewPath = 'resources/views/mobile';
+	$stoPath = '/framework/views/mobile';
+}
+
+//Log::info("view path ".$viewPath." stoPath ".$stoPath);
 
 return [
 
@@ -14,6 +31,7 @@ return [
 	*/
 
 	'paths' => [
+		//realpath(base_path($viewPath))
 		realpath(base_path('resources/views'))
 	],
 
@@ -29,5 +47,5 @@ return [
 	*/
 
 	'compiled' => realpath(storage_path().'/framework/views'),
-
+	'mobile_path' => realpath(base_path('resources/views/mobile')),
 ];

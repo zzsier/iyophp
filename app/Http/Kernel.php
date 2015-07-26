@@ -29,6 +29,7 @@ class Kernel extends HttpKernel {
 		'csrf' => 'App\Http\Middleware\VerifyCsrfToken',
 		'cksession' => 'App\Http\Middleware\CheckSessionMiddleware',
 		'htmlsession' => 'App\Http\Middleware\AuthSessionHTMLMiddleware',
+		'bbscheck' => 'App\Http\Middleware\BBSMiddleware',
 	];
 
 }

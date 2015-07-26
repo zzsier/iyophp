@@ -1,0 +1,1 @@
+if( document.getElementById('msg_n') ){document.getElementById('msg_n').innerHTML='<a href="http://my.zol.com.cn/0kxo0w/message/" target="_parent">¶ÌÏûÏ¢</a><font color=#0000CC>(</font><a href="http://my.zol.com.cn/0kxo0w/message/" style="text-decoration: none;"><font color=red>1</font></a><font color=#0000CC>)</font>';}

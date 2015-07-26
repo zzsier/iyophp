@@ -1,0 +1,129 @@
+body{background:#FFF;font-family:"Î¢ÈíÑÅºÚ","Helvetica";font-size:16px;color: #999;}
+a,body,h1,h2,h3,h6,p,dl,dt,dd,ul,ol,li,form,button,input,img,div,pre,section,header,nav,footer{margin:0;padding:0;border:0;font-weight: normal;}
+ul,ol{list-style:none}
+img{vertical-align: middle;max-width: 100%;}
+a:link,a:visited{text-decoration:none;color:#000;font-family:"Î¢ÈíÑÅºÚ","Helvetica"}
+a:hover,a:active{color:#00aeef;}
+header,.cont,footer{width: 100%;}
+header .logo{width: 100%;height: 45px;background: #fff;}
+header .logo .logoimg{float: left;height: 30px;padding: 8px 10px 0;}
+header .logo .logoimg img{height: 30px;}
+header .logo .appdload{float: right;height: 28px;padding: 8px 18px 9px 23px;font-size: 12px;line-height: 14px;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/wbg.png") 0 -155px no-repeat;}
+header .logo .appdload:link,header .logo .appdload:visited{color: #00aeef;}
+header nav,footer nav{width: 100%;height: 45px;line-height: 45px;font-size: 18px;text-align:center;background: #4c9ada;}
+header nav li,footer nav li{float: left;width: 20%;height: 51px;}
+header nav li{width: 15%;}
+header nav li.last{width: 24%;}
+header li a:link,header li a:visited,footer li a:link,footer li a:visited{color: #fff;}
+header li.last a:link,header li.last a:visited{padding: 0 6px;height:23px;border: 1px solid #ffe100;border-radius: 13px;color: #ffe100;}
+.search{height: 35px;padding: 10px 10px 0 10px;}
+.search .sform{width: 100%;height: 33px;border: 1px solid #d2d2da;border-radius: 0 5px 5px 0;}
+.search .sform .input{float: left;width:84%;height: 33px;line-height: 33px;font-size: 18px;text-indent: 10px;color: #999;}
+.search .sform .submit{float: right;width: 16%;height: 33px;background:url(http://www.yesky.com/TLimages2009/yesky/images/ywap15/wbg.png) center 8px no-repeat #d2d2da;-webkit-border-radius: 0 4px 4px 0;}
+.cont .cnav{width: 100%;line-height: 34px;margin: 7px 0;text-align: center;overflow: hidden;position: relative;}
+.cont nav{height: 68px;}
+.cont nav#foldbox{display: none;}
+.cont nav a{float: left;width: 20%;height: 34px;}
+.cont nav a:link,.cont nav a:visited{color: #30303a;}
+.cont .cnav a#foldbtn{width: 20%;height: 34px;cursor: pointer;position: absolute;right: 0;bottom: 0;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/wbg.png") center -22px no-repeat #fff;}
+.cont .cnav a#foldbtn.show{background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/wbg.png") center -48px no-repeat #fff;}
+/*focus*/
+.focus,.picbox{text-align:center;overflow:hidden;margin:0 auto;}
+.djzt,.hotpic{position: relative;}
+#slide_01 .swiper-slide p,.hotpic li.topic p{text-align:center;position:absolute;
+    background: rgba(0,0,0,0.7);
+    /*background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/pbg.png") repeat;border-top: 1px solid #fff;*/width:100%;height:36px;line-height: 36px;bottom:0;left:0;}
+#slide_01 .swiper-slide p a,.hotpic li.topic p a{font-size:18px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding:0 10px;display:block;color:#fff}
+#slide_01{position:relative;overflow: hidden;}
+#slide_01 .swiper-slide img{float:left;}
+#slide_01 .swiper-pagination-bullet{opacity:1;background:#fff;}
+#slide_01 .swiper-pagination-bullet-active,#slide_02 .swiper-pagination-bullet-active{opacity:1;background:#f60;}
+.swiper-slide{position:relative;float:left;}
+.swiper-pagination{display:none;height: 24px;}
+#slide_02 .swiper-slide li{float: left;width: 47%;text-align: center;}
+/*#slide_02 .swiper-slide li img{height: 90px;}*/
+#slide_02 .swiper-slide li.float-r{float: right;}
+#slide_02 .swiper-slide li p{font-size: 14px;line-height: 20px;text-align: left;padding-top: 8px;text-align:center}
+#slide_03 .swiper-pagination-bullet-active{opacity: 1;background: #6f266d;}
+/*news*/
+.box,.news{padding: 20px 10px 0 10px;}
+.box h1{height: 46px;line-height: 46px;font-size: 24px;color: #000;border-top: 2px solid #000;border-bottom: 1px solid #f3f3f9;}
+.box h1 a:link,.box h1 a:visited{float: right;padding: 0 10px;font-size: 16px;color: #ff6600;}
+.orangebd h1{color: #ff6600;border-top-color: #ff6600;}
+.greenbd h1{color: #18bd9b;border-top-color: #18bd9b;}
+.greenbd h1 a:link,.greenbd h1 a:visited{color: #18bd9b;}
+.bluebd h1{color: #4c9ada;border-top-color: #4c9ada;}
+.bluebd h1 a:link,.bluebd h1 a:visited{color: #ff0303;}
+.purplebd h1{color: #a23a89;border-top-color: #a23a89;border-bottom-color: #fff;}
+.mbtn{height: 36px;line-height: 36px;text-align: center;font-size: 14px;cursor: pointer;margin-top: 20px;background:#f3f3f9;}
+.mbtn span{display: inline-block;color: #00aeef;padding-right: 20px;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/wbg.png") 89px -120px no-repeat;}
+.mbtn a:link,.mbtn a:visited{color: #00aeef}
+.news h1{height: 20px;color: #fff;}
+.news h1 p{line-height: 18px;font-size: 10px;margin-left: 49px;padding-left: 45px;border-bottom: 1px solid #ff1111;}
+.news h1 img{height: 20px;}
+.newslist dl{height: 62px;line-height: 20px;padding-top: 20px;overflow: hidden;}
+.newslist dt,.newslist dt img{width: 80px;height: 60px;}
+.newslist dt{float: left;border: 1px solid #e4e4ea;margin-right: 8px;}
+.newslist dd h2{height: 20px;padding-bottom: 2px;font-size: 16px;}
+.newslist dd h2 span{float: left;width: 60%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+.newslist dd h2 time,.product li time{float: right;font-size: 10px;padding-left: 5px;color: #999;}
+.newslist dd div{height: 40px;font-size: 12px;overflow: hidden;color: #999;text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
+.newslist dd h2 time{padding-left: 0;margin-top: 2px;}
+.newslist section{height: 328px;}
+#newslist{display: none;}
+.clickbtn a{display: none;}
+.clickbtn.show span{display: none;}
+.clickbtn.show a{display: block;width: 100%;}
+/*product*/
+.product li{width: 100%;height: 40px;line-height: 40px;}
+.product li a{float: left;width: 80%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+.product li.first{height: 60px;line-height: 60px;font-size: 20px;padding-bottom: 5px;text-align: center;}
+.product li.first a:link,.product li.first a:visited{width: 100%;color: #ff0000;}
+.product .mbtn{margin-top: 10px;}
+.product .wordlist{display: none;height: auto;}
+.product .picbox{padding-top: 20px;}
+.product dl{float: left;width: 30%;overflow: hidden;}
+.product dl.pdlr5{padding: 0 5%;}
+.product dl dt{border: 1px solid #dcdcdc;text-align: center;padding:3px;display: inline-block;}
+.product dl dd{padding-top: 10px;font-size: 12px;line-height: 18px;text-align: left;}
+.product dl .price{display:block;color: #dc0000;line-height: 24px;}
+.product li span.getnum{float: right;height: 18px;line-height: 18px;padding: 0 7px;margin: 11px 0;font-size: 12px;color:#ff0000;background: #ffe103;}
+.product li span.getnum a:link,.product li span.getnum a:visited{width: 100%;color: #ff0000;}
+/*hotpic*/
+.hotpic li{float: left;width: 32%;text-align: center;}
+.hotpic li.topic{width: 100%;margin-bottom: 8px;position: relative;}
+.hotpic li.topic p{height: 45px;line-height: 45px;border-top: 1px solid #000;background: #000;}
+.hotpic li.topic p a:link,.hotpic li.topic p a:visited{color: #fff;}
+.hotpic li.pdlr2{padding: 0 2%;}
+.hotpic li img{border: 1px solid #e5e5eb;}
+.hotpic li.topic img{border: none;}
+/*app*/
+.app .picbox{text-align: left;}
+.app h1,.djzt h1{border-bottom-color: #fff;}
+.app dl{height: 68px;padding: 8px 0;border-bottom: 1px solid #d2d2db;background: #e0effc;position: relative;}
+.app dl img{width: 68px;height: 68px;}
+.app dt{float: left;padding:0 10px;}
+.app dd{font-size: 18px;line-height: 26px;}
+.app dd div{font-size: 14px;line-height: 20px;padding-top: 2px;}
+.app dd span.bword{color: #00aeef;position: absolute;top: 6px;right: 10px;}
+.app section img{border-radius: 10px;height: 68px;}
+.app ul{width: 100%;}
+.app li{float: left;width: 22%;margin: 12px 4% 0 0;overflow: hidden;text-align: center;}
+.app li.mgr0{margin-right: 0;}
+.app li p{font-size: 14px;height: 20px;line-height: 20px;padding-top: 5px;}
+/*footer*/
+footer{height: 150px;margin-top: 20px;text-align: center;}
+footer li.last a:link,footer li.last a:visited{color: #ffe100}
+footer div a{float: left;width: 25%;height: 40px;line-height: 40px;margin-top: 20px;}
+footer div a:link,footer div a:visited{color: #666;}
+footer p{font-size: 12px;line-height: 22px;height: 22px;padding-top: 10px;}
+.mlp_ywap_topcolumn{text-align: center;}
+/*flayer*/
+.flayer{display: none;width: 100%;height: 60px;background: rgba(255,140,64,0.8);position: fixed;bottom: 0;z-index: 9999;}
+.tjsm{height: 45px;padding: 8px 10px 7px 30px;position: relative;}
+.tjsm dt{float: left;padding-right: 10px;}
+.tjsm dt img{height: 45px;}
+.tjsm dd{line-height: 26px;color: #fff;position: relative;}
+.tjsm dd div{font-size: 12px;color: #000;line-height: 18px;}
+.tjsm dd .dlbtn{display: inline-block;height: 30px;line-height: 30px;padding: 0 8px;border-radius: 5px;background: #00aeef;position: absolute;top: 7px;right: 0;}
+.tjsm .closebtn{display: inline-block;width: 0;height: 28px;padding-left: 28px;overflow: hidden;cursor: pointer;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/cbtn.png") no-repeat;position: absolute;top: 0;left: 0;}

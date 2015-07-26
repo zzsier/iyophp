@@ -36,12 +36,12 @@ class Reply extends Model
 
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('App\Model\IyoUser');
     }
 
     public function topic()
     {
-        return $this->belongsTo('Topic');
+        return $this->belongsTo('App\Model\Topic');
     }
 
     public function scopeWhose($query, $user_id)

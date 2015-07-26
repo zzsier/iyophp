@@ -6728,7 +6728,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
             initialContent: '',
             initialStyle:'',
             autoClearinitialContent: false,
-            iframeCssUrl: me.options.UEDITOR_HOME_URL + 'themes/iframe.css',
+            iframeCssUrl: me.options.UEDITOR_HOME_URL + 'iframe.css',
             textarea: 'editorValue',
             focus: false,
             focusInEnd: true,
@@ -29004,9 +29004,9 @@ UE.ui = baidu.editor.ui = {};
                 domUtils.on(scale, "mousedown", down);
             };
             this.disableScale = function () {
-                scale.style.display = "none";
-                this.scaleEnabled = false;
-                domUtils.un(scale, "mousedown", down);
+                //scale.style.display = "none";
+                //this.scaleEnabled = false;
+                //domUtils.un(scale, "mousedown", down);
             };
         },
         isFullScreen:function () {

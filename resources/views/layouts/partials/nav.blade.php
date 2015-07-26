@@ -16,25 +16,7 @@
                         +'<span class="ismore"><a href="http://my.zol.com.cn/bbs/'+userid+'/" target="_blank">我的论坛</a>'
                         +'<i class="ar-ico"></i></span><div class="pub-more-list" id="pubMyBbsDetailNotice">'
                         +'<a href="http://my.zol.com.cn/bbs/'+userid+'/" target="_blank">我的帖子</a>'
-                        +'<a href="http://my.zol.com.cn/index.php?c=bbs&a=myreply&userid='+userid+'" target="_blank">我的回复</a>'
-                        +'<a href="http://my.zol.com.cn/index.php?c=bbs&a=myattention&userid='+userid+'" target="_blank">我的关注</a>'
-                        +'<a href="http://my.zol.com.cn/collection/" target="_blank">我的收藏</a>'
-                        +'<a href="http://ask.zol.com.cn/me/" target="_blank">我的问答</a>'
-                        +'<a href="http://my.zol.com.cn/index.php?c=task" target="_blank">我的任务</a></div></li>'
-                        +'<li class="pub-menu" id="pubMessage" onMouseOver="__mores(\'pubMessage\')" onMouseOut="__moreh(\'pubMessage\')">'
-                        +'<span class="ismore">'
-                        +'<a id="messageSpanA" class="msg-ico msg-null" href="http://my.zol.com.cn/'+userid+'/message/" target="_blank" onclick="msgClear();">收件箱</a>'
-                        +'<i class="ar-ico"></i></span><div class="pub-more-list pub-msg" id="pubMessageDetailNotice">'
-                        +'<a href="http://my.zol.com.cn/index.php?c=Message_Private" target="_blank" onclick="msgClear();">私信</a>'
-                        +'<a href="http://my.zol.com.cn/index.php?c=Message_Reply" target="_blank" onclick="msgClear();">回复</a>'
-                        +'<a href="http://my.zol.com.cn/index.php?c=Message_At" target="_blank" onclick="msgClear();">@我</a>'
-                        +'<a href="http://my.zol.com.cn/index.php?c=Message_Remind" target="_blank" onclick="msgClear();">提醒</a>'
-                        +'<a href="http://my.zol.com.cn/index.php?c=Message_Notice" target="_blank" onclick="msgClear();">系统通知</a></div></li>'
-                        +'<li class="pub-menu" id="pubFeed" onMouseOver="__mores(\'pubFeed\')" onMouseOut="__moreh(\'pubFeed\')">'
-                        +'<span class="ismore"><a href="http://my.zol.com.cn/follow/" target="_blank" onclick="msgClear();">关注</a>'
-                        +'<i class="ar-ico"></i></span><div class="pub-more-list pub-follow" id="pubFeedDetailNotice">'
-                        +'<a href="http://my.zol.com.cn/index.php?c=me&a=default&userid='+userid+'" target="_blank" onclick="msgClear();">新动态</a>'
-                        +'<a href="http://my.zol.com.cn/follower/" target="_blank" onclick="msgClear();">新粉丝</a></div></li>'
+                        +'</div></li>'
                         +'<li class="pub-menu" id="pubUser" onMouseOver="__mores(\'pubUser\')" onMouseOut="__moreh(\'pubUser\')">'
                         +'<span class="ismore"><a href="http://my.zol.com.cn/'+userid+'/settings/" target="_blank">账号</a><i class="ar-ico"></i></span>'
                         +'<div class="pub-more-list" id="pubUserDetailNotice"><a href="http://my.zol.com.cn/info_base.php" target="_blank">修改资料</a>'
@@ -53,7 +35,6 @@
             @endif
 
         </script>
-        <script src="demo/index.js"></script>
     </div>
 
 </div>
@@ -62,7 +43,7 @@
 <!-- header -->
 <div class="header box-shadow">
     <div class="header-inner clearfix">
-        <a href="http://bbs.zol.com.cn/" class="logo"><h1>ZOL论坛</h1></a>
+        <a href={{{ URL::to('/') }}} class="logo"><h1>IYO论坛</h1></a>
         <!-- 当搜索结果页时 给下面的div添加类名 search-result-page 同时加上下面的search-nav -->
         <div class="search-module bbs-index-search">
             <div class="search-nav" style="display:none;">
@@ -87,7 +68,7 @@
     <div class="bbs-navbox border-radius-s3">
         <ul class="bbs-nav-list clearfix">
             @foreach ($nodes['top'] as $index => $top_node)
-                <li class><a href="http://localhost/nodes/{{{ $top_node->id }}}" target="_blank">{{{ $top_node->name }}}</a></li>
+                <li class><a href={{ URL::to("nodes/$top_node->id") }} target="_blank">{{{ $top_node->name }}}论坛</a></li>
             @endforeach
         </ul>
     </div>

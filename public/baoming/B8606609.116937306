@@ -1,0 +1,259 @@
+
+(function() {
+  var DEBUG = ''.toLowerCase() == 'true';
+  var csiStart = (+new Date);
+  var studioObjects = window['studioV2'] = window['studioV2'] || {};
+  var eventTags = {"img_event_tag":["http://ad.doubleclick.net/activity;src=2218289;type=remar0;cat=gerna0;ord=2525338696?","http://d.agkn.com/pixel/2387/?che=2525338696\u0026col=8606609,734094,116937306,289842354,62068166"],"js_event_tag":["http://s0.2mdn.net/ads/richmedia/studio/appengine/53864df9-3be8-49f7-bc8c-52ef2d926a4a_getParamFromParent.js"],"click_event_tag":"http://d.agkn.com/pixel/2389/?che=2525338696\u0026col=8606609,734094,116937306,289842354,62068166\u0026l0="};
+  var publisherSideFilePath = unescape('');
+  if(publisherSideFilePath == '') {
+    publisherSideFilePath = '/doubleclick/DARTIframe.html';
+  } else if (publisherSideFilePath.charAt(publisherSideFilePath.length - 1) == '/') {
+    publisherSideFilePath += 'DARTIframe.html';
+  }
+  var bookingTimeMetaData = {
+  };
+
+  var runtimeMetaData = {
+  };
+
+  var exitUrlPatternMacroValues = {
+  };
+  var macroParser = function (macroName, value) {
+    return (value.indexOf(macroName) < 0) ? value : '';
+  };
+  var adServerData = {
+    eventReportingUrl: 'http://ad.doubleclick.net/activity;src=2218289;met=1;v=1;pid=116937306;aid=289842354;ko=0;cid=62068166;rid=61948166;rv=13;',
+    clickUrl: 'http://adclick.g.doubleclick.net/pcs/click?xai=AKAOjssbR5-AbJ4CJfX_75G2WoVpZYfpcoIilfAVOYxsMGSjWVAb--rdrZ-MavyhE5hNXi-5aIbx773BEn6JB7YB9Tsh0SYCBVMTTzxZ33UUN6Z6PjyhXlHonxYdR66mTR8pyPraFMng-gqt&sig=Cg0ArKJSzJCtl4QVeT_JEAE&adurl=',
+    clickUrlTimesToEscape: '',
+    clickEventTagUrl: eventTags['click_event_tag'],
+    impressionUrl: 'http://googleads4.g.doubleclick.net/pcs/view?xai=AKAOjssbR5-AbJ4CJfX_75G2WoVpZYfpcoIilfAVOYxsMGSjWVAb--rdrZ-MavyhE5hNXi-5aIbx773BEn6JB7YB9Tsh0SYCBVMTTzxZ33UUN6Z6PjyhXlHonxYdR66mTR8pyPraFMng-gqt&sig=Cg0ArKJSzIkwZt25GgffEAE&adurl=',
+    geoData: 'ct=CN&st=&city=2901&dma=0&zp=&bw=4',
+    siteName: 'N5751.138759.7505627606321',
+    siteId: '734094',
+    adId: '289842354',
+    exitSuffix: macroParser('exit_suffix', 'dclid=%edclid!'), // XFA GA Beacon.
+    buyId: '8606609',
+    creativeId: '62068166',
+    placementId: '116937306',
+    advertiserId: '2218289',
+    keyValueOrdinal: '0',
+    renderingVersion: '13',
+    renderingId: '61948166',
+    randomNumber: '2525338696',
+    dynamicData: '{\"Zol_smartzone_Zol_product\":[{\"Id\":7,\"_index\":14,\"isDefault\":false,\"procuct1_image\":{\"Url\":\"http://s0.2mdn.net/dynamic/2/1271872/2f.zol-img.com.cn/product/145_160x120/89/ce1O9qd6Z57sA.jpg_1428921127139_ce1O9qd6Z57sA.jpg\"},\"procuct1_link\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b563710,c3927,i0,m101,h,uhttp://detail.zol.com.cn/tablepc/index393119.shtml\"},\"procuct1_price\":1199,\"procuct1_text\":\"Teclast X98 air 3G\",\"procuct2_link\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b563710,c3927,i0,m101,h,uhttp://detail.zol.com.cn/tablepc/index389210.shtml\"},\"procuct2_price\":599,\"procuct2_text\":\"Teclast x80H\",\"procuct3_link\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b563710,c3927,i0,m101,h,uhttp://detail.zol.com.cn/tablepc/index393415.shtml\"},\"procuct3_price\":499,\"procuct3_text\":\"Onda V820\",\"procuct4_link\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b563710,c3927,i0,m101,h,uhttp://detail.zol.com.cn/tablepc/index394986.shtml\"},\"procuct4_price\":1199,\"procuct4_text\":\"Onda V919\",\"procuct5_link\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b563710,c3927,i0,m101,h,uhttp://detail.zol.com.cn/tablepc/index393920.shtml\"},\"procuct5_price\":499,\"procuct5_text\":\"Cube iwork8\",\"procuct6_link\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b563710,c3927,i0,m101,h,uhttp://detail.zol.com.cn/tablepc/index395216.shtml\"},\"procuct6_price\":459,\"procuct6_text\":\"Vido W7\",\"procuct7_link\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b563710,c3927,i0,m101,h,uhttp://detail.zol.com.cn/tablepc/index390951.shtml\"},\"procuct7_price\":1050,\"procuct7_text\":\"Asus FE8030CXG\"}],\"Zol_smartzone_Zol_promotion\":[{\"Id\":7,\"_index\":15,\"isDefault\":false,\"line1_link\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b563709,c3927,i0,m101,h,uhttp://pad.zol.com.cn/484/4842302.html\"},\"line1_text\":\"\u4E00\u6574\u5929\u4E0D\u7528\u5145\u7535 \u82F1\u7279\u5C14\u82AF\u5E73\u677F\u80FD\u5426\u641E\u5B9A\uFF1F\",\"line2_link\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b563709,c3927,i0,m101,h,uhttp://pad.zol.com.cn/485/4853196.html\"},\"line2_text\":\"\u8840\u62FC\u300A\u73B0\u4EE3\u6218\u4E895\u300B \u7F16\u8F91\u652F\u62DB\u5565\u5E73\u677F\u73A9\u723D\u6E38\u620F\",\"line3_link\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b563709,c3927,i0,m101,h,uhttp://pad.zol.com.cn/427/4272930.html\"},\"line3_text\":\"\u82F1\u7279\u5C14\\\"\u82AF\\\"\u9635\u8425 \u4E94\u6B3E\u4E3B\u6D41\u5B89\u5353\u5E73\u677F\u6A2A\u8BC4\",\"line4_link\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b563709,c3927,i0,m101,h,uhttp://pad.zol.com.cn/512/5128518.html\"},\"line4_text\":\"\u5E74\u5EA6\u4F53\u9A8C\u5F0F\u6A2A\u8BC4 \u751F\u4EA7\u529B\u5FC5\u5907\u529E\u516C\u5E73\u677F\",\"line5_link\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b563709,c3927,i0,m101,h,uhttp://pad.zol.com.cn/510/5108593.html\"},\"line5_text\":\"\u5343\u5143\u7EA7\u4EA7\u54C1\u6B63\u5F53\u9053 8\u6B3E\u82F1\u7279\u5C14\u82AF\u5E73\u677F\u96C6\u7ED3\",\"photo\":{\"Url\":\"http://s0.2mdn.net/dynamic/2/1271875/i2.uppic.fd.zol-img.com.cn/g2/M00/0D/05/ChMlWlWsV1KILA6pAABN34jJbZsAAHY4QPUH3sAAE33147.jpg_1437386147299_ChMlWlWsV1KILA6pAABN34jJbZsAAHY4QPUH3sAAE33147.jpg\"},\"photo_link\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b563709,c3927,i0,m101,h,uhttp://www.tmall.com/wh/tmall/tmall-3c/act/intel-cj\"}}],\"Zol_smartzone_biz\":[{\"Active\":true,\"Describution\":\"\u82F1\u7279\u5C14PC\u5E73\u677F 2 \u5408 1 \u7535\u8111\uFF0C \u5E2E\u52A9\u60A8\u63D0\u9AD8\u5DE5\u4F5C\u6548\u7387\uFF0C\u5E76\u53EF\u968F\u65F6\u968F\u5730\u7075\u6D3B\u529E\u516C\",\"Note\":\"\u4EA7\u54C1\",\"Picture_URL\":{\"Url\":\"http://s0.2mdn.net/dynamic/2/1268734/s0.2mdn.net/dynamic/1/1060540/1427262247192_notbook 789.JPG_1429251385611_1427262247192_notbook 789.JPG\"},\"T_SLOT_1\":\"PC\u5E73\u677F2 \u5408 1 \u7535\u8111\u5E94\u7528\u6F14\u793A\uFF08\u89C6\u9891\uFF09\",\"Tab_SLOT_1\":\"biz\",\"URL_SLOT_1\":{\"Url\":\"http://c.admaster.com.cn/c/a26940,b200691708,c3961,i0,m101,h,uhttp://www.intel.cn/content/www/cn/zh/enterprise-mobility/2in1-for-business-video.html\"},\"Unique_ID\":1,\"_index\":0},{\"Active\":true,\"Describution\":\"\u4F01\u4E1A\u521D\u5370\u8C61\uFF0C\u662F\u5229\u7528\u79D1\u6280\u6253\u9020\u5148\u8FDB\u3001\u9AD8\u6548\u7684\u5DE5\u4F5C\u73AF\u5883\uFF1F\u8FD8\u662F\u4FDD\u6301\u4FDD\u5B88\u3001\u56FA\u5316\u529E\u516C\u6A21\u5F0F\uFF1F\u6210\u4E3A\u5438\u5F15\u4EBA\u624D\u5E76\u5145\u5206\u53D1\u6325\u5176\u521B\u9020\u529B\u7684\u5173\u952E\u3002\",\"Note\":\"\u89C2\u70B9\",\"Picture_URL\":{\"Url\":\"http://s0.2mdn.net/dynamic/2/1268734/s0.2mdn.net/dynamic/1/1060540/1427262542011_tablet822.JPG_1429251385611_1427262542011_tablet822.JPG\"},\"T_SLOT_1\":\"\u5148\u8FDB\u7684\u5DE5\u4F5C\u73AF\u5883\u662F\u5438\u5F15\u4EBA\u624D\u7684\u57FA\u7840\uFF08\u89C6\u9891\uFF09\",\"Tab_SLOT_1\":\"biz\",\"URL_SLOT_1\":{\"Url\":\"http://www.intel.cn/content/www/cn/zh/enterprise-security/first-impression-video.html\"},\"Unique_ID\":67,\"_index\":1},{\"Active\":true,\"Describution\":\"\u82F1\u7279\u5C142\u54081\u8BBE\u5907\u4E0D\u4EC5\u63D0\u9AD8\u4E86\u4E2D\u4EA4\u4E00\u822A\u5C40\u5728\u6D77\u4E0A\u9879\u76EE\u5B9E\u65BD\u7684\u7BA1\u7406\u6548\u7387\uFF0C\u5E76\u5927\u5E45\u5EA6\u964D\u4F4E\u65BD\u5DE5\u8BEF\u5DEE\u7387\uFF0C\u4E3A\u8DE8\u6D77\u6865\u6881\u65BD\u5DE5\u4FDD\u9A7E\u62A4\u822A\",\"Note\":\"\u6848\u4F8B\",\"Picture_URL\":{\"Url\":\"http://s0.2mdn.net/dynamic/2/1268734/s0.2mdn.net/dynamic/1/1060540/1427262258464_notebook 728.JPG_1429251385611_1427262258464_notebook 728.JPG\"},\"T_SLOT_1\":\"2\u54081\u4E3A\u8DE8\u6D77\u6865\u6881\u65BD\u5DE5\u4FDD\u9A7E\u62A4\u822A(\u6848\u4F8B\u8F6C\u81EASPN)\",\"Tab_SLOT_1\":\"biz\",\"URL_SLOT_1\":{\"Url\":\"http://c.admaster.com.cn/c/a26940,b200691750,c3961,i0,m101,h,uhttp://www.intel.cn/content/www/cn/zh/enterprise-mobility/kuhaiqiaoliang-media.html\"},\"Unique_ID\":20,\"_index\":2},{\"Active\":true,\"Describution\":\"\u5185\u7F6E\u82F1\u7279\u5C14\u82AF\u7247\u7684\u5E73\u677F\u7535\u8111\uFF0C\u7ED9\u96F6\u552E\u4E1A\u5BA2\u6237\u5E26\u6765\u66F4\u6D41\u7545\u7684\u8D2D\u7269\u4F53\u9A8C\uFF0C \u968F\u65F6\u901A\u8FC7\u79FB\u52A8 POS\u673A\u7ED3\u8D26\uFF0C\u5728\u7EBF\u63A5\u6D3D\u91CD\u8981\u5BA2\u6237\uFF0C\u63D0\u4F9B\u4E2A\u6027\u5316\u670D\u52A1\u7B49\u3002\",\"Note\":\"\u65B9\u6848\",\"Picture_URL\":{\"Url\":\"http://s0.2mdn.net/dynamic/2/1268734/s0.2mdn.net/dynamic/1/1060540/1427262625812_tablet938.JPG_1429251385611_1427262625812_tablet938.JPG\"},\"T_SLOT_1\":\"\u82F1\u7279\u5C14\u5546\u7528\u5E73\u677F\u7528\u4E8E\u96F6\u552E\u884C\u4E1A\",\"Tab_SLOT_1\":\"biz\",\"URL_SLOT_1\":{\"Url\":\"http://c.admaster.com.cn/c/a26940,b200691720,c3961,i0,m101,h,uhttp://www.intel.cn/content/www/cn/zh/enterprise-mobility/biz-tablet-video-retail.html\"},\"Unique_ID\":36,\"_index\":3},{\"Active\":true,\"Describution\":\"2013\u5E74\u201C\u82F1\u7279\u5C14\u676F\u201D\u79FB\u52A8\u533B\u7597\u597D\u5E94\u7528\u5927\u5956\u8D5B\u4E2D\u5404\u4E13\u5BB6\u89E3\u8BFB\u79FB\u52A8\u5E94\u7528\u4FC3\u533B\u7597\u670D\u52A1\u65B9\u5F0F\u8F6C\u53D8\",\"Note\":\"\u6848\u4F8B\",\"Picture_URL\":{\"Url\":\"http://s0.2mdn.net/dynamic/2/1268734/s0.2mdn.net/dynamic/1/1060540/1427262597510_tablet935.JPG_1429251385611_1427262597510_tablet935.JPG\"},\"T_SLOT_1\":\"\u79FB\u52A8\u533B\u7597\u5C06\u6539\u53D8\u533B\u7597\u670D\u52A1\u65B9\u5F0F(\u8F6C\u81EAHC3i)\",\"Tab_SLOT_1\":\"biz\",\"URL_SLOT_1\":{\"Url\":\"http://c.admaster.com.cn/c/a26940,b200691732,c3961,i0,m101,h,uhttp://www.intel.cn/content/www/cn/zh/enterprise-mobility/media-article-hc3i-2014q2-04.html\"},\"Unique_ID\":42,\"_index\":4},{\"Active\":true,\"Describution\":\"\u7B2C5\u4EE3\u82F1\u7279\u5C14\u00AE \u9177\u777F\u2122 \u535A\u9510\u2122 \u5904\u7406\u5668\u7684 2 \u5408 1 \u7535\u8111,\u65E0\u7EBF\uFF0C\u89E6\u63A7\uFF0C\u79FB\u52A8\u529E\u516C\u81EA\u7531\uFF0C\u7075\u6D3B\u6027\u548C\u53EF\u9760\u6027\u3002\",\"Note\":\"\u4EA7\u54C1\",\"Picture_URL\":{\"Url\":\"http://s0.2mdn.net/dynamic/2/1268734/s0.2mdn.net/dynamic/1/1060540/1427262310852_notebook 795.JPG_1429251385611_1427262310852_notebook 795.JPG\"},\"T_SLOT_1\":\"\u82F1\u7279\u5C142\u54081\u8BBE\u5907-\u79FB\u52A8\u529E\u516C\u5E94\u7528\uFF08\u89C6\u9891\uFF09\",\"Tab_SLOT_1\":\"biz\",\"URL_SLOT_1\":{\"Url\":\"http://c.admaster.com.cn/c/a26940,b200691742,c3961,i0,m101,h,uhttp://www.intel.com/content/www/cn/zh/enterprise-security/2in1-devices-for-office-workers-video.html\"},\"Unique_ID\":16,\"_index\":5},{\"Active\":true,\"Describution\":\"\u611F\u53D7\u82F1\u7279\u5C14\u00AE \u9177\u777F\u2122 M \u5904\u7406\u5668\u7ED9\u4F60\u5E26\u6765\u7684\u9707\u64BC\uFF0C\u5F3A\u52B2\u52A8\u529B\uFF0C\u8F7B\u8584\u7EA4\u5DE7\uFF0C\u8D85\u957F\u5F85\u673A\u3002\",\"Note\":\"\u4EA7\u54C1\",\"Picture_URL\":{\"Url\":\"http://s0.2mdn.net/dynamic/2/1268734/s0.2mdn.net/dynamic/1/1060540/1427262310852_notebook 795.JPG_1429251385611_1427262310852_notebook 795.JPG\"},\"T_SLOT_1\":\"\u82F1\u7279\u5C14\u00AE \u9177\u777F\u2122 M \u5904\u7406\u5668\u2014\u2014\u8F7B\u8584\u6781\u901F (\u89C6\u9891\uFF09\",\"Tab_SLOT_1\":\"biz\",\"URL_SLOT_1\":{\"Url\":\"http://c.admaster.com.cn/c/a26940,b200691753,c3961,i0,m101,h,uhttp://www.intel.cn/content/www/cn/zh/processors/core/core-m-processors-overview-video.html\"},\"Unique_ID\":23,\"_index\":6},{\"Active\":true,\"Describution\":\"\u8F6F\u94F6\u96C6\u56E2\u4E0B\u7684SB creative \u7814\u53D1\u4E86\u4E0B\u4E00\u4EE3\u6807\u724C\u89E3\u51B3\u65B9\u6848-\u667A\u80FD\u8D27\u67B6\uFF0C\u5145\u5206\u5C06\u96F6\u552E\u5546\u7EBF\u4E0B\u548C\u865A\u62DF\u4E16\u754C\u7684\u4F18\u52BF\u76F8\u7ED3\u5408\u3002\u5B9E\u73B0\u4E86\u4E91\uFF0C\u5E97\u94FA\u548C\u6D88\u8D39\u8005\u8BBE\u5907\u4E4B\u95F4\u7684\u534F\u4F5C\u3002\",\"Note\":\"\u65B9\u6848\",\"Picture_URL\":{\"Url\":\"http://s0.2mdn.net/dynamic/2/1268734/s0.2mdn.net/dynamic/1/1060540/1427262310852_notebook 795.JPG_1429251385611_1427262310852_notebook 795.JPG\"},\"T_SLOT_1\":\"\u9B54\u529B\u8D27\u67B6 \u2014 \u667A\u80FD\u6807\u724C\u52A9\u529B\u96F6\u552E\u5546\u8F6C\u578B(\u89E3\u51B3\u65B9\u6848\uFF09\",\"Tab_SLOT_1\":\"biz\",\"URL_SLOT_1\":{\"Url\":\"http://c.admaster.com.cn/c/a26940,b200691769,c3961,i0,m101,h,uhttp://www.intel.cn/content/www/cn/zh/enterprise-mobility/next-generation-of-digital-signage.html\"},\"Unique_ID\":30,\"_index\":7}],\"Zol_smartzone_content\":[{\"Active\":true,\"FormFactor_Id\":10010,\"Picture_URL\":{\"Url\":\"http://s0.2mdn.net/dynamic/2/1270845/icon.zol-img.com.cn/nb/other/300x120_2.png_1428920876650_300x120_2.png\"},\"T_SLOT_1\":\"\u79C0\u51FA\u72EC\u7279\u4E2A\u6027\u8303\u2014\u53CC12\u6700\u5177\u7279\u8272\u4EA7\u54C1\u63A8\u8350\",\"Tab_SLOT_1\":\"con\",\"Tab_SLOT_2\":\"Content\",\"URL_SLOT_1\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b563708,c3927,i0,m101,h,uhttp://pad.zol.com.cn/495/4955233.html\"},\"Unique_ID\":445,\"_index\":9},{\"Active\":true,\"FormFactor_Id\":10010,\"Picture_URL\":{\"Url\":\"http://s0.2mdn.net/dynamic/2/1270845/icon.zol-img.com.cn/nb/other/300x120_2.png_1428920876650_300x120_2.png\"},\"T_SLOT_1\":\"\u8D70\u4EB2\u6C11\u7EBF\u8DEF\u2014\u534E\u7855\u5168\u65B0 Zenfone 5 \u56FE\u8D4F\",\"Tab_SLOT_1\":\"con\",\"Tab_SLOT_2\":\"Content\",\"URL_SLOT_1\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b200688888,c3927,i0,m101,h,uhttp://news.zol.com.cn/509/5098111.html\"},\"Unique_ID\":394,\"_index\":10},{\"Active\":true,\"FormFactor_Id\":10010,\"Picture_URL\":{\"Url\":\"http://s0.2mdn.net/dynamic/2/1270845/icon.zol-img.com.cn/nb/other/300x120_2.png_1428920876650_300x120_2.png\"},\"T_SLOT_1\":\"\u4E3B\u653B\u5E73\u677F\u5E02\u573A \u82F1\u7279\u5C14\u4E0E\u745E\u82AF\u5FAE\u8FBE\u6210\u534F\u8BAE\",\"Tab_SLOT_1\":\"con\",\"Tab_SLOT_2\":\"Content\",\"URL_SLOT_1\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b200688993,c3927,i0,m101,h,uhttp://pad.zol.com.cn/457/4571181.html\"},\"Unique_ID\":438,\"_index\":11},{\"Active\":true,\"FormFactor_Id\":10010,\"Picture_URL\":{\"Url\":\"http://s0.2mdn.net/dynamic/2/1270845/icon.zol-img.com.cn/nb/other/300x120_2.png_1428920876650_300x120_2.png\"},\"T_SLOT_1\":\"\u6652\u5355\u5373\u8D60\u597D\u793C\u2014\u84DD\u9B54i9s Win8\u4EAC\u4E1C\u7279\u60E0\",\"Tab_SLOT_1\":\"con\",\"Tab_SLOT_2\":\"Content\",\"URL_SLOT_1\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b200689017,c3927,i0,m101,h,uhttp://pad.zol.com.cn/495/4958653.html\"},\"Unique_ID\":449,\"_index\":12},{\"Active\":true,\"FormFactor_Id\":10010,\"Picture_URL\":{\"Url\":\"http://s0.2mdn.net/dynamic/2/1270845/icon.zol-img.com.cn/nb/other/300x120_2.png_1428920876650_300x120_2.png\"},\"T_SLOT_1\":\"\u82F1\u7279\u5C14\u82AF\u5E73\u677F\u5904\u7406\u5668\u9AD8\u6548\u5B9E\u6218Photoshop\",\"Tab_SLOT_1\":\"con\",\"Tab_SLOT_2\":\"Content\",\"URL_SLOT_1\":{\"Url\":\"http://c.admaster.com.cn/c/a26890,b200688926,c3927,i0,m101,h,uhttp://pad.zol.com.cn/483/4831447.html\"},\"Unique_ID\":410,\"_index\":13}],\"Zol_smartzone_remarketing\":[{\"Default\":true,\"ID\":5,\"Tab\":\"default\",\"_index\":8}],\"_profileid\":1042993}',
+    stringReportingUrl: 'http://ad.doubleclick.net/activity;src=2218289;stragg=1;v=1;pid=116937306;aid=289842354;ko=0;cid=62068166;rid=61948166;rv=13;rn=2525338696;',
+    urlToGetKeywordsFor: '%LivePreviewSiteUrl',
+    bookingTimeMetaData: bookingTimeMetaData,
+    generatedAdSlot: false,
+    exitUrlPatternMacroValues: exitUrlPatternMacroValues,
+    activeViewClkStr: macroParser('eav', 'Bj4QoCHq0Vd_ZNMO18gXI-IH4CgAAAAAQATgByAEJ4AQCoAY_'),
+    renderingEnvironment: ('' == '1' ||
+        window['mraid']) ? 'IN_APP' : 'BROWSER',
+    placementDimensions: {
+      'w': '300',
+      'h': '330'
+    },
+    tag: {
+      adContainerElementId: macroParser('ad_container_id', ''),
+      hideObjects: '',
+      top: '',
+      left: '',
+      zIndex: '',
+      duration: '',
+      wmode: '',
+      preferHtml5Artwork: '' == 'true',
+      adSenseKeywords: '',
+      adSenseLatitude: '',
+      adSenseLongitude: '',
+      publisherSideFilePath: publisherSideFilePath,
+      runtimeMetaData: runtimeMetaData,
+      lidarEnabled: false,
+      expansionMode: '',
+      renderFloatInplace: ''.toLowerCase() == 'true',
+      tryToWriteHtmlInline: ''.toLowerCase() == 'true'
+    }
+  };
+
+  var scheme;
+  if ('http' == 'http' || 'http' == 'https') {
+    // DCM scheme macro usage.
+    scheme = 'http' + ':';
+  } else if ('%%SCHEME%%' == 'http' || '%%SCHEME%%' == 'https') {
+    // XFP scheme macro usage.
+    scheme = '%%SCHEME%%' + ':';
+  } else {
+    // preview usage.
+    scheme = location.protocol;
+  }
+  var staticResourceMediaServer = scheme == 'https:' ?
+       'https://s0.2mdn.net' :
+       'http://s0.2mdn.net';
+
+  var creativeMediaServer = scheme == 'https:' ?
+       'https://s0.2mdn.net' :
+       'http://s0.2mdn.net';
+
+  var backupImageUrl = '/2218289/ZOL_300-330-1-backup.jpg';
+  if (!/^https?:/.test(backupImageUrl)) {
+    backupImageUrl = creativeMediaServer + backupImageUrl;
+  }
+  var backupImage = {
+    exitUrl: 'http://ad.doubleclick.net/activity;src=2218289;met=1;v=1;pid=116937306;aid=289842354;ko=0;cid=62068166;rid=61948166;rv=13;cs=l;eid1=2248036;ecn1=1;etm1=0;_dc_redir=url?http://adclick.g.doubleclick.net/pcs/click?xai=AKAOjssbR5-AbJ4CJfX_75G2WoVpZYfpcoIilfAVOYxsMGSjWVAb--rdrZ-MavyhE5hNXi-5aIbx773BEn6JB7YB9Tsh0SYCBVMTTzxZ33UUN6Z6PjyhXlHonxYdR66mTR8pyPraFMng-gqt&sig=Cg0ArKJSzJCtl4QVeT_JEAE&adurl=http://www.tmall.com/go/market/promotion-act/tab2.php?utm_source\x3dZOL\x26utm_medium\x3dSmartZone\x26utm_campaign\x3dBackupImage',
+    target: '_blank',
+    imageUrl: backupImageUrl,
+    width: '300',
+    height: '330',
+    backupDisplayActivityUrl: [
+      adServerData.eventReportingUrl,
+      '&timestamp=', (+new Date), ';',
+      'eid1=9;ecn1=1;etm1=0;'].join(''),
+    thirdPartyBackupImpressionUrl: ''
+  };
+
+  var versionPrefix = DEBUG ? 'db_' : '';
+  var templateVersion = '200_84';
+  var renderingScriptPath = '/879366';
+  var rendererDisplayType = '';
+  rendererDisplayType += 'html_';
+  var rendererFormat = 'inpage';
+  var rendererName = rendererDisplayType + rendererFormat;
+  var renderingLibrary = renderingScriptPath + '/' + rendererName + '_rendering_lib_' +
+      versionPrefix + templateVersion + '.js';
+  // Adserver has a logic to detect media files and prepend host name.
+  if (!/^https?:/.test(renderingLibrary)) {
+    renderingLibrary = staticResourceMediaServer + renderingLibrary;
+  }
+
+  var adCreativeDefinitions = {};
+    adCreativeDefinitions['289434982'] = '/ads/richmedia/studio/creative/35885131/36446433_4c924667e301162ea7a97616324a14ec_289434982_creative_override.js';
+    adCreativeDefinitions['289841089'] = '/ads/richmedia/studio/creative/35885131/36446433_82478e792fa55cd4b1b429fa20a7173b_289841089_creative_override.js';
+    adCreativeDefinitions['289841090'] = '/ads/richmedia/studio/creative/35885131/36446433_368d034dccea435348849934dbb71436_289841090_creative_override.js';
+    adCreativeDefinitions['289842352'] = '/ads/richmedia/studio/creative/35885131/36446433_6ff5213cef0908dbeeb44a44bc14ceb7_289842352_creative_override.js';
+    adCreativeDefinitions['289842353'] = '/ads/richmedia/studio/creative/35885131/36446433_31e1aec18cce41a9f6771bb7102b8cba_289842353_creative_override.js';
+    adCreativeDefinitions['289842354'] = '/ads/richmedia/studio/creative/35885131/36446433_58f319b9ab94a8aa61b49a1c6680aaed_289842354_creative_override.js';
+    adCreativeDefinitions['289842355'] = '/ads/richmedia/studio/creative/35885131/36446433_811ad24eeaf2d8d6d034c7fff55ed707_289842355_creative_override.js';
+    adCreativeDefinitions['289843211'] = '/ads/richmedia/studio/creative/35885131/36446433_d2a9d373d9328ab2e935dae0efc8a79e_289843211_creative_override.js';
+    adCreativeDefinitions['289843324'] = '/ads/richmedia/studio/creative/35885131/36446433_533b351cadbc318ba46b19ff11d38d9b_289843324_creative_override.js';
+    adCreativeDefinitions['289843325'] = '/ads/richmedia/studio/creative/35885131/36446433_cf2fb039851d2cac0ccd8f8bd5ea4a5f_289843325_creative_override.js';
+
+  var creativeId = '62068166';
+  var adId = adCreativeDefinitions[adServerData.adId] ? adServerData.adId : 0;
+  // The unique creative is identified by combination of creative id and ad id.
+  // When the same creative(same creative id and same ad id) is served on the page more
+  // than once then they will share the creative definition yet there will be
+  // multiple instances of 'adResponses'.s
+  var creativeKey = [creativeId, adId].join('_');
+  var creativeDef = adCreativeDefinitions[adServerData.adId] ?
+      adCreativeDefinitions[adServerData.adId] :
+      '/ads/richmedia/studio/creative/35885131/36446433_803b603e1f62f2189267f0bb53674285_creative_def.js';
+  if(!/^https?:/.test(creativeDef) && creativeDef.substring(0, 2) != '//') {
+    creativeDef = creativeMediaServer + creativeDef;
+  }
+  studioObjects['creativeCount'] = studioObjects['creativeCount'] || 0;
+  var creativeDto = {
+    id: creativeId,
+    uniqueId: creativeId + '_' + studioObjects['creativeCount']++,
+    templateVersion: templateVersion,
+    adServerData: adServerData,
+    isPreviewEnvironment: '%PreviewMode' == 'true',
+    hasFlashAsset: false,
+    hasHtmlAsset: true,
+    requiresCss3Animations: false,
+    flashVersion: '0',
+    httpsMediaServer: 'https://s0.2mdn.net',
+    httpMediaServer: 'http://s0.2mdn.net',
+    renderingScriptPath: renderingScriptPath,
+    renderingLibrary: renderingLibrary,
+    rendererName: rendererName,
+    creativeDefinitionUrl: creativeDef,
+    creativeKey: creativeKey,
+    thirdPartyImpressionUrls: eventTags['img_event_tag'],
+    thirdPartyArtworkImpressionUrl: 'http://v.admaster.com.cn/i/a55788,b602660,c367,i0,m202,h',
+    breakoutToTop: false,
+    dimensions: {
+      width: '300px',
+      height: '330px'
+    },
+    backupImage: backupImage,
+    csiStart: csiStart,
+    csiAdRespTime: csiStart - (parseFloat('') || 0),
+    csiEvents: {},
+    hasModernizrFeatureChecks: false,
+    html5FeatureChecks: [
+    ],
+    hasSwiffyHtmlAsset: false
+  };
+
+  var inGdnIframe = window['IN_ADSENSE_IFRAME'] || false;
+  var inYahooSecureIframe = window.Y && Y.SandBox && Y.SandBox.vendor;
+  var inWinLiveIframe = false;
+  try {
+    inWinLiveIframe = !!window.$WLXRmAd;
+  } catch(e) {}
+  var inSafeFrame = window.$sf && window.$sf.ext;
+  var isMsnAjaxIframe = (typeof(inDapMgrIf) != 'undefined' && inDapMgrIf);
+  var breakoutIframe = ''.toLowerCase();
+  var shouldBreakout = (((false ||
+                          false) &&
+                         !inGdnIframe &&
+                         !inYahooSecureIframe &&
+                         !inSafeFrame &&
+                         !inWinLiveIframe) ||
+                        (true && breakoutIframe == 'true')) &&
+                       self != top &&
+                       !creativeDto.isPreviewEnvironment &&
+                       breakoutIframe != 'false';
+
+  if (adServerData.tag.adContainerElementId == '' &&
+      (true || false ||
+         adServerData.tag.renderFloatInplace)) {
+    var containerId = ['creative', creativeDto.uniqueId].join('_');
+    var divHtml = ['<div id="', containerId, '"></div>'].join('');
+    document.write(divHtml);
+    adServerData.tag.adContainerElementId = containerId;
+    adServerData.generatedAdSlot = true;
+  }
+  var creatives = studioObjects['creatives'] = studioObjects['creatives'] || {};
+  var creative = creatives[creativeKey] = creatives[creativeKey] || {};
+  var adResponses = creative['adResponses'] = creative['adResponses'] || [];
+  creative['shouldBreakout'] = creative['shouldBreakout'] || shouldBreakout;
+  var iframeBusterLibrary = renderingScriptPath + '/iframe_buster_' +
+      versionPrefix + templateVersion + '.js';
+  if(!/^https?:/.test(iframeBusterLibrary)) {
+    iframeBusterLibrary = staticResourceMediaServer + iframeBusterLibrary;
+  }
+  var loadedLibraries = studioObjects['loadedLibraries'] = studioObjects['loadedLibraries'] || {};
+  var versionedLibrary = loadedLibraries[templateVersion] = loadedLibraries[templateVersion] || {};
+  var typedLibrary = versionedLibrary[rendererName] = versionedLibrary[rendererName] || {};
+  adResponses.push({
+    creativeDto: creativeDto
+  });
+  for (var i = 0; i < eventTags['js_event_tag'].length; i++) {
+    document.write('<scr' + 'ipt type="text/javascript" src="' + eventTags['js_event_tag'][i] + '"></scr' + 'ipt>');
+  }
+  if (shouldBreakout) {
+    if (versionedLibrary['breakout']) {
+      versionedLibrary['breakout']();
+    } else if (!versionedLibrary['breakoutLoading']) {
+      versionedLibrary['breakoutLoading'] = true;
+      document.write('<scr' + 'ipt type="text/javascript" src="' + iframeBusterLibrary + '" async="async"></scr' + 'ipt>');
+    }
+  } else if (typedLibrary['bootstrap'] && creative['creativeDefinition']) {
+    typedLibrary['bootstrap']();
+  } else {
+    if (!creative['definitionLoading']) {
+      creative['definitionLoading'] = true;
+      creativeDto.csiEvents['pb'] = (+new Date);
+      document.write('<scr' + 'ipt type="text/javascript" src="' + creativeDto.creativeDefinitionUrl + '"' + (adServerData.tag.tryToWriteHtmlInline ? '' : ' async="async"') + '></scr' + 'ipt>');
+    }
+    if (!typedLibrary['loading']) {
+      typedLibrary['loading'] = true;
+      creativeDto.csiEvents['gb'] = (+new Date);
+      document.write('<scr' + 'ipt type="text/javascript" src="' + renderingLibrary + '"' + (adServerData.tag.tryToWriteHtmlInline ? '' : ' async="async"') + '></scr' + 'ipt>');
+    }
+  }
+  if (isMsnAjaxIframe) {
+    window.setTimeout("document.close();", 1000);
+  }
+})();
+document.write('\n\x3cnoscript\x3e\n  \x3ca target\x3d\x22_blank\x22 href\x3d\x22http://ad.doubleclick.net/activity;src\x3d2218289;met\x3d1;v\x3d1;pid\x3d116937306;aid\x3d289842354;ko\x3d0;cid\x3d62068166;rid\x3d61948166;rv\x3d13;cs\x3dl;eid1\x3d2248036;ecn1\x3d1;etm1\x3d0;_dc_redir\x3durl?http://adclick.g.doubleclick.net/pcs/click?xai\x3dAKAOjssbR5-AbJ4CJfX_75G2WoVpZYfpcoIilfAVOYxsMGSjWVAb--rdrZ-MavyhE5hNXi-5aIbx773BEn6JB7YB9Tsh0SYCBVMTTzxZ33UUN6Z6PjyhXlHonxYdR66mTR8pyPraFMng-gqt\x26sig\x3dCg0ArKJSzJCtl4QVeT_JEAE\x26adurl\x3dhttp://www.tmall.com/go/market/promotion-act/tab2.php?utm_source\x3dZOL\x26utm_medium\x3dSmartZone\x26utm_campaign\x3dBackupImage\x22\x3e\n    \x3cimg border\x3d\x220\x22 alt\x3d\x22\x22 src\x3d\x22//s0.2mdn.net/2218289/ZOL_300-330-1-backup.jpg\x22\n        width\x3d\x22300\x22 height\x3d\x22330\x22 /\x3e\n  \x3c/a\x3e\n  \x3cimg width\x3d\x220px\x22 height\x3d\x220px\x22 style\x3d\x22visibility:hidden\x22 border\x3d\x220\x22 alt\x3d\x22\x22\n       src\x3d\x22http://ad.doubleclick.net/activity;src\x3d2218289;met\x3d1;v\x3d1;pid\x3d116937306;aid\x3d289842354;ko\x3d0;cid\x3d62068166;rid\x3d61948166;rv\x3d13;\x26timestamp\x3d2525338696;eid1\x3d9;ecn1\x3d1;etm1\x3d0;\x22 /\x3e\n  \x3cimg src\x3d\x22http://ad.doubleclick.net/activity;src\x3d2218289;type\x3dremar0;cat\x3dgerna0;ord\x3d2525338696?\x22\x3e\n\x3cimg src\x3d\x22http://d.agkn.com/pixel/2387/?che\x3d2525338696\x26col\x3d8606609,734094,116937306,289842354,62068166\x22\x3e\n\n\x3c/noscript\x3e\n');(function(){var f=function(a,c,b){return a.call.apply(a.bind,arguments)},g=function(a,c,b){if(!a)throw Error();if(2<arguments.length){var d=Array.prototype.slice.call(arguments,2);return function(){var b=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(b,d);return a.apply(c,b)}}return function(){return a.apply(c,arguments)}},k=function(a,c,b){k=Function.prototype.bind&&-1!=Function.prototype.bind.toString().indexOf("native code")?f:g;return k.apply(null,arguments)};var l=document,m=window;var n=function(a){return{visible:1,hidden:2,prerender:3,preview:4}[a.webkitVisibilityState||a.mozVisibilityState||a.visibilityState||""]||0},p=function(a){var c;a.mozVisibilityState?c="mozvisibilitychange":a.webkitVisibilityState?c="webkitvisibilitychange":a.visibilityState&&(c="visibilitychange");return c};var r=function(){this.g=l;this.j=m;this.i=!1;this.h=[];this.m={};if(3==n(this.g)){var a=k(this.o,this);this.n=a;var c=this.g,b=p(this.g);c.addEventListener?c.addEventListener(b,a,!1):c.attachEvent&&c.attachEvent("on"+b,a)}else q(this)};r.p=function(){return r.l?r.l:r.l=new r};var s=/^([^:]+:\/\/[^/]+)/m,t=/^\d*,(.+)$/m,q=function(a){if(!a.i){a.i=!0;for(var c=0;c<a.h.length;++c)a.k.apply(a,a.h[c]);a.h=[]}};r.prototype.q=function(a,c){var b=c.target.t();(b=t.exec(b))&&(this.m[a]=b[1])};r.prototype.k=function(a,c){var b;if(b=this.s)i:{try{var d=s.exec(this.j.location.href),e=s.exec(a);if(d&&e&&d[1]==e[1]&&c){var h=k(this.q,this,c);this.s(a,h);b=!0;break i}}catch(y){}b=!1}b||(b=this.j,b.google_image_requests||(b.google_image_requests=[]),d=b.document.createElement("img"),d.src=a,b.google_image_requests.push(d))};r.prototype.o=function(){if(3!=n(this.g)){q(this);var a=this.g,c=p(this.g),b=this.n;a.removeEventListener?a.removeEventListener(c,b,!1):a.detachEvent&&a.detachEvent("on"+c,b)}};var u=function(a,c){var b=/(google|doubleclick).*\/pagead\/adview/.test(a),d=r.p(),e=a;if(b){b="&vis="+n(d.g);c&&(b+="&ve=1");var h=e.indexOf("&adurl"),e=-1==h?e+b:e.substring(0,h)+b+e.substring(h)}d.i?d.k(e,c):d.h.push([e,c])},v=["pdib"],w=this;v[0]in w||!w.execScript||w.execScript("var "+v[0]);for(var x;v.length&&(x=v.shift());)v.length||void 0===u?w=w[x]?w[x]:w[x]={}:w[x]=u;})();pdib("http://googleads4.g.doubleclick.net/pcs/view?xai\x3dAKAOjssbR5-AbJ4CJfX_75G2WoVpZYfpcoIilfAVOYxsMGSjWVAb--rdrZ-MavyhE5hNXi-5aIbx773BEn6JB7YB9Tsh0SYCBVMTTzxZ33UUN6Z6PjyhXlHonxYdR66mTR8pyPraFMng-gqt\x26sig\x3dCg0ArKJSzIkwZt25GgffEAE\x26adurl\x3d");

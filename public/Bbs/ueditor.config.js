@@ -41,15 +41,18 @@
             'directionalityltr', 'directionalityrtl', 'indent', '|',
             'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
             'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-            'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
+            'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe'
+			, 'insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
             'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
             'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
             'print', 'preview', 'searchreplace', 'help', 'drafts'
         ]]
         */
         ,toolbars : [
-                    ['fontfamily','fontsize','horizontal','inserttable','indent','justifyleft','justifycenter','justifyright','background','|','undo','fullscreen'],
-                    ['bold','italic','underline','strikethrough','forecolor','backcolor','link','unlink','imageleft','imageright','insertorderedlist','insertunorderedlist','scrawl','removeformat','|','redo','pasteplain']
+                    ['fontfamily','fontsize','horizontal','inserttable','indent','justifyleft','justifycenter','justifyright','background','|','undo'
+					,'fullscreen'],
+                    ['bold','italic','underline','strikethrough','forecolor','backcolor','link','unlink','imageleft'
+						,'imageright','insertorderedlist','insertunorderedlist','scrawl','removeformat','|','redo','pasteplain']
         
         ]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
@@ -104,7 +107,7 @@
         //,autoClearEmptyNode : true //getContent时，是否删除空的inlineElement节点（包括嵌套的情况）
 
         //启用自动保存
-        //,enableAutoSave: true
+        ,enableAutoSave: false 
         //自动保存间隔时间， 单位ms
         //,saveInterval: 30000
 

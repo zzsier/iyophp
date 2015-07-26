@@ -6728,7 +6728,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
             initialContent: '',
             initialStyle:'',
             autoClearinitialContent: false,
-            iframeCssUrl: me.options.UEDITOR_HOME_URL + 'themes/iframe.css',
+            iframeCssUrl: me.options.UEDITOR_HOME_URL + 'iframe.css',
             textarea: 'editorValue',
             focus: false,
             focusInEnd: true,
@@ -16384,7 +16384,7 @@ UE.plugins['list'] = function () {
 
             me.addListener("ready",function(){
                 utils.loadFile(document,{
-                    src : opt.codeMirrorJsUrl || opt.UEDITOR_HOME_URL + "third-party/codemirror/codemirror.js",
+                    src : opt.codeMirrorJsUrl || opt.UEDITOR_HOME_URL + "codemirror.js",
                     tag : "script",
                     type : "text/javascript",
                     defer : "defer"
@@ -16399,7 +16399,7 @@ UE.plugins['list'] = function () {
                     tag : "link",
                     rel : "stylesheet",
                     type : "text/css",
-                    href : opt.codeMirrorCssUrl || opt.UEDITOR_HOME_URL + "third-party/codemirror/codemirror.css"
+                    href : opt.codeMirrorCssUrl || opt.UEDITOR_HOME_URL + "codemirror.css"
                 });
 
             });
@@ -28341,8 +28341,8 @@ UE.ui = baidu.editor.ui = {};
             this._dialogs = {};
             this.initUIBase();
             this._initToolbars();
-            var editor = this.editor,
-                me = this;
+            var editor = this.editor;
+            var me = this;
 
             editor.addListener('ready', function () {
                 //�ṩgetDialog����
@@ -28379,9 +28379,9 @@ UE.ui = baidu.editor.ui = {};
                     me.disableScale();
                 }
                 if (!editor.options.elementPathEnabled && !editor.options.wordCount && !editor.options.scaleEnabled) {
-                    editor.ui.getDom('elementpath').style.display = "none";
-                    editor.ui.getDom('wordcount').style.display = "none";
-                    editor.ui.getDom('scale').style.display = "none";
+                    //editor.ui.getDom('elementpath').style.display = "none";
+                    //editor.ui.getDom('wordcount').style.display = "none";
+                    //editor.ui.getDom('scale').style.display = "none";
                 }
 
                 if (!editor.selection.isFocus())return;
@@ -28482,8 +28482,8 @@ UE.ui = baidu.editor.ui = {};
                     me[(editor.queryCommandState('elementpath') == -1 ? 'dis' : 'en') + 'ableElementPath']()
                 }
                 if (editor.options.scaleEnabled) {
-                    me[(editor.queryCommandState('scale') == -1 ? 'dis' : 'en') + 'ableScale']();
-
+                    //me[(editor.queryCommandState('scale') == -1 ? 'dis' : 'en') + 'ableScale']();
+					me.scaleEnabled = true;
                 }
             });
             var popup = new baidu.editor.ui.Popup({
@@ -28725,18 +28725,18 @@ UE.ui = baidu.editor.ui = {};
                 '<div id="##_iframeholder" class="%%-iframeholder"></div>' +
                 //modify wdcount by matao
 				//diy set by jbw 
-                '<div id="##_bottombar" class="%%-bottomContainer"><table><tr>' +
-                '<td id="##_elementpath" class="%%-bottombar"></td>' +
-				'<td id="##_saveInfo" class="%%-saveInfo">&nbsp;</td>'+
-				'<td id="##_saveTime" class="%%-saveTime">30����Զ�����</td>'+
-				'<td id="##_saveContent" class="%%-saveContent"><span>�������</span></td>'+
-				'<td id="##_recoverContent" class="%%-recoverContent"><span>�ָ����</span></td>'+
-				'<td id="##_wordCheck" class="%%-wordCheck"><span>������</span></td>'+
-				'<td id="##_clearContent" class="%%-clearContent"><span>�������</span></td>'+
+                //'<div id="##_bottombar" class="%%-bottomContainer"><table><tr>' +
+                //'<td id="##_elementpath" class="%%-bottombar"></td>' +
+				//'<td id="##_saveInfo" class="%%-saveInfo">&nbsp;</td>'+
+				//'<td id="##_saveTime" class="%%-saveTime">30����Զ�����</td>'+
+				//'<td id="##_saveContent" class="%%-saveContent"><span>�������</span></td>'+
+				//'<td id="##_recoverContent" class="%%-recoverContent"><span>�ָ����</span></td>'+
+				//'<td id="##_wordCheck" class="%%-wordCheck"><span>������</span></td>'+
+				//'<td id="##_clearContent" class="%%-clearContent"><span>�������</span></td>'+
 				//diy end
-                '<td id="##_wordcount" class="%%-wordcount"></td>' +
-                '<td id="##_scale" class="%%-scale"><div class="%%-icon"></div></td>' +
-                '</tr></table></div>' +
+                //'<td id="##_wordcount" class="%%-wordcount"></td>' +
+                //'<td id="##_scale" class="%%-scale"><div class="%%-icon"></div></td>' +
+                //'</tr></table></div>' +
                 '<div id="##_scalelayer"></div>' +
                 '</div>';
         },
@@ -28998,15 +28998,15 @@ UE.ui = baidu.editor.ui = {};
 
             this.enableScale = function () {
                 //trace:2868
-                if (editor.queryCommandState("source") == 1)    return;
-                scale.style.display = "";
+                //if (editor.queryCommandState("source") == 1)    return;
+                //scale.style.display = "";
                 this.scaleEnabled = true;
-                domUtils.on(scale, "mousedown", down);
+                //domUtils.on(scale, "mousedown", down);
             };
             this.disableScale = function () {
-                scale.style.display = "none";
-                this.scaleEnabled = false;
-                domUtils.un(scale, "mousedown", down);
+                //scale.style.display = "none";
+                //this.scaleEnabled = false;
+                //domUtils.un(scale, "mousedown", down);
             };
         },
         isFullScreen:function () {

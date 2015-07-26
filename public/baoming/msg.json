@@ -1,0 +1,41 @@
+if( typeof MSG == 'undefined' || !MSG){
+    var MSG = {};
+}
+
+//JS°æ±¾
+MSG = {
+    get : function(callback, type, isfeed) {
+        var sid = '';
+        if (!(sid = MSG.getCookie('zol_sid'))) {
+            return '';
+        }
+        
+        MSG.msgCallback = callback;
+        callback = 'MSG.msgCallback';
+        var varScript = document.createElement("script");
+        varScript.src = 'http://my.zol.com.cn/index.php?c=Message_Api&a=getUnreadNum&sid='+sid+'&type='+type+'&callback='+callback+'&isfeed='+isfeed;
+        varScript.language = "javascript";
+        varScript.type = "text/javascript";
+        document.body.appendChild(varScript);
+    },
+    
+    getCookie : function (name) {
+        var arg = name + "=";
+        var alen = arg.length;
+        var clen = document.cookie.length;
+        var i = 0;
+        while (i < clen) {
+            var j = i + alen;
+            if (document.cookie.substring(i, j) == arg) return MSG.getCookieVal(j);
+            i = document.cookie.indexOf(" ", i) + 1;
+            if (i == 0) break;
+        }
+        return null;
+    },
+
+    getCookieVal : function (offset) {
+        var endstr = document.cookie.indexOf(";", offset);
+        if (endstr == -1) endstr = document.cookie.length;
+        return unescape(document.cookie.substring(offset, endstr));
+    }
+}

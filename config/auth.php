@@ -28,7 +28,7 @@ return [
 	|
 	*/
 
-	'model' => 'App\Model\User',
+	'model' => 'App\Model\IyoUser',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -41,7 +41,7 @@ return [
 	|
 	*/
 
-	'table' => 'users',
+	'table' => 'iyo_users',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -61,7 +61,7 @@ return [
 	'password' => [
 		'email' => 'emails.password',
 		'table' => 'password_resets',
-		'expire' => 60,
+		'expire' => 1440,
 	],
 
 ];

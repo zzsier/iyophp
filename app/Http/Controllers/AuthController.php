@@ -8,6 +8,7 @@ use URL;
 use Redirect;
 use Illuminate\Http\Request;
 use App\Model\IyoUser;
+use App\Model\Node;
 use Cache;
 use Auth;
 
@@ -15,7 +16,8 @@ class AuthController extends BaseController
 {
     public function login()
     {
-        return View::make('auth.login');
+		$nodes = Node::allLevelUp();
+		return View::make('auth.login', compact('nodes'));
     }
 
 //    public function login()

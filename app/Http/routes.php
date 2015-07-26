@@ -114,9 +114,6 @@ Route::group(['prefix' => 'question'], function()
 
 Route::resource('moment/upload', 'UploadController@uploadMemoryImage');
 Route::resource('like/list', 'TopicsController@queryLikeList');
-Route::resource('video', 'BBSTopicsController@showvideo');
-Route::resource('bbs/create', 'BBSTopicsController@create');
-
 
 Route::group(['prefix' => 'backend'], function()  
 {
@@ -182,100 +179,112 @@ Route::group(['prefix' => 'topic'], function()
 	Route::post('create', 'TopicController@resetPassword');
 });
 
-Route::get('/nodes/{id}', [
-    'as' => 'nodes.topics',
-    'uses' => 'BBSTopicsController@showtopics',
-]);
+Route::group(['middleware' => 'bbscheck'], function()  
+{
 
-/*
+	Route::get('/nodes/{id}', [
+	    'as' => 'nodes.topics',
+	    'uses' => 'BBSTopicsController@showtopics',
+	]);
+	
+	Route::resource('topics', 'BBSTopicsController');
+	
+	Route::resource('activity/save', 'BBSTopicsController@saveActivity');
+	# ------------------------------------------------------
+	#
+	#
+	#	BBS Route
+	# 
+	# ------------------ Route patterns---------------------
+	
+	Route::pattern('id', '[0-9]+');
+	
+	# ------------------ Page Route ------------------------
+	
+	Route::get('/', [
+	    'as' => 'home',
+	    'uses' => 'PagesController@home',
+	]);
+	
+	Route::get('/about', [
+	    'as' => 'about',
+	    'uses' => 'PagesController@about',
+	]);
+	
+	Route::get('/wiki', [
+	    'as' => 'wiki',
+	    'uses' => 'PagesController@wiki',
+	]);
+	
+	Route::get('/search', [
+	    'as' => 'search',
+	    'uses' => 'PagesController@search',
+	]);
+	
+	Route::get('/feed', [
+	    'as' => 'feed',
+	    'uses' => 'PagesController@feed',
+	]);
+	
+	Route::get('/sitemap', 'PagesController@sitemap');
+	Route::get('/sitemap.xml', 'PagesController@sitemap');
+	
+	# ------------------ User stuff ------------------------
+	
+	Route::get('/users/{id}/replies', [
+	    'as' => 'users.replies',
+	    'uses' => 'UsersController@replies',
+	]);
+	
+	Route::get('/users/{id}/topics', [
+	    'as' => 'users.topics',
+	    'uses' => 'UsersController@topics',
+	]);
+	
+	Route::get('/users/{id}/favorites', [
+	    'as' => 'users.favorites',
+	    'uses' => 'UsersController@favorites',
+	]);
+	
+	Route::get('/users/{id}/refresh_cache', [
+	    'as' => 'users.refresh_cache',
+	    'uses' => 'UsersController@refreshCache',
+	]);
+	
+	Route::post('/favorites/{id}', [
+	    'as' => 'favorites.createOrDelete',
+	    'uses' => 'FavoritesController@createOrDelete',
+	    'before' => 'auth',
+	]);
+	
+	Route::get('/notifications', [
+	    'as' => 'notifications.index',
+	    'uses' => 'NotificationsController@index',
+	    'before' => 'auth',
+	]);
+	
+	Route::get('/notifications/count', [
+	    'as' => 'notifications.count',
+	    'uses' => 'NotificationsController@count',
+	    'before' => 'auth',
+	]);
+	
+	Route::post('/attentions/{id}', [
+	    'as' => 'attentions.createOrDelete',
+	    'uses' => 'AttentionsController@createOrDelete',
+	    'before' => 'auth',
+	]);
 
- */
+	# ------------------ Replies ------------------------
+	
+	Route::resource('replies', 'RepliesController');
+	Route::delete('replies/delete/{id}',  [
+	    'as' => 'replies.destroy',
+	    'uses' => 'RepliesController@destroy',
+	    'before' => 'auth',
+	]);
 
-# ------------------------------------------------------
-#
-#
-#	BBS Route
-# 
-# ------------------ Route patterns---------------------
-
-Route::pattern('id', '[0-9]+');
-
-# ------------------ Page Route ------------------------
-
-Route::get('/', [
-    'as' => 'home',
-    'uses' => 'PagesController@home',
-]);
-
-Route::get('/about', [
-    'as' => 'about',
-    'uses' => 'PagesController@about',
-]);
-
-Route::get('/wiki', [
-    'as' => 'wiki',
-    'uses' => 'PagesController@wiki',
-]);
-
-Route::get('/search', [
-    'as' => 'search',
-    'uses' => 'PagesController@search',
-]);
-
-Route::get('/feed', [
-    'as' => 'feed',
-    'uses' => 'PagesController@feed',
-]);
-
-Route::get('/sitemap', 'PagesController@sitemap');
-Route::get('/sitemap.xml', 'PagesController@sitemap');
-
-# ------------------ User stuff ------------------------
-
-Route::get('/users/{id}/replies', [
-    'as' => 'users.replies',
-    'uses' => 'UsersController@replies',
-]);
-
-Route::get('/users/{id}/topics', [
-    'as' => 'users.topics',
-    'uses' => 'UsersController@topics',
-]);
-
-Route::get('/users/{id}/favorites', [
-    'as' => 'users.favorites',
-    'uses' => 'UsersController@favorites',
-]);
-
-Route::get('/users/{id}/refresh_cache', [
-    'as' => 'users.refresh_cache',
-    'uses' => 'UsersController@refreshCache',
-]);
-
-Route::post('/favorites/{id}', [
-    'as' => 'favorites.createOrDelete',
-    'uses' => 'FavoritesController@createOrDelete',
-    'before' => 'auth',
-]);
-
-Route::get('/notifications', [
-    'as' => 'notifications.index',
-    'uses' => 'NotificationsController@index',
-    'before' => 'auth',
-]);
-
-Route::get('/notifications/count', [
-    'as' => 'notifications.count',
-    'uses' => 'NotificationsController@count',
-    'before' => 'auth',
-]);
-
-Route::post('/attentions/{id}', [
-    'as' => 'attentions.createOrDelete',
-    'uses' => 'AttentionsController@createOrDelete',
-    'before' => 'auth',
-]);
-
+});
 # ------------------ Authentication ------------------------
 
 Route::get('login', [
@@ -330,18 +339,8 @@ Route::get('oauth', 'AuthController@getOauth');
 # ------------------ Resource Route ------------------------
 
 Route::resource('nodes', 'NodesController', ['except' => ['index', 'edit']]);
-Route::resource('topics', 'BBSTopicsController');
 Route::resource('votes', 'VotesController');
 Route::resource('users', 'UsersController');
-
-# ------------------ Replies ------------------------
-
-Route::resource('replies', 'RepliesController', ['only' => ['store']]);
-Route::delete('replies/delete/{id}',  [
-    'as' => 'replies.destroy',
-    'uses' => 'RepliesController@destroy',
-    'before' => 'auth',
-]);
 
 # ------------------ Votes ------------------------
 

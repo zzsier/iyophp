@@ -21,6 +21,7 @@ use Input;
 use View;
 use Cache;
 use Log;
+use Auth;
 
 class UserController extends Controller {
 
@@ -157,10 +158,10 @@ class UserController extends Controller {
 		}
 		$person = IyoUser::where('phone', $phone)->first();
 
-        $sqls = DB::getQueryLog();
-        $logger = new Writer(new Logger("info"));
-        $logger->useFiles(storage_path().'/logs/sql.log');
-        $logger->info($sqls);
+        //$sqls = DB::getQueryLog();
+        //$logger = new Writer(new Logger("info"));
+        //$logger->useFiles(storage_path().'/logs/sql.log');
+        //$logger->info($sqls);
 
 		if( $smscode == "" ) {
 			if($person == null) {
@@ -173,6 +174,7 @@ class UserController extends Controller {
 					$this->registerHXUser($person["id"]);
 					$person = IyoUser::queryById($person["id"]);
 				}
+				Auth::login($person, true);
 				$uid = $person["id"];
 				Cache::put("session_id_$uid", $uid, 3600);
 				$person["session"] = "session_id_$uid";

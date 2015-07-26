@@ -4,7 +4,7 @@
         e = 1,
         a = false,
         d = {
-            ajaxHost: "http://my.zol.com.cn",
+			ajaxHost: "http://123.59.53.158",
             loadJs: function(i) {
                 if (typeof i !== "string") {
                     return false
@@ -101,7 +101,53 @@
                     var y = n ? "absolute": "fixed";
                     var A = n ? ' style="height:' + D.clientH + 'px;"': "";
                     var z = '<div id="J_LoginOverlay"' + A + '><div class="login-dialog-overlay"></div><iframe' + A + "></iframe></div>";
-                    var B = '<div id="J_dialogBox" style="position:' + y + "; left:" + D.x + "px; top:" + D.y + "px; z-index:10000; width:" + m.width + "px; height:" + m.height + 'px">' + '   <div class="login-dialog">' + '       <div class="login-dialog-inner">' + '           <div id="J_dialogClose" class="login-dialog-close">\u5173\u95ed</div>' + '           <div class="login-dialog-header"><h3>ZOL\u767b\u5f55</h3></div>' + '           <div class="login-social">' + '               <a href="' + m.qqUrl + '" class="login-social-btn qq-btn"><i></i>QQ</a>' + '               <a href="' + m.sinaUrl + '" class="login-social-btn sina-btn"><i></i>\u65b0\u6d6a\u5fae\u535a</a>' + '               <a href="' + m.wechatUrl + '" class="login-social-btn weixin-btn"><i></i>\u5fae\u4fe1</a>' + '               <a href="' + m.baiduUrl + '" class="login-social-btn baidu-btn"><i></i>\u767e\u5ea6</a>' + "           </div>" + '           <form class="login-zol" id="J_LoginZol" onsubmit="return false;">' + '               <div class="login-input-itembox login-user-name">' + '                   <i class="login-right-ico"></i>' + '                   <div class="login-input-item login-item-focus">' + '                       <i class="ico"></i>' + '                       <i class="delete-btn" style="display:none"></i>' + '                       <label for="J_loginUser" class="txt-tip">\u7528\u6237ID/\u90ae\u7bb1/\u624b\u673a\u53f7</label>' + '                       <input id="J_loginUser"  class="login-txt tabInput" type="text" name="J_loginUser" hidefocus="true">' + "                   </div>" + "               </div>" + '               <div class="login-input-itembox login-user-pwd">' + '                   <i class="login-right-ico"></i>' + '                   <div class="login-input-item">' + '                       <i class="ico"></i>' + '                       <i class="delete-btn" style="display:none"></i>' + '                       <label for="J_loginPsw" class="txt-tip">\u5bc6\u7801</label>' + '                       <input id="J_loginPsw"  class="login-txt tabInput" type="password" name="J_loginPsw" hidefocus="true">' + '                       <input style="display:none;" name="pwd" type="password" id="pwd" value="" /> ' + "                   </div>" + "               </div>" + '               <div class="login-input-itembox pass-verifycode" id="J_verifyBox" style="display:none">' + '                   <i class="login-right-ico"></i>' + '                   <span class="verifycode-img"><img id="J_verifyCodeImg" title="\u9a8c\u8bc1\u7801\u56fe\u7247" alt="\u9a8c\u8bc1\u7801\u56fe\u7247" class="pass-verifyCode verifyCodeImg" width="113" height="38" src=""></span>' + '                   <a href="javascript:;" id="J_changeCodeBtn" class="verifycode-changelink">\u6362\u4e00\u5f20</a>' + '                   <div class="login-input-item">' + '                       <label for="J_verifyCode" class="txt-tip">\u9a8c\u8bc1\u7801</label>' + '                       <input id="J_verifyCode" type="text " class="login-txt "  value="" maxlength=4>' + "                   </div>" + "               </div>" + '               <div class="login-member-pass clearfix">' + '                   <span class="login-zol-forget-register"><a href="' + m.getPsw + '" target="_blank">\u5fd8\u8bb0\u5bc6\u7801?</a> | <a href="' + m.registerUrl + '" target="_blank">\u514d\u8d39\u6ce8\u518c</a></span>' + '                   <input id="J_autoMemberPass" name="is_auto" checked="checked" type="checkbox" value="1"><label for="J_autoMemberPass" class="autologon">\u4e0b\u6b21\u81ea\u52a8\u767b\u5f55</label>' + "               </div>" + '               <div id="loginBtnBox" class="login-btn ">' + '                   <span class="wait-bar" style="width:0%;"></span>' + '                   <input id="J_loginBtn"  class="pass-btn tabInput" type="submit" value="\u9a6c\u4e0a\u767b\u5f55" name="" hidefocus="true">' + "               </div>" + "           </form>" + "       </div>" + "   </div>" + "</div>";
+                    var B = '<div id="J_dialogBox" style="position:' + y + "; left:" + D.x + "px; top:" + D.y + "px; z-index:10000; width:" + m.width + "px; height:" + m.height + 'px">' 
+						+ '   <div class="login-dialog">' 
+						+ '       <div class="login-dialog-inner">' 
+						+ '           <div id="J_dialogClose" class="login-dialog-close">\u5173\u95ed</div>' 
+						+ '           <div class="login-dialog-header"><h3>IYO\u767b\u5f55</h3></div>' 
+						+ '           <form class="login-zol" id="J_LoginZol" onsubmit="return false;">' 
+						+ '               <div class="login-input-itembox login-user-name">' 
+						+ '                   <i class="login-right-ico"></i>' 
+						+ '                   <div class="login-input-item login-item-focus">' 
+						+ '                       <i class="ico"></i>' 
+						+ '                       <i class="delete-btn" style="display:none"></i>' 
+						+ '                       <label for="J_loginUser" class="txt-tip">\u7528\u6237ID/\u90ae\u7bb1/\u624b\u673a\u53f7</label>' 
+						+ '                       <input id="J_loginUser"  class="login-txt tabInput" type="text" name="J_loginUser" hidefocus="true">' 
+						+ "                   </div>" 
+						+ "               </div>" 
+						+ '               <div class="login-input-itembox login-user-pwd">' 
+						+ '                   <i class="login-right-ico"></i>' 
+						+ '                   <div class="login-input-item">' 
+						+ '                       <i class="ico"></i>' 
+						+ '                       <i class="delete-btn" style="display:none"></i>' 
+						+ '                       <label for="J_loginPsw" class="txt-tip">\u5bc6\u7801</label>' 
+						+ '                       <input id="J_loginPsw"  class="login-txt tabInput" type="password" name="J_loginPsw" hidefocus="true">' 
+						+ '                       <input style="display:none;" name="pwd" type="password" id="pwd" value="" /> ' 
+						+ "                   </div>" 
+						+ "               </div>" 
+						+ '               <div class="login-input-itembox pass-verifycode" id="J_verifyBox" style="display:none">' 
+						+ '                   <i class="login-right-ico"></i>' 
+						+ '                   <span class="verifycode-img"><img id="J_verifyCodeImg" title="\u9a8c\u8bc1\u7801\u56fe\u7247" alt="\u9a8c\u8bc1\u7801\u56fe\u7247" class="pass-verifyCode verifyCodeImg" width="113" height="38" src=""></span>' 
+						+ '                   <a href="javascript:;" id="J_changeCodeBtn" class="verifycode-changelink">\u6362\u4e00\u5f20</a>' 
+						+ '                   <div class="login-input-item">' 
+						+ '                       <label for="J_verifyCode" class="txt-tip">\u9a8c\u8bc1\u7801</label>' 
+						+ '                       <input id="J_verifyCode" type="text " class="login-txt "  value="" maxlength=4>' 
+						+ "                   </div>" 
+						+ "               </div>" 
+						+ '               <div class="login-member-pass clearfix">' 
+						+ '                   <span class="login-zol-forget-register"><a href="' + m.getPsw + '" target="_blank">\u5fd8\u8bb0\u5bc6\u7801?</a> | <a href="' + m.registerUrl + '" target="_blank">\u514d\u8d39\u6ce8\u518c</a></span>' 
+						+ '                   <input id="J_autoMemberPass" name="is_auto" checked="checked" type="checkbox" value="1"><label for="J_autoMemberPass" class="autologon">\u4e0b\u6b21\u81ea\u52a8\u767b\u5f55</label>' 
+						+ "               </div>" 
+						+ '               <div id="loginBtnBox" class="login-btn ">' 
+						+ '                   <span class="wait-bar" style="width:0%;"></span>' 
+						+ '                   <input id="J_loginBtn"  class="pass-btn tabInput" type="submit" value="\u9a6c\u4e0a\u767b\u5f55" name="" hidefocus="true">' 
+						+ "               </div>" 
+						+ "           </form>" 
+						+ "       </div>" 
+						+ "   </div>" 
+						+ "</div>";
+
                     var C = m.hasCover ? z + B: B;
                     if (parent) {
                         c(window.parent.document.body).append(C)
@@ -517,37 +563,48 @@
                     D.val("\u767b\u5f55\u4e2d");
                     N.val(CryptoJS.MD5(H));
                     clearTimeout(m.checkTimer);
+					loginparam = '{"phone":"'+L+'","password":"'+H+'"}';
                     c.ajax({
-                        type: "get",
-                        url: d.ajaxHost + "/api/login2014.php",
+                        type: "post",
+                        url: d.ajaxHost + "/user/login",
                         async: false,
-                        data: {
-                            userid: L,
-                            pwd: H,
-                            is_auto: J,
-                            from: M,
-                            code: G,
-                            rNum: K,
-                            first: e
-                        },
-                        dataType: "jsonp",
+                        data: loginparam,
+						//{
+							
+                    //        phone: L,
+                    //        password: H,
+                    //        is_auto: J,
+                    //        from: M,
+                    //        code: G,
+                    //        rNum: K,
+                    //        first: e
+                        //},
+                        dataType: "json",
                         success: function(R) {
                             if (R.code < 1) {
-                                for (var Q = 0, P = R.ssoArr.length; Q < P; ++Q) {
-                                    d.ssoLogin(R.ssoArr[Q],
-                                        function() {
-                                            E.remove();
-                                            A.remove();
-                                            if (!m.callback.call(C, R)) {
-                                                return false
-                                            }
-                                            if (window.parent) {
-                                                window.parent.location.reload(true)
-                                            } else {
-                                                window.location.reload(true)
-                                            }
-                                        })
+                               // for (var Q = 0, P = R.ssoArr.length; Q < P; ++Q) {
+                               //     d.ssoLogin(R.ssoArr[Q],
+                               //         function() {
+                               //             E.remove();
+                               //             A.remove();
+                               //             if (!m.callback.call(C, R)) {
+                               //                 return false
+                               //             }
+                               //             if (window.parent) {
+                               //                 window.parent.location.reload(true)
+                               //             } else {
+                               //                 window.location.reload(true)
+                               //             }
+                               //         })
+                               // }
+                                E.remove();
+                                A.remove();
+                                if (window.parent) {
+                                    window.parent.location.reload(true)
+                                } else {
+                                    window.location.reload(true)
                                 }
+
                                 return false
                             } else {
                                 clearTimeout(m.checkTimer);

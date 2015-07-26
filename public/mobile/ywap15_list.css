@@ -1,0 +1,71 @@
+body{background:#FFF;font-family:"Î¢ÈíÑÅºÚ","Helvetica";font-size:16px;color: #000;position: relative;}
+a,body,h1,h2,h3,h6,p,dl,dt,dd,ul,ol,li,form,button,input,img,div,pre,section,header,nav,footer{margin:0;padding:0;border:0;font-weight: normal;}
+ul,ol{list-style:none}
+img{vertical-align: middle;max-width: 100%;}
+a:link,a:visited{text-decoration:none;color:#000;font-family:"Î¢ÈíÑÅºÚ","Helvetica"}
+a:hover,a:active{color:#00aeef;}
+header,footer{width: 100%;}
+header .logo{width: 100%;height: 45px;background: #fff;}
+header .logo .logoimg{float: left;height: 30px;padding: 8px 10px 0;}
+header .logo .logoimg img{height: 30px;}
+header .logo .appdload{float: right;height: 28px;padding: 8px 18px 9px 23px;font-size: 12px;line-height: 14px;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/wbg.png") 0 -155px no-repeat;}
+header .logo .appdload:link,header .logo .appdload:visited{color: #00aeef;}
+header nav,footer nav{width: 100%;height: 45px;line-height: 45px;text-align:center;font-size: 18px;background: #4c9ada;}
+header nav li,footer nav li{float: left;width: 20%;height: 45px;}
+header nav li{width: 19%;}
+header nav li.last{width: 24%;}
+header li a:link,header li a:visited,footer li a:link,footer li a:visited{color: #fff;}
+header li.last a:link,header li.last a:visited{padding: 0 6px;height:23px;border: 1px solid #ffe100;border-radius: 13px;color: #ffe100;}
+header li.show,footer li.show{background: #2b7cbe;}
+header .topapp{height: 50px;background: #f3f3f9;position: relative;}
+header .topapp a{display: block;padding: 4px 18px 6px;height: 40px;line-height: 40px;font-size: 14px;font-weight: bold;}
+header .topapp a img{height: 40px;float: left;margin-right: 10px;}
+header .topapp .cbtn{position: absolute;top: 12px;right: 6px;}
+header .title{padding-left: 12px;height: 46px;line-height: 46px;padding-top: 4px;border-bottom: 1px solid #d2d2da;font-size: 22px;}
+header .title a{color: #ff1111;white-space: nowrap;overflow: hidden;}
+header .title a span{color: #30303a;font-size: 22px;padding-right: 8px;}
+/*content*/
+.wrap{padding: 10px;}
+.newslist dl{height: 68px;line-height: 22px;padding-bottom: 20px;overflow: hidden;}
+.newslist dt{height: 68px;float: left;margin-right: 8px;width: 90px;}
+.newslist dt img{height: 66px;border: 1px solid #e4e4ea;}
+.newslist dd h2{height: 22px;padding-bottom: 2px;font-size: 16px;white-space: nowrap;}
+.newslist dd h2 time,.product li time{float: right;font-size: 10px;padding-left: 5px;color: #999;}
+.newslist dd h2 time{margin-top: 2px;}
+.newslist dd div{height: 44px;font-size: 12px;overflow: hidden;color: #999;}
+.mbtn{clear: both;height: 36px;line-height: 36px;text-align: center;font-size: 14px;cursor: pointer;margin: 5px 0 25px;background:#f3f3f9;}
+.mbtn span{display: inline-block;color: #00aeef;padding-right: 20px;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/wbg.png") 106px -120px no-repeat;}
+.mbtn a:link,.mbtn a:visited{color: #00aeef}
+.guesslist,.hotpic{overflow: hidden;}
+.guesslist h2,.hotpic h2{height: 46px;line-height: 46px;font-size: 24px;color: #000;border-top: 2px solid #000;}
+.guesslist ul{width: 100%;margin: 0 auto;overflow: hidden;}
+.guesslist li{float: left;width: 47%;height: 140px;text-align: center;padding-bottom: 15px;}
+.guesslist li.float-r{float: right;}
+.guesslist li img{height: 90px;}
+.guesslist li p{font-size: 14px;line-height: 20px;text-align: left;padding-top: 10px;word-break: break-all;}
+.hotpic h2{color: #a23a89;border-top-color: #a23a89;}
+.hotpic ul{text-align: center;margin: 0 auto;overflow: hidden;}
+.hotpic li{float: left;width: 32%;padding-bottom: 6px;overflow: hidden;}
+.hotpic li.pdlr2{padding: 0 2% 6px 2%;}
+.hotpic li img{border: 1px solid #e5e5eb;}
+.hotpic .mbtn{margin: 20px 0 11px;}
+.flayer{width: 100%;height: 60px;background: rgba(255,140,64,0.8);position: fixed;bottom: 0;z-index: 9999;}
+.tjsm{height: 45px;padding: 8px 10px 7px 30px;position: relative;}
+.tjsm dt{float: left;padding-right: 10px;}
+.tjsm dt img{height: 45px;}
+.tjsm dd{line-height: 26px;color: #fff;position: relative;}
+.tjsm dd div{font-size: 12px;color: #000;line-height: 18px;}
+.tjsm dd .dlbtn{display: inline-block;height: 30px;line-height: 30px;padding: 0 8px;border-radius: 5px;background: #00aeef;position: absolute;top: 7px;right: 0;}
+.tjsm .closebtn{display: inline-block;width: 0;height: 28px;padding-left: 28px;overflow: hidden;cursor: pointer;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/cbtn.png") no-repeat;position: absolute;top: 0;left: 0;}
+/*old_ad*/
+.adv_ywap_topcolumn,.adv_ywap_column1{margin:auto;padding-bottom: 5px;width:320px;overflow:hidden}
+/*new_ad*/
+.mlp_ywap_topcolumn,.mlp_ywap_column1{margin:auto;padding-bottom: 5px;width:320px;overflow:hidden;display: none}
+/*footer*/
+footer{clear: both;height: 210px;margin-top: 5px;text-align: center;}
+footer li.last a:link,footer li.last a:visited{color: #ffe100}
+footer div{width: 100%;height: 36px;margin-top: 15px;}
+footer div a{float: left;width: 25%;height: 36px;line-height: 36px;}
+footer div a:link,footer div a:visited{color: #666;}
+footer .btop span{display: inline-block;padding-right: 34px;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/icon.png") right 3px no-repeat;}
+footer p{clear: both;font-size: 12px;line-height: 22px;height: 22px;padding-top: 10px;color: #999;}
