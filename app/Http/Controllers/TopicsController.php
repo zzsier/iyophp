@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Model\IyoTopic;
+use App\Model\Suggestion;
 use View;
 use Illuminate\Http\Request;
 use App\Model\IyoRelation;
@@ -125,6 +126,20 @@ class TopicsController extends Controller {
 
 		return $result;
 	}
+
+	public function createSuggestion(Request $request) 
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '提交成功');
+
+		$suggestion = new Suggestion();
+		$suggestion->body = $request->json("content","");
+		$suggestion->user_id = $request["id"];
+		$suggestion->save();
+
+		return $result;
+	}
+
 
 	public function deleteTopic(Request $request) 
 	{

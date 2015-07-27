@@ -291,6 +291,79 @@ Access-Control-Allow-Origin: *
 		return TRUE;
 	}
 
+	public function sendValidationEmail(Request $request)
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__, 'message' => '邮件发送成功');
+
+		$id = $request["id"];
+		$user = IyoUser::find($id);
+
+		if($user == null) {
+			$result = array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserNotExist'));
+			return $result;
+		}
+
+		$user->email = $request->json("email", "");
+		if( $user->email == "" ) {
+			$result = array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => "用户邮箱为空");
+			return $result;
+		}
+
+		$token = md5($user->phone.$user->password.$user->email);
+		$user["token"] = $token;
+		$user["activate"] = 0;
+		$user->save();
+		IyoUser::cleanCache($id);
+
+		if( $user->email != "" ) {
+			$data = ['email'=>$user->email, 'name'=>$user->phone, 'uid'=>$user->id, 'activationcode'=>$user["token"]];
+			Mail::send('activemail', $data, function($message) use($data)
+			{
+				$message->to($data['email'], $data['name'])->subject('欢迎注册IYO应用，请激活您的账号！');
+			});
+		}
+
+		return $result;
+	}
+
+	public function sendCodeEmail(Request $request)
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__, 'message' => '邮件发送成功');
+
+		$id = $request["id"];
+		$user = IyoUser::find($id);
+
+		if($user == null) {
+			$result = array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserNotExist'));
+			return $result;
+		}
+
+		if( $user->email == "" ) {
+			$result = array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => "用户邮箱为空");
+			return $result;
+		}
+
+		if( $user->phone == "" ) {
+			$result = array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => "用户手机号码为空");
+			return $result;
+		}
+
+		$randNum = rand(100000,999999);
+		$phoneKey = "PHONE_".$user->phone;
+		Cache::put($phoneKey, $randNum, 30);
+
+		if( $user->email != "" ) {
+			$data = ['email'=>$user->email, 'name'=>$user->phone, 'uid'=>$user->id, 'smscode'=>$randNum];
+			Mail::send('smsemail', $data, function($message) use($data)
+			{
+				$message->to($data['email'], $data['name'])->subject('欢迎注册IYO应用，请激活您的账号！');
+			});
+		}
+
+		return $result;
+	}
+
+
 	public function register(Request $request)
 	{
 		$result = array('code' => trans('code.success'),'desc' => __LINE__, 'message' => trans('successmsg.RegisterSuccess'));
@@ -350,6 +423,22 @@ Access-Control-Allow-Origin: *
 		if( $user == null ) {
 			$result = array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserNotExist'));
 			return $result;
+		}
+
+		$oldpassword = $request->json("oldpassword","");
+		$smscode = $request->json("smscode","");
+
+		if( $smscode != "" ) {
+			$phoneKey = "PHONE_".$user->phone;
+			$randNum = Cache::get($phoneKey);
+			if( $randNum != $smscode ) {
+				$result = array('code' => trans('code.ValidationCodeError'),'desc' => __LINE__, 'message' => trans('errormsg.ValidationCodeError'));
+			}
+		} else {
+			if( $user->password != $oldpassword ) {
+				$result = array('code' => trans('code.PasswordError'),'desc' => __LINE__, 'message' => trans('errormsg.PasswordError'));
+				return $result;
+			}
 		}
 
 		$user["password"] = $request->json("password","");
@@ -506,6 +595,7 @@ Access-Control-Allow-Origin: *
 		$age = $request->json("age","");
 		$sex = $request->json("sex","");
 		$loc = $request->json("loc","");
+		$phone = $request->json("phone","");
 
 		if( $username != "" ) {
 			$user->username = $username;
@@ -518,6 +608,9 @@ Access-Control-Allow-Origin: *
 		}
 		if( $loc != "" ) {
 			$user->loc = $loc;
+		}
+		if( $phone != "" ) {
+			$user->phone = $phone;
 		}
 		$user->save();
 

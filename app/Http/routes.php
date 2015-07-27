@@ -91,6 +91,12 @@ Route::group(['prefix' => 'moment','middleware' => 'cksession'], function()
 	Route::resource('alist', 'TopicsController@queryTopicsByUser');
 });
 
+Route::group(['prefix' => 'suggestion','middleware' => 'cksession'], function()  
+{
+	Route::resource('save', 'TopicsController@createSuggestion');
+});
+
+
 Route::group(['prefix' => 'question','middleware' => 'htmlsession'], function()  
 {
 	Route::resource('show', 'QuestionController@showquestion');
@@ -153,6 +159,8 @@ Route::group(['prefix' => 'user','middleware' => 'cksession'], function()
 {
 	Route::post('resetpassword', 'UserController@resetPassword');
 	Route::resource('update', 'UserController@updateUser');
+	Route::resource('sendvmail', 'UserController@sendValidationEmail');
+	Route::resource('sendCodeMail', 'UserController@sendCodeEmail');
 });
 
 Route::group(['prefix' => 'game','middleware' => 'cksession'], function()  
