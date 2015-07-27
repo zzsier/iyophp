@@ -42,6 +42,7 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 		array("cache"=>"score", "db"=> "score", "return"=>"score"),
 		array("cache"=>"exp", "db"=> "exp", "return"=>"exp"),
 		array("cache"=>"dailyjob_at", "db"=> "dailyjob_at", "return"=>"dailyjob_at"),
+		array("cache"=>"activate", "db"=> "activate", "return"=>"activate"),
 	);
 
 	const USER="user:%s";
@@ -116,7 +117,7 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 		$redis = MyRedis::connection("default");
 		if( $redis->exists(IyoUser::PREFIX.":$id") )
 		{
-			$redis->hincrby(IyoUser::PREFIX.":$id:", "numOfFollow", 1);
+			$redis->hincrby(IyoUser::PREFIX.":$id", "numOfFollow", 1);
 		}
 	}
 
@@ -133,12 +134,12 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 		if( $union != 0 ) {
 			DB::table('iyo_users')->where('id', $union)->increment('score', 50);
 			if( $redis->exists(IyoUser::PREFIX.":$union") ) {
-				$redis->hincrby(IyoUser::PREFIX.":$union:", "score", 50);
+				$redis->hincrby(IyoUser::PREFIX.":$union", "score", 50);
 			}
 		}
 
 		if( $redis->exists(IyoUser::PREFIX.":$id") ) {
-			$redis->hincrby(IyoUser::PREFIX.":$id:", "score", 50);
+			$redis->hincrby(IyoUser::PREFIX.":$id", "score", 50);
 		}
 	}
 
@@ -149,7 +150,7 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 		$redis = MyRedis::connection("default");
 		if( $redis->exists(IyoUser::PREFIX.":$id") )
 		{
-			$redis->hincrby(IyoUser::PREFIX.":$id:", "numOfFollow", -1);
+			$redis->hincrby(IyoUser::PREFIX.":$id", "numOfFollow", -1);
 		}
 	}
 

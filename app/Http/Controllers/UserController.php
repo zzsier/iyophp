@@ -610,6 +610,11 @@ Access-Control-Allow-Origin: *
 			$user->loc = $loc;
 		}
 		if( $phone != "" ) {
+			$person = IyoUser::where('phone', $phone)->first();
+			if($person != null) {
+				$result = array('code' => trans('code.UserAleadyExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserAleadyExist'));
+				return $result;
+			}
 			$user->phone = $phone;
 		}
 		$user->save();
