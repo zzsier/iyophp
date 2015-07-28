@@ -615,6 +615,20 @@ Access-Control-Allow-Origin: *
 				$result = array('code' => trans('code.UserAleadyExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserAleadyExist'));
 				return $result;
 			}
+
+			$smscode = $request->json("smscode","");
+			if( $smscode != "" ) {
+				$phoneKey = "PHONE_".$phone;
+				$randNum = Cache::get($phoneKey);
+				if( $randNum != $smscode ) {
+					$result = array('code' => trans('code.ValidationCodeError'),'desc' => __LINE__, 'message' => trans('errormsg.ValidationCodeError'));
+					return $result;
+				}
+			} else {
+				$result = array('code' => trans('code.ValidationCodeError'),'desc' => __LINE__, 'message' => trans('errormsg.ValidationCodeError'));
+				return $result;
+			}
+
 			$user->phone = $phone;
 		}
 		$user->save();
