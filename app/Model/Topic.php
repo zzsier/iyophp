@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model;
 
 //use Laracasts\Presenter\PresentableTrait;

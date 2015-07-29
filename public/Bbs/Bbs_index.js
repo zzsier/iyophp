@@ -11038,6 +11038,7 @@ var Z_PersonInfo = (function($, App) {
             $("#signForm").get(0).reset()
         });
         $("#GuserInfoLayer").show()
+
     },
     provincialEvent = function(obj) {
         var self = $(obj),
@@ -11053,8 +11054,8 @@ var Z_PersonInfo = (function($, App) {
 } (jQuery, App)); (function($, Layer, Z_PersonInfo) {
     var oHead = document.getElementsByTagName("head")[0],
     iCount = 0,
-    aLoadJs = ["http://123.59.53.158/js/jquery.easing.1.3.js", "http://123.59.53.158/js/jQueryRotate.2.2.js"],
-    sLoadCss = "http://123.59.53.158/css/rotate-plate.css",
+    aLoadJs = [],
+    sLoadCss = "",
     h = {
         loadJs: function(url) {
             if (typeof url !== "string") {

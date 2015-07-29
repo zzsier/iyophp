@@ -1,21 +1,4 @@
 <?php
-use Jenssegers\Agent\Agent as Agent;
-use Log;
-
-$agent = new Agent();
-
-$viewPath = 'resources/views';
-$stoPath = '/framework/views';
-
-if ($agent->isMobile()) {
-	$viewPath = 'resources/views';
-	$stoPath = '/framework/views';
-} else {
-	$viewPath = 'resources/views/mobile';
-	$stoPath = '/framework/views/mobile';
-}
-
-//Log::info("view path ".$viewPath." stoPath ".$stoPath);
 
 return [
 

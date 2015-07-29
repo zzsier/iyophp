@@ -17,7 +17,7 @@ class RepliesController extends BaseController
 	public function store()
 	{
 		$result = array('info' => 'ok','desc' => __LINE__,
-			'tips' => '文章评论成功', 'url' => 'http://123.59.53.158/nodes/'.Input::get('boardid'));
+			'tips' => '文章评论成功', 'url' => URL::to("/nodes").Input::get('boardid'));
 
 		$reply = new Reply();
 		$reply->user_id = Auth::id();

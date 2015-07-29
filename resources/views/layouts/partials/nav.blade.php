@@ -26,8 +26,8 @@
                 document.write(userlogin);
             @else
                         var registerhtml = '<ul class="pub-bbs-login"><li class="pub-user-bar">'
-                        +'<span>请 [<a target="_blank" href="http://service.zol.com.cn/user/register.php">注册</a>]</span>'
-                        +'|<span>[<a target="_self" href="http://service.zol.com.cn/user/login.php">登录</a>]</span>'
+                        //+'<span>请 [<a target="_blank" href="http://service.zol.com.cn/user/register.php">注册</a>]</span>'
+                        +'|<span>[<a target="_self" href={{{ URL::to("/login") }}}>登录</a>]</span>'
                         +'</li>'
                         +'</ul>';
 

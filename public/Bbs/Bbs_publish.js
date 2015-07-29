@@ -7476,8 +7476,17 @@ FB.publishBook = function(data) {
     FB.isCurPublish = 1;
     data.attach_info = $("#attachForm").serialize();
     data.atuser = FB.getAtUser();
-    $.post("/topics?t=" + (new Date()).getTime(), data,
-        function(json) {
+    var url = "/topics";
+    var publishtype = "POST";
+    if( Publish_Config.topic_id != 0 ) {
+        var url = "/topics/"+Publish_Config.topic_id;
+        publishtype = "PATCH";
+    }
+    $.ajax({
+        url: url + "?t=" + (new Date()).getTime(),
+        data: data,
+        type: publishtype,
+        success: function (json) {
             if (json.info == "err") {
                 Layer.showTips({
                     type: "warn",
@@ -7501,7 +7510,7 @@ FB.publishBook = function(data) {
                     if (location.search && location.search.search("f=") > 0 && typeof taskGuide !== "undefined") {
                         taskGuide.jumpTo(location.href.toString(), 5500)
                     } else {
-                        setTimeout(function() {
+                        setTimeout(function () {
                                 window.location.href = url
                             },
                             5500)
@@ -7509,7 +7518,7 @@ FB.publishBook = function(data) {
                 }
             }
         },
-        "json")
+    });
 };
 FB.pbReply = function() {
     var content = ue.getContent();

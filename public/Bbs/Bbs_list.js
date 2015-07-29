@@ -13823,8 +13823,8 @@ var Z_PersonInfo = (function($, App) {
 } (jQuery, App)); (function($, Layer, Z_PersonInfo) {
     var oHead = document.getElementsByTagName("head")[0],
         iCount = 0,
-        aLoadJs = ["/js/public/jquery.easing.min.js", "/js/public/jQueryRotate.2.2.js"],
-        sLoadCss = "/css/public/rotate-plate.css",
+        aLoadJs = [],
+        sLoadCss = "",
         h = {
             loadJs: function(url) {
                 if (typeof url !== "string") {

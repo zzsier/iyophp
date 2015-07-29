@@ -106,8 +106,6 @@
 						<span class="date">{{{ date("Y-m-d", strtotime($topic->created_at)) }}}</span>
 					</td>
 
-					<td class="reply">
-						<span class="black">{{{ $topic->reply_count }}}</span>/
 						<i class="max-num">{{{ $topic->view_count }}}</i>
 					</td>
 

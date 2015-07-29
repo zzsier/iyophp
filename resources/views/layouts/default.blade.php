@@ -10,7 +10,8 @@
 		<script async="" src={{{URL::asset('demo/gw.js')}}}></script>
 		<!--<script src={{{URL::asset('demo/iparea.htm')}}}></script>-->
 		<script src={{{URL::asset('Bbs/Bbs_index.js')}}} charset="gbk"></script>
-		<link href={{{URL::asset('demo/rotate-plate.css')}}} rel="stylesheet">
+		<link href={{{URL::asset('css/rotate-plate.css')}}} rel="stylesheet">
+        <script src={{{URL::asset('js/jquery.easing.1.3.js')}}} type="text/javascript"></script>
 		<script type="text/javascript" src={{{URL::asset('demo/md5.js')}}}></script>
 		<link href={{{URL::asset('demo/suggest20150320.css')}}} rel="stylesheet">
 		<!--<script src={{{URL::asset('demo/53013749.js')}}} type="text/javascript"></script>

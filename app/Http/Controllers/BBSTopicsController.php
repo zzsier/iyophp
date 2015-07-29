@@ -14,6 +14,7 @@ use Log;
 use Config;
 use Flash;
 use Redirect;
+use URL;
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -108,17 +109,20 @@ class BBSTopicsController extends BaseController implements CreatorListener
 	}
 
 	public function store()
-	{
-		$result = array('info' => 'ok','desc' => __LINE__,
-			'tips' => '文章创建成功', 'url' => 'http://123.59.53.158/nodes/'.Input::get('boardid'));
+    {
+        $result = array('info' => 'ok', 'desc' => __LINE__,
+            'tips' => '文章创建成功', 'url' => URL::to("/nodes/") . '/' . Input::get('boardid'));
 
-		$topic = new Topic();
-		$topic->user_id = Auth::id();
-		//$replies = $topic->getRepliesWithLimit(Config::get('phphub.replies_perpage'));
+        $topic = new Topic();
+        $topic->user_id = Auth::id();
+        //$replies = $topic->getRepliesWithLimit(Config::get('phphub.replies_perpage'));
 
-		$topic['body'] = Input::get('content');
-		$topic['title'] = Input::get('title');
-		$topic['image'] = Input::get('image');
+        $topic['body'] = Input::get('content');
+        $topic['title'] = Input::get('title');
+
+        if (Input::get('image') != "") {
+            $topic['image'] = Input::get('image');
+        }
 		//$topic['body'] = $markdown->convertMarkdownToHtml(Input::get('body'));
 		//$topic['excerpt'] = Topic::makeExcerpt(Input::get('body'));
 
@@ -135,7 +139,7 @@ class BBSTopicsController extends BaseController implements CreatorListener
 	public function saveActivity()
 	{
 		$result = array('info' => 'ok','desc' => __LINE__,
-			'tips' => '报名成功', 'url' => 'http://123.59.53.158/nodes/'.Input::get('boardid'));
+			'tips' => '报名成功', 'url' => URL::to("/nodes").'/'.Input::get('boardid'));
 
 		$activity = new Activity();
 		$activity->user_id = Auth::id();
@@ -180,11 +184,13 @@ class BBSTopicsController extends BaseController implements CreatorListener
 	public function edit($id)
 	{
 		$topic = Topic::findOrFail($id);
-		$this->authorOrAdminPermissioinRequire($topic->user_id);
+		//$this->authorOrAdminPermissioinRequire($topic->user_id);
 		$nodes = Node::allLevelUp();
 		$node = $topic->node;
+        $category = Node::find($topic->cate_id);
+        $subnodes = $nodes['second'][$node->id];
 
-		return View::make('topics.create_edit', compact('topic', 'nodes', 'node'));
+		return View::make('topics.create_edit', compact('subnodes','topic', 'nodes', 'node','category'));
 	}
 
 	public function append($id)
@@ -205,23 +211,26 @@ class BBSTopicsController extends BaseController implements CreatorListener
 
 	public function update($id)
 	{
-		$topic = Topic::findOrFail($id);
-		$data = Input::only('title', 'body', 'node_id');
+        $result = array('info' => 'ok','desc' => __LINE__,
+			'tips' => '文章修改成功', 'url' => URL::to("/nodes/").'/'.Input::get('boardid'));
 
-		$this->authorOrAdminPermissioinRequire($topic->user_id);
+		$topic = Topic::find($id);
+		$topic->user_id = Auth::id();
+		//$replies = $topic->getRepliesWithLimit(Config::get('phphub.replies_perpage'));
 
-		$markdown = new Markdown;
-		$data['body_original'] = $data['body'];
-		$data['body'] = $markdown->convertMarkdownToHtml($data['body']);
-		$data['excerpt'] = Topic::makeExcerpt($data['body']);
+		$topic['body'] = Input::get('content');
+		$topic['title'] = Input::get('title');
+		$topic['image'] = Input::get('image');
+		//$topic['body'] = $markdown->convertMarkdownToHtml(Input::get('body'));
+		//$topic['excerpt'] = Topic::makeExcerpt(Input::get('body'));
 
-		// Validation
-		App::make('Phphub\Forms\TopicCreationForm')->validate($data);
+		//$this->form->validate($topic);
+		$topic->node_id = Input::get('boardid');
+		$topic->cate_id = Input::get('subid');
 
-		$topic->update($data);
-
-		Flash::success(lang('Operation succeeded.'));
-		return Redirect::route('topics.show', $topic->id);
+		//Robot::notify($data['body_original'], 'Topic', $topic, Auth::user());
+		$topic->save();
+		return $result;
 	}
 
 	/**

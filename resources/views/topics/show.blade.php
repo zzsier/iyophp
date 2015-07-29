@@ -137,7 +137,7 @@ Z_TuanParams = {
 							<div class="options-btns clearfix">
 								@if( Auth::id() == $topic->user->id )
 								@endif
-								<a class="btn border-radius-s3" href={{{ URL::to("topics/edit?id=$topic->id") }}} type="book">编辑</a>
+								<a class="btn border-radius-s3" href={{{ URL::to("topics/$topic->id/edit") }}} type="book">编辑</a>
 								<!--<a class="btn border-radius-s3" data-options="report" href="###">举报</a>
 								<a class="btn border-radius-s3" href="/sjbbs/d33669_1404_uid_0kxo0w.html">只看此人</a>
         						<a class="btn-blue btn-2 border-radius-s3" data-options="score" href="###" data-userid="0kxo0w" data-param="0kxo0w">评分</a>

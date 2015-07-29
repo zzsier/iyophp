@@ -10,18 +10,19 @@
 	<script src={{{URL::asset('Bbs/Bbs_publish.js')}}} charset="gbk"></script>
 
     <script>
-        var boardid = '598'; //全局变量统一写到Publish_Config 里防止被污染
+        var boardid = {{{ $topic->node_id }}}; //全局变量统一写到Publish_Config 里防止被污染
         Publish_Config = {
             cateid  : '1',
-            boardid : '598',
+            boardid : {{{ isset($topic)?$topic->node_id:'0' }}},
             bbsid	: '6',
             productid : '0',
             manuid    : '0',
-            subid     : '0',
+            subid     : {{{ isset($topic)?$topic->cate_id:'0' }}},
             pageType  : '',
+            topic_id : {{{ isset($topic)?$topic->id:'0' }}},
             book_type  : ''
         },WEB_CONFIG = {
-            boardid : '598',
+            boardid : {{{ isset($topic)?$topic->node_id:'0' }}},
             attachFilesize : '5MB'
         };
     </script>
@@ -59,7 +60,7 @@
 
 				@if( isset($subnodes) )
                 <div class="selectbox2" id="bookBrand">
-                    <span class="select-label border-radius" title="选择版块" alt="选择版块"><i class="trangle border-radius"></i>选择版块</span>
+                    <span class="select-label border-radius" title={{{ $node->name }}} alt={{{ $node->name }}}><i class="trangle border-radius"></i>{{{ $node->name }}}</span>
                     <ul class="border-radius">
 					@if ( $node )
                         <li data-id={{ $node->id }} data-type="subcate" data-subbbsid="" title={{ $node->name }} alt={{ $node->name }}>{{ $node->name }}</li>
@@ -68,7 +69,11 @@
                 </div>
 
                 <div class="selectbox2" id="bookModel">
-                    <span class="select-label border-radius" title="选择子版" alt="选择子版"><i class="trangle border-radius"></i>选择子版</span>
+                    @if( isset($category) )
+                        <span class="select-label border-radius" title={{{ $category->name }}} alt={{{ $category->name }}}> <i class="trangle border-radius"></i>{{{ $category->name }}}</span>
+                    @else
+                        <span class="select-label border-radius" title="选择子版" alt="选择子版"><i class="trangle border-radius"></i>选择子版</span>
+                    @endif
                     <ul class="border-radius">
 					@foreach ($subnodes as $index => $subnode)
                         <li data-id={{ $subnode->id }} data-type="subcate" data-subbbsid="" title={{ $subnode->name }} alt={{ $subnode->name }} > {{ $subnode->name }}</li>
@@ -104,6 +109,11 @@
                     <!-- 实例化编辑器 -->
                     <script type="text/javascript">
                         var ue = UE.getEditor('container');
+                        ue.ready(function() {
+                            @if( isset($topic) )
+                            ue.setContent('{!! $topic->body !!}');
+                            @endif
+                        });
                     </script>
                 </div>
 
@@ -272,28 +282,24 @@
         <!-- 发帖分类 add jialp at 20141212 -->
 
         <div class="rewardbox">
-            <!--<div class="filter-else-area clearfix">
+            <div class="filter-else-area clearfix">
                 <div class="color-set clearfix">
-                    <label for="titleColorSet"><input id="titleColorSet" type="checkbox">标题高亮</label>
+                    <label for="titleColorSet"><input id="titleColorSet" type="checkbox">置顶帖</label>
+
                     <div class="selectbox3" id="titleColor">
-                        <span class="select-label border-radius" style="background-color:#078cfd;"><i class="trangle"></i></span>
+                        <span class="select-label border-radius" title="选择置顶" alt="选择置顶">
+                            <i class="trangle border-radius"></i>选择置顶</span>
                         <ul class="border-radius">
-                            <li><span class="blue border-radius"></span></li>
-                            <li><span class="green border-radius"></span></li>
+                            <li><span class="border-radius">一级置顶</span></li>
+                            <li><span class="border-radius">二级置顶</span></li>
                         </ul>
                     </div>
-                    <span class="color-set-tip">！需要消耗50Z金豆</span>
+
                 </div>
                 <div class="color-set post-set-top clearfix">
-                    <label for="postSetTop"><input id="postSetTop" type="checkbox">置顶此贴</label>
-                    <span class="color-set-tip">！需要消耗100Z金豆</span>
+                    <label for="postSetTop"><input id="postSetTop" type="checkbox">精华帖</label>
                 </div>
             </div>
-
-            <div id="jindouTips" style="display:none;">
-                <span>提示：</span>
-                <p></p>
-            </div>-->
 
             <div class="post-publish clearfix">
                 <span class="btn-gray border-radius" id="previewBook">预览</span>
@@ -443,12 +449,11 @@
     <style type="text/css">.zol-global-footer{min-width:1000px; margin: 20px auto 0; background: #333; clear:both;}.zol-global-footer,.zol-global-footer *{float: none;}.zol-footer {float: none; height: 40px; min-width: 960px; overflow: hidden; float: none; clear: both; padding: 0 10px; background: #333; color: #ccc; text-align: left; font-size: 12px; font-family: arial; line-height: 40px;}.zol-footer *{float: none;}.zol-footer span {_display: inline; float:right; margin: 0 -7px 0 0; color:#666; font-family:"宋体"; font-size:10px; -webkit-text-size-adjust:none;}.zol-footer a{padding: 0 6px 0 7px; color:#ccc; text-decoration:none; font-family:Arial; font-size:12px;}.zol-footer a:hover{color:#ccc; text-decoration: underline;} .zol-footer i {display: none;}.zol-footer .footerw-2015{float: none; height: 40px; width:1000px; margin: 0 auto; line-height: 40px;}.zol-global-footer-fixed{position: fixed; bottom: 0; left: 0; width: 100%;}</style>
 	
     <script>
-	    ue.addListener("ready",
-	    function(editor) {
+	    ue.addListener("ready", function(editor) {
             setTimeout(function() {
 				Reload();
              },
-            3000);
+            1000);
         });
  
     </script>
