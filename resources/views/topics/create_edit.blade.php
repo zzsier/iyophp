@@ -284,27 +284,79 @@
         <div class="rewardbox">
             <div class="filter-else-area clearfix">
                 <div class="color-set clearfix">
-                    <label for="titleColorSet"><input id="titleColorSet" type="checkbox">置顶帖</label>
-
-                    <div class="selectbox3" id="titleColor">
-                        <span class="select-label border-radius" title="选择置顶" alt="选择置顶">
-                            <i class="trangle border-radius"></i>选择置顶</span>
-                        <ul class="border-radius">
-                            <li><span class="border-radius">一级置顶</span></li>
-                            <li><span class="border-radius">二级置顶</span></li>
-                        </ul>
-                    </div>
-
+                    <label for="titleColorSet">置顶:</label>
+                    <select id="is_top">
+                        @if( !isset($topic) || $topic->is_top == 0 )
+                            <option id="0" selected="selected" class="border-radius">不置顶</option>
+                            <option id="1" class="border-radius">一级置顶</option>
+                            <option id="2" class="border-radius">二级置顶</option>
+                        @elseif( $topic->is_top == 1 )
+                            <option id="0" class="border-radius">不置顶</option>
+                            <option id="1" selected="selected" class="border-radius">一级置顶</option>
+                            <option id="2" class="border-radius">二级置顶</option>
+                        @else
+                            <option id="0" class="border-radius">不置顶</option>
+                            <option id="1" class="border-radius">一级置顶</option>
+                            <option id="2" selected="selected" class="border-radius">二级置顶</option>
+                        @endif
+                    </select>
                 </div>
+
                 <div class="color-set post-set-top clearfix">
-                    <label for="postSetTop"><input id="postSetTop" type="checkbox">精华帖</label>
+                    <label for="postSetTop"><input id="is_excellent" type="checkbox">精华帖</label>
                 </div>
             </div>
 
             <div class="post-publish clearfix">
                 <span class="btn-gray border-radius" id="previewBook">预览</span>
                 <span class="btn-blue border-radius" id="publishBookBtn">发表</span>
-                <!-- 分享 -->
+
+                @if( isset($topic) )
+                <span class="btn-gray border-radius" id="deleteBookBtn">删除</span>
+                <script>
+
+                $("#deleteBookBtn").click(function() {
+                    var url = "/topics/{{{ $topic->id }}}";
+                    $.ajax({
+                        url: url + "?t=" + (new Date()).getTime(),
+                        data: "",
+                        type: "DELETE",
+                        success: function (json) {
+                            if (json.info == "err") {
+                            Layer.showTips({
+                                type: "warn",
+                                content: json.msg,
+                                disappear: 5000
+                            });
+                            $("#deleteBookBtn").text("\u53d1\u8868");
+                            $("#deleteBookBtn").removeClass("btn-loading");
+                            FB.isCurPublish = 0;
+                            return false;
+                            } else {
+                                if (json.info == "ok") {
+                                    FB.isCurPublish = 0;
+                                    var url = json.url;
+                                    $("#publishBookBtn").text("\u53d1\u8868\u6210\u529f");
+                                    $("#pbBookBtn").text("\u53d1\u8868\u6210\u529f");
+                                    Layer.alert({
+                                        content: json.tips,
+                                        nextLine: FB.replyTips
+                                    });
+                                    if (location.search && location.search.search("f=") > 0 && typeof taskGuide !== "undefined") {
+                                        taskGuide.jumpTo(location.href.toString(), 5500)
+                                    } else {
+                                        setTimeout(function () {
+                                            window.location.href = url
+                                        }, 5500)
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+
+                </script>
+                @endif
 
             </div>
         </div>

@@ -7476,6 +7476,9 @@ FB.publishBook = function(data) {
     FB.isCurPublish = 1;
     data.attach_info = $("#attachForm").serialize();
     data.atuser = FB.getAtUser();
+    data.is_top = $('#is_top').val();
+    data.is_excellent = $('#is_excellent').val();
+
     var url = "/topics";
     var publishtype = "POST";
     if( Publish_Config.topic_id != 0 ) {
@@ -8724,6 +8727,7 @@ $(function() {
         }
         FB.publishBook(data)
     });
+
     if (typeof ue != "undefined") {
         ue.addListener("ready",
             function(editor) {

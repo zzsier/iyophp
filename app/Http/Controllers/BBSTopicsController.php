@@ -129,6 +129,8 @@ class BBSTopicsController extends BaseController implements CreatorListener
 		//$this->form->validate($topic);
 		$topic->node_id = Input::get('boardid');
 		$topic->cate_id = Input::get('subid');
+        $topic->is_top = Input::get('is_top');
+        $topic->is_excellent = Input::get('is_excellent');
 
 		//Robot::notify($data['body_original'], 'Topic', $topic, Auth::user());
 		$topic->save();
@@ -220,13 +222,19 @@ class BBSTopicsController extends BaseController implements CreatorListener
 
 		$topic['body'] = Input::get('content');
 		$topic['title'] = Input::get('title');
-		$topic['image'] = Input::get('image');
+
+        if( Input::get('image') != "" ) {
+		    $topic['image'] = Input::get('image');
+        }
+
 		//$topic['body'] = $markdown->convertMarkdownToHtml(Input::get('body'));
 		//$topic['excerpt'] = Topic::makeExcerpt(Input::get('body'));
 
 		//$this->form->validate($topic);
 		$topic->node_id = Input::get('boardid');
 		$topic->cate_id = Input::get('subid');
+        $topic->is_top = Input::get('is_top');
+        $topic->is_excellent = Input::get('is_excellent');
 
 		//Robot::notify($data['body_original'], 'Topic', $topic, Auth::user());
 		$topic->save();
@@ -295,11 +303,13 @@ class BBSTopicsController extends BaseController implements CreatorListener
 
 	public function destroy($id)
 	{
+        $result = array('info' => 'ok','desc' => __LINE__,
+            'tips' => '文章删除成功', 'url' => URL::to("/nodes/").'/'.Input::get('boardid'));
+
 		$topic = Topic::findOrFail($id);
 		$topic->delete();
-		Flash::success(lang('Operation succeeded.'));
 
-		return Redirect::route('topics.index');
+		return $result;
 	}
 
 	public function uploadImage()
