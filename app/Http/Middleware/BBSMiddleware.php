@@ -28,15 +28,15 @@ class BBSMiddleware implements Middleware {
 	 */
 	public function handle($request, Closure $next)
 	{
-		//if (Agent::isMobile()) {
+		if (Agent::isMobile()) {
 			$app = app();
 			$paths = $app['config']['view.paths'];
 			array_unshift($paths, $app['config']['view.mobile_path']);
 			$this->view->setFinder(new FileViewFinder($app['files'], $paths));
 			Log::info("in mobile explorer");
-		//} else {
-		//	Log::info("in desktop explorer");
-		//}
+		} else {
+			Log::info("in desktop explorer");
+		}
 
 		$session = "";
 		if( isset($request["session"]) ) {
