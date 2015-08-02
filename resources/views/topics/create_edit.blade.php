@@ -10,7 +10,8 @@
 	<script src={{{URL::asset('Bbs/Bbs_publish.js')}}} charset="gbk"></script>
 
     <script>
-        var boardid = {{{ $topic->node_id }}}; //全局变量统一写到Publish_Config 里防止被污染
+        var boardid = {{{ isset($topic)?$topic->node_id:'0' }}};
+
         Publish_Config = {
             cateid  : '1',
             boardid : {{{ isset($topic)?$topic->node_id:'0' }}},
@@ -50,8 +51,8 @@
         <input type="hidden" value="" id="fenLouArr">
         <!-- 面包屑 -->
         <div class="crumb">
-            <a href={{{ URL::to('/') }}} target="_blank">IYO论坛</a> &gt; 
-			<a href={{{ URL::to("nodes/$node->id") }}} target="_blank">{{{ $node->name }}}</a> &gt; <a href="">发表新帖</a>
+            <a href={{{ URL::to('/') }}}>IYO论坛</a> &gt; 
+			<a href={{{ URL::to("nodes/$node->id") }}}>{{{ $node->name }}}</a> &gt; <a href="">发表新帖</a>
 		</div>
 		<div class="section border-radius">
             <div class="section-header"><h3><i class="line"></i>发表新帖</h3></div>
@@ -282,41 +283,49 @@
         <!-- 发帖分类 add jialp at 20141212 -->
 
         <div class="rewardbox">
+			@if (Auth::check() && Auth::user()->can("manage_topics") )
             <div class="filter-else-area clearfix">
                 <div class="color-set clearfix">
                     <label for="titleColorSet">置顶:</label>
                     <select id="is_top">
                         @if( !isset($topic) || $topic->is_top == 0 )
-                            <option id="0" selected="selected" class="border-radius">不置顶</option>
-                            <option id="1" class="border-radius">一级置顶</option>
-                            <option id="2" class="border-radius">二级置顶</option>
+                            <option value="0" selected="selected" class="border-radius">不置顶</option>
+                            <option value="1" class="border-radius">一级置顶</option>
+                            <option value="2" class="border-radius">二级置顶</option>
                         @elseif( $topic->is_top == 1 )
-                            <option id="0" class="border-radius">不置顶</option>
-                            <option id="1" selected="selected" class="border-radius">一级置顶</option>
-                            <option id="2" class="border-radius">二级置顶</option>
+                            <option value="0" class="border-radius">不置顶</option>
+                            <option value="1" selected="selected" class="border-radius">一级置顶</option>
+                            <option value="2" class="border-radius">二级置顶</option>
                         @else
-                            <option id="0" class="border-radius">不置顶</option>
-                            <option id="1" class="border-radius">一级置顶</option>
-                            <option id="2" selected="selected" class="border-radius">二级置顶</option>
+                            <option value="0" class="border-radius">不置顶</option>
+                            <option value="1" class="border-radius">一级置顶</option>
+                            <option value="2" selected="selected" class="border-radius">二级置顶</option>
                         @endif
                     </select>
                 </div>
 
                 <div class="color-set post-set-top clearfix">
-                    <label for="postSetTop"><input id="is_excellent" type="checkbox">精华帖</label>
+                    <label for="postSetTop">
+					@if( isset($topic) && $topic->is_excellent == 1 )
+					<input id="is_excellent" checked="checked" type="checkbox">精华帖</label>
+					@else
+					<input id="is_excellent" checked="checked" type="checkbox">精华帖</label>
+					@endif
                 </div>
             </div>
+			@endif
 
             <div class="post-publish clearfix">
                 <span class="btn-gray border-radius" id="previewBook">预览</span>
                 <span class="btn-blue border-radius" id="publishBookBtn">发表</span>
 
                 @if( isset($topic) )
+				@if (Auth::check() && Auth::user()->can("manage_topics") )
                 <span class="btn-gray border-radius" id="deleteBookBtn">删除</span>
                 <script>
 
                 $("#deleteBookBtn").click(function() {
-                    var url = "/topics/{{{ $topic->id }}}";
+                    var url = "/topics/{{{ $topic->id }}}?boardid={{{$node->id}}}";
                     $.ajax({
                         url: url + "?t=" + (new Date()).getTime(),
                         data: "",
@@ -357,6 +366,7 @@
 
                 </script>
                 @endif
+                @endif
 
             </div>
         </div>
@@ -368,7 +378,7 @@
 
     <div id="xiuxiuContainer" style="display: none;"><div id="xiuxiuFlash"></div></div>
     <!-- 公共尾部 -->
-    <!-- <a class="fixed-call-survey" href="http://survey.zol.com.cn/front/1/734.html" target="_blank">意见反馈</a> -->
+    <!-- <a class="fixed-call-survey" href="http://survey.zol.com.cn/front/1/734.html">意见反馈</a> -->
     <div class="wrapper foot">
         <script>
             if (typeof WEB_CONFIG != 'undefined' && WEB_CONFIG.bbsid==1 && WEB_CONFIG.bookid) {
@@ -419,23 +429,23 @@
             }
 
             var msgNoticeStr = '';
-            msgNoticeStr += '<a href="http://my.zol.com.cn/index.php?c=Message_Private" target="_blank" onclick="msgClear();">私信';
+            msgNoticeStr += '<a href="http://my.zol.com.cn/index.php?c=Message_Private" onclick="msgClear();">私信';
             if (json['1'] > 0) {
                 msgNoticeStr += '<span>(<b>' + json['1'] + '</b>)</span>';
             }
-            msgNoticeStr += '</a><a href="http://my.zol.com.cn/index.php?c=Message_Reply" target="_blank" onclick="msgClear();">回复';
+            msgNoticeStr += '</a><a href="http://my.zol.com.cn/index.php?c=Message_Reply" onclick="msgClear();">回复';
             if (json['2']  > 0) {
                 msgNoticeStr += '<span>(<b>' + json['2'] + '</b>)</span>';
             }
-            msgNoticeStr += '</a><a href="http://my.zol.com.cn/index.php?c=Message_At" target="_blank" onclick="msgClear();">@我';
+            msgNoticeStr += '</a><a href="http://my.zol.com.cn/index.php?c=Message_At" onclick="msgClear();">@我';
             if (json['3'] > 0) {
                 msgNoticeStr += '<span>(<b>' + json['3'] + '</b>)</span>';
             }
-            msgNoticeStr += '</a><a href="http://my.zol.com.cn/index.php?c=Message_Remind" target="_blank" onclick="msgClear();">提醒';
+            msgNoticeStr += '</a><a href="http://my.zol.com.cn/index.php?c=Message_Remind" onclick="msgClear();">提醒';
             if (json['5'] > 0) {
                 msgNoticeStr += '<span>(<b>' + json['5'] + '</b>)</span>';
             }
-            msgNoticeStr += '</a><a href="http://my.zol.com.cn/index.php?c=Message_Notice" target="_blank" onclick="msgClear();">系统通知';
+            msgNoticeStr += '</a><a href="http://my.zol.com.cn/index.php?c=Message_Notice" onclick="msgClear();">系统通知';
             if (json['4'] > 0) {
                 msgNoticeStr += '<span>(<b>' + json['4'] + '</b>)</span>';
             }

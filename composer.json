@@ -12,7 +12,8 @@
 		"zizaco/entrust": "~1.4",
 		"Laracasts/Presenter": "0.2.*",
 		"laravelcollective/html":"~5.0",
-		"jenssegers/agent": "^2.1"
+		"jenssegers/agent": "^2.1",
+		"intervention/image": "^2.3"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",

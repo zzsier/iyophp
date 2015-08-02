@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use Phphub\Core\CreatorListener;
 use App\Model\Reply;
 use Input;
+use URL;
 use Auth;
+use Redirect;
 
 class RepliesController extends BaseController
 {
@@ -25,6 +27,10 @@ class RepliesController extends BaseController
 		$reply->body = Input::get("content");
 
 		$reply->save();
+
+		if( Input::get("type") == "mobile" ) {
+			return Redirect::route('topics.show', Input::get("toid"));
+		}
 
 		return $result;
 	}

@@ -28,15 +28,16 @@
 	};
 </script>
 </head>
-<body><!--COMPRESS.CODE.START-->
+<body style="background-color: #000"><!--COMPRESS.CODE.START-->
 
-<header id="logo_header">&nbsp;</header>
 
 <header>
-    <p id="desc"></p>
+    <p id="desc" style="text-align: center;color: #969696;fone-size:30px">每日任务</p>
 </header>
+<div style="margin:10px;font-size: 20px;color: #969696">绑定的工会：{{ $union["username"] }}</div>
 
 <p id="step" class="rel"> <span id="step_span" class="abs">&nbsp;</span> &nbsp;</p>
+
 
 <section id="question_sec">
 
@@ -129,6 +130,9 @@ function getRadioHtml(q,islast,i,length){
     q.len=length;
     q.anValues=enAnArray;
     var tmpl = '<article class="question_atc"  [%if(islast){%]id="question_lastest" class="hide"[%}%]  data-muti="0">'+
+            '<div style="width: 200px;height: 200px; margin: 20px auto 20px auto" >'+
+            '<img src="[%=pic%]" style="width: 200px;height: 200px;"/>'+
+            '</div>'+
             '<h2>[%=title%]</h2>'+
             '[%for(var j=0;j<data.length;j++){ var asJson=data[j];%]'+
             '<div><label>'+
@@ -450,98 +454,105 @@ var Ques = {
         $("#step_span").css("width",Ques.step/Ques.count*100 +"%");
     },
 
-    init : function(){
-        Ques.count =$(".question_atc").length();
-        Ques.atc =$(".question_atc"),
-        Ques.doStep();
+   init : function(){
+         Ques.count =$(".question_atc").length();
+         Ques.atc =$(".question_atc"),
+         Ques.doStep();
 
-        $("#question_begin").bind("click",function(){
-            //如果又电话号码，则需要验证
-            //  console.log(("#user_telephone").length());
-            _this = $(this);
-            if($("#user_telephone")&&$("#user_telephone").length()>0) {
-                var tele = $("#user_telephone").val();
+         $("#question_begin").bind("click",function(){
+             //如果又电话号码，则需要验证
+             //  console.log(("#user_telephone").length());
+             _this = $(this);
+             if($("#user_telephone")&&$("#user_telephone").length()>0) {
+                 var tele = $("#user_telephone").val();
 
 
-                if (_this.hasClass("isLoading")) {
-                    return;
-                }
+                 if (_this.hasClass("isLoading")) {
+                     return;
+                 }
 
-                if (tele && !isNaN(tele)) {
-                    _this.addClass("isLoading").html("loading...");
+                 if (tele && !isNaN(tele)) {
+                     _this.addClass("isLoading").html("loading...");
 
-                    M.ajax({
-                        type: "jsonp",
-                        part: "UDC",
-                        url: "http://login.koudai.com/weidian/seller/observe?param=" + M.toJSON({
-                            telephone: tele,
-                            country_code: "86"
-                        }),
-                        success: function (data) {//省略status_code的判断
-							var content = eval('(' + data.content + ')');
-                            if (content.registed) {//已经注册过的卖家
-                                _this.hide();
-                                $("#question_next").show();
-                                Ques.step = 1;
-                                Ques.data.push(tele);
-                                Ques.doStep();
-                                Ques.doQues();
-                                M.gaq("填写问卷-开始");
-                            }
-                            else {
-                                M._alert("请正确输入微店注册手机号");
-                                _this.removeClass("isLoading").html("开始");
-                            }
-                        },
-                        error: function (data) {
-                            M._alert(data.status.status_reason);
-                            _this.removeClass("isLoading").html("开始");
-                        }
-                    })
-                }
-                else {
-                    M._alert("请正确输入微店注册手机号");
-                }
-            }else{
-                var reData= Ques.getAnData();
-                if(reData.status==-1){
-                    return;
-                }
-                Ques.step = Ques.step + 1 + (reData.goto ? reData.gotoCount : 0);
-                Ques.data.push(reData.data);
-                if(reData.goto){
-                    for(var i = reData.gotoCount; i--;){
-                        Ques.data.push(" ");
-                    }
-                }
-                _this.hide();
-                $("#question_next").show();
-                Ques.doStep();
-                Ques.doQues();
-                M.gaq("填写问卷-开始");
-            }
-        })
-    }
-}
-var qId= M.urlQuery('id');
-M.jsonp("http://123.59.53.158/question/query?id="+qId,function(data){
-	var content = eval('(' + data.content + ')');
-    //$('#desc').html(content);
-    window.finishText=content.finishtext||content.finishText;
-    var logo=content.logo||'http://s.koudai.com/images/common/common_hd_logo.png?v=2015030502';
-    $('#question_sec').html(getHtml(data));
-    $('#logo_header').css('background-image','url('+logo+')');
-    $("#question_begin").show();
-    if(Number(M.getCookie("already_answer_"+qId)) === 1){
-        $("#step").hide();
-        $("#question_begin").hide();
-        M._alert("您已成功填写过，感谢您的支持！","",true);
-    }
-    else{
-        Ques.init();
+                     M.ajax({
+                         type: "jsonp",
+                         part: "UDC",
+                         url: "http://login.koudai.com/weidian/seller/observe?param=" + M.toJSON({
+                             telephone: tele,
+                             country_code: "86"
+                         }),
+                         success: function (data) {//省略status_code的判断
+ 							var content = eval('(' + data.content + ')');
+                             if (content.registed) {//已经注册过的卖家
+                                 _this.hide();
+                                 $("#question_next").show();
+                                 Ques.step = 1;
+                                 Ques.data.push(tele);
+                                 Ques.doStep();
+                                 Ques.doQues();
+                                 //M.gaq("填写问卷-开始");
+                             }
+                             else {
+                                 M._alert("请正确输入微店注册手机号");
+                                 _this.removeClass("isLoading").html("开始");
+                             }
+                         },
+                         error: function (data) {
+                             M._alert(data.status.status_reason);
+                             _this.removeClass("isLoading").html("开始");
+                         }
+                     })
+                 }
+                 else {
+                     M._alert("请正确输入微店注册手机号");
+                 }
+             }else{
+                 var reData= Ques.getAnData();
+                 if(reData.status==-1){
+                     return;
+                 }
+                 Ques.step = Ques.step + 1 + (reData.goto ? reData.gotoCount : 0);
+                 Ques.data.push(reData.data);
+                 if(reData.goto){
+                     for(var i = reData.gotoCount; i--;){
+                         Ques.data.push(" ");
+                     }
+                 }
+                 _this.hide();
+                 $("#question_next").show();
+                 Ques.doStep();
+                 Ques.doQues();
+                 //M.gaq("填写问卷-开始");
+             }
+         })
+     }
+ }
+ var qId= M.urlQuery('id');
+ M.jsonp("http://123.59.53.158/question/query?id="+qId,function(data){
+ 	var content = eval('(' + data.content + ')');
+    // $('#desc').html(content);
+     window.finishText=content.finishtext||content.finishText;
+     var logo=content.logo||'http://s.koudai.com/images/common/common_hd_logo.png?v=2015030502';
+     $('#question_sec').html(getHtml(data));
+    // $('#logo_header').css('background-image','url('+logo+')');
+     $("#question_begin").show();
 
-    }
-});
-</script>
+     if(Number(M.getCookie("already_answer_"+qId)) === 1){
+         $("#step").hide();
+         $("#question_begin").hide();
+         M._alert("您已成功填写过，感谢您的支持！","",true);
+     }
+     else{
+
+	     @if( $error != "" )
+             $("#step").hide();
+             $("#question_begin").hide();
+             M._alert("{{ $error }}","",true);
+	     @endif
+
+         Ques.init();
+     }
+ });
+ </script>
 </body>
 </html>

@@ -2,10 +2,10 @@
 
     <div class="pub-bbs-top-inner clearfix">
         <ul class="pub-bbs-nav">
-            <li class="pub-nav-home"><a target="_blank" href="http://123.59.53.158">IYO首页</a></li>
-            <li><a target="_blank" href="#">商城</a></li>
-            <li><a target="_blank" href="#">更多</a></li>
-            <li><a target="_blank" href="#">论坛帮助</a></li>
+            <li class="pub-nav-home"><a href="http://123.59.53.158">IYO首页</a></li>
+            <li><a href="#">商城</a></li>
+            <li><a href="#">更多</a></li>
+            <li><a href="#">论坛帮助</a></li>
         </ul>
 
         <script>
@@ -13,21 +13,22 @@
                 var userlogin = '<ul class="pub-bbs-login"><li class="pub-user-bar">'
                         +'<a href="http://my.zol.com.cn/'+userid+'/" target="_blank">'+userid+'</a></li>'
                         +'<li class="pub-menu" id="pubMyBbs" onMouseOver="__mores(\'pubMyBbs\')" onMouseOut="__moreh(\'pubMyBbs\')">'
-                        +'<span class="ismore"><a href="http://my.zol.com.cn/bbs/'+userid+'/" target="_blank">我的论坛</a>'
+                        +'<span class="ismore"><a href="#" onclick="javascript:alert(\'功能未开启\')">我的论坛</a>'
                         +'<i class="ar-ico"></i></span><div class="pub-more-list" id="pubMyBbsDetailNotice">'
-                        +'<a href="http://my.zol.com.cn/bbs/'+userid+'/" target="_blank">我的帖子</a>'
+                        +'<a href="#" onclick="javascript:alert(\'功能未开启\')">我的帖子</a>'
                         +'</div></li>'
                         +'<li class="pub-menu" id="pubUser" onMouseOver="__mores(\'pubUser\')" onMouseOut="__moreh(\'pubUser\')">'
-                        +'<span class="ismore"><a href="http://my.zol.com.cn/'+userid+'/settings/" target="_blank">账号</a><i class="ar-ico"></i></span>'
-                        +'<div class="pub-more-list" id="pubUserDetailNotice"><a href="http://my.zol.com.cn/info_base.php" target="_blank">修改资料</a>'
-                        +'<a href="http://my.zol.com.cn/info_pic.php" target="_blank">更改头像</a>'
-                        +'<a href="http://my.zol.com.cn/change_pwd.php" target="_blank">修改密码</a>';
-                +'<a class="pub-logout" href="http://service.zol.com.cn/user/login.php?type=quit" target="_self">退出</a></div></li></ul>';
+                        +'<span class="ismore"><a href="#" onclick="javascript:alert(\'功能未开启\')">账号</a><i class="ar-ico"></i></span>'
+                        +'<div class="pub-more-list" id="pubUserDetailNotice"><a href="#" onclick="javascript:alert(\'功能未开启\')">修改资料</a>'
+                        //+'<a href="http://my.zol.com.cn/info_pic.php" target="_blank">更改头像</a>'
+                        //+'<a href="http://my.zol.com.cn/change_pwd.php" target="_blank">修改密码</a>'
+						+'<a class="pub-logout" href={{{ URL::to("/logout") }}} target="_self">退出</a>';
+						+'</div></li></ul>';
                 document.write(userlogin);
             @else
                         var registerhtml = '<ul class="pub-bbs-login"><li class="pub-user-bar">'
-                        //+'<span>请 [<a target="_blank" href="http://service.zol.com.cn/user/register.php">注册</a>]</span>'
-                        +'|<span>[<a target="_self" href={{{ URL::to("/login") }}}>登录</a>]</span>'
+                        //+'<span>请 [<a target="_blank" href="http://service.zol.com.cn/user/register.php">注册</a>]</span>|'
+                        +'<span>[<a target="_self" href={{{ URL::to("/login") }}}>登录</a>]</span>'
                         +'</li>'
                         +'</ul>';
 
@@ -57,7 +58,7 @@
                 <form action="/index.php" method="get" onsubmit="return checkKword();">
                     <input name="c" value="search" type="hidden">
                     <input data-source="" id="searchBox" autocomplete="off" class="search-txt placeholder" name="kword" value="请输入帖子关键词" type="text">
-                    <input class="search-btn border-radius-s3" value="搜索" type="submit">
+                    <input class="search-btn border-radius-s3" value="搜索" type="button" onclick="javacript:alert('功能尚未开启')">
                 </form>
             </div>
         </div>
@@ -68,7 +69,7 @@
     <div class="bbs-navbox border-radius-s3">
         <ul class="bbs-nav-list clearfix">
             @foreach ($nodes['top'] as $index => $top_node)
-                <li class><a href={{ URL::to("nodes/$top_node->id") }} target="_blank">{{{ $top_node->name }}}论坛</a></li>
+                <li class><a href={{ URL::to("nodes/$top_node->id") }}>{{{ $top_node->name }}}论坛</a></li>
             @endforeach
         </ul>
     </div>

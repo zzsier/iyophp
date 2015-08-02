@@ -198,6 +198,8 @@ Route::group(['middleware' => 'bbscheck'], function()
 	Route::resource('topics', 'BBSTopicsController');
 	
 	Route::resource('activity/save', 'BBSTopicsController@saveActivity');
+	Route::resource('activity/agree', 'BBSTopicsController@agreeActivity');
+	Route::resource('activity/deny', 'BBSTopicsController@denyActivity');
 	# ------------------------------------------------------
 	#
 	#
@@ -301,6 +303,7 @@ Route::get('login', [
 ]);
 
 Route::resource('auth/login', 'AuthController@loginReq');
+Route::resource('bbs/list', 'BBSTopicsController@queryForApp');
 
 //Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()  
 //{

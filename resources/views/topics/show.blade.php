@@ -27,7 +27,7 @@ var Detail_Config = {
 		reportType : {"1":"\u5e7f\u544a","2":"\u53cd\u52a8","3":"\u8272\u60c5","4":"\u8fdd\u89c4\u8fdd\u6cd5"},
 		totalPage  : '3',
 		title	  : '#ZOL论坛神回复精选# 秒懂看点、槽点、尿点（第十八期）',
-		showjointag : {{ $showjointag }}
+		showjointag : {{ $showjointag?"true":"false" }}
 },WEB_CONFIG = {
 		mainProid : '',
 		userid : {{{ Auth::id() }}},
@@ -66,8 +66,8 @@ Z_TuanParams = {
 
 <div class="wrapper">
 	<div class="crumb">
-	<a href="http://123.59.53.158/" target="_blank">IYO论坛</a> &gt; 
-	<a href={{{ URL::to("nodes/$node->id") }}} target="_blank">{{{ $node->name }}}</a>
+	<a href="http://123.59.53.158/">IYO论坛</a> &gt; 
+	<a href={{{ URL::to("nodes/$node->id") }}}>{{{ $node->name }}}</a>
 	</div>	
 	<div class="title-top border-radius-top box-shadow-top clearfix" id="bookTitle">
 	  	<h1>{{{ $topic->title }}}</h1>
@@ -100,29 +100,52 @@ Z_TuanParams = {
 						{!! $topic->body !!}
 
 						@if( $showjointag == true )
+						@if( !$alreadyjoin )
 						<div class="sign-upbox">
 							<input class="sign-btn" type="button" value="我要报名" id="signBtn"><span>旁观不如马上行动</span>
 						</div>
+						@endif
 
 						<div class="member-listbox">
 							<div class="member-header">
-								<h5>共有383人参加此次活动</h5>
+								<!--<h5>共有383人参加此次活动</h5>-->
 								<span class="member-tip">参加此次活动的用户名单，如有特殊情况不能参加，请提前通知管理员哦</span>
-								<a class="look-more" href="http://bbs.zol.com.cn/index.php?c=active&a=signList&bbsid=6&boardid=2&bookid=26177" target="_blank">查看所有报名人员(383)&gt;&gt;</a>
+								<!--<a class="look-more" href="http://bbs.zol.com.cn/index.php?c=active&a=signList&bbsid=6&boardid=2&bookid=26177">查看所有报名人员(383)&gt;&gt;</a>-->
 							</div>
 							<ul class="member-list clearfix">
-								<li>
-									<a href="http://my.zol.com.cn/bbs/qq_79870l103v8h" target="_blank">
-										<img width="50" height="50" src="./baoming/zoler.jpg" alt="＇明天，你好">
-										<span class="user-name">＇明天，你好</span>
-									</a>
-								</li>
-								<li>
-									<a href="http://my.zol.com.cn/bbs/qq_g40371q105g4" target="_blank">
-										<img width="50" height="50" src="./baoming/zoler.jpg" alt="残∷殇">
-										<span class="user-name">残∷殇</span>
-									</a>
-								</li>
+								@if ( Auth::id() == $topic->user->id || Auth::user()->can("manage_topics") )
+									@foreach( $activities as $index => $activity )
+									<li>
+										<a href="#">
+											<img width="50" height="50" src={{{ URL::to($activity->user->imageUrl) }}} alt={{{ $activity->user->username }}}>
+											<span class="user-name">{{{ $activity->user->username }}}</span>
+										</a>
+										@if( $activity->flag == 0 )
+											<a href={{{ URL::to("activity/agree?activity_id=$activity->id&topic_id=$topic->id") }}}>
+											<span class="user-name">同意</span>
+											</a>
+											<a href={{{ URL::to("activity/deny?activity_id=$activity->id&topic_id=$topic->id") }}}>
+											<span class="user-name">拒绝</span>
+											</a>
+										@elseif( $activity->flag == 1 )
+											<span class="user-name">已同意</span>
+										@else
+											<span class="user-name">已拒绝</span>
+										@endif
+									</li>
+									@endforeach
+								@else
+									@foreach( $activities as $index => $activity )
+									@if( $activity->flag == 1 )
+									<li>
+										<a href="#">
+											<img width="50" height="50" src={{{ URL::to($activity->user->imageUrl) }}} alt={{{ $activity->user->username }}}>
+											<span class="user-name">{{{ $activity->user->username }}}</span>
+										</a>
+									</li>
+									@endif
+									@endforeach
+								@endif
 							</ul>
 						</div>
 						@endif
@@ -135,9 +158,11 @@ Z_TuanParams = {
 					<div class="main-options clearfix">
 						<div class="options">
 							<div class="options-btns clearfix">
-								@if( Auth::id() == $topic->user->id )
-								@endif
+								@if( Auth::check() )
+								@if ( Auth::id() == $topic->user->id || Auth::user()->can("manage_topics") )
 								<a class="btn border-radius-s3" href={{{ URL::to("topics/$topic->id/edit") }}} type="book">编辑</a>
+								@endif
+								@endif
 								<!--<a class="btn border-radius-s3" data-options="report" href="###">举报</a>
 								<a class="btn border-radius-s3" href="/sjbbs/d33669_1404_uid_0kxo0w.html">只看此人</a>
         						<a class="btn-blue btn-2 border-radius-s3" data-options="score" href="###" data-userid="0kxo0w" data-param="0kxo0w">评分</a>
@@ -167,9 +192,9 @@ Z_TuanParams = {
 				<tr>
 					<td class="post-side" rowspan="3">
 						<div class="portrait">
-								<p class="name "><a class="user-name" target="_blank">{{{ $reply->user->username }}}</a></p>
+								<p class="name "><a class="user-name">{{{ $reply->user->username }}}</a></p>
 								<div class="picbox">
-								<a class="pic" href="http://123.59.53.158/{{{ $reply->user->imageUrl }}}" target="_blank">
+								<a class="pic" href="http://123.59.53.158/{{{ $reply->user->imageUrl }}}">
 									<img src="http://123.59.53.158/{{{ $reply->user->imageUrl }}}" alt={{{ $reply->user->username }}} title={{{ $reply->user->username }}} width="100" height="100">
 								</a>
 							</div>
@@ -194,7 +219,7 @@ Z_TuanParams = {
 	<div class="pgs-foot clearfix">
 		<div class="btn-div">
 			<div class="publish-btn">
-				<a href={{ URL::to("topics/create?node_id=$node->id") }} target="_blank" class="fb-btn-up border-radius-s3 cir_btn"><span>发表新帖</span></a>
+				<a href={{ URL::to("topics/create?node_id=$node->id") }} class="fb-btn-up border-radius-s3 cir_btn"><span>发表新帖</span></a>
 		   	</div>
 			<a href={{{ URL::to("nodes/$node->id") }}} class="back border-radius-s3"><span>返回列表</span></a>		
 		</div>
@@ -221,31 +246,31 @@ Z_TuanParams = {
 	</div>
 	<!-- //pgs-foot -->
 	
+	@if( Auth::check() )
 	<div class="reply-section border-radius-s5 box-shadow">
-			@if( Auth::check() )
-			<a href="#" class="user-pic">
-			<img width="100" height="100" src="http://123.59.53.158/{{{ Auth::user()->imageUrl }}}" alt={{{ Auth::user()->username }}} title={{{ Auth::user()->username }}}>
-			</a>
-			@endif
-			<div class="reply-editor editor-simple">
-					<div id="container" class="edui-detail" style="">
-					</div>
-					<!-- 配置文件 -->
-					<script type="text/javascript" src={{{URL::asset('Bbs/ueditor.config.reply.js')}}}></script>
-					<!-- 编辑器源码文件 -->
-					<script type="text/javascript" src={{{URL::asset('Bbs/ueditor.all.js')}}}></script>
-					<!--添加按钮 -->
-					<script type="text/javascript" src={{{URL::asset('Bbs/addCustomize.detail.js')}}}></script>
-					<!-- 实例化编辑器 -->
-					<script type="text/javascript">
-						var ue = UE.getEditor('container');
-					</script>
-			</div>
-	
-			<div class="reply-footer clearfix">
-				<a class="btn-blue border-radius-s3" href="javascript:;" id="publishReply">发表回复</a>
-			</div>
+		<a href="#" class="user-pic">
+		<img width="100" height="100" src="http://123.59.53.158/{{{ Auth::user()->imageUrl }}}" alt={{{ Auth::user()->username }}} title={{{ Auth::user()->username }}}>
+		</a>
+		<div class="reply-editor editor-simple">
+				<div id="container" class="edui-detail" style="">
+				</div>
+				<!-- 配置文件 -->
+				<script type="text/javascript" src={{{URL::asset('Bbs/ueditor.config.reply.js')}}}></script>
+				<!-- 编辑器源码文件 -->
+				<script type="text/javascript" src={{{URL::asset('Bbs/ueditor.all.js')}}}></script>
+				<!--添加按钮 -->
+				<script type="text/javascript" src={{{URL::asset('Bbs/addCustomize.detail.js')}}}></script>
+				<!-- 实例化编辑器 -->
+				<script type="text/javascript">
+					var ue = UE.getEditor('container');
+				</script>
+		</div>
+
+		<div class="reply-footer clearfix">
+			<a class="btn-blue border-radius-s3" href="javascript:;" id="publishReply">发表回复</a>
+		</div>
 	</div>
+	@endif
 	
 <!--<script src={{{URL::asset('Bbs/Bbs_book.js')}}} charset="gbk"></script>-->
 <script src={{{URL::asset('Bbs/login.js')}}}></script>

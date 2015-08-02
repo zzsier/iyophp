@@ -149,6 +149,7 @@ return [
 		'Zizaco\Entrust\EntrustServiceProvider',
 		'Collective\Html\HtmlServiceProvider',
 		'Jenssegers\Agent\AgentServiceProvider',
+		'Intervention\Image\ImageServiceProvider',
 	],
 
 	/*
@@ -202,6 +203,7 @@ return [
 		'Form' => 'Collective\Html\FormFacade',
 		'Html' => 'Collective\Html\HtmlFacade',
 		'Agent' => 'Jenssegers\Agent\Facades\Agent',
+		'Image' => 'Intervention\Image\Facades\Image',
 	],
 
 ];

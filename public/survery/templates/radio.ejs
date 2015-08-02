@@ -2,6 +2,16 @@
 <div class="form-horizontal">
 	<label for="title" class="control-label" style="margin-top:0;">请输入题目标题</label>
 	<textarea name="title" data-def="title" class="form-control"><%= question.title %></textarea>
+	<label for="pic" class="control-label" style="margin-top:20px;">选择题目图片</label>
+	<input type=file id="pic_file" class="pic_file" name='qfile' style="margin-top:5px;">
+	<div style='margin-top:10px;'>
+	图片：<input id='pic_url' name='pic_url' type="hidden" data-def="pic" value="<%=question.pic%>">
+	<%if(typeof question.pic != 'undefined') {%>
+         <img class="prev"  style='width:100px;height:100px;' src='<%=question.pic%>'>
+	<%}else{%>
+         <img class="prev"  style='width:100px;height:100px;' >
+      <%}%>
+	</div>
 	<% var data = question.data; %>
 	<%if(typeof data != 'undefined') {%>
 	<ul>

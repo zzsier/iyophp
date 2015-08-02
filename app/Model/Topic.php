@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Request;
 use Input;
 use URL;
+use Log;
 use Illuminate\Pagination\Paginator;
 
 class Topic extends Model
@@ -69,7 +70,7 @@ class Topic extends Model
 
 	public function getTopicsByLevel($node, $level)
 	{
-		return $this->where('is_stick', '=', $level)->where('node_id', '=', $node)->orderBy('created_at', 'desc')->get();
+		return $this->where('is_top', '=', $level)->where('node_id', '=', $node)->orderBy('created_at', 'desc')->get();
 	}
 
 	public static function boot()
@@ -116,6 +117,12 @@ class Topic extends Model
 		return $this->hasMany('App\Model\Reply');
 	}
 
+	public function activities()
+	{
+		return $this->hasMany('App\Model\Activity');
+	}
+
+
 	public function appends()
 	{
 		return $this->hasMany('App\Model\Append');
@@ -141,6 +148,16 @@ class Topic extends Model
 					->with('user')
 					->paginate($limit);
 	}
+
+	public function getActivities()
+	{
+		Log::info("enter getActivities");
+		return $this->activities()
+					->orderBy('created_at', 'asc')
+					->with('user')
+					->get();
+	}
+
 
 	public function getTopicsWithFilter($filter, $limit = 20)
 	{

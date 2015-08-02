@@ -33,7 +33,7 @@
                             <i class="ico"></i>
                             <i class="delete-btn" style="display: inline;"></i>
                             <label for="J_LoginUser" class="txt-tip" style="display: none;">用户ID/邮箱/手机号</label>
-                            <input autocomplete="off" tabindex="1" style="ime-mode:disabled" id="J_LoginUser" type="text" class="txt tabInput" value="0kxo0w" name="userid">
+                            <input autocomplete="off" tabindex="1" style="ime-mode:disabled" id="J_LoginUser" type="text" class="txt tabInput" value="" name="userid">
                         </div>
                     </div>
 

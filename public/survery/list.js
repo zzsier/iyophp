@@ -84,7 +84,7 @@ $(function() {
 									text : '添加',
 									iconCls : 'icon-add',
 									handler : function() {
-										window.location.href = "create";
+										window.location.href = "create?id=0";
 									}
 								},
 								'-',

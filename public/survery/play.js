@@ -3,7 +3,7 @@ document.addEventListener("click",function(event){
 	tt = target;
 
 	var action = target.getAttribute("data-action");
-	console.log(action);
+
 	var matchStart = false;
 	if(action){
 		var splited_action = action.split("-");
@@ -112,7 +112,8 @@ function buildQuestion(id){
 			option.title = data_def.value;
 			addOptionToQuestion(blank,option);
 			option = null;
-		}else if ("option_row" === def_type){
+		}
+        else if ("option_row" === def_type){
 			option.title = data_def.value;
 			addOptionRowToQuestion(blank,option);
 			option = null;
@@ -176,8 +177,9 @@ function submitPage( target ){
             break;
         }
     }
-
+    console.log(JSON.stringify( Page ));
     $.post(api.submit,
+
         {
             id : urlParam.id,
             content : JSON.stringify( Page )
@@ -594,6 +596,26 @@ var express_count=1;
         $(".express").append('<br/><br/><lable>结束表达式:</lable>&nbsp;<input type="text" placeholder="如: 1,2,3,4" maxlength="50" id="express_'+express_count+'" value=""/>');
         express_count++;
     });
+    $(document).on("change",".pic_file", function () {
+        var data = new FormData();
+        $.each($('#pic_file')[0].files, function(i, file) {
+        data.append('uploadedfile', file);
+        });
+        $.ajax({
+            url:'http://123.59.53.158/moment/upload',
+            type:'POST',
+            data:data,
+            cache: false,
+            contentType: false,    //不可缺
+            processData: false,    //不可缺
+            success:function(data){
+                var url='http://123.59.53.158/'+data.result;
+                $('.prev').attr('src',url);
+                $('#pic_url').val(url);
+            }
+       });
+    });
+
 })($);
 
 

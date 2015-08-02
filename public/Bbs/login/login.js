@@ -271,7 +271,7 @@
                 if (width >= num) {
                     clearInterval(time);
                     if (url) {
-                        window.location.href=url;
+                        window.location.href="/";
                     }
                 }
                 width  += 2;
@@ -330,7 +330,7 @@
 
                             oLoginBtn.attr('disabled', false);
                         } else {
-                            h.waitBar(100,"http://localhost");
+                            h.waitBar(100, "/");
                         }
                     } else {
                         //出错  按钮处理

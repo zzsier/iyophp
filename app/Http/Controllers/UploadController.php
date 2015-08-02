@@ -7,6 +7,7 @@ use App\Model\IyoTopic;
 use Input;
 use Cache;
 use Log;
+use Image;
 
 use Illuminate\Http\Request;
 
@@ -125,9 +126,18 @@ class UploadController extends Controller {
 
 			$destinationPath = 'uploads/photos';
 			$id = $request["id"];
-			$filename =  'user_'.$id.'.'.$extension;
-			
+			$filename = 'user_'.$id.'.'.$extension;
+
 			$file->move($destinationPath, $filename);
+
+			if ($file->getClientOriginalExtension() != 'gif') {
+				$img = Image::make($destinationPath . '/' . $filename);
+				$img->resize(100, null, function ($constraint) {
+					$constraint->aspectRatio();
+					$constraint->upsize();
+				});
+				$img->save($destinationPath."/".'user_'.$id."_small.".$extension, 30);
+			}
 			
 			$result["filename"] = $destinationPath.'/'.$filename;
 
@@ -136,7 +146,6 @@ class UploadController extends Controller {
 			$user->save();
 
 			IyoUser::cleanCache($id);
-
 		} else {
 			$result = array('code' => trans('code.UploadFileFailed'),'desc' => __LINE__, 'message' => trans('errormsg.UploadFileFailed'));
 			return $result;
@@ -172,17 +181,21 @@ class UploadController extends Controller {
 			
 			$destinationPath = 'uploads/'.date("Ymd");
 			$original = $file->getClientOriginalName();
-			$filename = sha1('topic'.$original.time()).'.'.$extension;
+			$filename_noext = sha1('topic'.$original.time());
+			$filename = $filename_noext.'.'.$extension;
 			$file->move($destinationPath, $filename);
 
-			//if ($file->getClientOriginalExtension() != 'gif') {
-			//	$img = Image::make($destinationPath . '/' . $filename);
-			//	$img->resize(1440, null, function ($constraint) {
-			//		$constraint->aspectRatio();
-			//		$constraint->upsize();
-			//	});
-			//	$img->save();
-			//}
+			//$filename_small = $filename_noext.'_small.'.$extension;
+			//$file->move($destinationPath, $filename_small);
+
+			if ($file->getClientOriginalExtension() != 'gif') {
+				$img = Image::make($destinationPath . '/' . $filename);
+				$img->resize(100, null, function ($constraint) {
+					$constraint->aspectRatio();
+					$constraint->upsize();
+				});
+				$img->save($destinationPath."/".$filename_noext."_small.".$extension, 30);
+			}
 
 			//$imageobj = [];
 			//$newimage = $destinationPath.'/'.$filename;

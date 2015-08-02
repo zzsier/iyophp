@@ -12,7 +12,7 @@ header .logo .appdload{float: right;height: 28px;padding: 8px 18px 9px 23px;font
 header .logo .appdload:link,header .logo .appdload:visited{color: #00aeef;}
 header nav,footer nav{width: 100%;height: 45px;line-height: 45px;text-align:center;font-size: 18px;background: #4c9ada;}
 header nav li,footer nav li{float: left;width: 20%;height: 45px;}
-header nav li{width: 19%;}
+header nav li{width: 16%;}
 header nav li.last{width: 24%;}
 header li a:link,header li a:visited,footer li a:link,footer li a:visited{color: #fff;}
 header li.last a:link,header li.last a:visited{padding: 0 6px;height:23px;border: 1px solid #ffe100;border-radius: 13px;color: #ffe100;}

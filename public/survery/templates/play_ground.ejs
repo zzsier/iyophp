@@ -19,9 +19,14 @@
 		<% var question = questions[i]%>
 			<li class="list-group-item">
 				<div class="col-lg-12">
+
+
 				    <p data-action="match_dest-<%=i%>" class="matchDest" id="title_<%= i %>">
 				    	<%= 1+i %>.<%=question.title%>
 				    </p>
+                    <p data-action="pic-<%=i%>" class="pic" id="pic_<%= i %>">
+                            <img style='width:100px;height:100px;' src='<%=question.pic%>'>
+                     </p>
 				    <% if("tel" === question.type) { %>
 				    	<input type="text" readonly class="form-control"></input>
 				    <% }else if("text" === question.type) { %>

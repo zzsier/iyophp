@@ -16,10 +16,10 @@ header nav li{width: 15%;}
 header nav li.last{width: 24%;}
 header li a:link,header li a:visited,footer li a:link,footer li a:visited{color: #fff;}
 header li.last a:link,header li.last a:visited{padding: 0 6px;height:23px;border: 1px solid #ffe100;border-radius: 13px;color: #ffe100;}
-.search{height: 35px;padding: 10px 10px 0 10px;}
-.search .sform{width: 100%;height: 33px;border: 1px solid #d2d2da;border-radius: 0 5px 5px 0;}
-.search .sform .input{float: left;width:84%;height: 33px;line-height: 33px;font-size: 18px;text-indent: 10px;color: #999;}
-.search .sform .submit{float: right;width: 16%;height: 33px;background:url(http://www.yesky.com/TLimages2009/yesky/images/ywap15/wbg.png) center 8px no-repeat #d2d2da;-webkit-border-radius: 0 4px 4px 0;}
+.search{height: 2px;padding: 10px 10px 0 10px;}
+//.search .sform{width: 100%;height: 33px;border: 1px solid #d2d2da;border-radius: 0 5px 5px 0;}
+//.search .sform .input{float: left;width:84%;height: 33px;line-height: 33px;font-size: 18px;text-indent: 10px;color: #999;}
+//.search .sform .submit{float: right;width: 16%;height: 33px;background:url(http://www.yesky.com/TLimages2009/yesky/images/ywap15/wbg.png) center 8px no-repeat #d2d2da;-webkit-border-radius: 0 4px 4px 0;}
 .cont .cnav{width: 100%;line-height: 34px;margin: 7px 0;text-align: center;overflow: hidden;position: relative;}
 .cont nav{height: 68px;}
 .cont nav#foldbox{display: none;}

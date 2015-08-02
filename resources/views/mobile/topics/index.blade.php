@@ -2,13 +2,19 @@
 
 @section('content')
 
+<script>
+	var node_id = {{{ $node->id }}};
+</script>
+
 <link rel="stylesheet" type="text/css" href={{{URL::asset('mobile/ywap15_list.css')}}}>
 <script type="text/javascript" src={{{URL::asset('mobile/jquery-1.7.2.min.js')}}}></script>
 <script type="text/javascript" src={{{URL::asset('mobile/ywap15_list.js')}}}></script>
 
+<section class="wrap">
 <div class="title" style="padding-left: 12px;height: 46px;line-height: 46px;padding-top: 4px;border-bottom: 1px solid #d2d2da;font-size: 22px;">
 	<span style="color: #30303a;font-size: 22px;padding-right: 8px;">{{{ $node->name }}}</span>
 </div>
+</section>
 
 <section class="wrap">
     <section id="newslist" class="newslist">
@@ -16,7 +22,7 @@
 		@foreach ($ntopics as $index => $topic)
             <a href={{ URL::to("topics/$topic->id") }}>
                 <dl>
-                    <dt><img alt={{{ $topic->title }}} src={{{ $topic->image }}}></dt>
+                    <dt><img alt="" width="70" height="70" src={{{ $topic->image }}}></dt>
                     <dd>
                         <h2>{{{ $topic->title }}} <time>{{{ date("Y-m", strtotime($topic->created_at)) }}}</time></h2>
                         <div></div>
@@ -24,8 +30,10 @@
                 </dl>
             </a>
 		@endforeach
-        <div class="mbtn clickbtn"><span>点击再加载10条</span></div>
         </section>
+		@if( count($ntopics) >= 10 )
+        <div class="mbtn clickbtn" id="clickbtn"><span>点击再加载10条</span></div>
+		@endif
     </section>
 </section>
 

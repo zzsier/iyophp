@@ -1,7 +1,7 @@
 
 <header id="top">
-	<div class="logo">
-	</div>
+	<!--<div class="logo">
+	</div>-->
 	<nav>
 		<ul>
 			@foreach ($nodes['top'] as $index => $top_node)

@@ -14,24 +14,24 @@
 
 <section class="cont">
 	<section class="search">
-		<form class="sform" name="product" action="http://pinterface.tianjimedia.com/front/wap/searchresult.jsp">
+		<!--<form class="sform" name="product" action="http://pinterface.tianjimedia.com/front/wap/searchresult.jsp">
 			<input onclick="this.value=&#39;&#39;;" class="input" value="" name="keyword">
 			<input class="submit" type="submit" value="" name="submit">
-		</form>
+		</form>-->
 	</section>
 </section>
 
 <section class="cont">
-	<section class="focus" style="width: 320px; height: 160px;">
-	<div class="topic-info swiper-container-horizontal" id="slide_01" style="padding-top:20px; width: 320px; height: 160px;">
+	<section class="focus" style="width:320px;height:160px;">
+	<div class="topic-info swiper-container-horizontal" id="slide_01" style="padding-top:3px;width: 320px;height:160px;">
 		<div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(-1750px, 0px, 0px);">
 		@foreach ($topics as $tindex => $subtopics)
 			@foreach ($subtopics as $sindex => $topic)
 			@if( $sindex == 0 )
-			<div class="swiper-slide" data-swiper-slide-index={{ $tindex }} style="width: 320px; margin-right: 30px;">
+			<div class="swiper-slide" data-swiper-slide-index={{ $tindex }} style="width:320px;margin-right:30px;">
 				<span>
 				<a href={{{ URL::to("topics/$topic->id") }}}>
-				<img alt={{{ $topic->title }}} src={{{ $topic->image }}} width="100%" style="width: 320px; height: 160px;">
+				<img alt={{{ $topic->title }}} src={{{ $topic->image }}} width="320" height="160">
 				</a>
 				</span>
 				<p><a href={{{ URL::to("topics/$topic->id") }}}>{{{ $topic->title }}}</a></p>
@@ -54,7 +54,7 @@
 			@endif
 			</ul>
 			@endforeach
-            <div class="mbtn"><a href="http://123.59.53.158/nodes/{{{ $nodes['top'][$tindex]->id }}}">更多手机资讯 &gt;</a></div>
+            <div class="mbtn"><a href="http://123.59.53.158/nodes/{{{ $nodes['top'][$tindex]->id }}}">更多资讯 &gt;</a></div>
         </section>
     </section>
 	@endforeach

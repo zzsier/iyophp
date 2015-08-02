@@ -7476,8 +7476,15 @@ FB.publishBook = function(data) {
     FB.isCurPublish = 1;
     data.attach_info = $("#attachForm").serialize();
     data.atuser = FB.getAtUser();
-    data.is_top = $('#is_top').val();
-    data.is_excellent = $('#is_excellent').val();
+	data.is_top = 0;
+	if( $('#is_top').val() == 1 || $('#is_top').val() == 2 ) {
+		data.is_top = $('#is_top').val();
+	}
+	if( $('#is_excellent').attr("checked") == "checked" ) {
+		data.is_excellent = 1;
+	} else {
+		data.is_excellent = 0;
+	}
 
     var url = "/topics";
     var publishtype = "POST";

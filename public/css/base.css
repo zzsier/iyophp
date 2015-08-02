@@ -565,8 +565,8 @@ header,footer,section{display:block}
 .rank-num span.e0{background-position: left -30px; z-index: 6}
 
 .btnok,.btncancel{display: block;height: 44px; line-height: 44px;text-align: center;border-radius: 3px; font-size: 15px}
-.btnok{background: #c60a1e; color: #fff}
-.btncancel{background: #f6f5f5; color: #ce3529}
+.btnok{background: #ee9a14; color: #fff}
+.btncancel{background: #ee9a14; color: #ce3529}
 
 #ie_div{
     width:100%;
@@ -961,9 +961,15 @@ p.weixinTxt span{ display: block; width: 50px; height: 30px; background: #fff; t
     top: 2px;
 }
 header{
-    font-size:16px;
-    line-height:26px;
+    font-size:30px;
+    line-height:40px;
     padding:10px 15px 10px
+}
+.question_radio{
+    line-height:40px;
+    font-size: 60px;
+    background-color: #ffba00;
+    margin-right:10px;
 }
 #question_sec{
     padding:20px 15px;
@@ -975,13 +981,16 @@ header{
     display:block
 }
 .question_atc h2,#question_lastest h2{
-    font-size:16px;
-    line-height:26px;
+    font-size:39px;
+    line-height:35px;
     padding-bottom:8px;
+    color:#969696;
 }
 .question_atc label{
-    line-height:24px;
+    line-height:40px;
     display:block;
+    font-size: 25px;
+    color:#969696;
 }
 .question_input{
     width:80%;
@@ -1014,7 +1023,7 @@ header{
     height:4px;
     top:0;
     left:0;
-    background-color:#f00;
+    background-color:#ee9a14;
 }
 
 

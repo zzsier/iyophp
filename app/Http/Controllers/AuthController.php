@@ -59,7 +59,6 @@ class AuthController extends BaseController
     public function logout()
     {
         Auth::logout();
-        Flash::success(lang('Operation succeeded.'));
         return Redirect::route('home');
     }
 

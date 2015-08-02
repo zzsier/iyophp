@@ -27,7 +27,6 @@ $(function(){
         $(this).parent().hide();
     });
 
-    //初始对焦点图的友好判断解决PC阅读图片自适应过大问题
     function autoSwiper(){
     function onresizeScreen(){
         if($(document).width()>=1000){
@@ -46,19 +45,24 @@ $(function(){
     function getNextArticle(){
         pageNo ++;
         var _e = "";
-        var _url="http://wap.yesky.com/wap/ajaxarticlelist.jhtml?sitemapId=" + sitemapId + "&pageNo="+pageNo;
-        if(oPingce){_url = "http://wap.yesky.com/wap/ajaxarticlelist.jhtml?sitemapId=" + sitemapId + "&pageNo="+pageNo+"&list=pingce";}
-        if(oDaogou){_url = "http://wap.yesky.com/wap/ajaxarticlelist.jhtml?sitemapId=" + sitemapId + "&pageNo="+pageNo+"&list=daogou";}
+        var _url="http://123.59.53.158/nodes/"+node_id+"/?type=mobile&page="+pageNo;
         $.ajax({
             type:"get",
                 dataType:"json",
                 url:_url,
                 success:function(data){
-                var list = data.articlelists;
-                for(var i = 0; i < 10; i++){
-                    _e+='<a href="'+list[i].url+'"><dl><dt><img alt="'+list[i].title3+'" src="'+list[i].image1+'"></dt><dd><h2>'+list[i].title2+'<time>'+list[i].shortTime+'</time></h2><div>'+list[i].digest+'</div></dd></dl></a>';
+                var list = data.data;
+				//for( var topic in list ) {
+                for(var i = 0; i < list.length; i++){
+                    _e+='<a href="http://123.59.53.158/topics/'+list[i].id+'"><dl><dt><img alt="" src="'+list[i].image+'"></dt><dd><h2>'
+					+list[i].title+'<time>'+list[i].shortTime+'</time></h2><div></div></dd></dl></a>';
+                    //_e+='<a href="http://123.59.53.158/topics/'+topic.id+'"><dl><dt><img alt="" src="'+topic.image+'"></dt><dd><h2>'
+					//+topic.title+'<time>'+topic.shortTime+'</time></h2><div></div></dd></dl></a>';
                 }
                 $("#newslist section").append(_e);
+				if( list.length < 10 ) {
+					$("#clickbtn").hide();
+				}
             }
         });
     }

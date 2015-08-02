@@ -39,19 +39,21 @@ class QuestionController extends Controller {
 	{
 		$qid = $request["id"];
 		$question = IyoQuestion::queryById($qid);
+		$error = "";
 
 		if( !Auth::check() ) {
-			return "您好，请先登录";
+			$error = "您好，请先登录";
 		}
 
 		$uid = Auth::user()->id;
 		$dailyjob_at = Auth::user()->dailyjob_at;
 		if( strtotime($dailyjob_at) > strtotime($question["created_at"]) ) {
-			return "您好，您已经做完这个每日任务".strtotime($dailyjob_at)." ".strtotime($question["created_at"])
-				." ".$question["created_at"]." ".$dailyjob_at;
+			$error = "您好，您已经做完这个每日任务";
 		}
+		$user = IyoUser::queryById($uid);
+		$union = IyoUser::queryById($user["bind"]);
 
-		return View::make('showquestion');
+		return View::make('showquestion', compact('union', 'error'));
 	}
 
 	public function latestquestion(Request $request) {

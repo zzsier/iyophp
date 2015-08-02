@@ -13,7 +13,7 @@
 	<div class="wrapper">
 
 		<div class="crumb">
-			<a href={{ URL::to("/") }} target="_blank">IYO论坛</a> &gt;
+			<a href={{ URL::to("/") }}>IYO论坛</a> &gt;
 			@if (isset($node))
 				<a href={{ URL::to("nodes/$node->id") }}> {{{ $node->name }}}</a>
 			@endif
@@ -90,28 +90,30 @@
 					<td class="last-post">最后回复</td>
 				</tr>
 
-				@foreach ($topicslv1 as $index => $topic)
+				@foreach ($topicslv1 as $topic)
 				<tr>
 					<td class="folder">
 						<span title="一级置顶" class="ico-atop"></span>
 					</td>
 					<td class="title " data-pic="" data-url={{ URL::to("topics/$topic->id") }}>
 						<div>
-							<a class="topicurl listbook" style="" target="_blank" href={{ URL::to("topics/$topic->id") }} > {{{ $topic->name }}} </a>
+							<a class="topicurl listbook" style="" href={{ URL::to("topics/$topic->id") }} > {{{ $topic->title }}} </a>
 						</div>
 					</td>
 
 					<td class="author">
-						<a class="name" href="#" target="_blank">{{{ $topic->user_id }}}</a>
+						<a class="name" href="#">{{{ $topic->user->username }}}</a>
 						<span class="date">{{{ date("Y-m-d", strtotime($topic->created_at)) }}}</span>
 					</td>
 
+					<td class="reply">
+						<span class="black">{{{ $topic->reply_count }}}</span>/
 						<i class="max-num">{{{ $topic->view_count }}}</i>
 					</td>
 
 					<td class="last-post">
-						<a class="name" href="#" target="_blank" title="">{{{ $topic->last_reply_user_id }}}</a>
-						<a href="http://bbs.zol.com.cn/sjbbs/d34130_134873_2.html#reply27" target="_blank" class="date"></a>
+						<a class="name" href="#" title="">{{{ $topic->last_reply_user_id }}}</a>
+						<a href="http://bbs.zol.com.cn/sjbbs/d34130_134873_2.html#reply27" class="date"></a>
 					</td>
 				</tr>
 				@endforeach
@@ -123,12 +125,12 @@
 					</td>
 					<td class="title " data-pic="" data-url={{ URL::to("topics/$topic->id") }}>
 						<div>
-							<a class="topicurl listbook" style="" target="_blank" href={{ URL::to("topics/$topic->id") }} > {{{ $topic->name }}} </a>
+							<a class="topicurl listbook" style="" href={{ URL::to("topics/$topic->id") }} > {{{ $topic->title }}} </a>
 						</div>
 					</td>
 
 					<td class="author">
-						<a class="name" href="#" target="_blank">{{{ $topic->user_id }}}</a>
+						<a class="name" href="#">{{{ $topic->user->username }}}</a>
 						<span class="date">{{{ date("Y-m-d", strtotime($topic->created_at)) }}}</span>
 					</td>
 
@@ -138,8 +140,8 @@
 					</td>
 
 					<td class="last-post">
-						<a class="name" href="#" target="_blank" title="">{{{ $topic->last_reply_user_id }}}</a>
-						<a href="http://bbs.zol.com.cn/sjbbs/d34130_134873_2.html#reply27" target="_blank" class="date"></a>
+						<a class="name" href="#" title="">{{{ $topic->last_reply_user_id }}}</a>
+						<a href="http://bbs.zol.com.cn/sjbbs/d34130_134873_2.html#reply27" class="date"></a>
 					</td>
 				</tr>
 				@endforeach
@@ -160,12 +162,12 @@
 					</td>
 					<td class="title " data-pic="" data-url={{ URL::to("topics/$topic->id") }}>
 						<div>
-							<a class="topicurl listbook" style="" target="_blank" href={{ URL::to("topics/$topic->id") }} > {{{ $topic->title }}} </a>
+							<a class="topicurl listbook" style="" href={{ URL::to("topics/$topic->id") }} > {{{ $topic->title }}} </a>
 						</div>
 					</td>
 
 					<td class="author">
-						<a class="name" href="#" target="_blank">{{{ $topic->user_id }}}</a>
+						<a class="name" href="#">{{{ $topic->user->username }}}</a>
 						<span class="date">{{{ date("Y-m-d", strtotime($topic->created_at)) }}}</span>
 					</td>
 
@@ -175,8 +177,8 @@
 					</td>
 
 					<td class="last-post">
-						<a class="name" href="#" target="_blank" title="">{{{ $topic->last_reply_user_id }}}</a>
-						<a href="http://bbs.zol.com.cn/sjbbs/d34130_134873_2.html#reply27" target="_blank" class="date"></a>
+						<a class="name" href="#" title="">{{{ $topic->last_reply_user_id }}}</a>
+						<a href="http://bbs.zol.com.cn/sjbbs/d34130_134873_2.html#reply27" class="date"></a>
 					</td>
 				</tr>
 				@endforeach
@@ -266,7 +268,7 @@
 				</tr>
 				<tr>
 					<td class="cl"></td>
-					<td class="cc"><a href="" target="_blank" class="pic" id="pre_img"><img src="" alt=""></a></td>
+					<td class="cc"><a href="" class="pic" id="pre_img"><img src="" alt=""></a></td>
 					<td class="cr"></td>
 				</tr>
 				<tr>
@@ -314,7 +316,7 @@
 			<script src={{{URL::asset('Bbs/jquery.calendar.js')}}}></script>
 
 			<!-- 公共尾部 -->
-			<!-- <a class="fixed-call-survey" href="http://survey.zol.com.cn/front/1/734.html" target="_blank">意见反馈</a> -->
+			<!-- <a class="fixed-call-survey" href="http://survey.zol.com.cn/front/1/734.html">意见反馈</a> -->
 			<div class="wrapper foot">
 				<script>
 					if (typeof WEB_CONFIG != 'undefined' && WEB_CONFIG.bbsid==1 && WEB_CONFIG.bookid) {

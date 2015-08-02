@@ -1,6 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
+<script type="text/javascript" src={{{URL::asset('mobile/jquery-1.7.2.min.js')}}}></script>
 
 <link rel="stylesheet" type="text/css" href={{{URL::asset('mobile/ywap15.css')}}}>
 <link rel="stylesheet" type="text/css" href={{{URL::asset('mobile/ywap15_cont.css')}}}>
@@ -28,72 +29,29 @@
 
 <section class="reset-g section-title-wap section-title-b">
 <div class="title-user-wap title-user-b"><span class="user-name-wap user-name-b">
-<span id="cy-user-name">登 录</span>
 </span></div>
 </section>
 
+@if( Auth::check() )
 <section id="cy-cbox-wrapper" class="reset-g section-cbox-wap section-cbox-b">
+<form action={{{ URL::to("/replies") }}} method="POST">
 <div class="cbox-post-wap cbox-post-b">
-<div class="post-area-wap post-area-b">
-<textarea name="cy-cbox" rows="3" class="area-text-wap area-text-b" placeholder="我来说两句..."></textarea>
-<input type="hidden" name="cyan-reply-id">
+	<div class="post-area-wap post-area-b">
+		<textarea name="content" rows="3" class="area-text-wap area-text-b" placeholder="我来说两句..."></textarea>
+		<input type="hidden" name="toid" value={{{ $topic->id }}} />
+		<input type="hidden" name="type" value="mobile"/>
+	</div>
+	<div class="post-action-wap post-action-b">
+		<div class="action-issue-wap action-issue-b">
+			<div class="issue-btn-wap issue-btn-b">
+				<a class="btn-mutual-wap btn-mutual-b" href="#" }}}><button type="submit" class="mutual-btn-wap mutual-btn-b">发布</button></a>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="post-action-wap post-action-b">
-<div class="action-function-wap action-function-b">
-<ul class="function-list-wap function-list-b">
-
-<li class="list-face-wap list-face-b">
-<a class="face-mutual-wap face-mutual-b" href="javascript:void(0)">
-<i class="mutual-pic-wap mutual-pic-b"></i>
-</a>
-</li>
-
-
-
-</ul>
-</div>
-<div class="action-issue-wap action-issue-b">
-<div class="issue-site-wap issue-site-b issue-site-e"></div>
-<div class="issue-btn-wap issue-btn-b">
-<a class="btn-mutual-wap btn-mutual-b" href="javascript:void(0)"><button type="button" class="mutual-btn-wap mutual-btn-b">发布</button></a>
-</div>
-</div>
-<div class="face-box-wap" style="display:none">
-<div class="box-cont-wap">
-<div class="cont-roll-wap">
-<ul class="cont-list-wap">
-<li code="/奋斗"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face01.png"></li>
-<li code="/鼓掌"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face02.png"></li>
-<li code="/发怒"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face03.png"></li>
-<li code="/色"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face04.png"></li>
-<li code="/给力"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face05.png"></li>
-<li code="/憨笑"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face06.png"></li>
-<li code="/大哭"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face13.png"></li>
-<li code="/疑问"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face14.png"></li>
-<li code="/鄙视"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face15.png"></li>
-<li code="/钱"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face16.png"></li>
-<li code="/闭嘴"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face17.png"></li>
-<li code="/可怜"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face18.png"></li>
-<li code="/可爱"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face07.png"></li>
-<li code="/抓狂"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face08.png"></li>
-<li code="/流汗"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face09.png"></li>
-<li code="/强"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face10.png"></li>
-<li code="/弱"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face11.png"></li>
-<li code="/玫瑰"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face12.png"></li>
-<li code="/惊讶"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face19.png"></li>
-<li code="/浮云"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face20.png"></li>
-<li code="/打酱油"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face21.png"></li>
-<li code="/握手"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face22.png"></li>
-<li code="/拳头"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face23.png"></li>
-<li code="/酒"><img src="http://changyan.itc.cn/upload/mobile/v1/wap-imgs/face/face24.png"></li>
-</ul>
-</div>
-<div class="cont-page-wap"><span class="page-now-wap"></span><span></span></div>
-</div>
-</div>
-</div>
-</div>
+</form>
 </section>
+@endif
 
 <section id="cy-comment-list-wrapper" class="reset-g section-list-wap">
 	<section id="cy-latest-list-wrapper" class="list-kinds-wap list-hot-wap">
