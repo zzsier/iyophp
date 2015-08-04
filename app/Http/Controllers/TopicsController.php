@@ -17,7 +17,7 @@ class TopicsController extends Controller {
 
 	public function showlist()
 	{
-		$topics = IyoTopic::all();
+		$topics = IyoTopic::orderBy("created_at", "desc")->paginate(10);
 		foreach ($topics as $topic) {
 			$user = IyoUser::queryById($topic->uid);
 			$topic->username = $user["username"];

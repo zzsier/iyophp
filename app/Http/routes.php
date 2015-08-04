@@ -120,9 +120,10 @@ Route::group(['prefix' => 'question'], function()
 
 Route::resource('moment/upload', 'UploadController@uploadMemoryImage');
 Route::resource('like/list', 'TopicsController@queryLikeList');
-
+	
 Route::group(['prefix' => 'backend'], function()  
 {
+	Route::resource('nodes', 'NodesController');
 	Route::resource('user/create', 'UserController@create');
 	Route::resource('user/edit', 'UserController@edit');
 	Route::resource('user/list', 'UserController@index');
@@ -349,7 +350,6 @@ Route::get('oauth', 'AuthController@getOauth');
 
 # ------------------ Resource Route ------------------------
 
-Route::resource('nodes', 'NodesController', ['except' => ['index', 'edit']]);
 Route::resource('votes', 'VotesController');
 Route::resource('users', 'UsersController');
 

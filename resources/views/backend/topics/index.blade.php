@@ -16,7 +16,7 @@
             </div>
 
             <div class="panel-footer text-right remove-padding-horizontal pager-footer">
-                页
+				<?php echo $topics->render(); ?>
             </div>
 
         @else
