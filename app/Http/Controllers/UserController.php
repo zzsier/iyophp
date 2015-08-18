@@ -402,6 +402,7 @@ Access-Control-Allow-Origin: *
 
 		$user = IyoUser::queryById($user->id);
 		$uid = $user["id"];
+		IyoRelation::add($uid, 127);
 		$user["session"] = "session_id_$uid";
 		Cache::put("session_id_$uid", $uid, 3600);
 

@@ -1,4 +1,4 @@
-body{background:#FFF;font-family:"Î¢ÈíÑÅºÚ","Helvetica";font-size:16px;color: #000;position: relative;}
+body{background:#000000;font-family:"Î¢ÈíÑÅºÚ","Helvetica";font-size:16px;color: #000;position: relative;}
 a,body,h1,h2,h3,h6,p,dl,dt,dd,ul,ol,li,form,button,input,img,div,pre,section,header,nav,footer{margin:0;padding:0;border:0;font-weight: normal;}
 ul,ol{list-style:none}
 img{vertical-align: middle;max-width: 100%;}
@@ -10,26 +10,26 @@ header .logo .logoimg{float: left;height: 30px;padding: 8px 10px 0;}
 header .logo .logoimg img{height: 30px;}
 header .logo .appdload{float: right;height: 28px;padding: 8px 18px 9px 23px;font-size: 12px;line-height: 14px;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/wbg.png") 0 -155px no-repeat;}
 header .logo .appdload:link,header .logo .appdload:visited{color: #00aeef;}
-header nav{height: 45px;line-height: 45px;color: #fff;padding-left: 10px;background: #4c9ada;font-size: 18px;}
-header nav a:link,header nav a:visited,footer li a:link,footer li a:visited{color: #fff;}
+header nav{height: 45px;line-height: 45px;color: #fff;padding-left: 10px;background: #f09f12;font-size: 18px; color:#000000}
+header nav a:link,header nav a:visited,footer li a:link,footer li a:visited{color: #000000;}
 /*content*/
 .wrap{padding: 10px;}
 .newstitle{width: 100%;border-bottom: 1px solid #f3f3f9;}
-.newstitle h1{line-height: 31px;font-size: 22px;}
+.newstitle h1{line-height: 31px;font-size: 22px; color:#969696}
 .newstitle dl{width: 100%;height: 20px;line-height: 20px;padding: 10px 0;}
 .newstitle dl dt{float:left;font-size:12px;color:#999;padding-right: 10px;}
 .newstitle dl dt .orange{color: #ff6600;padding-left: 16px;}
 .newstitle dl dd{float:right;font-size:20px;font-style:italic;color: #00aeef;margin-top: -6px;cursor: pointer;}
 .newstitle dl dd sup{font-style:normal}
 .newscontentbox{float:left;width:100%;line-height:30px;padding: 14px 0;}
-.newscontent{margin:auto;}
+.newscontent{margin:auto; background:#000000;}
 .newscontent p{margin-bottom: 15px;width:auto;overflow:hidden;}
 .newscontent img{max-width:100%;height:auto;margin:10px 0 5px}
 .newscontent table td{border-right:#000 1px solid;border-top:#000 1px solid}
 .newscontent table{border-left:#000 1px solid;border-bottom:#000 1px solid}
 .newscontent EMBED{display:none}
 .newspage{margin:auto;width:300px;padding:10px 0 20px}
-.newspage a{display:inline-block;padding:5px 11px 4px;margin:0 5px 5px 0;font-size:14px;border:1px solid #C2C3C6;background:-webkit-gradient(linear,0 0,0 bottom,from(#FFFFFF),to(#DDE0E5));background:-moz-linear-gradient(#FFFFFF,#DDE0E5);background:linear-gradient(#FFFFFF,#DDE0E5);-pie-background:linear-gradient(#FFFFFF,#DDE0E5);behavior:url(PIE.htc)}
+.newspage a{display:inline-block;padding:5px 11px 4px;margin:0 5px 5px 0;font-size:14px;border:1px solid #C2C3C6;background:-webkit-gradient(linear,0 0,0 bottom,from(#969696),to(#DDE0E5));background:-moz-linear-gradient(#969696,#DDE0E5);background:linear-gradient(#969696,#DDE0E5);-pie-background:linear-gradient(#969696,#DDE0E5);behavior:url(PIE.htc)}
 .newspage span{display:inline-block;padding:5px 11px 4px;margin:0 5px 5px 0;font-size:14px;font-weight:bold}
 .newsshare{width:280px;height: 46px;overflow:auto;padding-bottom: 10px;}
 .newsshare dl{height: 44px;line-height: 44px;padding-left: 10px;width: 225px;border: 1px solid #dcdcdc;}

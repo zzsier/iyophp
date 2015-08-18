@@ -31,7 +31,12 @@ function render(topic, edit) {
 			innerHTML += '<li style="padding-top:10px;padding-bottom:10px;">';
 			if( edit == true ) {
 				//innerHTML += '<a class="anchorjs-link" href="#within-a-navbar"><span class="anchorjs-icon">::before</span></a>';
-    			innerHTML += '<button type="button" id="closebutton_'+i+'" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+    			innerHTML += '<button type="button" id="closebutton_'+i+'" class="close" data-dismiss="modal" aria-label="Close">'
+					+'<span aria-hidden="true">&times;</span></button>';
+    			innerHTML += '<button type="button" id="downbutton_'+i+'" class="close" data-dismiss="modal" aria-label="Close">'
+					+'<span aria-hidden="true">|></span></button>';
+    			innerHTML += '<button type="button" id="upbutton_'+i+'" class="close" data-dismiss="modal" aria-label="Close">'
+					+'<span aria-hidden="true"><|</span></button>';
 			}
 			innerHTML += '<img src="http://'+window.location.host+'/'+ contentvalue["value"]+'" style="width: 100%" class="img-responsive"/>';
 			innerHTML += '</li>';
@@ -39,7 +44,12 @@ function render(topic, edit) {
 			innerHTML += '<li style="padding-top:10px;padding-bottom:10px;">';
 			if( edit == true ) {
 				//innerHTML += '<a class="anchorjs-link" href="#within-a-navbar"><span class="anchorjs-icon">::before</span></a>';
-    			innerHTML += '<button type="button" id="closebutton_'+i+'" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+    			innerHTML += '<button type="button" id="closebutton_'+i+'" class="close" data-dismiss="modal" aria-label="Close">'
+					+'<span aria-hidden="true">&times;</span></button>';
+    			innerHTML += '<button type="button" id="downbutton_'+i+'" class="close" data-dismiss="modal" aria-label="Close">'
+					+'<span aria-hidden="true">|></span></button>';
+    			innerHTML += '<button type="button" id="upbutton_'+i+'" class="close" data-dismiss="modal" aria-label="Close">'
+					+'<span aria-hidden="true"><|</span></button>';
 			}
 			var temp_value = contentvalue["value"];
 			temp_value = temp_value.replace(/\n/g, '<br/>');
@@ -96,6 +106,16 @@ function render(topic, edit) {
 				closebuttonid = e.currentTarget.id;
 				id = closebuttonid.split("_")[1];
 				deletecontent(id);
+	        });
+	    	$('#upbutton_'+i).click(function (e) {
+				upbuttonid = e.currentTarget.id;
+				id = upbuttonid.split("_")[1];
+				upcontent(id);
+	        });
+	    	$('#downbutton_'+i).click(function (e) {
+				downbuttonid = e.currentTarget.id;
+				id = downbuttonid.split("_")[1];
+				downcontent(id);
 	        });
 		}
 	}

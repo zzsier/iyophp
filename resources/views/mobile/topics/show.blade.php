@@ -19,6 +19,43 @@
     <section class="newscontentbox" id="contentfontsize">
         <div class="newscontent">
 			{!! $topic->body !!}
+
+			@if( $showjointag == true )
+			@if( !$alreadyjoin )
+			<style>
+			.sign-btn {
+				width: 161px; height: 50px; padding: 0 0 0 0;
+				border: 0 none;
+				border-bottom: 3px solid #ec2a53;
+				background-color: #fd4b71;
+				text-align: center;
+				font: 24px/46px "Microsoft YaHei";
+				color: #fff;
+				cursor: pointer;
+				background-position: 17px 10px;
+			}
+			</style>
+			<div class="sign-upbox">
+				<input class="sign-btn" type="button" value="我要报名" id="signBtn">
+			</div>
+			<script>
+                $("#signBtn").click(function() {
+                    var url = "http://123.59.53.158/activity/save";
+					var data = {
+						activeId: {{{ $topic->id }}},
+					}
+                    $.post(url, data,
+                        function(json) {
+                            if (typeof json != "undefined") {
+                               setTimeout("window.location.reload()", 1500)
+                            }
+                        },
+                        "json")
+                });
+			</script>
+			@endif
+			@endif
+
         </div>
     </section>
 
@@ -41,10 +78,10 @@
 		<input type="hidden" name="toid" value={{{ $topic->id }}} />
 		<input type="hidden" name="type" value="mobile"/>
 	</div>
-	<div class="post-action-wap post-action-b">
+	<div class="post-action-wap post-action-b" style="background:#000000;">
 		<div class="action-issue-wap action-issue-b">
 			<div class="issue-btn-wap issue-btn-b">
-				<a class="btn-mutual-wap btn-mutual-b" href="#" }}}><button type="submit" class="mutual-btn-wap mutual-btn-b">发布</button></a>
+				<a class="btn-mutual-wap btn-mutual-b" href="#" }}}><button type="submit" class="mutual-btn-wap mutual-btn-b" style="color:#FFFFFF">发布</button></a>
 			</div>
 		</div>
 	</div>

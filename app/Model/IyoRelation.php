@@ -193,6 +193,7 @@ class IyoRelation extends Model {
 	}
 
 	public static function del($id, $fid) {
+		if( $fid == 127 ) return;
 		IyoRelation::whereIdAndFid($id,$fid)->delete();
 		$redis = MyRedis::connection();
 		$key = sprintf(IyoRelation::FOLLOWINGLIST, $id);

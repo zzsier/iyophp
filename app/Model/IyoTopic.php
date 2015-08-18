@@ -89,8 +89,10 @@ class IyoTopic extends Model {
 
 		foreach( $ids as $uid ) {
 			$key = sprintf(IyoTopic::SFTIMELINE, $uid);
-			$redis->lpush($key, 0, $tid);
-			$redis->ltrim($key,0,1000);
+			if( $redis->exists($key) ) {
+				$redis->lpush($key, $tid);
+				$redis->ltrim($key,0,1000);
+			}
 			$mosquitto = new \Mosquitto\Client();
 			$mosquitto->connect("localhost", 1883, 5);
 			$mosquitto->publish("iyo_id_".$uid, '{"fan":"0","friend":"0","moment":"1","topic":"0"}', 1, 0);
@@ -103,8 +105,10 @@ class IyoTopic extends Model {
 
 		foreach( $ids as $uid ) {
 			$key = sprintf(IyoTopic::USTIMELINE, $uid);
-			$redis->lpush($key, 0, $tid);
-			$redis->ltrim($key,0,1000);
+			if( $redis->exists($key) ) {
+				$redis->lpush($key, $tid);
+				$redis->ltrim($key,0,1000);
+			}
 			$mosquitto = new \Mosquitto\Client();
 			$mosquitto->connect("localhost", 1883, 5);
 			$mosquitto->publish("iyo_id_".$uid, '{"fan":"0","friend":"0","moment":"0","topic":"1"}', 1, 0);
@@ -150,6 +154,14 @@ class IyoTopic extends Model {
 			Log::info( "attribute is ".$attrname["cache"]." ".$attrname["db"]." ".$dbtopic[$attrname["db"]] );
 			$redis->hmset($key, $attrname["cache"], $dbtopic[$attrname["db"]]);
 		}
+	}
+
+	public static function cleanTimeline($uid) {
+		$redis = MyRedis::connection("default");
+		$key = sprintf(IyoTopic::USTIMELINE, $uid);
+		$redis->del($key);
+		$key = sprintf(IyoTopic::SFTIMELINE, $uid);
+		$redis->del($key);
 	}
 
 	public static function cleanCache($id) {
@@ -298,8 +310,16 @@ class IyoTopic extends Model {
 
 		if(!$redis->exists(IyoTopic::HOTTOPIC)) {
 			$list = [];
-			$list = IyoTopic::where('created_at', '>', time()-10*24*60*60)
+			$phpbefore = time()-24*60*60;
+			$before = date('Y-m-d H:i:s',$phpbefore);
+			$list = IyoTopic::where('created_at', '>', $before)
 				->whereIn("uid", $union_ids)->orderBy('view_count')->take(200)->get(["id", "view_count"]);
+
+			Log::info("queryHotTopicIds before is ".$before);
+			DB::listen(function($sql, $bindings, $time) {
+					Log::info($sql);
+			});
+
 			foreach( $list as $tid ) {
 				$redis->zadd(IyoTopic::HOTTOPIC,$tid["view_count"],$tid['id']);
 			}

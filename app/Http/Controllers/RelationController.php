@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Model\IyoRelation;
 use App\Model\IyoUser;
+use App\Model\IyoTopic;
 use MyRedis;
 
 use Illuminate\Http\Request;
@@ -29,6 +30,7 @@ class RelationController extends Controller {
 
 		IyoRelation::add($id, $fid);
 		IyoUser::increaseNumOfFollow($fid);
+		IyoTopic::cleanTimeline($id);
 
 		return $result;
 	}
@@ -51,6 +53,8 @@ class RelationController extends Controller {
 		IyoRelation::del($id, $fid);
 
 		IyoUser::decreaseNumOfFollow($fid);
+		IyoTopic::cleanTimeline($id);
+
 		return $result;
 	}
 

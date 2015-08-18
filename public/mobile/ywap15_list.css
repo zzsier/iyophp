@@ -1,4 +1,4 @@
-body{background:#FFF;font-family:"Î¢ÈíÑÅºÚ","Helvetica";font-size:16px;color: #000;position: relative;}
+body{background:#000000;font-family:"Î¢ÈíÑÅºÚ","Helvetica";font-size:16px;color: #000;position: relative;}
 a,body,h1,h2,h3,h6,p,dl,dt,dd,ul,ol,li,form,button,input,img,div,pre,section,header,nav,footer{margin:0;padding:0;border:0;font-weight: normal;}
 ul,ol{list-style:none}
 img{vertical-align: middle;max-width: 100%;}
@@ -10,11 +10,11 @@ header .logo .logoimg{float: left;height: 30px;padding: 8px 10px 0;}
 header .logo .logoimg img{height: 30px;}
 header .logo .appdload{float: right;height: 28px;padding: 8px 18px 9px 23px;font-size: 12px;line-height: 14px;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/wbg.png") 0 -155px no-repeat;}
 header .logo .appdload:link,header .logo .appdload:visited{color: #00aeef;}
-header nav,footer nav{width: 100%;height: 45px;line-height: 45px;text-align:center;font-size: 18px;background: #4c9ada;}
+header nav,footer nav{width: 100%;height: 45px;line-height: 45px;text-align:center;font-size: 18px;background: #f09f12;}
 header nav li,footer nav li{float: left;width: 20%;height: 45px;}
 header nav li{width: 16%;}
 header nav li.last{width: 24%;}
-header li a:link,header li a:visited,footer li a:link,footer li a:visited{color: #fff;}
+header li a:link,header li a:visited,footer li a:link,footer li a:visited{color: #000000;}
 header li.last a:link,header li.last a:visited{padding: 0 6px;height:23px;border: 1px solid #ffe100;border-radius: 13px;color: #ffe100;}
 header li.show,footer li.show{background: #2b7cbe;}
 header .topapp{height: 50px;background: #f3f3f9;position: relative;}
@@ -29,11 +29,11 @@ header .title a span{color: #30303a;font-size: 22px;padding-right: 8px;}
 .newslist dl{height: 68px;line-height: 22px;padding-bottom: 20px;overflow: hidden;}
 .newslist dt{height: 68px;float: left;margin-right: 8px;width: 90px;}
 .newslist dt img{height: 66px;border: 1px solid #e4e4ea;}
-.newslist dd h2{height: 22px;padding-bottom: 2px;font-size: 16px;white-space: nowrap;}
-.newslist dd h2 time,.product li time{float: right;font-size: 10px;padding-left: 5px;color: #999;}
+.newslist dd h2{height: 22px;padding-bottom: 2px;font-size: 16px;white-space: nowrap; color: #969696;}
+.newslist dd h2 time,.product li time{float: right;font-size: 10px;padding-left: 5px;color: #969696;}
 .newslist dd h2 time{margin-top: 2px;}
 .newslist dd div{height: 44px;font-size: 12px;overflow: hidden;color: #999;}
-.mbtn{clear: both;height: 36px;line-height: 36px;text-align: center;font-size: 14px;cursor: pointer;margin: 5px 0 25px;background:#f3f3f9;}
+.mbtn{clear: both;height: 36px;line-height: 36px;text-align: center;font-size: 14px;cursor: pointer;margin: 5px 0 25px;background:#000000;}
 .mbtn span{display: inline-block;color: #00aeef;padding-right: 20px;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/wbg.png") 106px -120px no-repeat;}
 .mbtn a:link,.mbtn a:visited{color: #00aeef}
 .guesslist,.hotpic{overflow: hidden;}

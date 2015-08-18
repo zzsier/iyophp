@@ -1,4 +1,4 @@
-body{background:#FFF;font-family:"Î¢ÈíÑÅºÚ","Helvetica";font-size:16px;color: #999;}
+body{background:#040019;font-family:"Î¢ÈíÑÅºÚ","Helvetica";font-size:16px;color: #999;}
 a,body,h1,h2,h3,h6,p,dl,dt,dd,ul,ol,li,form,button,input,img,div,pre,section,header,nav,footer{margin:0;padding:0;border:0;font-weight: normal;}
 ul,ol{list-style:none}
 img{vertical-align: middle;max-width: 100%;}
@@ -10,11 +10,11 @@ header .logo .logoimg{float: left;height: 30px;padding: 8px 10px 0;}
 header .logo .logoimg img{height: 30px;}
 header .logo .appdload{float: right;height: 28px;padding: 8px 18px 9px 23px;font-size: 12px;line-height: 14px;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/wbg.png") 0 -155px no-repeat;}
 header .logo .appdload:link,header .logo .appdload:visited{color: #00aeef;}
-header nav,footer nav{width: 100%;height: 45px;line-height: 45px;font-size: 18px;text-align:center;background: #4c9ada;}
+header nav,footer nav{width: 100%;height: 45px;line-height: 45px;font-size: 18px;text-align:center;background: #f09f12;color:#07002b;}
 header nav li,footer nav li{float: left;width: 20%;height: 51px;}
 header nav li{width: 15%;}
 header nav li.last{width: 24%;}
-header li a:link,header li a:visited,footer li a:link,footer li a:visited{color: #fff;}
+header li a:link,header li a:visited,footer li a:link,footer li a:visited{color: #07002b;}
 header li.last a:link,header li.last a:visited{padding: 0 6px;height:23px;border: 1px solid #ffe100;border-radius: 13px;color: #ffe100;}
 .search{height: 2px;padding: 10px 10px 0 10px;}
 //.search .sform{width: 100%;height: 33px;border: 1px solid #d2d2da;border-radius: 0 5px 5px 0;}
@@ -47,15 +47,15 @@ header li.last a:link,header li.last a:visited{padding: 0 6px;height:23px;border
 #slide_03 .swiper-pagination-bullet-active{opacity: 1;background: #6f266d;}
 /*news*/
 .box,.news{padding: 20px 10px 0 10px;}
-.box h1{height: 46px;line-height: 46px;font-size: 24px;color: #000;border-top: 2px solid #000;border-bottom: 1px solid #f3f3f9;}
+.box h1{height: 46px;line-height: 46px;font-size: 24px;color: #000;border-top: 1px solid #000;border-bottom: 1px solid #1c1852;}
 .box h1 a:link,.box h1 a:visited{float: right;padding: 0 10px;font-size: 16px;color: #ff6600;}
-.orangebd h1{color: #ff6600;border-top-color: #ff6600;}
+.orangebd h1{color: #00ffc9;border-top-color: #000000;}
 .greenbd h1{color: #18bd9b;border-top-color: #18bd9b;}
 .greenbd h1 a:link,.greenbd h1 a:visited{color: #18bd9b;}
 .bluebd h1{color: #4c9ada;border-top-color: #4c9ada;}
 .bluebd h1 a:link,.bluebd h1 a:visited{color: #ff0303;}
 .purplebd h1{color: #a23a89;border-top-color: #a23a89;border-bottom-color: #fff;}
-.mbtn{height: 36px;line-height: 36px;text-align: center;font-size: 14px;cursor: pointer;margin-top: 20px;background:#f3f3f9;}
+.mbtn{height: 36px;line-height: 36px;text-align: center;font-size: 14px;cursor: pointer;margin-top: 20px;background:#000000;}
 .mbtn span{display: inline-block;color: #00aeef;padding-right: 20px;background: url("http://www.yesky.com/TLimages2009/yesky/images/ywap15/wbg.png") 89px -120px no-repeat;}
 .mbtn a:link,.mbtn a:visited{color: #00aeef}
 .news h1{height: 20px;color: #fff;}
@@ -76,7 +76,7 @@ header li.last a:link,header li.last a:visited{padding: 0 6px;height:23px;border
 .clickbtn.show a{display: block;width: 100%;}
 /*product*/
 .product li{width: 100%;height: 40px;line-height: 40px;}
-.product li a{float: left;width: 80%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+.product li a{float: left;width: 80%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color:white;}
 .product li.first{height: 60px;line-height: 60px;font-size: 20px;padding-bottom: 5px;text-align: center;}
 .product li.first a:link,.product li.first a:visited{width: 100%;color: #ff0000;}
 .product .mbtn{margin-top: 10px;}

@@ -43,6 +43,15 @@ class CommentController extends Controller
 		IyoComment::addComment($uid, $tid, $body);
 		IyoTopic::incrNumOfReply($tid);
 
+		$topic = IyoTopic::queryById($tid);
+		$userid = $topic["uid"];
+
+		$mosquitto = new \Mosquitto\Client();
+		$mosquitto->connect("localhost", 1883, 5);
+		$mosquitto->publish("iyo_id_".$userid, '{"fan":"0","friend":"0","moment":"0","topic":"2"}', 1, 0);
+		$mosquitto->disconnect();
+
+
 		return $result;
 
 	}

@@ -10,11 +10,11 @@
 	<script src={{{URL::asset('Bbs/Bbs_publish.js')}}} charset="gbk"></script>
 
     <script>
-        var boardid = {{{ isset($topic)?$topic->node_id:'0' }}};
+        var boardid = {{{ isset($node)?$node->id:'0' }}};
 
         Publish_Config = {
             cateid  : '1',
-            boardid : {{{ isset($topic)?$topic->node_id:'0' }}},
+            boardid : {{{ isset($node)?$node->id:'0' }}},
             bbsid	: '6',
             productid : '0',
             manuid    : '0',
@@ -23,7 +23,7 @@
             topic_id : {{{ isset($topic)?$topic->id:'0' }}},
             book_type  : ''
         },WEB_CONFIG = {
-            boardid : {{{ isset($topic)?$topic->node_id:'0' }}},
+            boardid : {{{ isset($node)?$node->id:'0' }}},
             attachFilesize : '5MB'
         };
     </script>
@@ -285,6 +285,9 @@
         <div class="rewardbox">
 			@if (Auth::check() && Auth::user()->can("manage_topics") )
             <div class="filter-else-area clearfix">
+			@else
+            <div class="filter-else-area clearfix" style="display:none;">
+			@endif
                 <div class="color-set clearfix">
                     <label for="titleColorSet">置顶:</label>
                     <select id="is_top">
@@ -309,11 +312,10 @@
 					@if( isset($topic) && $topic->is_excellent == 1 )
 					<input id="is_excellent" checked="checked" type="checkbox">精华帖</label>
 					@else
-					<input id="is_excellent" checked="checked" type="checkbox">精华帖</label>
+					<input id="is_excellent" type="checkbox">精华帖</label>
 					@endif
                 </div>
             </div>
-			@endif
 
             <div class="post-publish clearfix">
                 <span class="btn-gray border-radius" id="previewBook">预览</span>

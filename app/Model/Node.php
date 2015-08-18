@@ -22,6 +22,11 @@ class Node extends Model {
         return $this->hasMany('Topic')->getTopicsWithFilter($filter);
     }
 
+	public static function clearCache()
+	{
+		return Cache::forget(self::CACHE_KEY);
+	}
+
     public static function allLevelUp()
     {
         Log::info("enter allLevelUp");

@@ -121,9 +121,10 @@ Route::group(['prefix' => 'question'], function()
 Route::resource('moment/upload', 'UploadController@uploadMemoryImage');
 Route::resource('like/list', 'TopicsController@queryLikeList');
 	
+Route::resource('backends', 'TopicsController@showlist');
+
 Route::group(['prefix' => 'backend'], function()  
 {
-	Route::resource('nodes', 'NodesController');
 	Route::resource('user/create', 'UserController@create');
 	Route::resource('user/edit', 'UserController@edit');
 	Route::resource('user/list', 'UserController@index');
@@ -134,6 +135,13 @@ Route::group(['prefix' => 'backend'], function()
 	Route::resource('topic/edit', 'TopicsController@edit');
 	Route::resource('topic/list', 'TopicsController@showlist');
 	Route::resource('topic/destroy', 'TopicsController@destroy');
+
+	Route::resource('nodes/list', 'NodesController@showlist');
+	Route::resource('nodes/save', 'NodesController@saveOrUpdate');
+	Route::resource('nodes/edit', 'NodesController@edit');
+	Route::resource('nodes/create', 'NodesController@create');
+	Route::resource('nodes/destroy', 'NodesController@destroy');
+
 
 	Route::resource('document/list', 'DocumentController@showlist');
 	Route::resource('document/node/create', 'DocumentController@createNode');

@@ -11,8 +11,8 @@
 <script type="text/javascript" src={{{URL::asset('mobile/ywap15_list.js')}}}></script>
 
 <section class="wrap">
-<div class="title" style="padding-left: 12px;height: 46px;line-height: 46px;padding-top: 4px;border-bottom: 1px solid #d2d2da;font-size: 22px;">
-	<span style="color: #30303a;font-size: 22px;padding-right: 8px;">{{{ $node->name }}}</span>
+<div class="title" style="padding-left: 12px;height: 46px;line-height: 46px;padding-top: 4px;border-bottom: 1px solid #a4332d;font-size: 22px;">
+	<span style="color: #FFFFFF;font-size: 22px;padding-right: 8px;">{{{ $node->name }}}</span>
 </div>
 </section>
 
@@ -38,12 +38,12 @@
 </section>
 
 <footer>
-<div>
+<!--<div>
 	<a href="http://www.yesky.com/">电脑版</a>
 	<a href="http://cps-bridge.yesky.com/os_adaptor?android=http://gs.mydown.yesky.com/tianjishuma_wapb.apk&ios=http://itunes.apple.com/cn/app/tian-ji-shu-ma/id478210740&default=http://wap.yesky.com/">客户端</a>
 	<a href="http://www.tianjimedia.com/ywjs/391/39211391.shtml">关于我们</a>
 	<a href="http://123.59.53.158/#top">返回顶部</a>
-</div>
+</div>-->
 <p>&#169;2015&nbsp;IYO游戏论坛</p>
 </footer>
 

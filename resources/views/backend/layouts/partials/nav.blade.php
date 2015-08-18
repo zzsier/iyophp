@@ -2,9 +2,12 @@
   <div class="container">
     <div id="top-navbar-collapse" class="navbar-collapse">
       <ul class="nav navbar-nav">
+        <li class="{{ (Request::is('users*') ? ' active' : '') }}"><a href="{{ URL::to('/') }}">IYO首页</a></li>
         <li class="{{ (Request::is('topics*') ? ' active' : '') }}"><a href="{{ URL::to('backend/topic/list') }}">{{ trans('webpage.Topics') }}</a></li>
         <li class="{{ (Request::is('users*') ? ' active' : '') }}"><a href="{{ URL::to('backend/user/list') }}">{{ trans('webpage.Users') }}</a></li>
         <li class="{{ (Request::is('users*') ? ' active' : '') }}"><a href="{{ URL::to('backend/document/list') }}">文档管理</a></li>
+        <li class="{{ (Request::is('users*') ? ' active' : '') }}"><a href="{{ URL::to('backend/nodes/list') }}">NODE管理</a></li>
+        <li class="{{ (Request::is('users*') ? ' active' : '') }}"><a href="{{ URL::to('question/listquestion') }}">每日任务管理</a></li>
       </ul>
 
 		{{--

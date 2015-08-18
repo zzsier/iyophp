@@ -213,6 +213,34 @@
 		render(topic, true);
 	}
 
+	function upcontent(id) {
+		if( id == 0 ) {
+			render(topic, true);
+			return;
+		}
+		var i = Number(id);
+		var tempvalue1 = topic["body"][i-1];
+		var tempvalue2 = topic["body"][i];
+		topic["body"][i-1] = tempvalue2;
+		topic["body"][i] = tempvalue1;
+
+		render(topic, true);
+	}
+
+	function downcontent(id) {
+		if( id == topic["body"].length-1 ) {
+			render(topic, true);
+			return;
+		}
+		var i = Number(id);
+		var j = i + 1;
+		var tempvalue1 = topic["body"][j];
+		var tempvalue2 = topic["body"][i];
+		topic["body"][j] = tempvalue2;
+		topic["body"][i] = tempvalue1;
+		render(topic, true);
+	}
+
 	function cancel() {
     	window.location.href = "http://"+window.location.host+'/backend/topic/list';
     };

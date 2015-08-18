@@ -82,7 +82,6 @@ class TopicsController extends Controller {
 		$image = $request->json("headimage", "");
 		$uid = $request->json("uid", 0);
 		$body = json_encode($request->json("body", ""));
-		$redis = MyRedis::connection("default");
 
 		$topic = IyoTopic::saveOrUpdate($title, $abstract, $from, $image, $uid, $body, $tid);
 		$this->route($uid, $topic["tid"]);
@@ -192,6 +191,14 @@ class TopicsController extends Controller {
 
 		IyoLike::like($uid, $tid);
 		IyoTopic::incrNumOfLike($tid);
+
+		$topic = IyoTopic::queryById($tid);
+		$userid = $topic["uid"];
+
+		$mosquitto = new \Mosquitto\Client();
+		$mosquitto->connect("localhost", 1883, 5);
+		$mosquitto->publish("iyo_id_".$userid, '{"fan":"0","friend":"0","moment":"0","topic":"3"}', 1, 0);
+		$mosquitto->disconnect();
 
 		return $result;
 	}

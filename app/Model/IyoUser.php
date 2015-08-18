@@ -87,6 +87,7 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 		$redis = MyRedis::connection("default");
 		$redis->del("user:1:list");
 		$redis->del("user:2:list");
+		IyoUser::cleanCache($id);
 	}
 
 	public static function queryById($id)

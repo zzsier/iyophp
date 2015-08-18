@@ -62,12 +62,12 @@
 </section>
 
 <footer>
-<div>
+<!--<div>
 	<a href="http://www.yesky.com/">电脑版</a>
 	<a href="http://cps-bridge.yesky.com/os_adaptor?android=http://gs.mydown.yesky.com/tianjishuma_wapb.apk&ios=http://itunes.apple.com/cn/app/tian-ji-shu-ma/id478210740&default=http://wap.yesky.com/">客户端</a>
 	<a href="http://www.tianjimedia.com/ywjs/391/39211391.shtml">关于我们</a>
 	<a href="http://123.59.53.158/#top">返回顶部</a>
-</div>
+</div>-->
 <p>&#169;2015&nbsp;IYO游戏论坛</p>
 </footer>
 

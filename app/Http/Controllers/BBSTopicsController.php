@@ -63,7 +63,11 @@ class BBSTopicsController extends BaseController implements CreatorListener
 		$extopics = $this->topic->getTopicsWithFilter($filter);
 
 		$nodes  = Node::allLevelUp();
-		$subnodes = $nodes['second'][$id];
+		if ( !array_key_exists($id, $nodes['second']) ) {
+			$subnodes = [];
+		} else {
+			$subnodes = $nodes['second'][$id];
+		}
 		$topicslv1 = $this->topic->getTopicsByLevel($id, 1);
 		$topicslv2 = $this->topic->getTopicsByLevel($id, 2);
 
@@ -103,7 +107,11 @@ class BBSTopicsController extends BaseController implements CreatorListener
 	{
 		$node = Node::find(Input::get('node_id'));
 		$nodes = Node::allLevelUp();
-		$subnodes = $nodes['second'][$node->id];
+		if ( !array_key_exists($node->id, $nodes['second']) ) {
+			$subnodes = [];
+		} else {
+			$subnodes = $nodes['second'][$node->id];
+		}
 
 		return View::make('topics.create_edit', compact('subnodes', 'node', 'nodes'));
 	}
@@ -234,7 +242,11 @@ class BBSTopicsController extends BaseController implements CreatorListener
 		$nodes = Node::allLevelUp();
 		$node = $topic->node;
         $category = Node::find($topic->cate_id);
-        $subnodes = $nodes['second'][$node->id];
+		if ( !array_key_exists($node->id, $nodes['second']) ) {
+			$subnodes = [];
+		} else {
+			$subnodes = $nodes['second'][$node->id];
+		}
 
 		return View::make('topics.create_edit', compact('subnodes','topic', 'nodes', 'node','category'));
 	}

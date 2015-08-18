@@ -259,6 +259,15 @@ class UploadController extends Controller {
 				//$img->save();
 			}
 
+			if ($file->getClientOriginalExtension() != 'gif') {
+				$img = Image::make($destinationPath . '/' . $filename);
+				$img->resize(100, null, function ($constraint) {
+					$constraint->aspectRatio();
+					$constraint->upsize();
+				});
+				$img->save($destinationPath."/".'user_'.$id."_small.".$extension, 30);
+			}
+
 			$user = IyoUser::find($id);
 			$user->imageUrl =  $destinationPath.'/'. $safeName;
 			$user->save();

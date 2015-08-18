@@ -26,7 +26,7 @@ class PagesController extends BaseController
 
 		foreach( $nodes["top"] as $pnode ) {
 			$subtopics = Topic::where("is_excellent", true)->where("node_id", $pnode->id)
-				->orderBy("created_at", "asc")->paginate(5);
+				->orderBy("created_at", "desc")->paginate(5);
 			$topics[] = $subtopics;
 		}
 
