@@ -9,6 +9,8 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Illuminate\Log\Writer;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\WowApi\Client;
+use App\WowApi\Request\Curl;
 
 class IyoPlayer extends Model {
 
@@ -43,7 +45,6 @@ class IyoPlayer extends Model {
 		$player->gid = $gid;
 		$player->sid = $sid;
 		$player->uid = $uid;
-
 		$player->save();
 
 		$redis = MyRedis::connection("default");

@@ -4,7 +4,9 @@
 		<meta charset="utf-8">
 		<title>IYO 游戏论坛</title>
 		<link href={{{URL::asset('demo/Bbs_index.css')}}} rel="stylesheet">
-		<script src={{{URL::asset('js/jquery-1.4.2.min.js')}}} type="text/javascript"></script>
+		<!--<script src={{{URL::asset('js/jquery-1.4.2.min.js')}}} type="text/javascript"></script>-->
+		<script src="/js/jquery.js"></script>
+		<script src="/js/bootstrap_bbs.js"></script>
 		<script src={{{URL::asset('Bbs/jquery.easing.min.js')}}} type="text/javascript"></script>
 		<script src={{{URL::asset('Bbs/jQueryRotate.2.2.js')}}} type="text/javascript"></script>
 		<script async="" src={{{URL::asset('demo/gw.js')}}}></script>

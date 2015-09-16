@@ -3,7 +3,6 @@
 @section('content')
 <link rel="stylesheet" href={{{URL::asset('mobile/swiper.min.css')}}}>
 <link rel="stylesheet" type="text/css" href={{{URL::asset('mobile/ywap15.css')}}}>
-<link href="http://www.yesky.com/TLimages2009/yesky/wap/waplogo.png" rel="apple-touch-icon-precomposed">
 <script type="text/javascript" async="" src={{{URL::asset('mobile/dc.js')}}}></script>
 <script src={{{URL::asset('mobile/hm.js')}}}></script>
 <script type="text/javascript" src={{{URL::asset('mobile/jquery-1.7.2.min.js')}}}></script>
@@ -23,22 +22,24 @@
 
 <section class="cont">
 	<section class="focus" style="width:320px;height:160px;">
-	<div class="topic-info swiper-container-horizontal" id="slide_01" style="padding-top:3px;width: 320px;height:160px;">
-		<div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(-1750px, 0px, 0px);">
-		@foreach ($topics as $tindex => $subtopics)
-			@foreach ($subtopics as $sindex => $topic)
-			@if( $sindex == 0 )
-			<div class="swiper-slide" data-swiper-slide-index={{ $tindex }} style="width:320px;margin-right:30px;">
-				<span>
-				<a href={{{ URL::to("topics/$topic->id") }}}>
-				<img alt={{{ $topic->title }}} src={{{ $topic->image }}} width="320" height="160">
-				</a>
-				</span>
-				<p><a href={{{ URL::to("topics/$topic->id") }}}>{{{ $topic->title }}}</a></p>
-		    </div>
-			@endif
+		<div class="topic-info swiper-container-horizontal" id="slide_01" style="padding-top:3px;width: 320px;height:160px;">
+			<div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(-1750px, 0px, 0px);">
+			@foreach ($topics as $tindex => $subtopics)
+				@foreach ($subtopics as $sindex => $topic)
+				@if( $sindex == 0 )
+				<div class="swiper-slide" data-swiper-slide-index={{ $tindex }} style="width:320px;margin-right:30px;">
+					<span>
+					<a href={{{ URL::to("topics/$topic->id") }}}>
+					<img alt={{{ $topic->title }}} src={{{ $topic->image }}} width="320" height="160">
+					</a>
+					</span>
+					<p><a href={{{ URL::to("topics/$topic->id") }}}>{{{ $topic->title }}}</a></p>
+			    </div>
+				@endif
+				@endforeach
 			@endforeach
-		@endforeach
+			</div>
+		</div>
 	</section>
 
 	@foreach ($topics as $tindex => $subtopics)

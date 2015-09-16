@@ -6,11 +6,24 @@
 
 @section('content')
 
+	<link href="/css/bootstrap_bbs.css" rel="stylesheet" type="text/css"/>
+
     <link href={{{URL::asset('Bbs/Bbs_publish.css')}}} type="text/css" rel="stylesheet">
 	<script src={{{URL::asset('Bbs/Bbs_publish.js')}}} charset="gbk"></script>
-
+	<script src="/js/vendor/jquery.ui.widget.js"></script>
+	<script src="/js/load-image.all.min.js"></script>
+	<script src="/js/canvas-to-blob.min.js"></script>
+	<script src="/js/jquery.iframe-transport.js"></script>
+	<script src="/js/jquery.fileupload.js"></script>
+	<script src="/js/jquery.fileupload-process.js"></script>
+	<script src="/js/jquery.fileupload-image.js"></script>
+	<script src="/js/jquery.fileupload-audio.js"></script>
+	<script src="/js/jquery.fileupload-video.js"></script>
+	<script src="/js/jquery.fileupload-validate.js"></script>
+	
     <script>
         var boardid = {{{ isset($node)?$node->id:'0' }}};
+		var image_url = String("{{{ isset($topic)?$topic->image:'' }}}");
 
         Publish_Config = {
             cateid  : '1',
@@ -21,6 +34,7 @@
             subid     : {{{ isset($topic)?$topic->cate_id:'0' }}},
             pageType  : '',
             topic_id : {{{ isset($topic)?$topic->id:'0' }}},
+            image : image_url,
             book_type  : ''
         },WEB_CONFIG = {
             boardid : {{{ isset($node)?$node->id:'0' }}},
@@ -39,11 +53,22 @@
 	<script src={{{URL::asset('Bbs/codemirror.js')}}} charset="gbk"></script>
     <link href={{{URL::asset('Bbs/codemirror.css')}}} type="text/css" rel="stylesheet">
 
-    @if (isset($topic))
-        {!! Form::model($topic, ['route' => ['topics.update', $topic->id], 'id' => 'topic-create-form', 'method' => 'patch']) !!}
-    @else
-        {!! Form::open(['route' => 'topics.store','id' => 'topic-create-form', 'method' => 'post']) !!}
-    @endif
+	<div class="modal" id="myModal" tabindex="-2000" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+			  <h4 class="modal-title" id="myModalLabel">文章编辑<a class="anchorjs-link" href="#myModalLabel"><span class="anchorjs-icon"></span></a></h4>
+			</div>
+	
+			<div class="modal-body" id="imagecontent">
+	            <input id="fileupload" class="btn btn-default" value="Input" type="file" name="uploadedfile" multiple/>
+			</div>
+			<div class="modal-body" id="showimage">
+			</div>
+		  </div>
+		</div>
+	</div>
 
     <div class="wrapper">
         <input type="hidden" value="150" id="userScore">
@@ -54,6 +79,7 @@
             <a href={{{ URL::to('/') }}}>IYO论坛</a> &gt; 
 			<a href={{{ URL::to("nodes/$node->id") }}}>{{{ $node->name }}}</a> &gt; <a href="">发表新帖</a>
 		</div>
+
 		<div class="section border-radius">
             <div class="section-header"><h3><i class="line"></i>发表新帖</h3></div>
             <div class="filter-area clearfix">
@@ -92,7 +118,54 @@
 					@endif
                 </div>
 
-            </div>
+                <div class="post-publish" style="padding-top: 5px;" >
+					<input type="button" onclick="addcontent();" style="width:150px;" data-toggle="modal"
+						data-target="#myModal" class="btn btn-primary btn-block" value="添加头图"/>
+				</div>
+			</div>
+
+			  <script>
+			
+				uploadfilename = "";
+
+				$(function () {
+					'use strict';
+			
+					$('#fileupload').fileupload({
+						url: "/backend/upload",
+						dataType: 'json',
+						autoUpload: true,
+						acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+						maxFileSize: 5000000, // 5 MB
+						disableImageResize: /Android(?!.*Chrome)|Opera/
+							.test(window.navigator.userAgent),
+						previewMaxWidth: 100,
+						previewMaxHeight: 100,
+						previewCrop: true
+					}).on('fileuploadadd', function (e, data) {
+					}).on('fileuploadprocessalways', function (e, data) {
+					}).on('fileuploaddone', function (e, data) {
+						uploadfilename = data.result.filename;
+						Publish_Config.image = 'http://'+window.location.host+'/'+uploadfilename+'';
+						$("#showimage").html('<img src="'+Publish_Config.image+'" class="img-responsive" width="100%"/>');
+						$("#showimage").show();
+						//$("#image").val(uploadfilename);
+					}).on('fileuploadfail', function (e, data) {
+						alert("上传文件失败");
+					}).prop('disabled', !$.support.fileInput);
+				});
+			
+				function addcontent() {
+					$("#imagecontent").hide();
+					$("#showimage").hide();
+			
+					$("#imagecontent").show();
+					if( Publish_Config.image != '' ) {
+						$("#showimage").html('<img src="'+Publish_Config.image+'" class="img-responsive" width="100%"/>');
+						$("#showimage").show();
+					}
+				}
+			  </script>
 
 
             <div class="edit-post clearfix">
@@ -315,6 +388,15 @@
 					<input id="is_excellent" type="checkbox">精华帖</label>
 					@endif
                 </div>
+
+                <div class="color-set post-set-top clearfix">
+                    <label for="postSetTop">
+					@if( isset($topic) && $topic->is_stick == 1 )
+					<input id="is_stick" checked="checked" type="checkbox">手机显示</label>
+					@else
+					<input id="is_stick" type="checkbox">手机显示</label>
+					@endif
+                </div>
             </div>
 
             <div class="post-publish clearfix">
@@ -373,8 +455,6 @@
             </div>
         </div>
     </div>
-
-    {!! Form::close() !!}
 
     <div class="wrap-foot"></div>
 

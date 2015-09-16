@@ -104,7 +104,8 @@ class IyoRelation extends Model {
 			foreach( $ids as $fid ) {
 				$user = IyoUser::queryById($fid);
 				if( $type == "US" ) {
-					if( $user["type"] == "2" || $user["type"] == "1" ) { 
+					//if( $user["type"] == "2" || $user["type"] == "1" ) { 
+					if( $user["type"] == "2" ) { 
 						$redis->zadd($key,strtotime($user["created_at"]),$user['id']);
 					}
 				} else {
@@ -193,7 +194,6 @@ class IyoRelation extends Model {
 	}
 
 	public static function del($id, $fid) {
-		if( $fid == 127 ) return;
 		IyoRelation::whereIdAndFid($id,$fid)->delete();
 		$redis = MyRedis::connection();
 		$key = sprintf(IyoRelation::FOLLOWINGLIST, $id);

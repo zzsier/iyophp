@@ -1,9 +1,13 @@
 <?php
 namespace App\Http\Controllers;
-use App\Model\Topic;
 use App\Model\Node;
 use View;
 use Auth;
+use Illuminate\Http\Request;
+use App\Model\IyoTopic;
+use App\Model\IyoRelation;
+use App\Model\Topic;
+
 
 class PagesController extends BaseController
 {
@@ -32,6 +36,48 @@ class PagesController extends BaseController
 
         return View::make('pages.home', compact('topics', 'nodes'));
     }
+
+    public function video(Request $request)
+    {
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => trans('successmsg.FollowSuccess'));
+
+		$result["result"] = "http://123.59.53.158/uploads/F_ONE_2015_Kiteboarding.mp4";
+
+		return $result;
+    }
+
+
+	public function firstpage(Request $request)
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '获取最新文章成功');
+
+		$id = $request["id"];
+
+		$result["video"] = $this->video($request);
+
+		$bbstopic = new Topic();
+		$controller_bbs = new BBSTopicsController($bbstopic);
+		$bbs_result = $controller_bbs->queryForApp($request);
+		$result["bbs"] = $bbs_result["result"];
+
+		$request["num"] = 15;
+		$request["current"] = 0;
+
+		$controller_topic = new TopicsController();
+		$topics_result = $controller_topic->queryUSTopicsByTime($request);
+		$result["topics"] = $topics_result["result"];
+
+		$request["num"] = 1;
+		$request["current"] = 0;
+
+		$moments_result = $controller_topic->querySFTopicsByTime($request);
+		$result["moment"] = $moments_result["result"];
+
+		return $result;
+	}
+
 
     /**
      * About us page

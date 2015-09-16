@@ -43,6 +43,7 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 		array("cache"=>"exp", "db"=> "exp", "return"=>"exp"),
 		array("cache"=>"dailyjob_at", "db"=> "dailyjob_at", "return"=>"dailyjob_at"),
 		array("cache"=>"activate", "db"=> "activate", "return"=>"activate"),
+		array("cache"=>"lastlogintime", "db"=> "lastlogintime", "return"=>"lastlogintime"),
 	);
 
 	const USER="user:%s";
@@ -64,26 +65,26 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 	}
 
 	public static function loadDataInToCache($id) {
-		Log::info("IyoUser loadDataInToCache enter");
+		//Log::info("IyoUser loadDataInToCache enter");
 		$redis = MyRedis::connection("default");
 		$dbuser = IyoUser::find($id);
 		if( is_null($dbuser) ) return;
 		$key = sprintf(IyoUser::USER, $id);
 		foreach( self::$attrnames as $attrname ) {
-			Log::info( "attribute is ".$attrname["cache"]." ".$attrname["db"]." ".$dbuser[$attrname["db"]] );
+			//Log::info( "attribute is ".$attrname["cache"]." ".$attrname["db"]." ".$dbuser[$attrname["db"]] );
 			$redis->hmset($key, $attrname["cache"], $dbuser[$attrname["db"]]);
 		}
 	}
 
 	public static function cleanCache($id) {
-		Log::info("IyoTopic cleanCache enter");
+		//Log::info("IyoTopic cleanCache enter");
 		$redis = MyRedis::connection("default");
 		$key = sprintf(IyoUser::USER, $id);
 		$redis->del($key);
 	}
 
 	public static function cleanAll($id) {
-		Log::info("IyoTopic cleanAll enter");
+		//Log::info("IyoTopic cleanAll enter");
 		$redis = MyRedis::connection("default");
 		$redis->del("user:1:list");
 		$redis->del("user:2:list");
@@ -106,7 +107,7 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 		$user = [];
 		foreach( self::$attrnames as $attrname ) {
 			$user[$attrname["return"]] = $redis->hget($key, $attrname["cache"]);
-			Log::info( "attribute is ".$attrname["return"]." ".$attrname["cache"]." ".$user[$attrname["return"]]);
+			//Log::info( "attribute is ".$attrname["return"]." ".$attrname["cache"]." ".$user[$attrname["return"]]);
 		}
 		return $user;
 	}

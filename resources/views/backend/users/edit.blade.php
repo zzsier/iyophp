@@ -31,6 +31,11 @@
           </div>
 
           <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+    		<label class="col-sm-2 control-label" for="phone">密码</label>
+			<div class="col-sm-10"><input type="password" class="form-control" name="password" value="{{ $user->password }}" /></div>
+          </div>
+
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
     		<label class="col-sm-2 control-label" for="type">用户类型</label>
 			<div class="col-sm-10">
 			<select class="form-control" name="type">

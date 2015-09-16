@@ -30,6 +30,7 @@ class Kernel extends HttpKernel {
 		'cksession' => 'App\Http\Middleware\CheckSessionMiddleware',
 		'htmlsession' => 'App\Http\Middleware\AuthSessionHTMLMiddleware',
 		'bbscheck' => 'App\Http\Middleware\BBSMiddleware',
+		'backendcheck' => 'App\Http\Middleware\BackendMiddleware',
 	];
 
 }

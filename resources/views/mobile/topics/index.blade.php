@@ -24,7 +24,8 @@
                 <dl>
                     <dt><img alt="" width="70" height="70" src={{{ $topic->image }}}></dt>
                     <dd>
-                        <h2>{{{ $topic->title }}} <time>{{{ date("Y-m", strtotime($topic->created_at)) }}}</time></h2>
+                        <h2><div><h2 style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:180px;">{{{ $topic->title }}}</h2></div>
+						<time>{{{ date("Y-m", strtotime($topic->created_at)) }}}</time></h2>
                         <div></div>
                     </dd>
                 </dl>

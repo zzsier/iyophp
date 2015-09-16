@@ -210,7 +210,27 @@ Z_TuanParams = {
 						{!! $reply->body !!}
 					</td>
 				</tr>
-						</tbody>
+				<tr>
+					<td class="post-footer">
+						<div class="main-options clearfix">
+							<div class="options">
+								<div class="options-btns clearfix">
+									@if( Auth::check() )
+									@if ( Auth::id() == $topic->user->id || Auth::user()->can("manage_topics") )
+									<a class="btn border-radius-s3" href={{{ URL::to("replies/$reply->id/edit") }}} type="book">编辑</a>
+									@endif
+									@endif
+									<!--<a class="btn border-radius-s3" data-options="report" href="###">举报</a>
+									<a class="btn border-radius-s3" href="/sjbbs/d33669_1404_uid_0kxo0w.html">只看此人</a>
+	        						<a class="btn-blue btn-2 border-radius-s3" data-options="score" href="###" data-userid="0kxo0w" data-param="0kxo0w">评分</a>
+	        						<a class="btn-blue btn-2 border-radius-s3" href="###" id="replyAuthorBtn">回复</a>-->
+	        					</div>
+							</div>
+						</div>
+						<!-- //main-options end -->
+					</td>
+				</tr>
+			</tbody>
 		</table>
 		@endforeach
 	@endif

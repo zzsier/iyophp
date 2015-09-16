@@ -87,6 +87,12 @@
 		var topic = <?php echo html_entity_decode(json_encode($topic, JSON_UNESCAPED_UNICODE)) ?>;
 	@else
 		var topic = new Object();
+
+		@if (Auth::check() && !Auth::user()->can("manage_topics") )
+			topic['uid'] = {{{ Auth::id() }}};
+			topic['username'] = "{{{ Auth::user()->username }}}";
+		@endif
+
 	@endif
 
 	if (!topic.hasOwnProperty('body')) {
@@ -94,6 +100,7 @@
 	}
 	topic["headimage"] = topic["image"];
 	var unions = <?php echo html_entity_decode(json_encode($unions, JSON_UNESCAPED_UNICODE)) ?>;
+
 
 	render(topic, true);
 
@@ -182,9 +189,11 @@
 			topic[updatetype] = $("#showcontent").val();
 		}
 		render(topic, true);
+		$('html, body').animate({scrollTop: $('html, body').height()}, 800);
 	}
 
 	function save() {
+		topic["type"] = "1";
 		postvalue = JSON.stringify(topic);
         $.ajax({
                 type: "POST",
@@ -247,9 +256,7 @@
 
   </script>
 
-
-
-  <div class="col-md-3 side-bar">
+  <div class="col-md-3 side-bar" style="position: fixed; width:20%; right: 50%; margin-right: -500px;">
 	<div class="panel panel-default corner-radius help-box">
 	  <div class="panel-heading text-center">
 		<h3 class="panel-title">工具栏</h3>
@@ -259,7 +266,9 @@
 		  <input type="button" onclick="addcontent('abstract');" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block" value="添加简介"/>
 		  <input type="button" onclick="addcontent('from');" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block" value="添加来源"/>
 		  <input type="button" onclick="addcontent('headimage');" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block" value="添加头图"/>
+	  	@if (Auth::check() && Auth::user()->can("manage_topics") )
 		  <input type="button" onclick="addcontent('uid');" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block" value="修改用户"/>
+		@endif
 		  <input type="button" onclick="addcontent('image');" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block" value="添加图片"/>
 		  <input type="button" onclick="addcontent('content');" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block" value="添加内容"/>
 		  <input type="button" onclick="save();" class="btn btn-danger btn-block" value="保存设置"/>

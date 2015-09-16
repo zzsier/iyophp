@@ -7193,11 +7193,14 @@ FB.verify = function() {
         $("#fenLouArr").val(src)
     }
 
-	var image = "";
+	var image = Publish_Config.image || '';
+
+	/*
     $("#picUploadArea li").each(function(key, val) {
 		image = $(this).find("img").attr("src");
 		return false;
     });
+	*/
  
     var fenlou = $("#fenLouArr").val();
     var p_size = parseInt($("#picSize").text()),
@@ -7480,10 +7483,17 @@ FB.publishBook = function(data) {
 	if( $('#is_top').val() == 1 || $('#is_top').val() == 2 ) {
 		data.is_top = $('#is_top').val();
 	}
+
 	if( $('#is_excellent').attr("checked") == "checked" ) {
 		data.is_excellent = 1;
 	} else {
 		data.is_excellent = 0;
+	}
+
+	if( $('#is_stick').attr("checked") == "checked" ) {
+		data.is_stick = 1;
+	} else {
+		data.is_stick = 0;
 	}
 
     var url = "/topics";

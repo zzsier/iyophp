@@ -121,9 +121,12 @@ Route::group(['prefix' => 'question'], function()
 Route::resource('moment/upload', 'UploadController@uploadMemoryImage');
 Route::resource('like/list', 'TopicsController@queryLikeList');
 	
-Route::resource('backends', 'TopicsController@showlist');
+Route::group(['middleware' => 'backendcheck'], function()
+{
+	Route::resource('backends', 'TopicsController@showlist');
+});
 
-Route::group(['prefix' => 'backend'], function()  
+Route::group(['prefix' => 'backend', 'middleware' => 'backendcheck'], function()  
 {
 	Route::resource('user/create', 'UserController@create');
 	Route::resource('user/edit', 'UserController@edit');
@@ -167,6 +170,9 @@ Route::group(['prefix' => 'backend'], function()
 Route::group(['prefix' => 'user','middleware' => 'cksession'], function()  
 {
 	Route::post('resetpassword', 'UserController@resetPassword');
+	Route::post('setlocation', 'UserController@location');
+	Route::post('nearby', 'UserController@nearby');
+	Route::post('serverby', 'UserController@serverby');
 	Route::resource('update', 'UserController@updateUser');
 	Route::resource('sendvmail', 'UserController@sendValidationEmail');
 	Route::resource('sendCodeMail', 'UserController@sendCodeEmail');
@@ -176,6 +182,12 @@ Route::group(['prefix' => 'game','middleware' => 'cksession'], function()
 {
 	Route::post('list', 'GameController@queryGameList');
 	Route::resource('update', 'UserController@updateUser');
+	Route::resource('page/firstpage', 'PagesController@firstpage');
+});
+
+Route::group(['prefix' => 'page','middleware' => 'cksession'], function()  
+{
+	Route::resource('firstpage', 'PagesController@firstpage');
 });
 
 Route::group(['prefix' => 'player','middleware' => 'cksession'], function()  
@@ -209,6 +221,7 @@ Route::group(['middleware' => 'bbscheck'], function()
 	Route::resource('activity/save', 'BBSTopicsController@saveActivity');
 	Route::resource('activity/agree', 'BBSTopicsController@agreeActivity');
 	Route::resource('activity/deny', 'BBSTopicsController@denyActivity');
+	Route::resource('page/video', 'PagesController@video');
 	# ------------------------------------------------------
 	#
 	#

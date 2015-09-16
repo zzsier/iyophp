@@ -7,6 +7,7 @@ use App\Model\Topic;
 use App\Model\Node;
 use App\Model\Reply;
 use App\Model\Activity;
+use App\Model\IyoUser;
 use View;
 use Input;
 use Auth;
@@ -15,7 +16,7 @@ use Config;
 use Flash;
 use Redirect;
 use URL;
-use Request;
+use Illuminate\Http\Request;
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -123,14 +124,22 @@ class BBSTopicsController extends BaseController implements CreatorListener
 
         $topic = new Topic();
         $topic->user_id = Auth::id();
+
+		$user = IyoUser::queryById($topic->user_id);
         //$replies = $topic->getRepliesWithLimit(Config::get('phphub.replies_perpage'));
 
         $topic->body = Input::get('content');
         $topic->title = Input::get('title');
 
+		Log::info("user id ".$topic->user_id);
+		Log::info("user image ".$user["image"]);
+
         if (Input::get('image') != "") {
             $topic['image'] = Input::get('image');
-        }
+        } else if( $user["image"] != "" ) {
+            $topic['image'] = "http://123.59.53.158/".$user["image"];
+		}
+
 		//$topic['body'] = $markdown->convertMarkdownToHtml(Input::get('body'));
 		//$topic['excerpt'] = Topic::makeExcerpt(Input::get('body'));
 
@@ -139,6 +148,7 @@ class BBSTopicsController extends BaseController implements CreatorListener
 		$topic->cate_id = Input::get('subid');
         $topic->is_top = Input::get('is_top');
         $topic->is_excellent = Input::get('is_excellent');
+        $topic->is_stick = Input::get('is_stick');
 
 		//Robot::notify($data['body_original'], 'Topic', $topic, Auth::user());
 		$topic->save();
@@ -241,6 +251,7 @@ class BBSTopicsController extends BaseController implements CreatorListener
 		//$this->authorOrAdminPermissioinRequire($topic->user_id);
 		$nodes = Node::allLevelUp();
 		$node = $topic->node;
+		$topic->body = str_replace(array("\r\n", "\r", "\n"), "", $topic->body);
         $category = Node::find($topic->cate_id);
 		if ( !array_key_exists($node->id, $nodes['second']) ) {
 			$subnodes = [];
@@ -273,7 +284,13 @@ class BBSTopicsController extends BaseController implements CreatorListener
 			'message' => '获取BBS文章成功');
 
 		$bbstopics = [];
+		$topics = Topic::where('is_stick', '=', '1')->orderBy('created_at', 'desc')->take(10)->get();
 
+		foreach( $topics as $topic ) {
+			$bbstopics[] = $topic;
+		}
+
+		/*
 		$nodes  = Node::allLevelUp();
 		foreach( $nodes['top'] as $node ) {
 			Log::info( "BBS node is ".$node->id );
@@ -283,6 +300,7 @@ class BBSTopicsController extends BaseController implements CreatorListener
 				break;
 			}
 		}
+		*/
 
 		$result["result"] = $bbstopics;
 		return $result;
@@ -312,6 +330,7 @@ class BBSTopicsController extends BaseController implements CreatorListener
 		$topic->cate_id = Input::get('subid');
         $topic->is_top = Input::get('is_top');
         $topic->is_excellent = Input::get('is_excellent');
+        $topic->is_stick = Input::get('is_stick');
 
 		//Robot::notify($data['body_original'], 'Topic', $topic, Auth::user());
 		$topic->save();

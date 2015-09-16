@@ -92,20 +92,38 @@ class UploadController extends Controller {
 		$result = array('code' => trans('code.success'),'desc' => __LINE__, 'message' => trans('successmsg.UploadSuccess'));
 
 		if ($file = Input::file('uploadedfile')) {
-
 			$extension = "png";
 			if( $file->getClientOriginalExtension() && $file->getClientOriginalExtension() != "" ) {
 				$extension = $file->getClientOriginalExtension();
 			}
 
+			Log::info('extension:'.$extension." filename:".$file->getClientOriginalName());
+			$allowed_extensions = ["png", "jpg", "gif", "JPG", "PNG", "GIF"];
+
+			if ( !in_array($extension, $allowed_extensions) ) {
+				$result = array('code' => trans('code.UploadExtError'),'desc' => __LINE__, 'message' => trans('errormsg.UploadExtError'));
+				return $result;
+			}
+			$img_info = getimagesize($file);
+			
 			$destinationPath = 'uploads/'.date("Ymd");
 			$original = $file->getClientOriginalName();
-			$filename = sha1($original.time()).'.'.$extension;
-			
+			$filename_noext = sha1('topic'.$original.time()).'_'.$img_info[0].'_'.$img_info[1];
+			$filename = $filename_noext.'.'.$extension;
 			$file->move($destinationPath, $filename);
-			
-			$result["filename"] = $destinationPath.'/'.$filename;
 
+			Log::info('finalfilename:'.$filename);
+
+			if ($file->getClientOriginalExtension() != 'gif') {
+				$img = Image::make($destinationPath . '/' . $filename);
+				$img->resize(100, null, function ($constraint) {
+					$constraint->aspectRatio();
+					$constraint->upsize();
+				});
+				$img->save($destinationPath."/".$filename_noext."_small.".$extension, 30);
+			}
+
+			$result["filename"] = $destinationPath.'/'.$filename;
 		} else {
 			$result = array('code' => trans('code.UploadFileFailed'),'desc' => __LINE__, 'message' => trans('errormsg.UploadFileFailed'));
 			return $result;
@@ -172,7 +190,7 @@ class UploadController extends Controller {
 			}
 
 			Log::info('extension:'.$extension." filename:".$file->getClientOriginalName());
-			$allowed_extensions = ["png", "jpg", "gif"];
+			$allowed_extensions = ["png", "jpg", "gif", "JPG", "PNG", "GIF"];
 
 			if ( !in_array($extension, $allowed_extensions) ) {
 				$result = array('code' => trans('code.UploadExtError'),'desc' => __LINE__, 'message' => trans('errormsg.UploadExtError'));
@@ -185,6 +203,7 @@ class UploadController extends Controller {
 			$filename = $filename_noext.'.'.$extension;
 			$file->move($destinationPath, $filename);
 
+			Log::info('finalfilename:'.$filename);
 			//$filename_small = $filename_noext.'_small.'.$extension;
 			//$file->move($destinationPath, $filename_small);
 
@@ -236,7 +255,7 @@ class UploadController extends Controller {
 				$extension = $file->getClientOriginalExtension();
 			}
 
-			$allowed_extensions = ["png", "jpg", "gif"];
+			$allowed_extensions = ["png", "jpg", "gif", "JPG", "PNG", "GIF"];
 			if ( !in_array($extension, $allowed_extensions) ) {
 				$result = array('code' => trans('code.UploadExtError'),'desc' => __LINE__, 'message' => trans('errormsg.UploadExtError'));
 				return $result;
@@ -260,7 +279,7 @@ class UploadController extends Controller {
 			}
 
 			if ($file->getClientOriginalExtension() != 'gif') {
-				$img = Image::make($destinationPath . '/' . $filename);
+				$img = Image::make($destinationPath . '/' . $safeName);
 				$img->resize(100, null, function ($constraint) {
 					$constraint->aspectRatio();
 					$constraint->upsize();
@@ -282,7 +301,7 @@ class UploadController extends Controller {
 	public function uploadExample()
 	{
 		if ($file = Input::file('file')) {
-			$allowed_extensions = ["png", "jpg", "gif"];
+			$allowed_extensions = ["png", "jpg", "gif", "JPG", "PNG", "GIF"];
 			if ($file->getClientOriginalExtension() && !in_array($file->getClientOriginalExtension(), $allowed_extensions)) {
 				return ['error' => 'You may only upload png, jpg or gif.'];
 			}

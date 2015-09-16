@@ -23,19 +23,19 @@ class IyoComment extends Model {
 	}
 
 	public static function loadDataInToCache($id) {
-		Log::info("IyoComment loadDataInToCache enter");
+		//Log::info("IyoComment loadDataInToCache enter");
 		$redis = MyRedis::connection("default");
 		$dbcomment = IyoComment::find($id);
 		if( is_null($dbcomment) ) return;
 		$key = sprintf(IyoComment::COMMENT, $id);
 		foreach( self::$attrnames as $attrname ) {
-			Log::info( "attribute is ".$attrname["cache"]." ".$attrname["db"]." ".$dbcomment[$attrname["db"]] );
+			//Log::info( "attribute is ".$attrname["cache"]." ".$attrname["db"]." ".$dbcomment[$attrname["db"]] );
 			$redis->hmset($key, $attrname["cache"], $dbcomment[$attrname["db"]]);
 		}
 	}
 
 	public static function cleanCache($id) {
-		Log::info("IyoComment cleanCache enter");
+		//Log::info("IyoComment cleanCache enter");
 		$redis = MyRedis::connection("default");
 		$key = sprintf(IyoComment::COMMENT, $id);
 		$redis->del($key);
@@ -60,7 +60,7 @@ class IyoComment extends Model {
 			if( $attrname["cache"] == "created_at" ) {
 				$comment["created_at"] = date("Y年m月d日", strtotime($comment["created_at"]));
 			}
-			Log::info( "attribute is ".$attrname["return"]." ".$attrname["cache"]." ".$comment[$attrname["return"]]);
+			//Log::info( "attribute is ".$attrname["return"]." ".$attrname["cache"]." ".$comment[$attrname["return"]]);
 		}
 		return $comment;
 	}

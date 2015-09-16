@@ -6,6 +6,7 @@
 
 @section('content')
 
+	<link href={{{URL::asset('demo/Bbs_index.css')}}} rel="stylesheet">
 	<link href={{{URL::asset('Bbs/Bbs_list.css')}}} rel="stylesheet" />
 	<script src={{{URL::asset('sjbbs/index.js')}}}></script>
 	<script src={{{URL::asset('bbsmain/list.js')}}}></script>

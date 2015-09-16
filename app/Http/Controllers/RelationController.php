@@ -43,6 +43,12 @@ class RelationController extends Controller {
 		$id = $request["id"];
 		$fid = $request->json("fid",0);
 
+		if( $fid == 127 ) {
+			$result = array('code' => 999,'desc' => __LINE__,
+				'message' => 'IYO用户无法取消订阅');
+			return $result;
+		}
+
 		if( !IyoRelation::checkIfFollow($id, $fid) ) {
 			$result = array('code' => trans('code.RelationNotExistsError'),'desc' => __LINE__,
 				'message' => '用户未关注');
@@ -150,6 +156,11 @@ class RelationController extends Controller {
 		foreach ($rec_unionids as $uid) {
 			$rec_union = IyoUser::queryById($uid);
 			if( $rec_union["recommend"] == 1 ) {
+				if( IyoRelation::checkIfFollow($id, $uid) ) {
+					$rec_union["follow"] = true;
+				} else {
+					$rec_union["follow"] = false;
+				}
 				$rec_unions[] = $rec_union;
 			}
 			if( count($rec_unions) >= 2 ) {

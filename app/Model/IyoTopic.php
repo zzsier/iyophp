@@ -49,9 +49,10 @@ class IyoTopic extends Model {
 		return date("Y年m月d日", strtotime($value));
 	}
 
-	public static function saveOrUpdate($title, $abstract, $from, $image, $uid, $body, $tid=0, $pid=0, $allowedComment=1, $deletedTimer=NULL)
+	public static function saveOrUpdate($title, $abstract, $from, $image, $uid, $body, $type=0, $tid=0, $pid=0, $allowedComment=1, 
+			$deletedTimer=NULL)
 	{
-		Log::info("tid: ".$tid." pid: ".$pid." title: ".$title);
+		//Log::info("tid: ".$tid." pid: ".$pid." title: ".$title);
 
 		if( $tid == 0 ) {
 			$topic = new IyoTopic();
@@ -62,6 +63,7 @@ class IyoTopic extends Model {
 		$topic->title = $title;
 		$topic->abstract = $abstract;
 		$topic->from = $from;
+		$topic->t_type = $type;
 		$topic->image = $image;
 		$topic->uid = $uid;
 		$topic->body = $body;
@@ -71,10 +73,12 @@ class IyoTopic extends Model {
 
 		$topic->save();
 
-		$redis = MyRedis::connection("default");
-		$key = sprintf(IyoTopic::USERTOPIC, $uid);
-		if( $redis->exists($key) ) {
-			$redis->zadd($key,strtotime($topic["created_at"]),$topic['id']);
+		if( $tid == 0 ) {
+			$redis = MyRedis::connection("default");
+			$key = sprintf(IyoTopic::USERTOPIC, $uid);
+			if( $redis->exists($key) ) {
+				$redis->zadd($key,strtotime($topic["created_at"]),$topic['id']);
+			}
 		}
 
 		$tid = $topic->id;
@@ -145,13 +149,13 @@ class IyoTopic extends Model {
 	}
 
 	public static function loadDataInToCache($id) {
-		Log::info("IyoTopic loadDataInToCache enter");
+		//Log::info("IyoTopic loadDataInToCache enter");
 		$redis = MyRedis::connection("default");
 		$dbtopic = IyoTopic::find($id);
 		if( is_null($dbtopic) ) return;
 		$key = sprintf(IyoTopic::TOPIC, $id);
 		foreach( self::$attrnames as $attrname ) {
-			Log::info( "attribute is ".$attrname["cache"]." ".$attrname["db"]." ".$dbtopic[$attrname["db"]] );
+			//Log::info( "attribute is ".$attrname["cache"]." ".$attrname["db"]." ".$dbtopic[$attrname["db"]] );
 			$redis->hmset($key, $attrname["cache"], $dbtopic[$attrname["db"]]);
 		}
 	}
@@ -165,7 +169,7 @@ class IyoTopic extends Model {
 	}
 
 	public static function cleanCache($id) {
-		Log::info("IyoTopic cleanCache enter");
+		//Log::info("IyoTopic cleanCache enter");
 		$redis = MyRedis::connection("default");
 		$key = sprintf(IyoTopic::TOPIC, $id);
 		$redis->del($key);
@@ -190,7 +194,7 @@ class IyoTopic extends Model {
 			if( $attrname["cache"] == "created_at" ) {
 				$topic["created_at"] = date("Y年m月d日", strtotime($topic["created_at"]));
 			}
-			Log::info( "attribute is ".$attrname["return"]." ".$attrname["cache"]." ".$topic[$attrname["return"]]);
+			//Log::info( "attribute is ".$attrname["return"]." ".$attrname["cache"]." ".$topic[$attrname["return"]]);
 		}
 		return $topic;
 	}
@@ -211,7 +215,10 @@ class IyoTopic extends Model {
 			}
 		}
 
-		$uslist[] = $uid;
+		if( $type != "USTIMELINE" ) {
+			$uslist[] = $uid;
+		}
+
 		$redisunion = [];
 		$tlist = [];
 
@@ -264,7 +271,9 @@ class IyoTopic extends Model {
 			$key = sprintf(IyoTopic::SFTIMELINE, $uid);
 		}
 
-		$uslist[] = $uid;
+		if( $type != "USTIMELINE" ) {
+			$uslist[] = $uid;
+		}
 		$tlist = [];
 
 		if( !$redis->exists($key) ) {
@@ -315,10 +324,10 @@ class IyoTopic extends Model {
 			$list = IyoTopic::where('created_at', '>', $before)
 				->whereIn("uid", $union_ids)->orderBy('view_count')->take(200)->get(["id", "view_count"]);
 
-			Log::info("queryHotTopicIds before is ".$before);
-			DB::listen(function($sql, $bindings, $time) {
-					Log::info($sql);
-			});
+			//Log::info("queryHotTopicIds before is ".$before);
+			//DB::listen(function($sql, $bindings, $time) {
+			//		Log::info($sql);
+			//});
 
 			foreach( $list as $tid ) {
 				$redis->zadd(IyoTopic::HOTTOPIC,$tid["view_count"],$tid['id']);

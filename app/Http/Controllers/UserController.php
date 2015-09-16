@@ -5,10 +5,12 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Illuminate\Log\Writer;
 use DB;
+use MyRedis;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Model\IyoUser;
+use App\Model\IyoPlayer;
 use App\Model\IyoRelation;
 use App\Model\IyoTopic;
 
@@ -98,6 +100,8 @@ class UserController extends Controller {
 		$user->phone = $request["phone"];
 		$user->type = $request["type"];
 		$user->description = $request["description"];
+		$user->password = $request["password"];
+
 		if( $request["recommend"] == true ) {
 			$user->recommend = 1;
 		} else {
@@ -447,6 +451,200 @@ Access-Control-Allow-Origin: *
 
 		return $result;
 	}
+
+	public function location(Request $request)
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__, 'message' => '记录位置成功');
+
+		$lat = $request->json("lat", "");
+		$lng = $request->json("lng", "");
+
+		$user = IyoUser::find($request["id"]);
+		$user->lat = $lat;
+		$user->lng = $lng;
+		//http://api.map.baidu.com/geocoder?location=40.0,116.5&output=json
+
+		$url="http://api.map.baidu.com/geocoder?location=$lat,$lng&output=json";
+
+		$ch = curl_init(); 
+		$res= curl_setopt ($ch, CURLOPT_URL,$url);  
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+		curl_setopt ($ch, CURLOPT_HEADER, 0);
+		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+		$response = curl_exec ($ch);
+		curl_close($ch);
+
+		if($response == FALSE){
+			$result = array('code' => trans('code.NetworkError'),'desc' => __LINE__, 'message' => trans('errormsg.NetworkError'));
+			return $result;
+		}
+
+		$parameter = json_decode($response, true);
+
+		//if( $parameter["error_code"] == '0' )
+		if( $parameter["status"] == 'OK' )
+		{
+			$user->currentcity = $parameter["result"]["addressComponent"]["province"]. $parameter["result"]["addressComponent"]["city"];
+			$redis = MyRedis::connection("default");
+			$key = "location:".$user->currentcity;
+			if( $redis->exists($key) ) {
+				$redis->sadd($key, $user->id);
+			}
+		}
+
+		$user->save();
+		return $result;
+	}
+
+	public function nearby(Request $request)
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__, 'message' => '获取附近的人成功');
+
+		$lat = $request->json("lat", "");
+		$lng = $request->json("lng", "");
+
+		Log::info("lat is $lat and lng is $lng");
+
+		$user = IyoUser::find($request["id"]);
+		$user->lat = $lat;
+		$user->lng = $lng;
+		//http://api.map.baidu.com/geocoder?location=40.0,116.5&output=json
+
+		$url="http://api.map.baidu.com/geocoder?location=$lat,$lng&output=json";
+
+		$ch = curl_init(); 
+		$res= curl_setopt ($ch, CURLOPT_URL,$url);  
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+		curl_setopt ($ch, CURLOPT_HEADER, 0);
+		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+		$response = curl_exec ($ch);
+		curl_close($ch);
+
+		if($response == FALSE){
+			$result = array('code' => trans('code.NetworkError'),'desc' => __LINE__, 'message' => trans('errormsg.NetworkError'));
+			return $result;
+		}
+
+		$parameter = json_decode($response, true);
+
+		//if( $parameter["error_code"] == '0' )
+		if( $parameter["status"] == 'OK' )
+		{
+			$user->currentcity = $parameter["result"]["addressComponent"]["province"]. $parameter["result"]["addressComponent"]["city"];
+			$redis = MyRedis::connection("default");
+			$key = "location:".$user->currentcity;
+			if( $redis->exists($key) ) {
+				$redis->sadd($key, $user->id);
+			}
+		}
+		$user->save();
+
+		$redis = MyRedis::connection("default");
+		$key = "location:".$user->currentcity;
+		if( !$redis->exists($key) ) {
+			$list = [];
+			$list = IyoUser::where('currentcity', $user->currentcity)->get(["id"]);
+			foreach( $list as $uid ) {
+				$redis->sadd($key,$uid['id']);
+			}
+			$redis->pexpire($key, 24*60*60*60);
+		}
+
+		$uids = $redis->srandmember($key, 20);	
+		$users = [];
+		foreach( $uids as $uid ) {
+			//remove self id for nearby user
+			if( $uid == $user->id ) continue;
+
+			$nuser = IyoUser::queryById($uid);
+			if( is_null($nuser) ) {
+				continue;
+			}
+
+			if( IyoRelation::checkIfFollow($user->id, $uid) ) {
+				$nuser["follow"] = true;
+			} else {
+				$nuser["follow"] = false;
+			}
+
+			$users[] = $nuser;
+		}
+
+		$result["result"] = $users;
+		return $result;
+	}
+
+	//get the player in the same server
+	public function serverby(Request $request)
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__, 'message' => '获取同服游戏人员成功');
+		$user = IyoUser::find($request["id"]);
+		$users = [];
+
+		$players = IyoPlayer::where('uid', $user->id)->get(["id", "gid", "sid"]);
+
+
+		$redis = MyRedis::connection("default");
+		$full_uids = [];
+
+		foreach( $players as $player ) {
+			$key = "player:".$player["gid"].":".$player["sid"];
+			if( !$redis->exists($key) ) {
+				$list = IyoPlayer::where('sid', $player["sid"])->where('gid', $player["gid"])->get(["uid"]);
+				foreach( $list as $ulist ) {
+					$redis->sadd($key,$ulist['uid']);
+				}
+				$redis->pexpire($key, 60*1000);
+			}
+
+			$part_uids = $redis->srandmember($key, 20);
+			foreach( $part_uids as $uid ) {
+				//remove self id for nearby user
+				if( $uid == $user->id ) continue;
+				$full_uids[] = $uid;
+			}
+		}
+
+		if( count($full_uids) == 0 ) {
+			$result["result"] = $users;
+			return $result;
+		}
+
+		$full_uids_unique = array_unique($full_uids);
+
+		$randnum = 20;
+		if( $randnum >= count($full_uids_unique) ) $randnum =  count($full_uids_unique);
+		Log::info("randnum is $randnum");
+
+		$full_uids_20 = array_rand($full_uids_unique, $randnum);
+
+		foreach( $full_uids_20 as $uid_index ) {
+			$uid = $full_uids_unique[$uid_index];
+			Log::info("uid 20 is $uid");
+			//remove self id for nearby user
+			if( $uid == $user->id ) continue;
+
+			$nuser = IyoUser::queryById($uid);
+			if( is_null($nuser) ) {
+				continue;
+			}
+
+			if( IyoRelation::checkIfFollow($user->id, $uid) ) {
+				$nuser["follow"] = true;
+			} else {
+				$nuser["follow"] = false;
+			}
+
+			$users[] = $nuser;
+		}
+
+		$result["result"] = $users;
+		return $result;
+	}
+
+
 
 	public function search(Request $request) {
 

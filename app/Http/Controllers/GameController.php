@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Model\IyoServer;
 use App\Model\IyoPlayer;
 use Redirect;
+use App\WowApi\Client;
+use App\WowApi\Request\Curl;
 use Log;
 
 class GameController extends Controller {
@@ -22,7 +24,26 @@ class GameController extends Controller {
 		$uid = $request["id"];
 		$playername = $request->json("name", "");
 
-		$player = IyoPlayer::saveOrUpdate($playername, $gid, $sid, $uid);
+		$request = new Curl();
+		$api = new Client();
+		$api->setRequest($request);
+
+		Log::info("server name is ".IyoServer::$servers[$gid-1][$sid-1]["name"]." player name is ".$playername);
+
+		try {
+			$character = $api->getCharacterApi()->getCharacter(IyoServer::$servers[$gid-1][$sid-1]["name"], $playername,
+			array('guild', 'stats', 'items', 'titles', 'professions', 'talents'));
+			Log::info( $character['name'] );
+			$player = IyoPlayer::saveOrUpdate($playername, $gid, $sid, $uid);
+		} catch (NotFoundException $e) {
+			$result = array('code' => 701,'desc' => __LINE__,
+				'message' => '游戏角色不存在' );
+			Log::info( 'That character does not exist!' );
+		} catch(\Exception $e) {
+			$result = array('code' => 701,'desc' => __LINE__,
+				'message' => '游戏角色不存在' );
+			Log::info( 'There was an error fetching the character from the armory' );
+		}
 
 		return $result;
 	}
@@ -68,55 +89,6 @@ class GameController extends Controller {
 		IyoUser::cleanCache($tid);
 	}
 
-	public function forward(Request $request) 
-	{
-		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => '转发成功');
-
-		$tid = $request->json("tid", 0);
-		$title = $request->json("title", "");
-		$uid = $request["id"];
-		$allowedComment = $request->json("allowedComment", 1);
-		$deletedTimer = $request->json("deletedTimer");
-
-		$topic = IyoTopic::saveOrUpdate($title, "", "", "", $uid, "", 0, $tid, $allowedComment, $deletedTimer);
-		IyoTopic::incrNumOfForward($tid);
-		$this->route($uid, $topic["tid"]);
-
-		return $result;
-	}
-
-	public function query(Request $request)
-	{
-		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => '获取成功');
-
-		$tid = $request->json("tid",0);
-		$id = $request["id"];
-		IyoTopic::incrNumOfView($tid);
-
-		$topic = $this->queryTopic($id, $tid);
-
-		if( is_null($topic) ) {
-			$topic = [];
-			$topic["pid"] = 0;
-		}
-
-		$pid = $topic["pid"];
-	
-		$parent = null;
-		if( $pid != 0 ) {
-			$parent = $this->queryTopic($id, $pid);
-		}
-
-		if( !is_null($parent) ) {
-			$topic["parent"] = $parent;
-		}
-
-		$result["result"] = $topic;
-		return $result;
-	}
-
 	public function queryPlayersByIds($ids) {
 		$players = [];
 		foreach( $ids as $id ) {
@@ -156,21 +128,6 @@ class GameController extends Controller {
 		$pids = IyoPlayer::queryPlayerIdsByUser($id, $num, $current);
 		$result["result"] = $this->queryPlayersByIds($pids);
 
-		return $result;
-	}
-
-	public function queryHotTopics(Request $request)
-	{
-		$result = array('code' => trans('code.success'),'desc' => __LINE__,
-			'message' => '获取热门文章成功');
-
-		$id = $request["id"];
-		$num = $request->json("num", 0);
-		$current = $request->json("current", 0);
-
-		$union_ids = IyoUser::queryListByType("2");
-		$topic_ids = IyoTopic::queryHotTopicIds($union_ids, $num, $current);
-		$result["result"] = $this->queryTopicsByIds($topic_ids, $id);
 		return $result;
 	}
 }

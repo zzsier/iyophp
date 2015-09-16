@@ -39,6 +39,7 @@
 <script>
 var topic= <?php echo html_entity_decode(json_encode($topic, JSON_UNESCAPED_UNICODE)) ?>;
 render(topic);
+
 </script>
 
 	</body>

@@ -8,16 +8,25 @@ use App\Model\Suggestion;
 use View;
 use Illuminate\Http\Request;
 use App\Model\IyoRelation;
+use App\Model\IyoComment;
 use App\Model\IyoUser;
 use App\Model\IyoLike;
 use Redirect;
 use Log;
+use Auth;
 
 class TopicsController extends Controller {
 
 	public function showlist()
 	{
-		$topics = IyoTopic::orderBy("created_at", "desc")->paginate(10);
+		if (Auth::check() && Auth::user()->can("manage_topics") ) {
+			$topics = IyoTopic::orderBy("created_at", "desc")->paginate(10);
+		} else if ( Auth::check() ) {
+			$topics = IyoTopic::where("uid", Auth::id())->orderBy("created_at", "desc")->paginate(10);
+		} else {
+			$topics = [];
+		}
+
 		foreach ($topics as $topic) {
 			$user = IyoUser::queryById($topic->uid);
 			$topic->username = $user["username"];
@@ -81,10 +90,14 @@ class TopicsController extends Controller {
 		$from = $request->json("from", "");
 		$image = $request->json("headimage", "");
 		$uid = $request->json("uid", 0);
+		$type = $request->json("type", 0);
 		$body = json_encode($request->json("body", ""));
 
-		$topic = IyoTopic::saveOrUpdate($title, $abstract, $from, $image, $uid, $body, $tid);
-		$this->route($uid, $topic["tid"]);
+		$topic = IyoTopic::saveOrUpdate($title, $abstract, $from, $image, $uid, $body, $type, $tid);
+
+		if( $tid == 0 ) {
+			$this->route($uid, $topic["tid"]);
+		}
 
 		return $result;
 	}
@@ -98,10 +111,10 @@ class TopicsController extends Controller {
 		$user = IyoUser::queryById($uid);
 		if( $user["type"] == "2" ) {
 			IyoTopic::routeUSList($ids,$tid);
-		} else if( $user["type"] == "0" ) {
-			IyoTopic::routeSFList($ids,$tid);
+		//} else if( $user["type"] == "0" ) {
+		//	IyoTopic::routeSFList($ids,$tid);
 		} else {
-			IyoTopic::routeUSList($ids,$tid);
+			//IyoTopic::routeUSList($ids,$tid);
 			IyoTopic::routeSFList($ids,$tid);
 		}
 	}
@@ -118,8 +131,23 @@ class TopicsController extends Controller {
 
 		$uid = $request["id"];
 
-		$topic = IyoTopic::saveOrUpdate($title, "", "", "", $uid, $content, 0, 0, $allowedComment, $deletedTimer);
+		$topic = IyoTopic::saveOrUpdate($title, "", "", "", $uid, $content, 0, 0, 0, $allowedComment, $deletedTimer);
 		$this->route($uid, $topic["tid"]);
+
+		//Add 50 exp
+		$cacheuser = IyoUser::queryById($uid);
+		$lastloginday = date('Y-m-d', strtotime($cacheuser["lastlogintime"]));
+		Log::info("lastlogintime is ".$cacheuser["lastlogintime"]." current time is ".time()." loginday is ".$lastloginday);
+		Log::info("string lastlogintime is ".strtotime($lastloginday)." current time is ".time());
+
+		if( strtotime(time()) - strtotime($lastloginday) > 24*60*60 ) {
+			$user = IyoUser::find($uid);
+			$user->lastlogintime = date('Y-m-d H:i:s');
+			$user->exp += 50;
+			$user->save();
+			IyoUser::cleanCache($uid);
+		}
+		//Add 50 exp finished
 
 		$result["result"] = $topic;
 
@@ -168,7 +196,7 @@ class TopicsController extends Controller {
 		$allowedComment = $request->json("allowedComment", 1);
 		$deletedTimer = $request->json("deletedTimer");
 
-		$topic = IyoTopic::saveOrUpdate($title, "", "", "", $uid, "", 0, $tid, $allowedComment, $deletedTimer);
+		$topic = IyoTopic::saveOrUpdate($title, "", "", "", $uid, "", 0, 0, $tid, $allowedComment, $deletedTimer);
 		IyoTopic::incrNumOfForward($tid);
 		$this->route($uid, $topic["tid"]);
 
@@ -275,7 +303,8 @@ class TopicsController extends Controller {
 
 		if( is_null($topic) ) {
 			$topic = [];
-			$topic["pid"] = 0;
+			$result["result"] = $topic;
+			return $result;
 		}
 
 		$pid = $topic["pid"];
@@ -315,6 +344,24 @@ class TopicsController extends Controller {
 		}
 
 		$topic["user"] = $user;
+
+		$comments = [];
+		$commentIds = IyoComment::queryCommentIds($tid, 10, 0);
+		foreach( $commentIds as $cid ) {
+			$comment = IyoComment::queryById($cid);
+			$user = IyoUser::queryById($comment["uid"]);
+			$comment["user"] = $user;
+			$comments[] = $comment;
+		}
+		$topic["comments"] = $comments;
+
+		$fids = IyoLike::queryLikeList($id, $tid, 10, 0);
+		$likelist = [];
+		foreach( $fids as $fid ) {
+			$likelist[] = IyoUser::queryById($fid);
+		}
+		$topic["likelist"] = $likelist;
+
 		return $topic;
 	}
 
@@ -347,7 +394,12 @@ class TopicsController extends Controller {
 		$result = array('code' => trans('code.success'),'desc' => __LINE__,
 			'message' => '获取最新文章成功');
 
-		$num = $request->json("num", 0);
+		if( $request["num"] != "" && $request["num"] != 0 ) {
+			$num = $request["num"];
+		} else {
+			$num = $request->json("num", 0);
+		}
+
 		$current = $request->json("current", 0);
 		$id = $request["id"];
 
@@ -368,7 +420,12 @@ class TopicsController extends Controller {
 		$result = array('code' => trans('code.success'),'desc' => __LINE__,
 			'message' => '获取最新文章成功');
 
-		$num = $request->json("num", 0);
+		if( $request["num"] != "" && $request["num"] != 0 ) {
+			$num = $request["num"];
+		} else {
+			$num = $request->json("num", 0);
+		}
+
 		$current = $request->json("current", 0);
 		$id = $request["id"];
 
