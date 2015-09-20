@@ -17,9 +17,9 @@ function autoSwiper(){
             $(".picbox").width(320);
             $("#slide_01 img").width(320).height(160);
         }else{
-            $(".focus,#slide_01").width("auto").height("");
-            $(".picbox").width("auto");
-            $("#slide_01 img").width("100%").height("");
+            //$(".focus,#slide_01").width("auto").height("");
+            //$(".picbox").width("auto");
+            //$("#slide_01 img").width("100%").height("");
         };
         if($(document).width()<=375){
             $(".newslist dd h2").css({"font-size":"14px"});
@@ -28,8 +28,8 @@ function autoSwiper(){
         };
     };
     //初始对焦点图的友好判断解决PC阅读图片自适应过大问题
-    onresizeScreen();
-    onresize=function(){onresizeScreen();}
+    //onresizeScreen();
+    //onresize=function(){onresizeScreen();}
     var swiper1 = new Swiper('#slide_01', {
         pagination: '.swiper-pagination01',
         paginationClickable: true,
@@ -42,7 +42,7 @@ function autoSwiper(){
 		  //$(".swiper-pagination01 span").eq(2).hide();
 		}
     });
-/*
+
     var swiper2 = new Swiper('#slide_02', {
         pagination: '.swiper-pagination02',
         paginationClickable: true,
@@ -50,7 +50,7 @@ function autoSwiper(){
         autoplay : 4000,
         spaceBetween: 30
     });
-*/
+
     var swiper3 = new Swiper('#slide_03', {
         pagination: '.swiper-pagination03',
         paginationClickable: true,
@@ -58,6 +58,31 @@ function autoSwiper(){
         autoplay : 4000,
         spaceBetween: 30
     });
+
+    var swiper0 = new Swiper('#slide_00', {
+        pagination: '.swiper-pagination03',
+        paginationClickable: true,
+        loop : true,
+        autoplay : 4000,
+        spaceBetween: 30
+    });
+
+    var swiper4 = new Swiper('#slide_04', {
+        pagination: '.swiper-pagination03',
+        paginationClickable: true,
+        loop : true,
+        autoplay : 4000,
+        spaceBetween: 30
+    });
+
+    var swiper5 = new Swiper('#slide_05', {
+        pagination: '.swiper-pagination03',
+        paginationClickable: true,
+        loop : true,
+        autoplay : 4000,
+        spaceBetween: 30
+    });
+
 
 };
 //点击显示更多

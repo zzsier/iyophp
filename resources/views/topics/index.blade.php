@@ -103,7 +103,12 @@
 					</td>
 
 					<td class="author">
-						<a class="name" href="#">{{{ $topic->user->username }}}</a>
+
+						@if (isset($topic->user) && $topic->user != NULL)
+							<a class="name" href="#">{{{ $topic->user->username }}}</a>
+						@else
+							<a class="name" href="#">未知用户</a>
+						@endif
 						<span class="date">{{{ date("Y-m-d", strtotime($topic->created_at)) }}}</span>
 					</td>
 
@@ -131,7 +136,11 @@
 					</td>
 
 					<td class="author">
-						<a class="name" href="#">{{{ $topic->user->username }}}</a>
+						@if (isset($topic->user) && $topic->user != NULL)
+							<a class="name" href="#">{{{ $topic->user->username }}}</a>
+						@else
+							<a class="name" href="#">未知用户</a>
+						@endif
 						<span class="date">{{{ date("Y-m-d", strtotime($topic->created_at)) }}}</span>
 					</td>
 
@@ -168,7 +177,11 @@
 					</td>
 
 					<td class="author">
-						<a class="name" href="#">{{{ $topic->user->username }}}</a>
+						@if (isset($topic->user) && $topic->user != NULL)
+							<a class="name" href="#">{{{ $topic->user->username }}}</a>
+						@else
+							<a class="name" href="#">未知用户</a>
+						@endif
 						<span class="date">{{{ date("Y-m-d", strtotime($topic->created_at)) }}}</span>
 					</td>
 

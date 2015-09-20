@@ -11,10 +11,71 @@
 <script type="text/javascript" src={{{URL::asset('mobile/ywap15_list.js')}}}></script>
 
 <section class="wrap">
-<div class="title" style="padding-left: 12px;height: 46px;line-height: 46px;padding-top: 4px;border-bottom: 1px solid #a4332d;font-size: 22px;">
+<div class="title" style="padding-left: 12px;height: 46px;line-height: 46px;padding-top: 4px;border-bottom: 1px solid #c8ff01;font-size: 22px;">
 	<span style="color: #FFFFFF;font-size: 22px;padding-right: 8px;">{{{ $node->name }}}</span>
 </div>
 </section>
+
+<style type="text/css">
+
+.newslist .is_top {
+	float: left;
+	height: 20px;
+	width: 30px;
+	padding: 0 8px;
+	margin: 0 10px 0 0;
+	background-color: #ff9600;
+	text-align: center;
+	font-size: 14px;
+	line-height: 20px;
+	color: #000;
+	font-weight: 800;
+}
+
+.newslist .is_excellent {
+	float: left;
+	height: 20px;
+	min-width: 30px;
+	padding: 0 8px;
+	margin: 0 10px 0 0;
+	background-color: #fe0000;
+	text-align: center;
+	font-size: 14px;
+	line-height: 20px;
+	color: #000;
+	font-weight: 800;
+}
+
+.newslist .is_subtitle {
+	float: left;
+	height: 20px;
+	min-width: 30px;
+	padding: 0 8px;
+	margin: 0 10px 0 0;
+	background-color: #c8ff01;
+	text-align: center;
+	font-size: 14px;
+	line-height: 20px;
+	color: #000;
+	font-weight: 800;
+}
+
+.newslist .author{
+	float: right;
+	height: 20px;
+	min-width: 30px;
+	padding: 0 8px;
+	margin: 0 10px 0 0;
+	text-align: right;
+	font-size: 14px;
+	line-height: 20px;
+	color: #000;
+	font-weight: 800;
+	margin-right: 0px;
+}
+
+
+</style>
 
 <section class="wrap">
     <section id="newslist" class="newslist">
@@ -24,8 +85,32 @@
                 <dl>
                     <dt><img alt="" width="70" height="70" src={{{ $topic->image }}}></dt>
                     <dd>
-                        <h2><div><h2 style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:180px;">{{{ $topic->title }}}</h2></div>
-						<time>{{{ date("Y-m", strtotime($topic->created_at)) }}}</time></h2>
+                        <h2>
+						<div><h2 style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:180px;">{{{ $topic->title }}}</h2></div>
+						@if( $topic->cate_id != 0 )
+						<div class="is_subtitle">
+							@foreach( $nodes['second'][$node->id] as $index => $subnode )
+								@if( $subnode->id == $topic->cate_id )
+								<span>{{{ $subnode->name }}}</span>
+								@endif
+							@endforeach
+						</div>
+						@endif
+
+						@if( $topic->is_top != 0 )
+						<div class="is_top"><span>置顶</span></div>
+						@endif
+
+						@if( $topic->is_excellent != 0 )
+						<div class="is_excellent"><span>精华</span></div>
+						@endif
+
+						@if ( $topic->user != NULL)
+							<div class="author"><h2>[{{{ $topic->user->username }}}]</h2></div>
+						@endif
+
+						<!--<time>{{{ date("Y-m", strtotime($topic->created_at)) }}}</time>-->
+						</h2>
                         <div></div>
                     </dd>
                 </dl>
@@ -38,15 +123,11 @@
     </section>
 </section>
 
+<!--
 <footer>
-<!--<div>
-	<a href="http://www.yesky.com/">电脑版</a>
-	<a href="http://cps-bridge.yesky.com/os_adaptor?android=http://gs.mydown.yesky.com/tianjishuma_wapb.apk&ios=http://itunes.apple.com/cn/app/tian-ji-shu-ma/id478210740&default=http://wap.yesky.com/">客户端</a>
-	<a href="http://www.tianjimedia.com/ywjs/391/39211391.shtml">关于我们</a>
-	<a href="http://123.59.53.158/#top">返回顶部</a>
-</div>-->
 <p>&#169;2015&nbsp;IYO游戏论坛</p>
 </footer>
+-->
 
 <script type="text/javascript">
     var _gaq = _gaq || [];
