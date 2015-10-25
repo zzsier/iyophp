@@ -22,11 +22,24 @@ Route::group(['prefix' => 'user'], function()
 	Route::post('register', 'UserController@register');
 	Route::post('upload', 'UploadController@uploadPhoto');
 	Route::post('sendsms', 'SMSController@sendSMS');
-	Route::post('query', 'UserController@queryUser');
 	Route::post('validationsms', 'SMSController@validateSMS');
-	Route::resource('search', 'UserController@search');
 	Route::resource('searchByHX', 'UserController@searchByHXName');
 });
+
+Route::group(['prefix' => 'user','middleware' => 'cksession'], function()  
+{
+	Route::post('query', 'UserController@queryUser');
+	Route::resource('search', 'UserController@search');
+});
+
+Route::group(['prefix' => 'black','middleware' => 'cksession'], function()  
+{
+	Route::post('add', 'BlackController@add');
+	Route::post('del', 'BlackController@del');
+	Route::post('list', 'BlackController@queryBlackList');
+	Route::post('report', 'BlackController@createReport');
+});
+
 
 Route::group(['prefix' => 'relation','middleware' => 'cksession'], function()  
 {
@@ -126,6 +139,11 @@ Route::group(['middleware' => 'backendcheck'], function()
 	Route::resource('backends', 'TopicsController@showlist');
 });
 
+Route::group(['prefix' => 'report', 'middleware' => 'backendcheck'], function()  
+{
+	Route::resource('list', 'BlackController@reportlist');
+});
+
 Route::group(['prefix' => 'backend', 'middleware' => 'backendcheck'], function()  
 {
 	Route::resource('user/create', 'UserController@create');
@@ -218,6 +236,7 @@ Route::group(['middleware' => 'bbscheck'], function()
 	
 	Route::resource('topics', 'BBSTopicsController');
 	
+	Route::resource('bbs/report', 'BBSTopicsController@createReport');
 	Route::resource('activity/save', 'BBSTopicsController@saveActivity');
 	Route::resource('activity/agree', 'BBSTopicsController@agreeActivity');
 	Route::resource('activity/deny', 'BBSTopicsController@denyActivity');

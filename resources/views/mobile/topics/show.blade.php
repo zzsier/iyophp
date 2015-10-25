@@ -9,9 +9,45 @@
 <link id="skin_css" rel="stylesheet" type="text/css" media="screen" href={{{URL::asset('mobile/wap-default.css')}}}>
 <link id="frame_css" rel="stylesheet" type="text/css" media="screen" href={{{URL::asset('mobile/wap-changyan2.css')}}}>
 
+<style type="text/css">
+
+.title {
+	padding-left: 12px;
+	height: 46px;
+	line-height: 46px;
+	padding-top: 4px;
+	border-bottom: 1px solid #c8ff01;
+	font-size: 22px;
+	text-align: center;
+}
+
+.titletext {
+	color: #FFFFFF;
+	font-size: 22px;
+	padding-right: 8px;
+}
+
+.returnbutton {
+	color: #caff03;
+	font-size: 22px;
+	padding-right: 8px;
+	float:left;
+}
+
+.filterbutton {
+	color: #caff03;
+	font-size: 32px;
+	padding-right: 8px;
+	float:right;
+}
+
+</style>
+
+
 <section class="wrap">
-    <section class="newstitle">
-        <h1>{{{ $topic->title }}}</h1>
+    <section class="newstitle" style="float:left">
+		<a href={{{ URL::to("nodes/$node->id") }}} ><span class="returnbutton">< </span></a>
+        <h1 style="margin-left:40px;">{{{ $topic->title }}}</h1>
         <dl>
             <dt>{{{ date("Y-m-d", strtotime($topic->created_at)) }}}　IYO手机频道 </dt>
         </dl>
@@ -69,19 +105,44 @@
 </span></div>
 </section>
 
+<script>
+	function doNothing() {}
+	function click_report() {
+    //$("#jubao").click(function() {
+        var url = "http://123.59.53.158/bbs/report";
+		var vcontent = $("#content").val();
+		var data = {
+			topic_id: {{{ $topic->id }}},
+			content: vcontent,
+		}
+        $.post(url, data,
+            function(json) {
+                if (typeof json != "undefined") {
+					alert("举报已提交成功");
+                }
+            },
+            "json")
+    //});
+	}
+</script>
+
+
 @if( Auth::check() )
 <section id="cy-cbox-wrapper" class="reset-g section-cbox-wap section-cbox-b">
 <form action={{{ URL::to("/replies") }}} method="POST">
 <div class="cbox-post-wap cbox-post-b">
 	<div class="post-area-wap post-area-b">
-		<textarea name="content" rows="3" class="area-text-wap area-text-b" placeholder="我来说两句..."></textarea>
+		<textarea name="content" id="content" rows="3" class="area-text-wap area-text-b" placeholder="我来说两句..."></textarea>
 		<input type="hidden" name="toid" value={{{ $topic->id }}} />
 		<input type="hidden" name="type" value="mobile"/>
 	</div>
 	<div class="post-action-wap post-action-b" style="background:#000000;">
 		<div class="action-issue-wap action-issue-b">
 			<div class="issue-btn-wap issue-btn-b">
-				<a class="btn-mutual-wap btn-mutual-b" href="#" }}}><button type="submit" class="mutual-btn-wap mutual-btn-b" style="color:#FFFFFF">发布</button></a>
+				<a class="btn-mutual-wap btn-mutual-b" style="width:10em;" href="javascript:void(0);" onclick="doNothing();">
+				<button type="button" id="jubao" onclick="click_report();" style="background-color:transparent;background-image:none; color:#FFFFFF; width:4.6875em;height:2.625em;">举报</button>
+				<button type="submit" style="background-color:transparent;background-image:none; color:#FFFFFF; width:4.6875em;height:2.625em;">发布</button>
+				</a>
 			</div>
 		</div>
 	</div>
@@ -98,7 +159,11 @@
 			<div class="comment-header-wap">
 			<div class="header-wrap-wap">
 			<div class="wrap-msg-wap">
+			@if( $reply->user != NULL )
 			<div class="msg-name-wap msg-name-b">{{{ $reply->user->username }}}</div>
+			@else
+			<div class="msg-name-wap msg-name-b">匿名用户</div>
+			@endif
 			<div class="msg-time-wap msg-time-b"><span class="time-date-wap">{{{ date("m-d H:i", strtotime($reply->created_at)) }}}</span></div>
 			</div>
 			</div>

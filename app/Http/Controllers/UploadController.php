@@ -159,6 +159,8 @@ class UploadController extends Controller {
 			
 			$result["filename"] = $destinationPath.'/'.$filename;
 
+			Log::info("id is ".$id);
+
 			$user = IyoUser::find($id);
 			$user->imageUrl = $destinationPath.'/'. $filename;
 			$user->save();
@@ -244,6 +246,7 @@ class UploadController extends Controller {
 		if ($file = Input::file('uploadedfile')) {
 			$session = $file->getClientOriginalName();
 			$id = Cache::get($session);
+			Log::info("session is ".$session." id is ".$id);
 
 			if ( $id == null) {
 				$result = array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserNotExist'));
@@ -290,7 +293,12 @@ class UploadController extends Controller {
 			$user = IyoUser::find($id);
 			$user->imageUrl =  $destinationPath.'/'. $safeName;
 			$user->save();
-			$result["result"] = $user;
+
+			IyoUser::cleanCache($user->id);
+			$ruser = IyoUser::queryById($user->id);
+			$ruser["imageUrl"] =  $destinationPath.'/'. $safeName;
+
+			$result["result"] = $ruser;
 		} else {
 			$result = array('code' => trans('code.UploadFileFailed'),'desc' => __LINE__, 'message' => trans('errormsg.UploadFileFailed'));
 			return $result;

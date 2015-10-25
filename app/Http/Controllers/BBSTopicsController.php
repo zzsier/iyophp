@@ -8,6 +8,7 @@ use App\Model\Node;
 use App\Model\Reply;
 use App\Model\Activity;
 use App\Model\IyoUser;
+use App\Model\IyoReport;
 use View;
 use Input;
 use Auth;
@@ -155,6 +156,21 @@ class BBSTopicsController extends BaseController implements CreatorListener
 
 		return $result;
 	}
+
+	public function createReport(Request $request) 
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '提交成功');
+
+		$report = new IyoReport();
+		$report->body = Input::get("content");
+		$report->topic_id = Input::get("topic_id");
+		$report->user_id = Auth::id();
+		$report->save();
+
+		return $result;
+	}
+
 
 	public function saveActivity()
 	{

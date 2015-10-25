@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\IyoRelation;
 use App\Model\IyoUser;
 use App\Model\IyoTopic;
+use App\Model\IyoBlack;
 use MyRedis;
 
 use Illuminate\Http\Request;
@@ -26,6 +27,11 @@ class RelationController extends Controller {
 			return $result;
 		}
 
+		if( IyoBlack::checkIfBlack($id, $fid) || IyoBlack::checkIfBlock($id, $fid) ) {
+			$result = array('code' => 209,'desc' => __LINE__,
+				'message' => '用户已拉黑');
+			return $result;
+		}
 		$user = IyoUser::queryById($fid);
 
 		IyoRelation::add($id, $fid);

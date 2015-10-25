@@ -25,6 +25,7 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 	public static $attrnames = array(
 		array("cache"=>"id", "db"=> "id", "return"=>"id"),
 		array("cache"=>"username", "db"=> "username", "return"=>"username"),
+		array("cache"=>"rusername", "db"=> "rusername", "return"=>"rusername"),
 		array("cache"=>"type", "db"=> "type", "return"=>"type"),
 		array("cache"=>"phone", "db"=> "phone", "return"=>"phone"),
 		array("cache"=>"email", "db"=> "email", "return"=>"email"),

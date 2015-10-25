@@ -79,10 +79,18 @@ Z_TuanParams = {
 				<td class="post-side" rowspan="3">
 				<!-- 楼主信息区域 -->
 					<div class="portrait">
-						<p class="name "><a class="user-name">{{{ $topic->user->username }}}</a></p>
+						<p class="name ">
+						@if ( $topic->user != NULL)
+							<a class="user-name">{{{ $topic->user->username }}}</a>
+						@else
+							<a class="user-name" href="#">匿名用户</a>
+						@endif
+						</p>
 						<div class="picbox">
-							<a class="pic" href="http://my.zol.com.cn/bbs/admincode47/">
-								<img src="http://123.59.53.158/{{{ $topic->user->imageUrl }}}" alt={{{ $topic->user->username }}} title={{{ $topic->user->username }}} width="100" height="100">
+							<a class="pic" href="#">
+								@if ( $topic->user != NULL)
+									<img src="http://123.59.53.158/{{{ $topic->user->imageUrl }}}" alt={{{ $topic->user->username }}} title={{{ $topic->user->username }}} width="100" height="100">
+								@endif
 							</a>
 						</div>
 
@@ -113,7 +121,7 @@ Z_TuanParams = {
 								<!--<a class="look-more" href="http://bbs.zol.com.cn/index.php?c=active&a=signList&bbsid=6&boardid=2&bookid=26177">查看所有报名人员(383)&gt;&gt;</a>-->
 							</div>
 							<ul class="member-list clearfix">
-								@if ( Auth::id() == $topic->user->id || Auth::user()->can("manage_topics") )
+								@if ( ( $topic->user!=NULL && Auth::id() == $topic->user->id ) || Auth::user()->can("manage_topics") )
 									@foreach( $activities as $index => $activity )
 									<li>
 										<a href="#">
@@ -159,7 +167,7 @@ Z_TuanParams = {
 						<div class="options">
 							<div class="options-btns clearfix">
 								@if( Auth::check() )
-								@if ( Auth::id() == $topic->user->id || Auth::user()->can("manage_topics") )
+								@if ( ( $topic->user!=NULL && Auth::id() == $topic->user->id ) || Auth::user()->can("manage_topics") )
 								<a class="btn border-radius-s3" href={{{ URL::to("topics/$topic->id/edit") }}} type="book">编辑</a>
 								@endif
 								@endif
@@ -192,11 +200,19 @@ Z_TuanParams = {
 				<tr>
 					<td class="post-side" rowspan="3">
 						<div class="portrait">
-								<p class="name "><a class="user-name">{{{ $reply->user->username }}}</a></p>
+						<p class="name ">
+						@if ( $reply->user != NULL)
+							<a class="user-name">{{{ $topic->reply->username }}}</a>
+						@else
+							<a class="user-name" href="#">匿名用户</a>
+						@endif
+						</p>
 								<div class="picbox">
+						@if ( $reply->user != NULL)
 								<a class="pic" href="http://123.59.53.158/{{{ $reply->user->imageUrl }}}">
 									<img src="http://123.59.53.158/{{{ $reply->user->imageUrl }}}" alt={{{ $reply->user->username }}} title={{{ $reply->user->username }}} width="100" height="100">
 								</a>
+						@endif
 							</div>
 					   	</div>
 					</td>
@@ -216,7 +232,7 @@ Z_TuanParams = {
 							<div class="options">
 								<div class="options-btns clearfix">
 									@if( Auth::check() )
-									@if ( Auth::id() == $topic->user->id || Auth::user()->can("manage_topics") )
+									@if ( ( $topic->user!=NULL && Auth::id() == $topic->user->id ) || Auth::user()->can("manage_topics") )
 									<a class="btn border-radius-s3" href={{{ URL::to("replies/$reply->id/edit") }}} type="book">编辑</a>
 									@endif
 									@endif

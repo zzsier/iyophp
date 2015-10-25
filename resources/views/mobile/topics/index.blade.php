@@ -9,73 +9,70 @@
 <link rel="stylesheet" type="text/css" href={{{URL::asset('mobile/ywap15_list.css')}}}>
 <script type="text/javascript" src={{{URL::asset('mobile/jquery-1.7.2.min.js')}}}></script>
 <script type="text/javascript" src={{{URL::asset('mobile/ywap15_list.js')}}}></script>
+<script type="text/javascript" src={{{URL::asset('mobile/popup_layer.js')}}}></script>
+<link rel="stylesheet" type="text/css" href={{{URL::asset('mobile/iyo.css')}}}>
 
 <section class="wrap">
-<div class="title" style="padding-left: 12px;height: 46px;line-height: 46px;padding-top: 4px;border-bottom: 1px solid #c8ff01;font-size: 22px;">
-	<span style="color: #FFFFFF;font-size: 22px;padding-right: 8px;">{{{ $node->name }}}</span>
+<div class="title">
+	<a href={{ URL::to("/") }} ><span class="returnbutton">< 返回</span></a>
+	<span class="titletext">{{{ $node->name }}}</span>
+	<span id="ele9" class="filterbutton">+</span></a>
 </div>
 </section>
 
-<style type="text/css">
 
-.newslist .is_top {
-	float: left;
-	height: 20px;
-	width: 30px;
-	padding: 0 8px;
-	margin: 0 10px 0 0;
-	background-color: #ff9600;
-	text-align: center;
-	font-size: 14px;
-	line-height: 20px;
-	color: #000;
-	font-weight: 800;
-}
-
-.newslist .is_excellent {
-	float: left;
-	height: 20px;
-	min-width: 30px;
-	padding: 0 8px;
-	margin: 0 10px 0 0;
-	background-color: #fe0000;
-	text-align: center;
-	font-size: 14px;
-	line-height: 20px;
-	color: #000;
-	font-weight: 800;
-}
-
-.newslist .is_subtitle {
-	float: left;
-	height: 20px;
-	min-width: 30px;
-	padding: 0 8px;
-	margin: 0 10px 0 0;
-	background-color: #c8ff01;
-	text-align: center;
-	font-size: 14px;
-	line-height: 20px;
-	color: #000;
-	font-weight: 800;
-}
-
-.newslist .author{
-	float: right;
-	height: 20px;
-	min-width: 30px;
-	padding: 0 8px;
-	margin: 0 10px 0 0;
-	text-align: right;
-	font-size: 14px;
-	line-height: 20px;
-	color: #000;
-	font-weight: 800;
-	margin-right: 0px;
-}
+<div class="popupLayer" class="popupfilter">
+	<div id="blk9" class="blk" style="opacity: 1;">
+		<div class="head">
+			<div class="head-right"></div>
+		</div>
+		<div class="main">
+			<h2>分类选择</h2>
+			<a href="javascript:void(0)" id="close9" class="closeBtn">X</a>
+			<ul>
+				<li><a class={{ $topictype == 1 ? 'current' : ';' }} href={{ URL::to("nodes/$node->id") }}><span class="all">全部</span></a></li>
+				<li><a class={{ $topictype == 2 ? 'current' : ';' }} href={{ URL::to("nodes/$node->id?filter=excellent") }}><span class="good">精华</span></a></li>
+				@foreach ($subnodes as $index => $subnode)
+					<li><a class={{ $topictype == $subnode->id ? 'current' : ';' }} href={{ URL::to("nodes/$node->id?subnode=$subnode->id") }}><span class="topic">{{{ $subnode->name }}}</span></a></li>
+				@endforeach
+			</ul>
+		</div>
+		<div class="foot">
+			<div class="foot-right"></div>
+		</div>
+	</div>
+	<iframe border="0" frameborder="0" style="position: absolute; z-index: -1; left: 0px; top: 0px; opacity: 0; width: 100%; height: 202px;"></iframe>
+</div>
 
 
-</style>
+<script>
+	var t9 = new PopupLayer({trigger:"#ele9",popupBlk:"#blk9",closeBtn:"#close9",
+	useOverlay:true,useFx:true,offsets:{x:0-$(".filterbutton").offset().left+20,y:-41}});
+
+	t9.doEffects = function(way){
+		if(way == "open"){
+			this.popupLayer.css({opacity:0.3}).show(400,function(){
+			this.popupLayer.animate({
+				//left:($(document).width() - this.popupLayer.width())/2-100,
+				left:20,
+				top:(document.documentElement.clientHeight -
+				this.popupLayer.height())/2 + $(document).scrollTop(),
+				opacity:0.8
+			},600,function(){this.popupLayer.css("opacity",1)}.binding(this));
+			}.binding(this));
+		}
+		else
+		{
+			this.popupLayer.animate({
+				//left:this.trigger.offset().left,
+				top:this.trigger.offset().top,
+				opacity:0.1
+			},{duration:500,complete:function(){
+				this.popupLayer.css("opacity",1);this.popupLayer.hide()}.binding(this)});
+		}
+	}
+
+</script>
 
 <section class="wrap">
     <section id="newslist" class="newslist">

@@ -4,13 +4,10 @@ use Illuminate\Database\Eloquent\Model;
 use MyRedis;
 use Log;
 
-class IyoRelation extends Model {
+class MeetRelation extends Model {
 
-	const FOLLOWINGLIST="following:%s";
-	const FOLLOWERLIST="follower:%s";
-	const USFOLLOWLIST="following:%s:us";
-	const SFFOLLOWLIST="following:%s:sf";
-	const FRIENDLIST="friend:%s";
+	const MEETINGLIST="meeting:%s";
+	const MEETERLIST="meeter:%s";
 
 	public static function queryFollowingList($id, $num=0, $current=0) {
 

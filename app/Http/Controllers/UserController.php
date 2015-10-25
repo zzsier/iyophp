@@ -13,6 +13,7 @@ use App\Model\IyoUser;
 use App\Model\IyoPlayer;
 use App\Model\IyoRelation;
 use App\Model\IyoTopic;
+use App\Model\IyoBlack;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -99,6 +100,7 @@ class UserController extends Controller {
 		$user->username = $request["username"];
 		$user->phone = $request["phone"];
 		$user->type = $request["type"];
+		$user->rusername = $request["username"];
 		$user->description = $request["description"];
 		$user->password = $request["password"];
 
@@ -264,7 +266,7 @@ Access-Control-Allow-Origin: *
 	public function registerHXUser($id) 
 	{
 		$user = IyoUser::find($id);
-		$token = md5($user->phone.$user->password.$user->email.$user->username);
+		$token = md5($user->phone.$user->password.$user->email.$user->username.$user->rusername.time());
 
 		$user["hxuser"] = $token;
 		$user["hxpassword"] = md5($token);
@@ -383,6 +385,21 @@ Access-Control-Allow-Origin: *
 			$result = array('code' => trans('code.UserAleadyExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserAleadyExist'));
 			return $result;
 		}
+
+		$rusername = $request->json("rusername","");
+		if( $rusername == "" ) {
+			$result = array('code' => trans('code.UserAleadyExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserAleadyExist'));
+			return $result;
+		}
+
+		$person = IyoUser::where('rusername', $rusername)->first();
+		if($person != null) {
+			$result = array('code' => trans('code.UserAleadyExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserAleadyExist'));
+			return $result;
+		}
+		$user->rusername = $rusername;
+		$user->username = $rusername;
+
 			
 		$token = md5($user->phone.$user->password.$user->email);
 		$user["token"] = $token;
@@ -558,17 +575,10 @@ Access-Control-Allow-Origin: *
 			//remove self id for nearby user
 			if( $uid == $user->id ) continue;
 
-			$nuser = IyoUser::queryById($uid);
+			$nuser = $this->queryUserById($user->id, $uid);
 			if( is_null($nuser) ) {
 				continue;
 			}
-
-			if( IyoRelation::checkIfFollow($user->id, $uid) ) {
-				$nuser["follow"] = true;
-			} else {
-				$nuser["follow"] = false;
-			}
-
 			$users[] = $nuser;
 		}
 
@@ -626,17 +636,10 @@ Access-Control-Allow-Origin: *
 			//remove self id for nearby user
 			if( $uid == $user->id ) continue;
 
-			$nuser = IyoUser::queryById($uid);
+			$nuser = $this->queryUserById($user->id, $uid);
 			if( is_null($nuser) ) {
 				continue;
 			}
-
-			if( IyoRelation::checkIfFollow($user->id, $uid) ) {
-				$nuser["follow"] = true;
-			} else {
-				$nuser["follow"] = false;
-			}
-
 			$users[] = $nuser;
 		}
 
@@ -653,6 +656,7 @@ Access-Control-Allow-Origin: *
 		$username = $request->json("search","");
 		$num = $request->json("num",0);
 		$current = $request->json("current",0);
+		$id = $request["id"];
 
 		if( $username == "" ) {
 			$result = array('code' => trans('code.InvalidParameter'),'desc' => __LINE__,
@@ -664,7 +668,8 @@ Access-Control-Allow-Origin: *
 
 		$stars = [];
 		foreach ($user_ids as $uid) {
-			$stars[] = IyoUser::queryById($uid);
+			$user = $this->queryUserById($id, $uid);
+			$stars[] = $user;
 		}
 
 		$response["result"] = $stars;
@@ -710,12 +715,12 @@ Access-Control-Allow-Origin: *
 		return view('validatemail')->with('message', '邮箱验证通过');
 	}
 
-	public function queryUser(Request $request)
+	public function queryUserById($id, $fid)
 	{
 		$result = array('code' => trans('code.success'),'desc' => __LINE__,
 			'message' => "获取成功");
 
-		$user = IyoUser::queryById($request->json("fid",0));
+		$user = IyoUser::queryById($fid);
 
 		if( $user["id"] == "" ) {
 			$result = array('code' => 1,'desc' => __LINE__,
@@ -728,14 +733,31 @@ Access-Control-Allow-Origin: *
 			$user = IyoUser::queryById($user["id"]);
 		}
 
-		if( IyoRelation::checkIfFollow($request["id"], $request->json("fid",0)) ) {
+		if( IyoRelation::checkIfFollow($id, $fid) ) {
 			$user["follow"] = true;
 		} else {
 			$user["follow"] = false;
 		}
 
-		$result["result"] = $user;
-		
+		if( IyoBlack::checkIfBlack($id, $fid)
+				|| IyoBlack::checkIfBlock($id, $fid) ) {
+			$user["black"] = true;
+		} else {
+			$user["black"] = false;
+		}
+
+		return $user;
+	}
+
+
+	public function queryUser(Request $request)
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => "获取成功");
+
+		$fid = $request->json("fid",0);
+
+		$result["result"] = $this->queryUserById($request["id"], $fid);
 		return $result;
 	}
 
@@ -745,6 +767,11 @@ Access-Control-Allow-Origin: *
 			'message' => "获取成功");
 
 		$user = IyoUser::queryById($request->json("fid",0));
+
+		if( $user == null ) {
+			$result = array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserNotExist'));
+			return $result;
+		}
 
 		if( IyoRelation::checkIfFollow($request["id"], $request->json("fid",0)) ) {
 			$user["follow"] = true;
@@ -795,9 +822,18 @@ Access-Control-Allow-Origin: *
 		$sex = $request->json("sex","");
 		$loc = $request->json("loc","");
 		$phone = $request->json("phone","");
+		$rusername = $request->json("rusername","");
 
 		if( $username != "" ) {
 			$user->username = $username;
+		}
+		if( $rusername != "" ) {
+			$person = IyoUser::where('rusername', $rusername)->first();
+			if($person != null) {
+				$result = array('code' => trans('code.UserAleadyExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserAleadyExist'));
+				return $result;
+			}
+			$user->rusername = $rusername;
 		}
 		if( $age != "" ) {
 			$user->age = $age;
