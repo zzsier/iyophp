@@ -49,6 +49,9 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 
 	const USER="user:%s";
 	const TYPELIST="user:%s:list";
+	const ALLUSERID="user:all";
+	const MALEID="user:male";
+	const FEMALEID="user:female";
 	const TYPELEXPIRED=6000000000;
 
 	public function asDateTime($value)
@@ -58,6 +61,91 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 
 	public static function getOrderName($id) {
 		return "";
+	}
+
+	public static function updateSex($id, $sex) {
+		$redis = MyRedis::connection("default");
+		$key = sprintf(IyoUser::ALLUSERID, $id);
+		if($redis->exists($key)) {
+			$redis->lrem($key, 0, $id);
+			$redis->rpush($key,$id);
+		}
+
+		$key = sprintf(IyoUser::MALEID, $id);
+		if($redis->exists($key)) {
+			$redis->lrem($key, 0, $id);
+			if( $sex == 1 ) {
+				$redis->rpush($key,$id);
+			}
+		}
+
+		$key = sprintf(IyoUser::FEMALEID, $id);
+		if($redis->exists($key)) {
+			$redis->lrem($key, 0, $id);
+			if( $sex == 0 ) {
+				$redis->rpush($key,$id);
+			}
+		}
+	}
+
+	public static function queryMaleIDs() {
+		$redis = MyRedis::connection("default");
+		$key = sprintf(IyoUser::MALEID, $id);
+
+		if(!$redis->exists($key)) {
+			$list = IyoUser::where("sex", 1)->orderBy('created_at', 'asc')
+				->get(["id", "created_at"]);
+			foreach( $list as $fid ) {
+				$redis->rpush($key,$fid['fid']);
+			}
+		}
+
+		$tlist = [];
+		if( $redis->exists($key) ) {
+			$tlist = $redis->lrange($key, 0, -1);
+		}
+
+		return $tlist;
+	}
+
+	public static function queryFemaleIDs() {
+		$redis = MyRedis::connection("default");
+		$key = sprintf(IyoUser::FEMALEID, $id);
+
+		if(!$redis->exists($key)) {
+			$list = IyoUser::where("sex", 0)->orderBy('created_at', 'asc')
+				->get(["id", "created_at"]);
+			foreach( $list as $fid ) {
+				$redis->rpush($key,$fid['fid']);
+			}
+		}
+
+		$tlist = [];
+		if( $redis->exists($key) ) {
+			$tlist = $redis->lrange($key, 0, -1);
+		}
+
+		return $tlist;
+	}
+
+	public static function queryAllUserIDs() {
+		$redis = MyRedis::connection("default");
+		$key = sprintf(IyoUser::ALLUSERID, $id);
+
+		if(!$redis->exists($key)) {
+			$list = IyoUser::orderBy('created_at', 'asc')
+				->get(["id", "created_at"]);
+			foreach( $list as $fid ) {
+				$redis->rpush($key,$fid['fid']);
+			}
+		}
+
+		$tlist = [];
+		if( $redis->exists($key) ) {
+			$tlist = $redis->lrange($key, 0, -1);
+		}
+
+		return $tlist;
 	}
 
 	public static function reloadCache($id) {

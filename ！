@@ -1,0 +1,176 @@
+<?php namespace App\Model;
+
+use Illuminate\Database\Eloquent\Model;
+use MyRedis;
+use Log;
+
+class MeetRelation extends Model {
+
+	const MEETLIST="meet:%s";
+	const DROPLIST="drop:%s";
+	const ALLLIST="all:person";
+
+	public static function queryFollowingList($id, $num=0, $current=0) {
+
+		$redis = MyRedis::connection("default");
+		$key = sprintf(IyoRelation::FOLLOWINGLIST, $id);
+
+		if(!$redis->exists($key)) {
+			$list = IyoRelation::where('id', $id)->orderBy('created_at', 'asc')
+				->get(["fid", "created_at"]);
+			foreach( $list as $fid ) {
+				$redis->zadd($key,strtotime($fid["created_at"]),$fid['fid']);
+			}
+		}
+
+		$tlist = [];
+		if( $redis->exists($key) ) {
+			$tlist = $redis->zrevrange($key, $current, $current+$num-1);
+		}
+
+		return $tlist;
+	}
+
+	public static function queryFollowerList($id, $num=0, $current=0) {
+
+		$redis = MyRedis::connection("default");
+		$key = sprintf(IyoRelation::FOLLOWERLIST, $id);
+
+		if(!$redis->exists($key)) {
+			$list = IyoRelation::where('fid', $id)->orderBy('created_at', 'asc')
+				->get(["id", "created_at"]);
+			foreach( $list as $result ) {
+				$redis->zadd($key,strtotime($result["created_at"]),$result['id']);
+			}
+		}
+
+		$tlist = [];
+		if( $redis->exists($key) ) {
+			$tlist = $redis->zrevrange($key, $current, $current+$num-1);
+		}
+
+		return $tlist;
+	}
+
+	public static function queryFriendList($id, $num=0, $current=0) {
+
+		$redis = MyRedis::connection("default");
+		$key = sprintf(IyoRelation::FRIENDLIST, $id);
+
+		if( !$redis->exists($key) ) {
+			$followingkey = sprintf(IyoRelation::FOLLOWINGLIST, $id);
+			if( !$redis->exists($followingkey) ) {
+				IyoRelation::queryFollowingList($id);
+			}
+			$followerkey = sprintf(IyoRelation::FOLLOWERLIST, $id);
+			if( !$redis->exists($followerkey) ) {
+				IyoRelation::queryFollowerList($id);
+			}
+			$redis->ZINTERSTORE($key, 2, $followingkey, $followerkey, "AGGREGATE", "MIN");
+		}
+
+		$tlist = [];
+		if( $redis->exists($key) ) {
+			$tlist = $redis->zrevrange($key, $current, $current+$num-1);
+		}
+
+		return $tlist;
+	}
+
+
+
+	public static function queryFollowingListByType($id, $type, $num=0, $current=0)
+	{
+		$redis = MyRedis::connection("default");
+
+		if( $type == "US" ) {
+			$key = sprintf(IyoRelation::USFOLLOWLIST, $id);
+		} else {
+			$key = sprintf(IyoRelation::SFFOLLOWLIST, $id);
+		}
+
+		if( $current == 0 ) {
+			if( $redis->exists($key) ) {
+				$redis->del($key);
+			}
+		}
+
+		$tlist = [];
+
+		if( !$redis->exists($key) ) {
+			$ids = IyoRelation::queryFollowingList($id);
+			foreach( $ids as $fid ) {
+				$user = IyoUser::queryById($fid);
+				if( $type == "US" ) {
+					//if( $user["type"] == "2" || $user["type"] == "1" ) { 
+					if( $user["type"] == "2" ) { 
+						$redis->zadd($key,strtotime($user["created_at"]),$user['id']);
+					}
+				} else {
+					if( $user["type"] == "0" || $user["type"] == "1" ) { 
+						$redis->zadd($key,strtotime($user["created_at"]),$user['id']);
+					}
+				}
+			}
+		}
+
+		if( $redis->exists($key) ) {
+			$tlist = $redis->zrevrange($key, $current, $current+$num-1);
+		}
+
+		return $tlist;
+	}
+
+	public static function checkIfMeet($id, $fid) {
+
+		$redis = MyRedis::connection("default");
+		$key = sprintf(MeetRelation::MEETLIST, $id);
+
+		if(!$redis->exists($key)) {
+			$list = MeetRelation::where('id', $id)->where('type', 1)->orderBy('created_at', 'asc')
+				->get(["fid", "created_at"]);
+			foreach( $list as $following ) {
+				$redis->zadd($key,strtotime($following["created_at"]),$following['fid']);
+			}
+		}
+
+		Log::info("check if meet ".$key." ".$fid);
+
+		$result = $redis->zscore($key, $fid);
+
+		if( !is_null($result) )
+			return true;
+
+		return false;
+	}
+
+	public static function meet($id, $fid) {
+		$meet = new MeetRelation();
+		$meet->id = $id;
+		$meet->fid = $fid;
+		$meet->type = 1;
+		$meet->save();
+
+		$redis = MyRedis::connection();
+		$key = sprintf(MeetRelation::MEETLIST, $id);
+		if($redis->exists($key)) {
+			$redis->zadd($key,strtotime($relation->created_at),$fid);
+		}
+	}
+
+	public static function drop($id, $fid) {
+		$meet = new MeetRelation();
+		$meet->id = $id;
+		$meet->fid = $fid;
+		$meet->type = 0;
+		$meet->save();
+
+		$redis = MyRedis::connection();
+		$key = sprintf(MeetRelation::DROPLIST, $id);
+		if($redis->exists($key)) {
+			$redis->zadd($key,strtotime($relation->created_at),$fid);
+		}
+	}
+
+
+}
