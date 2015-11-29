@@ -110,12 +110,12 @@ class TopicsController extends Controller {
 
 		$user = IyoUser::queryById($uid);
 		if( $user["type"] == "2" ) {
-			IyoTopic::routeUSList($ids,$tid);
+			IyoTopic::routeUSList($ids,$tid, $uid);
 		//} else if( $user["type"] == "0" ) {
 		//	IyoTopic::routeSFList($ids,$tid);
 		} else {
 			//IyoTopic::routeUSList($ids,$tid);
-			IyoTopic::routeSFList($ids,$tid);
+			IyoTopic::routeSFList($ids,$tid, $uid);
 		}
 	}
 
@@ -388,6 +388,19 @@ class TopicsController extends Controller {
 		}
 		return $topics;
 	}
+
+	public function queryLatestComments(Request $request)
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '获取最新文章成功');
+
+		$uid = $request["id"];
+		$tids = IyoComment::queryCommentByTopicUser($uid);
+
+		$result["result"] = $this->queryTopicsByIds($tids, $uid);
+		return $result;
+	}
+
 
 	public function queryUSTopicsByTime(Request $request)
 	{

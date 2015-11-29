@@ -8,6 +8,7 @@ class IyoComment extends Model {
 
 	const COMMENT="comment:%s";
 	const COMMENTLIST="topic:%s:comment";
+	const USERCOMMENTEDLIST="user:%s:commented";
 
 	public static $attrnames = array(
 		array("cache"=>"content", "db"=> "body", "return"=>"content"),
@@ -15,6 +16,7 @@ class IyoComment extends Model {
 		array("cache"=>"cid", "db"=> "id", "return"=>"cid"),
 		array("cache"=>"uid", "db"=> "uid", "return"=>"uid"),
 		array("cache"=>"tid", "db"=> "tid", "return"=>"tid"),
+		array("cache"=>"toid", "db"=> "toid", "return"=>"toid"),
 	);
 
 	public static function reloadCache($id) {
@@ -81,13 +83,14 @@ class IyoComment extends Model {
 		}
 	}
 
-	public static function addComment($uid, $tid, $body)
+	public static function addComment($uid, $tid, $body, $toid)
 	{
 		$redis = MyRedis::connection("default");
 		$comment = new IyoComment();
 		$comment->uid = $uid;
 		$comment->tid = $tid;
 		$comment->body = $body;
+		$comment->toid = $toid;
 		$comment->save();
 		IyoComment::reloadCache($comment->id);
 
@@ -97,6 +100,30 @@ class IyoComment extends Model {
 		}
 		$redis->zadd($key,strtotime($comment["created_at"]),$comment['id']);
 	}
+
+	public static function newCommentForUser($uid, $tid) {
+		$redis = MyRedis::connection("default");
+		$key = sprintf(IyoComment::USERCOMMENTEDLIST, $uid);
+		if( $redis->exists($key) ) {
+			$redis->sadd($key,$tid);
+		} else {
+			$redis->sadd($key,$tid);
+			$redis->persist($key);
+		}
+	}
+	
+	public static function queryCommentByTopicUser($uid) {
+		$redis = MyRedis::connection("default");
+		$key = sprintf(IyoComment::USERCOMMENTEDLIST, $uid);
+		$uids = [];
+		if($redis->exists($key)) {
+			$uids = $redis->smembers($key);
+		}
+		$redis->del($key);
+		return $uids;
+	}
+	
+
 
 	public static function queryCommentIds($tid, $num=0, $current=0) {
 		$redis = MyRedis::connection("default");
@@ -111,7 +138,7 @@ class IyoComment extends Model {
 
 		$tlist = [];
 		if( $redis->exists($key) ) {
-			$tlist = $redis->zrevrange($key, $current, $current+$num-1);
+			$tlist = $redis->zrange($key, $current, $current+$num-1);
 		}
 
 		return $tlist;

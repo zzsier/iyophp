@@ -65,6 +65,7 @@ class NodesController extends BaseController
 
 		$node->name = $request["name"];
 		$node->parent_node = $request["parent_node"];
+		$node->nodeorder = $request["nodeorder"];
 
 		$node->save();
 		Node::clearCache();

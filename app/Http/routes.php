@@ -80,6 +80,7 @@ Route::group(['prefix' => 'comment','middleware' => 'cksession'], function()
 	Route::resource('add', 'CommentController@addComment');
 	Route::resource('delete', 'CommentController@delComment');
 	Route::resource('list', 'CommentController@queryComments');
+	Route::resource('latest', 'TopicsController@queryLatestComments');
 });
 
 Route::group(['prefix' => 'topic'], function()  
@@ -132,6 +133,7 @@ Route::group(['prefix' => 'question'], function()
 
 
 Route::resource('moment/upload', 'UploadController@uploadMemoryImage');
+
 Route::resource('like/list', 'TopicsController@queryLikeList');
 	
 Route::group(['middleware' => 'backendcheck'], function()
@@ -194,6 +196,9 @@ Route::group(['prefix' => 'user','middleware' => 'cksession'], function()
 	Route::resource('update', 'UserController@updateUser');
 	Route::resource('sendvmail', 'UserController@sendValidationEmail');
 	Route::resource('sendCodeMail', 'UserController@sendCodeEmail');
+	Route::resource('love', 'MeetController@meet');
+	Route::resource('drop', 'MeetController@drop');
+	Route::resource('lovelist', 'MeetController@queryRandMeetList');
 });
 
 Route::group(['prefix' => 'game','middleware' => 'cksession'], function()  
@@ -202,6 +207,18 @@ Route::group(['prefix' => 'game','middleware' => 'cksession'], function()
 	Route::resource('update', 'UserController@updateUser');
 	Route::resource('page/firstpage', 'PagesController@firstpage');
 });
+
+Route::group(['prefix' => 'interest','middleware' => 'cksession'], function()  
+{
+	Route::resource('add', 'InterestController@saveInterest');
+	Route::resource('adds', 'InterestController@saveInterests');
+	Route::resource('dels', 'InterestController@deleteInterests');
+	Route::resource('del', 'InterestController@deleteInterest');
+	Route::resource('list', 'InterestController@queryInterestsByUser');
+	Route::resource('all', 'InterestController@getFullInterest');
+	Route::resource('change', 'InterestController@changeInterests');
+});
+
 
 Route::group(['prefix' => 'page','middleware' => 'cksession'], function()  
 {

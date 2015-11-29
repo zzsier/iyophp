@@ -88,7 +88,7 @@ class IyoTopic extends Model {
 		return $topic;
 	}
 
-	public static function routeSFList($ids, $tid) {
+	public static function routeSFList($ids, $tid, $selfid) {
 		$redis = MyRedis::connection("default");
 
 		foreach( $ids as $uid ) {
@@ -97,14 +97,17 @@ class IyoTopic extends Model {
 				$redis->lpush($key, $tid);
 				$redis->ltrim($key,0,1000);
 			}
-			$mosquitto = new \Mosquitto\Client();
-			$mosquitto->connect("localhost", 1883, 5);
-			$mosquitto->publish("iyo_id_".$uid, '{"fan":"0","friend":"0","moment":"1","topic":"0"}', 1, 0);
-			$mosquitto->disconnect();
+			if( $uid != $selfid ) {
+				Log::info("send SF request id is ".$uid);
+				$mosquitto = new \Mosquitto\Client();
+				$mosquitto->connect("localhost", 1883, 5);
+				$mosquitto->publish("iyo_id_".$uid, '{"fan":"0","friend":"0","moment":"1","topic":"0"}', 1, 0);
+				$mosquitto->disconnect();
+			}
 		}
 	}
 
-	public static function routeUSList($ids, $tid) {
+	public static function routeUSList($ids, $tid, $selfid) {
 		$redis = MyRedis::connection("default");
 
 		foreach( $ids as $uid ) {
@@ -113,10 +116,13 @@ class IyoTopic extends Model {
 				$redis->lpush($key, $tid);
 				$redis->ltrim($key,0,1000);
 			}
-			$mosquitto = new \Mosquitto\Client();
-			$mosquitto->connect("localhost", 1883, 5);
-			$mosquitto->publish("iyo_id_".$uid, '{"fan":"0","friend":"0","moment":"0","topic":"1"}', 1, 0);
-			$mosquitto->disconnect();
+			if( $uid != $selfid ) {
+				Log::info("send US request id is ".$uid);
+				$mosquitto = new \Mosquitto\Client();
+				$mosquitto->connect("localhost", 1883, 5);
+				$mosquitto->publish("iyo_id_".$uid, '{"fan":"0","friend":"0","moment":"0","topic":"1"}', 1, 0);
+				$mosquitto->disconnect();
+			}
 		}
 	}
 

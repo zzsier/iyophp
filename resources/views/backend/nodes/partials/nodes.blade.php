@@ -21,6 +21,7 @@
           </div>
           <div class="meta row">
             <span class="timeago col-sm-3 text-right">父节点： {{{ $node->parent_node }}} </span>
+            <span class="timeago col-sm-3 text-right">顺序： {{{ $node->nodeorder }}} </span>
           </div>
         </div>
 

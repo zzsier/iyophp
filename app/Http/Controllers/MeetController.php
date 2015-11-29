@@ -8,7 +8,9 @@ use App\Model\IyoUser;
 use App\Model\IyoTopic;
 use App\Model\IyoBlack;
 use App\Model\MeetRelation;
+use App\Getui\IGeTui;
 use MyRedis;
+use Log;
 
 use Illuminate\Http\Request;
 
@@ -18,17 +20,58 @@ class MeetController extends Controller {
 	{
 		$result = array('code' => trans('code.success'),'desc' => __LINE__,
 			'message' => '遇见成功');
+
+		//$igt = new IGeTui();
+		//$template = IGtNotyPopLoadTemplateDemo();
+		//$message = new IGtSingleMessage();
+		//
+		//$message->set_isOffline(true);
+		//$message->set_offlineExpireTime(3600*12*1000);
+		//$message->set_data($template);
+		//
+		//$target = new IGtTarget();
+		//$target->set_appId('5QbZPVebzr8HjdZP3mVuv9');
+		//$target->set_clientId('b166bdc9f71123865a486e81ed59214f');
+		//
+		//$rep = $igt->pushMessageToSingle($message,$target);
+	
 		
 		$id = $request["id"];
 		$fid = $request->json("fid",0);
 
+
+		if( MeetRelation::checkIfMeet($id, $fid) || MeetRelation::checkIfDrop($id, $fid) ) {
+			$result = array('code' => trans('code.RelationAlreadyExistsError'),'desc' => __LINE__,
+				'message' => '用户操作已存在');
+			return $result;
+		}
+
 		MeetRelation::meet($id, $fid);
 
 		if( MeetRelation::checkIfMeet($fid, $id) ) {
-			IyoRelation::add($id, $fid);
-			IyoRelation::add($fid, $id);
+	
+			if( !IyoRelation::checkIfFollow($id, $fid) ) {
+				IyoRelation::add($id, $fid);
+			}
+			if( !IyoRelation::checkIfFollow($fid, $id) ) {
+				IyoRelation::add($fid, $id);
+			}
+
+			//$mosquitto = new \Mosquitto\Client();
+			//$mosquitto->connect("localhost", 1883, 5);
+			//$mosquitto->publish("iyo_id_".$id, '{"fan":"0","friend":"2","moment":"0","topic":"0"}', 1, 0);
+			//$mosquitto->disconnect();
+
+			$mosquitto = new \Mosquitto\Client();
+			$mosquitto->connect("localhost", 1883, 5);
+			$mosquitto->publish("iyo_id_".$fid, '{"fan":"0","friend":"2","moment":"0","topic":"0"}', 1, 0);
+			$mosquitto->disconnect();
+
+			$result = array('code' => trans('code.RelationAlreadyExistsError'),'desc' => __LINE__,
+				'message' => '用户操作已存在', 'friend' => true );
 		}
 
+		IyoUser::increaseNumOfLove($fid);
 		return $result;
 	}
 
@@ -39,6 +82,13 @@ class MeetController extends Controller {
 	
 		$id = $request["id"];
 		$fid = $request->json("fid",0);
+
+		if( MeetRelation::checkIfMeet($id, $fid) || MeetRelation::checkIfDrop($id, $fid) ) {
+			$result = array('code' => trans('code.RelationAlreadyExistsError'),'desc' => __LINE__,
+				'message' => '用户操作已存在');
+			return $result;
+		}
+
 		MeetRelation::drop($id, $fid);
 
 		return $result;
@@ -57,20 +107,48 @@ class MeetController extends Controller {
 		$meetlist = MeetRelation::queryMeetList($id);
 		$droplist = MeetRelation::queryDropList($id);
 
-		if( $type == "2" ) {
-			$alllist = IyoUser::queryAllUserIDs();
-		} else if ( $type == "1" ) {
+		$user = IyoUser::queryById($id);
+		/*
+
+		if ( $user["lovefilter"] == "1" ) {
 			$alllist = IyoUser::queryMaleIDs();
-		} else {
+		} else if ( $user["lovefilter"] == "0" ) {
 			$alllist = IyoUser::queryFemaleIDs();
+		} else {
+			$alllist = IyoUser::queryAllUserIDs();
+		}
+		*/
+
+		if ( $type == "1" ) {
+			$alllist = IyoUser::queryMaleIDs();
+		} else if ( $type == "0" ) {
+			$alllist = IyoUser::queryFemaleIDs();
+		} else {
+			$alllist = IyoUser::queryAllUserIDs();
 		}
 
-		$randlist = array_diff($alllist, $meetlist, $droplist);
-		$userlist = array_rand($randlist, 10);
+		unset($alllist[array_search($id,$alllist)]);
 
+		Log::info("all list is ".implode(',',$alllist));
+
+		$randlist = array_diff($alllist, $meetlist, $droplist);
+
+		Log::info("rand list is ".implode(',',$randlist));
+		if( count($randlist) >= 10 ) {
+			$userlist = array_rand($randlist, 10);
+			$userarray = [];
+			foreach( $userlist as $array_id ) {
+				$userarray[] = $randlist[$array_id];
+			}
+			$userlist = $userarray;
+		} else {
+			$userlist = $randlist;
+		}
+
+		Log::info("user list is ".implode(',',$userlist));
 		$users = [];
 
-		foreach( $userlist as $id ) {
+		foreach( $userlist as $fid ) {
 			$user = IyoUser::queryById($fid);
 
 			if( IyoRelation::checkIfFollow($request["id"], $fid) ) {

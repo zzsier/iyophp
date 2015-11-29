@@ -76,6 +76,28 @@ class MeetRelation extends Model {
 		return false;
 	}
 
+	public static function checkIfDrop($id, $fid) {
+
+		$redis = MyRedis::connection("default");
+		$key = sprintf(MeetRelation::DROPLIST, $id);
+
+		if(!$redis->exists($key)) {
+			$list = MeetRelation::where('id', $id)->where('type', 0)->orderBy('created_at', 'asc')
+				->get(["fid", "created_at"]);
+			foreach( $list as $following ) {
+				$redis->zadd($key,strtotime($following["created_at"]),$following['fid']);
+			}
+		}
+
+		$result = $redis->zscore($key, $fid);
+
+		if( !is_null($result) )
+			return true;
+
+		return false;
+	}
+
+
 	public static function meet($id, $fid) {
 		$meet = new MeetRelation();
 		$meet->id = $id;

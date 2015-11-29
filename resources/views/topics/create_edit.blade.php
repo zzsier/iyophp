@@ -149,6 +149,7 @@
 						Publish_Config.image = 'http://'+window.location.host+'/'+uploadfilename+'';
 						$("#showimage").html('<img src="'+Publish_Config.image+'" class="img-responsive" width="100%"/>');
 						$("#showimage").show();
+						alert("上传文件成功");
 						//$("#image").val(uploadfilename);
 					}).on('fileuploadfail', function (e, data) {
 						alert("上传文件失败");

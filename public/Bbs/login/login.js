@@ -1,8 +1,3 @@
-/**
- * 论坛登录注册模块
- * @author 贾立平、张旭勇
- * @copyright (c) 2014-10-13
- */
 (function($, WEB_CONFIG, Z_Check, Z_Dom){
 
     var e=$("#unauth_main"),d=800;g=e.find(".login-box .switch"),gg=e.find(".regist-box .switch"),k=e.find(".login-box"),l=e.find(".regist-box"),r=k.find(".txt");

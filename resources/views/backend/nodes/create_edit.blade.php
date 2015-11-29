@@ -42,6 +42,11 @@
 			</div>
           </div>
 
+          <div class="form-group" style="padding-top:15px;padding-bottom:15px;">
+    		<label class="col-sm-2 control-label" for="name">NODE顺序</label>
+			<div class="col-sm-10"><input type="text" class="form-control" name="nodeorder" value="{{ $node->nodeorder }}" /></div>
+          </div>
+	
           <div class="form-group status-post-submit col-sm-2 col-sm-offset-10" style="padding-top:15px;padding-bottom:15px;">
 			<button type="submit" class="btn btn-primary" /> 提 交 </button>
 			<button type="button" id="cancel" class="btn btn-default" /> 取 消 </button>

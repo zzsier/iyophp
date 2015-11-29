@@ -32,6 +32,7 @@ class CommentController extends Controller
 
 		$uid = $request["id"];
 		$tid = $request->json("tid", 0);
+		$toid = $request->json("toid", 0);
 		$body = $request->json("comment","");
 
 		if( $tid == 0 ) {
@@ -40,7 +41,7 @@ class CommentController extends Controller
 			return $result;
 		}
 
-		IyoComment::addComment($uid, $tid, $body);
+		IyoComment::addComment($uid, $tid, $body, $toid);
 		IyoTopic::incrNumOfReply($tid);
 
 		$topic = IyoTopic::queryById($tid);
@@ -51,9 +52,9 @@ class CommentController extends Controller
 		$mosquitto->publish("iyo_id_".$userid, '{"fan":"0","friend":"0","moment":"0","topic":"2"}', 1, 0);
 		$mosquitto->disconnect();
 
+		IyoComment::newCommentForUser($topic["uid"], $tid);
 
 		return $result;
-
 	}
 
 	public function delComment(Request $request)

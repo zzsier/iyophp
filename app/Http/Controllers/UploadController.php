@@ -1,13 +1,16 @@
-<?php namespace App\Http\Controllers;
+<?php 
+namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Model\IyoUser;
 use App\Model\IyoTopic;
+use App\CropAvatar;
 use Input;
 use Cache;
 use Log;
 use Image;
+use Redirect;
 
 use Illuminate\Http\Request;
 
@@ -98,7 +101,7 @@ class UploadController extends Controller {
 			}
 
 			Log::info('extension:'.$extension." filename:".$file->getClientOriginalName());
-			$allowed_extensions = ["png", "jpg", "gif", "JPG", "PNG", "GIF"];
+			$allowed_extensions = ["png", "jpg", "gif", "JPG", "PNG", "GIF", "jpeg", "JPEG"];
 
 			if ( !in_array($extension, $allowed_extensions) ) {
 				$result = array('code' => trans('code.UploadExtError'),'desc' => __LINE__, 'message' => trans('errormsg.UploadExtError'));
@@ -135,42 +138,46 @@ class UploadController extends Controller {
 	{
 		$result = array('code' => trans('code.success'),'desc' => __LINE__, 'message' => trans('successmsg.UploadSuccess'));
 
-		if ($file = Input::file('uploadedfile')) {
+		//$file = Input::file('avatar_file');
+		$file = $_FILES['avatar_file'];
+		$id = $request["id"];
 
-			$extension = "png";
-			if( $file->getClientOriginalExtension() && $file->getClientOriginalExtension() != "" ) {
-				$extension = $file->getClientOriginalExtension();
-			}
-
-			$destinationPath = 'uploads/photos';
-			$id = $request["id"];
-			$filename = 'user_'.$id.'.'.$extension;
-
-			$file->move($destinationPath, $filename);
-
-			if ($file->getClientOriginalExtension() != 'gif') {
-				$img = Image::make($destinationPath . '/' . $filename);
-				$img->resize(100, null, function ($constraint) {
-					$constraint->aspectRatio();
-					$constraint->upsize();
-				});
-				$img->save($destinationPath."/".'user_'.$id."_small.".$extension, 30);
-			}
-			
-			$result["filename"] = $destinationPath.'/'.$filename;
-
-			Log::info("id is ".$id);
-
-			$user = IyoUser::find($id);
-			$user->imageUrl = $destinationPath.'/'. $filename;
-			$user->save();
-
-			IyoUser::cleanCache($id);
-		} else {
-			$result = array('code' => trans('code.UploadFileFailed'),'desc' => __LINE__, 'message' => trans('errormsg.UploadFileFailed'));
+		if ( $id == null) {
+			$result = array('code' => trans('code.UserNotExist'),'desc' => __LINE__, 'message' => trans('errormsg.UserNotExist'));
 			return $result;
 		}
-		return $result;
+
+		$extension = "png";
+		$destinationPath = 'uploads/photos';
+		$newfilename = 'user_'.$id;
+		$safeName =  'user_'.$id.'.'.$extension;
+		//$file->move($destinationPath, $safeName);
+
+		Log::info("avatar_src is ".Input::get('avatar_src')." avatar data is ".
+				Input::get('avatar_data')." username is ".$request['username']);
+
+		$crop = new CropAvatar(
+		  isset($request['avatar_src']) ? $request['avatar_src'] : null,
+		  isset($request['avatar_data']) ? $request['avatar_data'] : null,
+		  $file,
+		  $destinationPath,
+		  $newfilename
+		);
+		
+		$response = array(
+		  'state'  => 200,
+		  'message' => $crop -> getMsg(),
+		  'result' => $crop -> getResult()
+		);
+	
+		$user = IyoUser::find($id);
+		$user->imageUrl =  $destinationPath.'/'. $safeName;
+		$user->save();
+
+		IyoUser::cleanCache($user->id);
+
+		$url = "backend/user/edit?id=".$id;
+		return Redirect::to($url);
 	}
 
 	public function uploadMemoryImage(Request $request)
@@ -192,7 +199,7 @@ class UploadController extends Controller {
 			}
 
 			Log::info('extension:'.$extension." filename:".$file->getClientOriginalName());
-			$allowed_extensions = ["png", "jpg", "gif", "JPG", "PNG", "GIF"];
+			$allowed_extensions = ["png", "jpg", "gif", "JPG", "PNG", "GIF", "jpeg", "JPEG"];
 
 			if ( !in_array($extension, $allowed_extensions) ) {
 				$result = array('code' => trans('code.UploadExtError'),'desc' => __LINE__, 'message' => trans('errormsg.UploadExtError'));
@@ -258,7 +265,7 @@ class UploadController extends Controller {
 				$extension = $file->getClientOriginalExtension();
 			}
 
-			$allowed_extensions = ["png", "jpg", "gif", "JPG", "PNG", "GIF"];
+			$allowed_extensions = ["png", "jpg", "gif", "JPG", "PNG", "GIF", "jpeg", "JPEG"];
 			if ( !in_array($extension, $allowed_extensions) ) {
 				$result = array('code' => trans('code.UploadExtError'),'desc' => __LINE__, 'message' => trans('errormsg.UploadExtError'));
 				return $result;
@@ -309,7 +316,7 @@ class UploadController extends Controller {
 	public function uploadExample()
 	{
 		if ($file = Input::file('file')) {
-			$allowed_extensions = ["png", "jpg", "gif", "JPG", "PNG", "GIF"];
+			$allowed_extensions = ["png", "jpg", "gif", "JPG", "PNG", "GIF", "jpeg", "JPEG"];
 			if ($file->getClientOriginalExtension() && !in_array($file->getClientOriginalExtension(), $allowed_extensions)) {
 				return ['error' => 'You may only upload png, jpg or gif.'];
 			}

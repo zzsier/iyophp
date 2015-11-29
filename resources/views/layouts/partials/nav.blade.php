@@ -69,7 +69,7 @@
     <div class="bbs-navbox border-radius-s3">
         <ul class="bbs-nav-list clearfix">
             @foreach ($nodes['top'] as $index => $top_node)
-                <li class><a href={{ URL::to("nodes/$top_node->id") }}>{{{ $top_node->name }}}论坛</a></li>
+                <li class><a href={{ URL::to("nodes/$top_node->id") }}>{{{ $top_node->name }}}</a></li>
             @endforeach
         </ul>
     </div>

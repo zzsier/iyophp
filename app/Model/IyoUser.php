@@ -44,7 +44,11 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 		array("cache"=>"exp", "db"=> "exp", "return"=>"exp"),
 		array("cache"=>"dailyjob_at", "db"=> "dailyjob_at", "return"=>"dailyjob_at"),
 		array("cache"=>"activate", "db"=> "activate", "return"=>"activate"),
+		array("cache"=>"numOfLove", "db"=> "love_count", "return"=>"numOfLove"),
+		array("cache"=>"album", "db"=> "album", "return"=>"album"),
 		array("cache"=>"lastlogintime", "db"=> "lastlogintime", "return"=>"lastlogintime"),
+		array("cache"=>"lovefilter", "db"=> "lovefilter", "return"=>"lovefilter"),
+		array("cache"=>"getuiToken", "db"=> "getuiToken", "return"=>"getuiToken"),
 	);
 
 	const USER="user:%s";
@@ -65,13 +69,13 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 
 	public static function updateSex($id, $sex) {
 		$redis = MyRedis::connection("default");
-		$key = sprintf(IyoUser::ALLUSERID, $id);
+		$key = IyoUser::ALLUSERID;
 		if($redis->exists($key)) {
 			$redis->lrem($key, 0, $id);
 			$redis->rpush($key,$id);
 		}
 
-		$key = sprintf(IyoUser::MALEID, $id);
+		$key = IyoUser::MALEID;
 		if($redis->exists($key)) {
 			$redis->lrem($key, 0, $id);
 			if( $sex == 1 ) {
@@ -79,7 +83,7 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 			}
 		}
 
-		$key = sprintf(IyoUser::FEMALEID, $id);
+		$key = IyoUser::FEMALEID;
 		if($redis->exists($key)) {
 			$redis->lrem($key, 0, $id);
 			if( $sex == 0 ) {
@@ -90,13 +94,13 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 
 	public static function queryMaleIDs() {
 		$redis = MyRedis::connection("default");
-		$key = sprintf(IyoUser::MALEID, $id);
+		$key = IyoUser::MALEID;
 
 		if(!$redis->exists($key)) {
-			$list = IyoUser::where("sex", 1)->orderBy('created_at', 'asc')
+			$list = IyoUser::where("sex", 1)->where("type",'!=',"2")->orderBy('created_at', 'asc')
 				->get(["id", "created_at"]);
 			foreach( $list as $fid ) {
-				$redis->rpush($key,$fid['fid']);
+				$redis->rpush($key,$fid['id']);
 			}
 		}
 
@@ -110,13 +114,13 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 
 	public static function queryFemaleIDs() {
 		$redis = MyRedis::connection("default");
-		$key = sprintf(IyoUser::FEMALEID, $id);
+		$key = IyoUser::FEMALEID;
 
 		if(!$redis->exists($key)) {
-			$list = IyoUser::where("sex", 0)->orderBy('created_at', 'asc')
+			$list = IyoUser::where("sex", 0)->where("type",'!=',"2")->orderBy('created_at', 'asc')
 				->get(["id", "created_at"]);
 			foreach( $list as $fid ) {
-				$redis->rpush($key,$fid['fid']);
+				$redis->rpush($key,$fid['id']);
 			}
 		}
 
@@ -130,13 +134,13 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 
 	public static function queryAllUserIDs() {
 		$redis = MyRedis::connection("default");
-		$key = sprintf(IyoUser::ALLUSERID, $id);
+		$key = IyoUser::ALLUSERID;
 
 		if(!$redis->exists($key)) {
-			$list = IyoUser::orderBy('created_at', 'asc')
+			$list = IyoUser::where("type",'!=',"2")->orderBy('created_at', 'asc')
 				->get(["id", "created_at"]);
 			foreach( $list as $fid ) {
-				$redis->rpush($key,$fid['fid']);
+				$redis->rpush($key,$fid['id']);
 			}
 		}
 
@@ -211,6 +215,18 @@ class IyoUser extends Model implements AuthenticatableContract, CanResetPassword
 			$redis->hincrby(IyoUser::PREFIX.":$id", "numOfFollow", 1);
 		}
 	}
+
+	public static function increaseNumOfLove($id)
+	{
+		DB::table('iyo_users')->where('id', $id)->increment('love_count');
+
+		$redis = MyRedis::connection("default");
+		if( $redis->exists(IyoUser::PREFIX.":$id") )
+		{
+			$redis->hincrby(IyoUser::PREFIX.":$id", "numOfLove", 1);
+		}
+	}
+
 
 	public static function increaseDialyQuestion($id)
 	{

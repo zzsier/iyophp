@@ -91,6 +91,8 @@ class UserController extends Controller {
 
 		$id = $request["id"];
 
+		Log::info("enter save or update function");
+
 		if( $id == 0 ) {
 			$user = new IyoUser();
 		} else {
@@ -733,8 +735,12 @@ Access-Control-Allow-Origin: *
 			$user = IyoUser::queryById($user["id"]);
 		}
 
+		$user["isFriend"] = false;
 		if( IyoRelation::checkIfFollow($id, $fid) ) {
 			$user["follow"] = true;
+			if( IyoRelation::checkIfFollow($fid, $id) ){
+				$user["isFriend"] = true;
+			}
 		} else {
 			$user["follow"] = false;
 		}
@@ -823,10 +829,22 @@ Access-Control-Allow-Origin: *
 		$loc = $request->json("loc","");
 		$phone = $request->json("phone","");
 		$rusername = $request->json("rusername","");
+		$album = $request->json("album","");
+		$lovefilter = $request->json("lovefilter","");
+		$getuiToken = $request->json("getuiToken","");
 
-		if( $username != "" ) {
-			$user->username = $username;
+		if( $album != "" ) {
+			$user->album = $album;
 		}
+
+		if( $lovefilter != "" ) {
+			$user->lovefilter = $lovefilter;
+		}
+
+		if( $getuiToken != "" ) {
+			$user->getuiToken = $getuiToken;
+		}
+
 		if( $rusername != "" ) {
 			$person = IyoUser::where('rusername', $rusername)->first();
 			if($person != null) {
@@ -840,6 +858,9 @@ Access-Control-Allow-Origin: *
 		}
 		if( $sex != "" ) {
 			$user->sex = $sex;
+			if( $user->type != "2" ) {
+				IyoUser::updateSex($user->id, $sex);
+			}
 		}
 		if( $loc != "" ) {
 			$user->loc = $loc;

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Model\Node;
 use View;
+use Log;
 use Auth;
 use Illuminate\Http\Request;
 use App\Model\IyoTopic;
@@ -27,6 +28,8 @@ class PagesController extends BaseController
     {
         $nodes  = Node::allLevelUp();
 		$topics = [];
+
+		//Log::info(" nodes is ".implode(',', $nodes) );
 
 		foreach( $nodes["top"] as $pnode ) {
 			$subtopics = Topic::where("is_excellent", true)->where("node_id", $pnode->id)

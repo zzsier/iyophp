@@ -201,8 +201,8 @@ Z_TuanParams = {
 					<td class="post-side" rowspan="3">
 						<div class="portrait">
 						<p class="name ">
-						@if ( $reply->user != NULL)
-							<a class="user-name">{{{ $topic->reply->username }}}</a>
+						@if ( $reply->user != NULL )
+							<a class="user-name">{{{ $reply->user->username }}}</a>
 						@else
 							<a class="user-name" href="#">匿名用户</a>
 						@endif
