@@ -8,11 +8,13 @@ use App\Model\IyoUser;
 use App\Model\IyoTopic;
 use App\Model\IyoBlack;
 use App\Model\MeetRelation;
-use App\Getui\IGeTui;
+
 use MyRedis;
 use Log;
 
 use Illuminate\Http\Request;
+
+require_once(app_path(). '/Getui/' . 'IGt.Push.php');
 
 class MeetController extends Controller {
 
@@ -20,21 +22,6 @@ class MeetController extends Controller {
 	{
 		$result = array('code' => trans('code.success'),'desc' => __LINE__,
 			'message' => '遇见成功');
-
-		//$igt = new IGeTui();
-		//$template = IGtNotyPopLoadTemplateDemo();
-		//$message = new IGtSingleMessage();
-		//
-		//$message->set_isOffline(true);
-		//$message->set_offlineExpireTime(3600*12*1000);
-		//$message->set_data($template);
-		//
-		//$target = new IGtTarget();
-		//$target->set_appId('5QbZPVebzr8HjdZP3mVuv9');
-		//$target->set_clientId('b166bdc9f71123865a486e81ed59214f');
-		//
-		//$rep = $igt->pushMessageToSingle($message,$target);
-	
 		
 		$id = $request["id"];
 		$fid = $request->json("fid",0);
@@ -67,8 +54,14 @@ class MeetController extends Controller {
 			$mosquitto->publish("iyo_id_".$fid, '{"fan":"0","friend":"2","moment":"0","topic":"0"}', 1, 0);
 			$mosquitto->disconnect();
 
-			$result = array('code' => trans('code.RelationAlreadyExistsError'),'desc' => __LINE__,
-				'message' => '用户操作已存在', 'friend' => true );
+			$user = IyoUser::queryById($fid);
+
+			if( $user != null && $user["getuiToken"] != "" ) {
+				$this->sendGeTuiRequest($user["getuiToken"], "有陌生人和您配对成功");
+			}
+
+			$result = array('code' => trans('code.success'),'desc' => __LINE__,
+				'message' => '遇见成功', 'friend' => true );
 		}
 
 		IyoUser::increaseNumOfLove($fid);
@@ -104,8 +97,10 @@ class MeetController extends Controller {
 		$type = $request->json("type",2);
 		$current = $request->json("current",0);
 
-		$meetlist = MeetRelation::queryMeetList($id);
-		$droplist = MeetRelation::queryDropList($id);
+		//$meetlist = MeetRelation::queryMeetList($id);
+		//$droplist = MeetRelation::queryDropList($id);
+		$meetlist = [];
+		$droplist = [];
 
 		$user = IyoUser::queryById($id);
 		/*
@@ -168,5 +163,32 @@ class MeetController extends Controller {
 
 		$response["result"] = $users;
 		return $response;
+	}
+
+	public function sendGeTuiRequest($cid, $content) {
+
+		$igt = new \IGeTui('http://sdk.open.api.igexin.com/apiex.htm','9bfr0fXrYd9yopxdduSvI3','tTwfGkn3il8fUYTLop28k');
+
+		$template =  new \IGtTransmissionTemplate();
+        $template->set_appId("5QbZPVebzr8HjdZP3mVuv9");
+        $template->set_appkey("9bfr0fXrYd9yopxdduSvI3");
+        $template->set_transmissionType(1);
+        $template->set_transmissionContent($content);
+		$template->set_pushInfo("", "", $content, "", "yes", "", "", "");
+		//$template ->set_pushInfo($actionLocKey,$badge,$message,$sound,$payload,$locKey,$locArgs,$launchImage);
+
+		$message = new \IGtSingleMessage();
+		
+		$message->set_isOffline(true);
+		$message->set_offlineExpireTime(3600*12*1000);
+		$message->set_data($template);
+		
+		$target = new \IGtTarget();
+		$target->set_appId('5QbZPVebzr8HjdZP3mVuv9');
+		$target->set_clientId($cid);
+		
+		$rep = $igt->pushMessageToSingle($message,$target);
+
+		return $rep;
 	}
 }

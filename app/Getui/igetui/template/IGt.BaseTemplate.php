@@ -1,5 +1,4 @@
 <?php 
-namespace App\Getui\Igetui\Template;
 
 class IGtBaseTemplate{
 	var $appId;
@@ -144,7 +143,7 @@ class IGtBaseTemplate{
 	function toInt($str, $defaultValue)
 	{
 		if ($str==null || $str=="") {
-			return defaultValue;
+			return $defaultValue;
 		}
 		return intVal($str);
 	}

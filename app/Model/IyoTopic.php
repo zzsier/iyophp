@@ -43,6 +43,7 @@ class IyoTopic extends Model {
 	const USERTIMELINE = "user:%s:timeline";
 	const USERTOPIC = "user:%s:topic";
 	const HOTTOPIC = "hot:topic";
+	const HOTALLTOPIC = "hot:all:topic";
 
 	public static function converDateTime($value)
 	{
@@ -347,6 +348,31 @@ class IyoTopic extends Model {
 		}
 		return $tlist;
 	}
+
+	public static function queryHotALLTopicIds($num=0, $current=0)
+	{
+		$redis = MyRedis::connection("default");
+
+		if(!$redis->exists(IyoTopic::HOTALLTOPIC)) {
+			$list = [];
+			$phpbefore = time()-24*60*60*60*60;
+			$before = date('Y-m-d H:i:s',$phpbefore);
+			$list = IyoTopic::where('created_at', '>', $before)->where('t_type', '0')
+				->orderBy('like_count','desc')->get(["id", "like_count", "created_at"]);
+
+			foreach( $list as $tid ) {
+				$redis->zadd(IyoTopic::HOTALLTOPIC,$tid["like_count"],$tid['id']);
+			}
+			$redis->pexpire(IyoTopic::HOTALLTOPIC, 1000*60*60);
+		}
+
+		$tlist = [];
+		if( $redis->exists(IyoTopic::HOTALLTOPIC) ) {
+			$tlist = $redis->zrevrange(IyoTopic::HOTALLTOPIC, $current, $current+$num-1);
+		}
+		return $tlist;
+	}
+
 
 	public static function incrValue($key, $id, $field, $cfield) {
 		DB::table('iyo_topics')->where('id', $id)->increment($field);

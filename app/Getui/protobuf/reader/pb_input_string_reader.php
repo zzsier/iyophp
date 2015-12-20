@@ -1,6 +1,4 @@
 <?php
-namespace App\Getui\Protobuf\Reader;
-
 /**
  * Reads string input
  */

@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-{{ lang('Operation Deny') }}
+{{ trans('message.Operation Deny') }}
 @stop
 
 @section('content')
@@ -9,7 +9,7 @@
     <div class="col-md-4 col-md-offset-4">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">{{ lang('Notice') }}</h3>
+          <h3 class="panel-title">{{ trans('message.Notice') }}</h3>
         </div>
         <div class="panel-body">
 
@@ -17,7 +17,7 @@
 
             <fieldset>
               <div class="alert alert-warning">
-                {{ lang('Sorry, You account is banned.') }}
+                {{ trans('message.Sorry, You account is banned.') }}
               </div>
             </fieldset>
 

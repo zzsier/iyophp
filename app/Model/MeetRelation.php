@@ -108,7 +108,7 @@ class MeetRelation extends Model {
 		$redis = MyRedis::connection();
 		$key = sprintf(MeetRelation::MEETLIST, $id);
 		if($redis->exists($key)) {
-			$redis->zadd($key,strtotime($relation->created_at),$fid);
+			$redis->zadd($key,strtotime($meet->created_at),$fid);
 		}
 	}
 
@@ -122,7 +122,7 @@ class MeetRelation extends Model {
 		$redis = MyRedis::connection();
 		$key = sprintf(MeetRelation::DROPLIST, $id);
 		if($redis->exists($key)) {
-			$redis->zadd($key,strtotime($relation->created_at),$fid);
+			$redis->zadd($key,strtotime($meet->created_at),$fid);
 		}
 	}
 

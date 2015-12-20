@@ -1,5 +1,4 @@
 <?php 
-namespace App\Getui\Igetui\Template;
 
 class IGtLinkTemplate extends IGtBaseTemplate {
 

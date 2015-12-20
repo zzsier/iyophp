@@ -11,6 +11,7 @@ use App\Model\IyoRelation;
 use App\Model\IyoComment;
 use App\Model\IyoUser;
 use App\Model\IyoLike;
+use App\Model\IyoDrop;
 use Redirect;
 use Log;
 use Auth;
@@ -117,6 +118,49 @@ class TopicsController extends Controller {
 			//IyoTopic::routeUSList($ids,$tid);
 			IyoTopic::routeSFList($ids,$tid, $uid);
 		}
+	}
+
+	public function queryRandMomentList(Request $request)
+	{
+		$response = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => '获取成功');
+
+		$id = $request["id"];
+		$num = $request->json("num",0);
+		$type = $request->json("type",2);
+		$current = $request->json("current",0);
+
+		$meetlist = IyoLike::queryUserLikeList($id);
+		$droplist = IyoDrop::queryUserDropList($id);
+
+		$user = IyoUser::queryById($id);
+
+		$alllist = IyoTopic::queryHotALLTopicIds();
+
+		unset($alllist[array_search($id,$alllist)]);
+
+		Log::info("all list is ".implode(',',$alllist));
+
+		$randlist = array_diff($alllist, $meetlist, $droplist);
+
+		Log::info("rand list is ".implode(',',$randlist));
+		if( count($randlist) >= 10 ) {
+			$userlist = array_slice($randlist, 0, 10);
+		} else {
+			$userlist = $randlist;
+		}
+
+		Log::info("user list is ".implode(',',$userlist));
+		$users = [];
+
+		$topics = [];
+		foreach( $userlist as $tid ) {
+			$topic = $this->queryTopic($id, $tid);
+			$topics[] = $topic;
+		}
+
+		$response["result"] = $topics;
+		return $response;
 	}
 
 	public function createMoment(Request $request) 
@@ -230,6 +274,26 @@ class TopicsController extends Controller {
 
 		return $result;
 	}
+
+	public function drop(Request $request)
+	{
+		$result = array('code' => trans('code.success'),'desc' => __LINE__,
+			'message' => 'DROP成功');
+		
+		$uid = $request["id"];
+		$tid = $request->json("tid",0);
+
+		if( IyoDrop::checkIfDrop($uid, $tid) ) {
+			$result = array('code' => trans('code.LikeAlreadyExistsError'),'desc' => __LINE__,
+				'message' => '用户已DROP');
+			return $result;
+		}
+
+		IyoDrop::drop($uid, $tid);
+
+		return $result;
+	}
+
 
 	public function queryLikeList(Request $request)
 	{

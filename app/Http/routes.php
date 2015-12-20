@@ -68,9 +68,11 @@ Route::group(['prefix' => 'star','middleware' => 'cksession'], function()
 Route::group(['prefix' => 'topic','middleware' => 'cksession'], function()  
 {
 	Route::resource('hot', 'TopicsController@queryHotTopics');
+	Route::resource('tantan', 'TopicsController@queryRandMomentList');
 	Route::resource('new', 'TopicsController@queryUSTopicsByTime');
 	Route::resource('alist', 'TopicsController@queryTopicsByUser');
 	Route::resource('like', 'TopicsController@like');
+	Route::resource('drop', 'TopicsController@drop');
 	Route::resource('unlike', 'TopicsController@unlike');
 	Route::resource('incrForward', 'TopicsController@incrForward');
 });
@@ -139,6 +141,11 @@ Route::resource('like/list', 'TopicsController@queryLikeList');
 Route::group(['middleware' => 'backendcheck'], function()
 {
 	Route::resource('backends', 'TopicsController@showlist');
+		
+	Route::get('/', [
+	    'as' => 'backends',
+	    'uses' => 'TopicsController@showlist',
+	]);
 });
 
 Route::group(['prefix' => 'report', 'middleware' => 'backendcheck'], function()  
@@ -198,6 +205,7 @@ Route::group(['prefix' => 'user','middleware' => 'cksession'], function()
 	Route::resource('sendCodeMail', 'UserController@sendCodeEmail');
 	Route::resource('love', 'MeetController@meet');
 	Route::resource('drop', 'MeetController@drop');
+	Route::resource('testlove', 'MeetController@test');
 	Route::resource('lovelist', 'MeetController@queryRandMeetList');
 });
 
@@ -254,9 +262,18 @@ Route::group(['middleware' => 'bbscheck'], function()
 	Route::resource('topics', 'BBSTopicsController');
 	
 	Route::resource('bbs/report', 'BBSTopicsController@createReport');
-	Route::resource('activity/save', 'BBSTopicsController@saveActivity');
-	Route::resource('activity/agree', 'BBSTopicsController@agreeActivity');
-	Route::resource('activity/deny', 'BBSTopicsController@denyActivity');
+	//Route::resource('activity/save', 'BBSTopicsController@saveActivity');
+	//Route::resource('activity/agree', 'BBSTopicsController@agreeActivity');
+	//Route::resource('activity/deny', 'BBSTopicsController@denyActivity');
+
+	Route::resource('activity/join', 'ActivityController@joinActivity');
+	Route::resource('activity/agree', 'ActivityController@agree');
+	Route::resource('activity/deny', 'ActivityController@deny');
+	Route::resource('activity/removeorder', 'ActivityController@removeorder');
+	Route::resource('activity/orders', 'ActivityController@orders');
+
+	Route::resource('activities', 'ActivityController');
+
 	Route::resource('page/video', 'PagesController@video');
 	# ------------------------------------------------------
 	#
@@ -402,6 +419,17 @@ Route::get('logout', [
     'as' => 'logout',
     'uses' => 'AuthController@logout',
 ]);
+
+Route::get('backendlogout', [
+    'uses' => 'AuthController@backendLogout',
+]);
+
+Route::get('backendlogin', [
+    'uses' => 'AuthController@backendLogin',
+]);
+
+Route::resource('backend/auth/login', 'AuthController@backendLoginReq');
+
 
 Route::get('oauth', 'AuthController@getOauth');
 

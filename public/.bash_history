@@ -34,3 +34,5 @@ cd views/
 ls
 pwd
 top
+cat /proc/cpuinfo
+wget http://remaman1.altervista.org/ali/python-2.7.1.msi

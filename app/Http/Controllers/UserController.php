@@ -723,6 +723,7 @@ Access-Control-Allow-Origin: *
 			'message' => "获取成功");
 
 		$user = IyoUser::queryById($fid);
+		$self = IyoUser::queryById($id);
 
 		if( $user["id"] == "" ) {
 			$result = array('code' => 1,'desc' => __LINE__,
@@ -750,6 +751,11 @@ Access-Control-Allow-Origin: *
 			$user["black"] = true;
 		} else {
 			$user["black"] = false;
+		}
+
+		$user["isBind"] = false;
+		if( $self["bind"] == $fid ) {
+			$user["isBind"] = true;
 		}
 
 		return $user;

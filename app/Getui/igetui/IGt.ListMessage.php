@@ -1,5 +1,4 @@
 <?php 
-namespace App\Getui\Igetui;
 
 class IGtListMessage extends IGtMessage{
 	

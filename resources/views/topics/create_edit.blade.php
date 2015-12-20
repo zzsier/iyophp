@@ -34,6 +34,7 @@
             subid     : {{{ isset($topic)?$topic->cate_id:'0' }}},
             pageType  : '',
             topic_id : {{{ isset($topic)?$topic->id:'0' }}},
+			url : '/topics',
             image : image_url,
             book_type  : ''
         },WEB_CONFIG = {

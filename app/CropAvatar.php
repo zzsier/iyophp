@@ -192,7 +192,7 @@ class CropAvatar {
       	$constraint->aspectRatio();
       	$constraint->upsize();
       });
-      $makesmallimg->save($this->folder."/".$this->newfilename."_small.".".png", 30);
+      $makesmallimg->save($this->folder."/".$this->newfilename."_small".".png", 30);
 
 
       imagedestroy($src_img);

@@ -15,7 +15,7 @@ class BBSMiddleware implements Middleware {
 	protected $view;
 
 	public function __construct(ViewFactory $view)
-    {
+	{
 		$this->view = $view;
     }
 

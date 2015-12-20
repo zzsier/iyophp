@@ -1,5 +1,4 @@
 <?php
-namespace App\Getui\Protobuf\Encoding;
 
 /**
  * Base 128 varints - decodes and encodes base128 varints to/from decimal

@@ -7088,8 +7088,13 @@ FB.verify = function() {
     if (typeof Publish_Config.bookType != "undefined" && Publish_Config.bookType == "active") {
         active = 1
     }
+
+    if (typeof Publish_Config.activity != "undefined" && Publish_Config.activity == "active") {
+        activity = 1
+    }
+
     var tot_score = 0;
-    if (!active) {
+    if (!activity) {
         var manu = $("#bookBrand span").text();
         if (!manu || manu.substr(0, 2) == "\u9009\u62e9") {
             Layer.showTips({
@@ -7099,6 +7104,29 @@ FB.verify = function() {
             return false
         }
     }
+
+	var address  = "";
+	var dateInput = "";
+	if( activity ) {
+        address = $("#addressInput").val();
+        if (!address) {
+            Layer.showTips({
+                type: "warn",
+				content: "ADDRESS \u4e0d\u80fd\u4e3a\u7a7a~"
+            });
+            return false
+        }
+    
+        var dateInput = $("#dateInput").val();
+        if (!dateInput) {
+            Layer.showTips({
+                type: "warn",
+				content: "DATE \u4e0d\u80fd\u4e3a\u7a7a~"
+            });
+            return false
+        }
+	}
+
     var title = $("#titleInput").val();
     if (!title) {
         Layer.showTips({
@@ -7208,6 +7236,8 @@ FB.verify = function() {
     var data = {
         title: title,
 		image: image,
+		address: address,
+		dateInput: dateInput,
         content: content,
         cateid: Publish_Config.cateid,
         boardid: Publish_Config.boardid,
@@ -7496,10 +7526,10 @@ FB.publishBook = function(data) {
 		data.is_stick = 0;
 	}
 
-    var url = "/topics";
+    var url = Publish_Config.url;
     var publishtype = "POST";
     if( Publish_Config.topic_id != 0 ) {
-        var url = "/topics/"+Publish_Config.topic_id;
+        var url = Publish_Config.url+"/"+Publish_Config.topic_id;
         publishtype = "PATCH";
     }
     $.ajax({

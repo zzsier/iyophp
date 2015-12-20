@@ -7,6 +7,7 @@ use Log;
 class IyoLike extends Model {
 
 	const TOPICLIKELIST = "topic:%s:like";
+	const USERLIKELIST = "usertopic:%s:like";
 
 	public static function checkIfLike($uid, $tid) {
 		$redis = MyRedis::connection("default");
@@ -48,6 +49,27 @@ class IyoLike extends Model {
 		return $tlist;
 	}
 
+	public static function queryUserLikeList($uid, $num=0, $current=0) {
+		$redis = MyRedis::connection("default");
+
+		$key = sprintf(IyoLike::USERLIKELIST, $uid);
+		if(!$redis->exists($key)) {
+			$list = IyoLike::where('uid', $uid)->orderBy('created_at', 'asc')
+				->get(["tid", "created_at"]);
+			foreach( $list as $tid ) {
+				$redis->zadd($key,strtotime($tid["created_at"]),$tid['tid']);
+			}
+		}
+
+		$tlist = [];
+		if( $redis->exists($key) ) {
+			$tlist = $redis->zrevrange($key, $current, $current+$num-1);
+		}
+
+		return $tlist;
+	}
+
+
 	public static function like($uid, $tid) {
 
 		$like = new IyoLike();
@@ -59,6 +81,11 @@ class IyoLike extends Model {
 		$key = sprintf(IyoLike::TOPICLIKELIST, $like->tid);
 		if( $redis->exists($key) ) {
 			$redis->zadd($key,strtotime($like->created_at),$like->uid);
+		}
+
+		$key = sprintf(IyoLike::USERLIKELIST, $like->uid);
+		if( $redis->exists($key) ) {
+			$redis->zadd($key,strtotime($like->created_at),$like->tid);
 		}
 	}
 

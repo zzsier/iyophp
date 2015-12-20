@@ -1,6 +1,4 @@
 <?php
-namespace App\Getui\Protobuf\Reader;
-
 /**
  * Abstract class for an input reader
  */

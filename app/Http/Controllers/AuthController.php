@@ -62,6 +62,43 @@ class AuthController extends BaseController
         return Redirect::route('home');
     }
 
+    public function backendLogin()
+    {
+		$nodes = Node::allLevelUp();
+		return View::make('backend.auth.login', compact('nodes'));
+    }
+
+
+	public function backendLoginReq(Request $request)
+	{
+		$phone = $request["phone"];
+		$password = $request["password"];
+
+		if( $phone == "" || $password == "" ) {
+			return View::make('backend.auth.login');
+		}
+		$person = IyoUser::where('phone', $phone)->first();
+
+		if($person == null) {
+			return View::make('backend.auth.login');
+		} elseif($person->password != $password) {
+			return View::make('backend.auth.login');
+		} else {
+			$uid = $person["id"];
+			Cache::put("session_id_$uid", $uid, 3600);
+			Auth::login($person, true);
+			return Redirect::route('backends');
+		}
+	}
+
+    public function backendLogout()
+    {
+        Auth::logout();
+        return Redirect::route('backends');
+    }
+
+
+
     public function loginRequired()
     {
         return View::make('auth.loginrequired');

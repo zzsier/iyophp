@@ -1,9 +1,4 @@
 <?php
-namespace App\Getui\Igetui;
-
-use App\Getui\Protobuf\PBMessage;
-use App\Getui\Protobuf\Type\PBEnum;
-
 class CmdID extends PBEnum
 {
   const GTHEARDBT  = 0;

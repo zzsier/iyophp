@@ -30,7 +30,7 @@ class BackendMiddleware implements Middleware {
 	public function handle($request, Closure $next)
 	{
 		if( ! Auth::check() ) {
-			return redirect()->guest('auth/login');
+			return redirect()->guest('backend/auth/login');
 		}
 
 		return $next($request);

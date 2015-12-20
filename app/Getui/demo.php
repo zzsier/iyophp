@@ -17,15 +17,15 @@ define('APPKEY','9bfr0fXrYd9yopxdduSvI3');
 define('APPID','5QbZPVebzr8HjdZP3mVuv9');
 define('MASTERSECRET','tTwfGkn3il8fUYTLop28k');
 define('HOST','http://sdk.open.api.igexin.com/apiex.htm');
-define('CID','请输入您的CID');
+define('CID','b166bdc9f71123865a486e81ed59214f');
 
 //getUserStatus();
 
 //stoptask();
 
-//pushMessageToSingle();
+pushMessageToSingle();
 
-pushMessageToList();
+//pushMessageToList();
 
 //pushMessageToApp();
 
@@ -61,10 +61,10 @@ function pushMessageToSingle(){
     // 3.NotificationTemplate：通知透传功能模板
     // 4.NotyPopLoadTemplate：通知弹框下载功能模板
 	
-    	$template = IGtNotyPopLoadTemplateDemo();
+    	//$template = IGtNotyPopLoadTemplateDemo();
     	//$template = IGtLinkTemplateDemo();
     	//$template = IGtNotificationTemplateDemo();    
-    	//$template = IGtTransmissionTemplateDemo();
+    	$template = IGtTransmissionTemplateDemo();
 
     //个推信息体
 	$message = new IGtSingleMessage();
@@ -96,9 +96,9 @@ function pushMessageToList(){
     // 4.NotyPopLoadTemplate：通知弹框下载功能模板
 	
     	//$template = IGtNotyPopLoadTemplateDemo();
-    	$template = IGtLinkTemplateDemo();
+    	//$template = IGtLinkTemplateDemo();
     	//$template = IGtNotificationTemplateDemo();
-    	//$template = IGtTransmissionTemplateDemo();
+    	$template = IGtTransmissionTemplateDemo();
 	
 	//个推信息体
 	$message = new IGtSingleMessage();
@@ -141,8 +141,9 @@ function pushMessageToApp(){
 	//基于应用消息体
 	$message = new IGtAppMessage();
 
-	$message->set_isOffline(true);
-	$message->set_offlineExpireTime(3600*12*1000);//离线时间单位为毫秒，例，两个小时离线为3600*1000*2
+	//$message->set_isOffline(true);
+	$message->set_isOffline(false);
+	//$message->set_offlineExpireTime(3600*12*1000);//离线时间单位为毫秒，例，两个小时离线为3600*1000*2
 	$message->set_data($template);
 
  
@@ -228,7 +229,8 @@ function IGtTransmissionTemplateDemo(){
         $template->set_appId(APPID);//应用appid
         $template->set_appkey(APPKEY);//应用appkey
         $template->set_transmissionType(1);//透传消息类型
-        $template->set_transmissionContent("测试离线");//透传内容
+        $template->set_transmissionContent("hehe");//透传内容
+		$template->set_pushInfo("", 0, "haha", "", "yes", "", "", "");
 	//iOS推送需要设置的pushInfo字段
 	//$template ->set_pushInfo($actionLocKey,$badge,$message,$sound,$payload,$locKey,$locArgs,$launchImage);
 	//$template ->set_pushInfo("", 0, "", "", "", "", "", "");
